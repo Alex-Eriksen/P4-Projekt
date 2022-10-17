@@ -1,0 +1,7 @@
+h4, img {
+  transition: 0.15s all;
+}
+
+h4:hover, img:hover {
+  scale: 1.1;
+}
