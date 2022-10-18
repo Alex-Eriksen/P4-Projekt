@@ -15,7 +15,7 @@ MonoBehaviour:
   SpellID: 0
   SpellName: Fireball
   Description: A ball of fire!
-  SpellIcon: {fileID: 0}
+  SpellIcon: {fileID: 21300000, guid: ed760cf76a811fd468732adcd3583cbd, type: 3}
   ManaCost: 10
   LifeTime: 4
   DamageAmount: 15

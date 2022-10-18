@@ -129,8 +129,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spellData: {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
-  movementDirection: {x: 0, y: 0}
-  m_speed: 150
+  m_speed: 300
 --- !u!50 &4603155144009025737
 Rigidbody2D:
   serializedVersion: 4
