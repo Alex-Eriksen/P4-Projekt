@@ -13,5 +13,6 @@ public class SpellObject : ScriptableObject
     public float LifeTime = 0f;
     public float DamageAmount = 0f;
     public float CastTime = 0f;
+    public string PrefabPath = "Spells/";
     public SpellTier SpellTier = SpellTier.Tier_I;
 }

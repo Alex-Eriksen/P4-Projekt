@@ -20,5 +20,6 @@ MonoBehaviour:
   LifeTime: 4
   DamageAmount: 15
   CastTime: 0.8
+  PrefabPath: Spells/Elemental Spells/Fire Spells/Fireball/Tier I/Fireball Tier_I
   SpellTier: 0
   SpellSchool: 0
