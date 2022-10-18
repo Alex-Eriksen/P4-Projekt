@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7852615758dfc33459c029f429a2d47e, type: 3}
+  m_Name: Fireball Tier_I
+  m_EditorClassIdentifier: 
+  SpellID: 0
+  SpellName: Fireball
+  Description: A ball of fire!
+  SpellIcon: {fileID: 0}
+  ManaCost: 10
+  LifeTime: 4
+  DamageAmount: 15
+  CastTime: 0.8
+  SpellTier: 0
+  SpellSchool: 0
