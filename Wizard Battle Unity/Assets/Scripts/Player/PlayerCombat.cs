@@ -68,6 +68,7 @@ public class PlayerCombat : NetworkBehaviour
     private void CmdSpawnSpell(string spellPrefabPath)
     {
         GameObject spawnedSpell = Instantiate(Resources.Load<GameObject>(spellPrefabPath));
+        spawnedSpell.GetComponent<Spell>().ownerCollider = GetComponent<Collider2D>();
         spawnedSpell.transform.SetPositionAndRotation(m_graphicsTransform.position, m_graphicsTransform.rotation);
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
     }
