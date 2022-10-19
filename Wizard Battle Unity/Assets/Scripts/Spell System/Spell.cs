@@ -41,7 +41,7 @@ public class Spell : NetworkBehaviour
         }
 
         StopAllCoroutines();
-        m_progressTimerRoutine = StartCoroutine(SCDestroySpellObject(gameObject, 3f, 0f));
+        StartCoroutine(SCDestroySpellObject(gameObject, 3f, 0f));
     }
 
     [ClientRpc]

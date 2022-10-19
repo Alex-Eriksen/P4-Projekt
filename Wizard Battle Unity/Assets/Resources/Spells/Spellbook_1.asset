@@ -15,7 +15,7 @@ MonoBehaviour:
   spellbookName: Unnamed Spellbook
   spellSlots:
   - currentSpellID: 0
-  - currentSpellID: -1
+  - currentSpellID: 1
   - currentSpellID: -1
   - currentSpellID: -1
   - currentSpellID: -1
