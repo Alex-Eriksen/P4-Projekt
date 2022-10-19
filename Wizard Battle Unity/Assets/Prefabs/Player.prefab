@@ -307,6 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  m_playerCombat: {fileID: 7390722938485721684}
   m_health: 100
   m_mana: 100
 --- !u!114 &7390722938485721684

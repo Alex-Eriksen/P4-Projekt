@@ -13,6 +13,7 @@ public class PlayerCombat : NetworkBehaviour
     private Transform m_graphicsTransform;
     private Spellbook m_spellbook;
     private Coroutine m_spellCastingRoutine;
+    private SpellObject m_spellToCast;
 
     private Vector2 m_mousePosition = Vector2.zero;
     private bool m_isCasting = false;
@@ -81,8 +82,15 @@ public class PlayerCombat : NetworkBehaviour
     private void CastSpell(SpellObject spell)
     {
         m_isCasting = true;
+        m_spellToCast = spell;
+        m_playerEntity.OnManaDrained += PlayerEntity_OnManaDrained;
         m_playerEntity.CmdDrainMana(spell.ManaCost);
-        m_spellCastingRoutine = StartCoroutine(SpellCastingRoutine(spell));
+    }
+
+    private void PlayerEntity_OnManaDrained(object sender, EventArgs args)
+    {
+        m_spellCastingRoutine = StartCoroutine(SpellCastingRoutine(m_spellToCast));
+        m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
     }
 
     /// <summary>
@@ -92,11 +100,11 @@ public class PlayerCombat : NetworkBehaviour
     /// <returns></returns>
     private IEnumerator SpellCastingRoutine(SpellObject spell)
     {
-        Debug.Log("Started casting spell: " + spell.SpellName);
         OnCastTimeChanged?.Invoke(spell.CastTime);
-        yield return new WaitForSeconds(spell.CastTime);
-        Debug.Log("Telling server to spawn spell: " + spell.SpellName);
         CmdSpawnSpell(spell.PrefabPath);
+
+        yield return new WaitForSeconds(spell.CastTime);
+
         m_isCasting = false;
     }
 
@@ -109,11 +117,11 @@ public class PlayerCombat : NetworkBehaviour
     private void CmdSpawnSpell(string spellPrefabPath)
     {
         GameObject spawnedSpell = Instantiate(Resources.Load<GameObject>(spellPrefabPath));
-        Spell spell = spawnedSpell.GetComponent<Spell>();
-        spell.ownerCollider = connectionToClient.identity.GetComponent<Collider2D>();
         spawnedSpell.transform.SetPositionAndRotation(m_graphicsTransform.position, m_graphicsTransform.rotation);
-        Debug.Log($"Spawning {spell.spellData.SpellName} on all clients...");
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
+
+        Spell spell = spawnedSpell.GetComponent<Spell>();
+        spell.SetupSpell(connectionToClient.identity);
     }
     
     /// <summary>
@@ -125,6 +133,7 @@ public class PlayerCombat : NetworkBehaviour
     private void PlayerEntity_CastingCanceled(object sender, ActionEventArgs args)
     {
         StopCoroutine(m_spellCastingRoutine);
+        m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
         m_isCasting = false;
         Debug.Log("Canceled Casting - Reason: " + args.Flag.ToString());
         // TODO: Add UI for displaying the ActionEventArgsFlag. (like not enough mana)

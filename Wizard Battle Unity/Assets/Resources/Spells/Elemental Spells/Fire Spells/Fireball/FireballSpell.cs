@@ -17,6 +17,11 @@ public class FireballSpell : Spell
 
     private void FixedUpdate()
     {
+        if (IsBeingCast())
+        {
+            return;
+        }
+
         m_rigidbody2D.velocity = m_speed * Time.deltaTime * m_transform.up;
     }
 }
