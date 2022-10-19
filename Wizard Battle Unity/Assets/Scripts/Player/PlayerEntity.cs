@@ -37,6 +37,17 @@ public class PlayerEntity : NetworkBehaviour
         }
     }
 
+    [ServerCallback]
+    public void SCDrainHealth(float amount)
+    {
+        m_health -= amount;
+        if (m_health <= 0f)
+        {
+            m_health = 0f;
+            Die();
+        }
+    }
+
     private void Raise_HealthChanged(float oldHealth, float newHealth)
     {
         if(oldHealth > newHealth)
@@ -51,8 +62,10 @@ public class PlayerEntity : NetworkBehaviour
     #endregion
 
     #region Mana
-    public event EventHandler OnManaDrained;
-    public event EventHandler OnManaGained;
+    public delegate void ActionEvent(object sender, ActionEventArgs args);
+    public event ActionEvent OnManaDrained;
+    public event ActionEvent OnManaGained;
+    public event ActionEvent OnCastingCanceled;
 
     public float Mana { get { return m_mana; } }
     public float ManaNormalized { get { return m_mana / m_maxMana; } }
@@ -73,23 +86,32 @@ public class PlayerEntity : NetworkBehaviour
     [Command]
     public void CmdDrainMana(float amount)
     {
-        m_mana -= amount;
-        if(m_mana <= 0f)
+        bool valid = (m_mana - amount) >= 0;
+        if (!valid)
         {
-            m_mana = 0f;
+            Raise_CastingCanceled(ActionEventArgsFlag.NotEnoughMana);
+            return;
         }
+
+        m_mana -= amount;
     }
 
     private void Raise_ManaChanged(float oldMana, float newMana)
     {
         if(oldMana > newMana)
         {
-            OnManaDrained?.Invoke(this, EventArgs.Empty);
+            OnManaDrained?.Invoke(this, ActionEventArgs.Empty);
         }
-        else
+        else if(newMana > oldMana)
         {
-            OnManaGained?.Invoke(this, EventArgs.Empty);
+            OnManaGained?.Invoke(this, ActionEventArgs.Empty);
         }
+    }
+
+    [TargetRpc]
+    private void Raise_CastingCanceled(ActionEventArgsFlag reason)
+    {
+        OnCastingCanceled?.Invoke(this, new ActionEventArgs(reason));
     }
     #endregion
 

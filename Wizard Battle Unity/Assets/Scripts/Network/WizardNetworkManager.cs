@@ -8,24 +8,24 @@ public class WizardNetworkManager : NetworkManager
     // Called when the server is turned on.
     public override void OnStartServer()
     {
-        Debug.Log("Server started..");
+        Debug.LogWarning("Server started..");
     }
 
     // Called when the server is turned off.
     public override void OnStopServer()
     {
-        Debug.Log("Server stopped..");
+        Debug.LogWarning("Server stopped..");
     }
 
     // Called on the client when the client connects to the server.
     public override void OnClientConnect()
     {
-        Debug.Log("Connected to the server..");
+        Debug.LogWarning("Connected to the server..");
     }
 
     // Called on the client when the client disconnects from the server.
     public override void OnClientDisconnect()
     {
-        Debug.Log("Disconnected from the server..");
+        Debug.LogWarning("Disconnected from the server..");
     }
 }

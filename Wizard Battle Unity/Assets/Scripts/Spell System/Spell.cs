@@ -7,26 +7,22 @@ public class Spell : NetworkBehaviour
 {
     public SpellObject spellData = null;
     public Collider2D ownerCollider;
+    private Coroutine m_destructionCoroutine;
 
+    [ServerCallback]
     private void Start()
     {
-        StartCoroutine(DestroyDelay());
+        m_destructionCoroutine = StartCoroutine(SCDestroySpellObject(gameObject, spellData.LifeTime));
     }
 
-    private IEnumerator DestroyDelay()
-    {
-        yield return new WaitForSeconds(spellData.LifeTime);
-        DestroySelf(gameObject);
-    }
-
-    [Command]
-    private void DestroySelf(GameObject obj)
-    {
-        NetworkServer.Destroy(obj);
-    }
-
+    [ServerCallback]
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         if (collision.Equals(ownerCollider))
         {
             return;
@@ -34,9 +30,17 @@ public class Spell : NetworkBehaviour
 
         if (collision.TryGetComponent<PlayerEntity>(out var opponentEntity))
         {
-            opponentEntity.CmdDrainHealth(spellData.DamageAmount);
+            opponentEntity.SCDrainHealth(spellData.DamageAmount);
         }
 
-        DestroySelf(gameObject);
+        StopCoroutine(m_destructionCoroutine);
+        NetworkServer.Destroy(gameObject);
+    }
+
+    [ServerCallback]
+    private IEnumerator SCDestroySpellObject(GameObject obj, float lifeTime)
+    {
+        yield return new WaitForSeconds(lifeTime);
+        NetworkServer.Destroy(obj);
     }
 }
