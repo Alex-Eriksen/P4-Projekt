@@ -6,9 +6,12 @@ using System;
 
 public class PlayerEntity : NetworkBehaviour
 {
+    public PlayerCombat PlayerCombat { get { return m_playerCombat; } }
+    [SerializeField] private PlayerCombat m_playerCombat;
+
     #region Health
     public event EventHandler OnHealthDrained; 
-    public event EventHandler OnHealthGained; 
+    public event EventHandler OnHealthGained;
 
     public float Health { get { return m_health; } }
     public float HealthNormalized { get { return m_health / m_maxHealth; } }
@@ -62,10 +65,8 @@ public class PlayerEntity : NetworkBehaviour
     #endregion
 
     #region Mana
-    public delegate void ActionEvent(object sender, ActionEventArgs args);
-    public event ActionEvent OnManaDrained;
-    public event ActionEvent OnManaGained;
-    public event ActionEvent OnCastingCanceled;
+    public event EventHandler OnManaDrained;
+    public event EventHandler OnManaGained;
 
     public float Mana { get { return m_mana; } }
     public float ManaNormalized { get { return m_mana / m_maxMana; } }
@@ -111,7 +112,7 @@ public class PlayerEntity : NetworkBehaviour
     [TargetRpc]
     private void Raise_CastingCanceled(ActionEventArgsFlag reason)
     {
-        OnCastingCanceled?.Invoke(this, new ActionEventArgs(reason));
+        m_playerCombat.Raise_CastingCanceled(this, reason);
     }
     #endregion
 

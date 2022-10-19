@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
 using UnityEditor.Experimental.GraphView;
+using System;
 
 public class PlayerCombat : NetworkBehaviour
 {
@@ -15,6 +16,10 @@ public class PlayerCombat : NetworkBehaviour
 
     private Vector2 m_mousePosition = Vector2.zero;
     private bool m_isCasting = false;
+
+    public delegate void ActionEvent(object sender, ActionEventArgs args);
+    public event ActionEvent OnCastingCanceled;
+    public event Action<float> OnCastTimeChanged;
 
     private void Awake()
     {
@@ -38,7 +43,7 @@ public class PlayerCombat : NetworkBehaviour
         m_playerInput.actions["MousePosition"].performed += MousePosition_Performed;
         m_playerInput.actions["Spellbook"].started += Spellbook_Started;
         m_playerInput.actions["Spellbook"].canceled += Spellbook_Canceled;
-        m_playerEntity.OnCastingCanceled += PlayerEntity_CastingCanceled;
+        OnCastingCanceled += PlayerEntity_CastingCanceled;
     }
 
     /// <summary>
@@ -88,6 +93,7 @@ public class PlayerCombat : NetworkBehaviour
     private IEnumerator SpellCastingRoutine(SpellObject spell)
     {
         Debug.Log("Started casting spell: " + spell.SpellName);
+        OnCastTimeChanged?.Invoke(spell.CastTime);
         yield return new WaitForSeconds(spell.CastTime);
         Debug.Log("Telling server to spawn spell: " + spell.SpellName);
         CmdSpawnSpell(spell.PrefabPath);
@@ -156,5 +162,15 @@ public class PlayerCombat : NetworkBehaviour
         lookPos -= m_graphicsTransform.position;
         float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg - 90f;
         m_graphicsTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    /// <summary>
+    /// A public method for raising the OnCastingCancled event from other objects.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="reason"></param>
+    public void Raise_CastingCanceled(object sender, ActionEventArgsFlag reason)
+    {
+        OnCastingCanceled?.Invoke(sender, new ActionEventArgs(reason));
     }
 }
