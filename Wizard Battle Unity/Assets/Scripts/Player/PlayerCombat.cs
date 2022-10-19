@@ -14,6 +14,7 @@ public class PlayerCombat : NetworkBehaviour
     private Spellbook m_spellbook;
     private Coroutine m_spellCastingRoutine;
     private SpellObject m_spellToCast;
+    private Animator m_animator;
 
     private Vector2 m_mousePosition = Vector2.zero;
     private bool m_isCasting = false;
@@ -29,6 +30,7 @@ public class PlayerCombat : NetworkBehaviour
         m_playerEntity = GetComponent<PlayerEntity>();
         m_graphicsTransform = transform.GetChild(1);
         m_spellbook = FindObjectOfType<Spellbook>();
+        m_animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -82,6 +84,7 @@ public class PlayerCombat : NetworkBehaviour
     private void CastSpell(SpellObject spell)
     {
         m_isCasting = true;
+        m_animator.SetBool("Attacking", m_isCasting);
         m_spellToCast = spell;
         m_playerEntity.OnManaDrained += PlayerEntity_OnManaDrained;
         m_playerEntity.CmdDrainMana(spell.ManaCost);
@@ -114,6 +117,7 @@ public class PlayerCombat : NetworkBehaviour
         yield return new WaitForSeconds(spell.CastTime);
 
         m_isCasting = false;
+        m_animator.SetBool("Attacking", m_isCasting);
     }
 
     /// <summary>
@@ -125,11 +129,10 @@ public class PlayerCombat : NetworkBehaviour
     private void CmdSpawnSpell(string spellPrefabPath)
     {
         GameObject spawnedSpell = Instantiate(Resources.Load<GameObject>(spellPrefabPath));
-        spawnedSpell.transform.SetPositionAndRotation(m_graphicsTransform.position, m_graphicsTransform.rotation);
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
         Spell spell = spawnedSpell.GetComponent<Spell>();
-        spell.SetupSpell(connectionToClient.identity);
+        spell.SetupSpell(connectionToClient.identity, true);
     }
     
     /// <summary>
@@ -143,6 +146,7 @@ public class PlayerCombat : NetworkBehaviour
         StopCoroutine(m_spellCastingRoutine);
         m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
         m_isCasting = false;
+        m_animator.SetBool("Attacking", m_isCasting);
         Debug.Log("Canceled Casting - Reason: " + args.Flag.ToString());
         // TODO: Add UI for displaying the ActionEventArgsFlag. (like not enough mana)
     }

@@ -9,11 +9,17 @@ public class Spell : NetworkBehaviour
     [SerializeField] private SpellObject m_spellData = null;
     [SerializeField] private VisualEffect m_vfx;
     private Collider2D m_ownerCollider;
+    
     public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
     private float m_currentCastTimer = 0f;
     private float m_maxCastTimer = 0f;
+
+    protected bool keepPositionOnInit = false;
+    protected Transform initialTargetTransform;
+    
+    private bool m_shouldUpdate = false;
+    
     protected bool hitSomething = false;
-    private Coroutine m_progressTimerRoutine;
 
     [ServerCallback]
     private void Start()
@@ -41,7 +47,40 @@ public class Spell : NetworkBehaviour
         }
 
         StopAllCoroutines();
+        m_shouldUpdate = false;
         StartCoroutine(SCDestroySpellObject(gameObject, 3f, 0f));
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        m_shouldUpdate = false;
+    }
+
+    [ClientCallback]
+    private void Update()
+    {
+        if (!m_shouldUpdate)
+        {
+            return;
+        }
+
+        if (m_currentCastTimer < m_maxCastTimer)
+        {
+            m_currentCastTimer += Time.deltaTime;
+            m_vfx.SetFloat("Size", CurrentCastTimerNormalized);
+        }
+    }
+
+    [ClientRpc]
+    public void SetupSpell(NetworkIdentity identity, bool keepPositionOnInit)
+    {
+        m_ownerCollider = identity.GetComponent<Collider2D>();
+
+        initialTargetTransform = identity.transform.Find("Graphics").Find("AttackPoint");
+        this.keepPositionOnInit = keepPositionOnInit;
+
+        SetCastingTimer(m_spellData.CastTime);
     }
 
     [ClientRpc]
@@ -49,11 +88,6 @@ public class Spell : NetworkBehaviour
     {
         m_vfx.SendEvent("OnHit");
         hitSomething = true;
-    }
-
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
     }
 
     [ServerCallback]
@@ -67,41 +101,11 @@ public class Spell : NetworkBehaviour
     {
         m_maxCastTimer = castTime;
         m_currentCastTimer = 0f;
-        m_progressTimerRoutine = StartCoroutine(ProgressTimer());
+        m_shouldUpdate = true;
     }
-
-    private IEnumerator ProgressTimer()
-    {
-        yield return new WaitForEndOfFrame();
-        if(m_currentCastTimer < m_maxCastTimer)
-        {
-            m_currentCastTimer += Time.deltaTime;
-            m_vfx.SetFloat("Size", CurrentCastTimerNormalized);
-            StartCoroutine(ProgressTimer());
-        }
-    }
-
-    //[Command]
-    //private void DestroySpellObjectRequest(GameObject obj)
-    //{
-    //    DestroySpellObject(obj);
-    //}
-
-    //[ServerCallback]
-    //private void DestroySpellObject(GameObject obj)
-    //{
-    //    NetworkServer.Destroy(obj);
-    //}
 
     protected bool IsBeingCast()
     {
         return CurrentCastTimerNormalized < m_maxCastTimer;
-    }
-
-    [ClientRpc]
-    public void SetupSpell(NetworkIdentity identity)
-    {
-        m_ownerCollider = identity.GetComponent<Collider2D>();
-        SetCastingTimer(m_spellData.CastTime);
     }
 }

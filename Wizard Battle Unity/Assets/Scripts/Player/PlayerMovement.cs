@@ -9,12 +9,14 @@ public class PlayerMovement : NetworkBehaviour
     private PlayerInput m_playerInput;
     private Vector2 m_inputVector = Vector2.zero, m_movementVector = Vector2.zero;
     private Rigidbody2D m_rigidbody2D;
+    private Animator m_animator;
     [SerializeField] private float m_speed = 100f;
 
     private void Awake()
     {
         m_playerInput = GetComponent<PlayerInput>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
+        m_animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -50,6 +52,7 @@ public class PlayerMovement : NetworkBehaviour
     private void Movement_Performed(InputAction.CallbackContext context)
     {
         m_inputVector = context.ReadValue<Vector2>();
+        m_animator.SetBool("Moving", !(m_inputVector == Vector2.zero));
         #region May or may not use...
         //Vector2 newMovementVector = m_inputVector * m_speed;
         //CmdValidatePlayerMovement(m_movementVector, newMovementVector);

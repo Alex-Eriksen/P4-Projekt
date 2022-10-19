@@ -9,6 +9,7 @@ public class CastBar : MonoBehaviour
     [SerializeField] private Image m_barImage;
     [SerializeField] private Color m_barColor;
     [SerializeField] private CanvasGroup m_canvasGroup;
+    private bool m_shouldUpdate = false;
     private float m_maxCastTime = 0f;
     private float m_currentCastTime = 0f;
     private float CastTimeNormalized { get { return m_currentCastTime / m_maxCastTime; } }
@@ -26,10 +27,14 @@ public class CastBar : MonoBehaviour
         m_canvasGroup.alpha = 0f;
     }
 
-    private IEnumerator UpdateCastTimeBarUI()
+    private void Update()
     {
-        yield return new WaitForEndOfFrame();
-        if(m_currentCastTime >= m_maxCastTime)
+        if (!m_shouldUpdate)
+        {
+            return;
+        }
+
+        if (m_currentCastTime >= m_maxCastTime)
         {
             m_canvasGroup.alpha = 0f;
         }
@@ -37,7 +42,6 @@ public class CastBar : MonoBehaviour
         {
             m_currentCastTime += Time.deltaTime;
             SetCastTime(CastTimeNormalized);
-            StartCoroutine(UpdateCastTimeBarUI());
         }
     }
 
@@ -45,6 +49,7 @@ public class CastBar : MonoBehaviour
     {
         StopAllCoroutines();
         m_canvasGroup.alpha = 0f;
+        m_shouldUpdate = false;
     }
 
     private void PlayerCombat_OnCastTimeChanged(float castTime)
@@ -53,7 +58,7 @@ public class CastBar : MonoBehaviour
         m_currentCastTime = 0f;
         m_canvasGroup.alpha = 1f;
         SetCastTime(CastTimeNormalized);
-        StartCoroutine(UpdateCastTimeBarUI());
+        m_shouldUpdate = true;
     }
 
     private void SetCastTime(float castTimeNormalized)
