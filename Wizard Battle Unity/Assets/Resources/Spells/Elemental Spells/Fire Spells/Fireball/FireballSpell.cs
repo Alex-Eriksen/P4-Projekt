@@ -17,8 +17,9 @@ public class FireballSpell : Spell
 
     private void FixedUpdate()
     {
-        if (IsBeingCast())
+        if (IsBeingCast() || hitSomething)
         {
+            m_rigidbody2D.velocity = Vector2.zero;
             return;
         }
 

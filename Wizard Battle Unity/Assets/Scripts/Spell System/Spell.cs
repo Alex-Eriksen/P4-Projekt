@@ -12,6 +12,7 @@ public class Spell : NetworkBehaviour
     public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
     private float m_currentCastTimer = 0f;
     private float m_maxCastTimer = 0f;
+    protected bool hitSomething = false;
     private Coroutine m_progressTimerRoutine;
 
     [ServerCallback]
@@ -23,12 +24,12 @@ public class Spell : NetworkBehaviour
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isServer)
+        if (!isServer || m_ownerCollider == null)
         {
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer)
+        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer || hitSomething)
         {
             return;
         }
@@ -36,15 +37,23 @@ public class Spell : NetworkBehaviour
         if (collision.TryGetComponent<PlayerEntity>(out var opponentEntity))
         {
             opponentEntity.SCDrainHealth(m_spellData.DamageAmount);
+            Hit();
         }
 
         StopAllCoroutines();
-        NetworkServer.Destroy(gameObject);
+        m_progressTimerRoutine = StartCoroutine(SCDestroySpellObject(gameObject, 3f, 0f));
+    }
+
+    [ClientRpc]
+    private void Hit()
+    {
+        m_vfx.SendEvent("OnHit");
+        hitSomething = true;
     }
 
     private void OnDestroy()
     {
-        StopCoroutine(m_progressTimerRoutine);
+        StopAllCoroutines();
     }
 
     [ServerCallback]

@@ -8,6 +8,13 @@ public class PlayerEntity : NetworkBehaviour
 {
     public PlayerCombat PlayerCombat { get { return m_playerCombat; } }
     [SerializeField] private PlayerCombat m_playerCombat;
+    private Coroutine m_regenRoutine;
+
+    [ServerCallback]
+    private void Start()
+    {
+        m_regenRoutine = StartCoroutine(SCRegenTicker());
+    }
 
     #region Health
     public event EventHandler OnHealthDrained; 
@@ -18,12 +25,19 @@ public class PlayerEntity : NetworkBehaviour
     public float MaxHealth { get { return m_maxHealth; } }
     [SyncVar(hook = nameof(Raise_HealthChanged)), SerializeField] private float m_health = 100f;
     [SyncVar] private float m_maxHealth = 100f;
+    private float m_healthRegenRate = 2f;
 
     [Command]
     public void CmdGainHealth(float amount)
     {
+        SCGainHealth(amount);
+    }
+
+    [ServerCallback]
+    public void SCGainHealth(float amount)
+    {
         m_health += amount;
-        if(m_health > m_maxHealth)
+        if (m_health > m_maxHealth)
         {
             m_health = m_maxHealth;
         }
@@ -32,12 +46,7 @@ public class PlayerEntity : NetworkBehaviour
     [Command]
     public void CmdDrainHealth(float amount)
     {
-        m_health -= amount;
-        if(m_health <= 0f)
-        {
-            m_health = 0f;
-            Die();
-        }
+        SCDrainHealth(amount);
     }
 
     [ServerCallback]
@@ -69,16 +78,23 @@ public class PlayerEntity : NetworkBehaviour
     public event EventHandler OnManaGained;
 
     public float Mana { get { return m_mana; } }
-    public float ManaNormalized { get { return m_mana / m_maxMana; } }
     public float MaxMana { get { return m_maxMana; } }
+    public float ManaNormalized { get { return m_mana / m_maxMana; } }
     [SyncVar(hook = nameof(Raise_ManaChanged)), SerializeField] private float m_mana = 100f;
     [SyncVar] private float m_maxMana = 100f;
+    private float m_manaRegenRate = 6f;
 
     [Command]
     public void CmdGainMana(float amount)
     {
+        SCGainMana(amount);
+    }
+
+    [ServerCallback]
+    public void SCGainMana(float amount)
+    {
         m_mana += amount;
-        if(m_mana > m_maxMana)
+        if (m_mana > m_maxMana)
         {
             m_mana = m_maxMana;
         }
@@ -115,6 +131,24 @@ public class PlayerEntity : NetworkBehaviour
         m_playerCombat.Raise_CastingCanceled(this, reason);
     }
     #endregion
+
+    [ServerCallback]
+    private IEnumerator SCRegenTicker()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if(m_mana < m_maxMana)
+        {
+            SCGainMana(m_manaRegenRate);
+        }
+
+        if(m_health < m_maxHealth)
+        {
+            SCGainHealth(m_healthRegenRate);
+        }
+
+        m_regenRoutine = StartCoroutine(SCRegenTicker());
+    }
 
     [ClientRpc]
     public void Die()
