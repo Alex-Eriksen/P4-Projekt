@@ -87,6 +87,14 @@ public class PlayerCombat : NetworkBehaviour
         m_playerEntity.CmdDrainMana(spell.ManaCost);
     }
 
+    /// <summary>
+    /// Method listening on the PlayerEntity OnManaDrained event.
+    /// Responsible for registering a successfull mana drain when a spell is about to be cast.
+    /// If the mana drain was successfull the listener will be unsubscribed in the method.
+    /// If the mana drain was unsuccessfull the listener will be unsubscribed in the OnCastingCanceled event.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     private void PlayerEntity_OnManaDrained(object sender, EventArgs args)
     {
         m_spellCastingRoutine = StartCoroutine(SpellCastingRoutine(m_spellToCast));
