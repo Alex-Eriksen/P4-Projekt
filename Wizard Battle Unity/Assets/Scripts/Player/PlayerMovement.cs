@@ -8,13 +8,13 @@ public class PlayerMovement : NetworkBehaviour
 {
     private PlayerInput m_playerInput;
     private Vector2 m_inputVector = Vector2.zero, m_movementVector = Vector2.zero;
-    private Rigidbody2D m_Rigidbody2D;
+    private Rigidbody2D m_rigidbody2D;
     [SerializeField] private float m_speed = 100f;
 
     private void Awake()
     {
         m_playerInput = GetComponent<PlayerInput>();
-        m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -39,13 +39,37 @@ public class PlayerMovement : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        m_Rigidbody2D.velocity = m_movementVector * Time.deltaTime;
+        m_rigidbody2D.velocity = m_movementVector * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Method listening on the Movement performed event.
+    /// Responsible for reading the movement input from the player.
+    /// </summary>
+    /// <param name="context"></param>
     private void Movement_Performed(InputAction.CallbackContext context)
     {
         m_inputVector = context.ReadValue<Vector2>();
+        #region May or may not use...
+        //Vector2 newMovementVector = m_inputVector * m_speed;
+        //CmdValidatePlayerMovement(m_movementVector, newMovementVector);
+        //m_movementVector = newMovementVector;
+        #endregion
     }
+
+    #region May or may not use...
+    //[Command]
+    //private void CmdValidatePlayerMovement(Vector2 oldVelocity, Vector2 newVelocity)
+    //{
+
+    //}
+
+    //[ClientRpc]
+    //private void RpcPlayerPositionReset(Vector2 newVelocity)
+    //{
+
+    //}
+    #endregion
 
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.

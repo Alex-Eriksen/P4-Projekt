@@ -9,14 +9,14 @@ public class PlayerCombat : NetworkBehaviour
 {
     private PlayerInput m_playerInput;
     private PlayerEntity m_playerEntity;
-    private bool m_isCasting;
-    private Vector2 m_mousePosition = Vector2.zero;
     private Transform m_graphicsTransform;
-
     private Spellbook m_spellbook;
+    private bool m_isCasting = false;
+    private Vector2 m_mousePosition = Vector2.zero;
 
     private void Awake()
     {
+        // Bind variables to components.
         m_playerInput = GetComponent<PlayerInput>();
         m_playerEntity = GetComponent<PlayerEntity>();
         m_graphicsTransform = transform.GetChild(1);
@@ -30,6 +30,7 @@ public class PlayerCombat : NetworkBehaviour
             return;
         }
 
+        // Subscribe to input events.
         m_playerInput.actions["LeftMouse"].started += LeftMouse_Started;
         m_playerInput.actions["RightMouse"].started += RightMouse_Started;
         m_playerInput.actions["MousePosition"].performed += MousePosition_Performed;
@@ -37,6 +38,10 @@ public class PlayerCombat : NetworkBehaviour
         m_playerInput.actions["Spellbook"].canceled += Spellbook_Canceled;
     }
 
+    /// <summary>
+    /// Method listening on the RightMouse started event. Responsible for casting the spell selected in the secondary selection.
+    /// </summary>
+    /// <param name="obj"></param>
     private void RightMouse_Started(InputAction.CallbackContext obj)
     {
         if (m_spellbook.SecondarySelectedSpell == null || m_isCasting)
@@ -47,6 +52,10 @@ public class PlayerCombat : NetworkBehaviour
         SpawnSpell(m_spellbook.SecondarySelectedSpell);
     }
 
+    /// <summary>
+    /// Method listening on the LeftMouse started event. Responsible for casting the spell selected in the primary selection.
+    /// </summary>
+    /// <param name="obj"></param>
     private void LeftMouse_Started(InputAction.CallbackContext obj)
     {
         if (m_spellbook.PrimarySelectedSpell == null || m_isCasting)
@@ -57,6 +66,10 @@ public class PlayerCombat : NetworkBehaviour
         SpawnSpell(m_spellbook.PrimarySelectedSpell);
     }
 
+    /// <summary>
+    /// Responsible for calling the server command to spawn the selected spell, and make the required prechecks.
+    /// </summary>
+    /// <param name="spell"></param>
     private void SpawnSpell(SpellObject spell)
     {
         //m_isCasting = true;
@@ -64,6 +77,11 @@ public class PlayerCombat : NetworkBehaviour
         CmdSpawnSpell(spell.PrefabPath);
     }
 
+    /// <summary>
+    /// A method called from a client and run on the server.
+    /// Responsible for spawning the specified prefab <paramref name="spellPrefabPath"/> on the server and all clients.
+    /// </summary>
+    /// <param name="spellPrefabPath"></param>
     [Command]
     private void CmdSpawnSpell(string spellPrefabPath)
     {
@@ -73,16 +91,31 @@ public class PlayerCombat : NetworkBehaviour
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
     }
 
+    /// <summary>
+    /// Method listening on the Spellbook started event.
+    /// Responsible for opening the spellbook.
+    /// </summary>
+    /// <param name="obj"></param>
     private void Spellbook_Started(InputAction.CallbackContext obj)
     {
         m_spellbook.OpenSpellbook();
     }
 
+    /// <summary>
+    /// Method listening on the Spellbook canceled event.
+    /// Responsible for closing the spellbook.
+    /// </summary>
+    /// <param name="obj"></param>
     private void Spellbook_Canceled(InputAction.CallbackContext obj)
     {
         m_spellbook.CloseSpellbook();
     }
 
+    /// <summary>
+    /// Method listening on the MousePosition performed event.
+    /// Responsible for reading the mouse position and updating graphics.
+    /// </summary>
+    /// <param name="obj"></param>
     private void MousePosition_Performed(InputAction.CallbackContext obj)
     {
         m_mousePosition = obj.ReadValue<Vector2>();
