@@ -58,6 +58,9 @@ VisualEffect:
       - m_Value: 0
         m_Name: Size
         m_Overridden: 1
+      - m_Value: 0
+        m_Name: Lifetime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -116,7 +119,7 @@ VFXRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1270002007
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
 --- !u!114 &8807967466442193136
 MonoBehaviour:
@@ -132,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  m_spellData: {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
+  spellData: {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
   m_vfx: {fileID: 3563944960043909012}
   m_speed: 300
 --- !u!50 &4603155144009025737

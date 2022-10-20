@@ -10,12 +10,13 @@ public class PlayerCombat : NetworkBehaviour
 {
     private PlayerInput m_playerInput;
     private PlayerEntity m_playerEntity;
-    private Transform m_graphicsTransform;
+    private Transform m_graphicsTransform, m_targetPoint;
     private Spellbook m_spellbook;
     private Coroutine m_spellCastingRoutine;
     private SpellObject m_spellToCast;
     private Animator m_animator;
 
+    public Vector2 MousePosition { get { return m_mousePosition; } }
     private Vector2 m_mousePosition = Vector2.zero;
     private bool m_isCasting = false;
 
@@ -29,6 +30,7 @@ public class PlayerCombat : NetworkBehaviour
         m_playerInput = GetComponent<PlayerInput>();
         m_playerEntity = GetComponent<PlayerEntity>();
         m_graphicsTransform = transform.GetChild(1);
+        m_targetPoint = m_graphicsTransform.Find("TargetPoint");
         m_spellbook = FindObjectOfType<Spellbook>();
         m_animator = GetComponentInChildren<Animator>();
     }
@@ -132,7 +134,8 @@ public class PlayerCombat : NetworkBehaviour
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
         Spell spell = spawnedSpell.GetComponent<Spell>();
-        spell.SetupSpell(connectionToClient.identity, true);
+        spell.RpcSetupSpell(connectionToClient.identity);
+        spell.OnServerSetup();
     }
     
     /// <summary>
@@ -180,6 +183,8 @@ public class PlayerCombat : NetworkBehaviour
     {
         m_mousePosition = obj.ReadValue<Vector2>();
         Vector3 lookPos = Camera.main.ScreenToWorldPoint(m_mousePosition);
+        m_targetPoint.position = new Vector3(lookPos.x, lookPos.y, 0f);
+
         lookPos -= m_graphicsTransform.position;
         float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg - 90f;
         m_graphicsTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
