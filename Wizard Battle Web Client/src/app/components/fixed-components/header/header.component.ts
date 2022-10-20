@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   playerCaps: number = 10;
 
   ngOnInit(): void {
-    this.playerExp = 160;
+    this.playerExp = 192;
     this.getLevel();
   }
 
