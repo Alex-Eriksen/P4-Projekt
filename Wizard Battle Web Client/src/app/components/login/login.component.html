@@ -4,19 +4,18 @@
     <p class="ps-2 pt-2 fs-3">Account Login</p>
     <div class="wrapper px-5 pb-5">
       <div class="d-flex flex-column gap-2">
-        <div *ngIf="error != ''">{{error}}</div>
         <div class="input-group">
           <label for="usernameInput" class="form-label mb-0">Username</label>
-          <input type="text" class="form-control w-100 rounded">
+          <input type="text" class="form-control w-100 rounded" [(ngModel)]="request.email">
         </div>
         <div class="input-group">
           <label for="passwordInput" class="form-label mb-0">Password</label>
-          <input type="password" class="form-control w-100 rounded">
+          <input type="password" class="form-control w-100 rounded" [(ngModel)]="request.password">
         </div>
         <div>
           <input type="checkbox" name="" id=""><span> Remember me</span>
         </div>
-        <button class="btn btn-success shadow" type="submit" (click)="submit()">Login</button>
+        <button class="btn btn-success shadow" type="submit" (click)="login()">Login</button>
         <p>Don't have an account? You can create a account <a routerLink="/signup">here</a></p>
       </div>
     </div>

@@ -1,5 +1,8 @@
 import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationRequest } from 'src/app/_models/Authentication/AuthenticationRequest';
 
 @Component({
   selector: 'app-login',
@@ -8,48 +11,36 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
 
-  error: string = '';
-  form: FormGroup = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required]
-  })
+	public request: AuthenticationRequest = { email: '', password: '' };
+	private returnUrl: string = "";
+	private guardType: number = 0;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-  }
-
-
-  private validateForm(): Promise<boolean>
+	ngOnInit(): void
 	{
-		return new Promise<boolean>((resolve) =>
+		this.returnUrl = this.route.snapshot.queryParams[ "returnUrl" ] || "/";
+		this.guardType = this.route.snapshot.queryParams[ "guard" ] || 0;
+		this.authenticationService.OnTokenChanged.subscribe((token) =>
 		{
-			if (this.form.controls['password'].value === this.form.controls['password'].value)
+			if (token !== "")
 			{
-				resolve(true);
+				this.router.navigate([ this.returnUrl ]);
 			}
-
-			resolve(false);
 		});
 	}
 
-  public submit(): void
+	public login(): void
 	{
-		this.validateForm().then((result) =>
-		{
-			if (result)
-			{
-				// this.customerService.create(this.request).subscribe({
-				// 	next: () =>
-				// 	{
-				// 		this.router.navigate([ this.returnUrl ]);
-				// 	},
-				// 	error: (err) =>
-				// 	{
-				// 		console.error(Object.values(err.error.errors).join(', '));
-				// 	}
-				// });
-			}
-		});
+    this.authenticationService.authenticate(this.request).subscribe({
+      next: () =>
+      {
+        this.router.navigate([ this.returnUrl ]);
+      },
+      error: (err) =>
+      {
+        console.error(Object.values(err.error.errors).join(', '));
+      }
+    });
 	}
 }

@@ -38,6 +38,9 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<DateTime>("Last_Login")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("Modified_At")
                         .HasColumnType("datetime2");
 
@@ -54,8 +57,9 @@ namespace Wizard_Battle_Web_API.Migrations
                             AccountID = 1,
                             Created_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "test@test.com",
+                            Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$SOKYUyfQoFElCv9QOWoT0.w6uasMrFa8BZaEAEir5vZ/Iso2.teIe"
+                            Password = "$2a$10$ShSR9gvoBWByEn6ez0aui.2LLbFJp1R.z9kqUGZ0lkSqBb3enIkNK"
                         });
                 });
 
@@ -70,11 +74,26 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<int>("AccountID")
                         .HasColumnType("int");
 
+                    b.Property<long>("ExperiencePoints")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("KnowledgePoints")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("MaxHealth")
+                        .HasColumnType("float");
+
+                    b.Property<double>("MaxMana")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("Modified_At")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PlayerName")
                         .HasColumnType("nvarchar(32)");
+
+                    b.Property<long>("TimeCapsules")
+                        .HasColumnType("bigint");
 
                     b.HasKey("PlayerID");
 
@@ -88,8 +107,13 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             PlayerID = 1,
                             AccountID = 1,
+                            ExperiencePoints = 160L,
+                            KnowledgePoints = 10L,
+                            MaxHealth = 10.0,
+                            MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlayerName = "NickTheG"
+                            PlayerName = "NickTheG",
+                            TimeCapsules = 10L
                         });
                 });
 

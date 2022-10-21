@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(private router: Router) {
     router.events.forEach((event) => {
       if(event instanceof NavigationEnd) {
-        if(event['url'] == '/login' || event['url'] == '/signup') {
+        if(event['url'].includes("/login") || event['url'].includes('/signup')) {
           this.showHeader = false;
         } else {
           this.showHeader = true;

@@ -18,7 +18,8 @@ namespace Wizard_Battle_Web_API.Migrations
                     Email = table.Column<string>(type: "nvarchar(64)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     Created_At = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    Modified_At = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Modified_At = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Last_Login = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,6 +34,11 @@ namespace Wizard_Battle_Web_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountID = table.Column<int>(type: "int", nullable: false),
                     PlayerName = table.Column<string>(type: "nvarchar(32)", nullable: true),
+                    ExperiencePoints = table.Column<long>(type: "bigint", nullable: false),
+                    MaxHealth = table.Column<double>(type: "float", nullable: false),
+                    MaxMana = table.Column<double>(type: "float", nullable: false),
+                    KnowledgePoints = table.Column<long>(type: "bigint", nullable: false),
+                    TimeCapsules = table.Column<long>(type: "bigint", nullable: false),
                     Modified_At = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -73,13 +79,13 @@ namespace Wizard_Battle_Web_API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Account",
-                columns: new[] { "AccountID", "Email", "Modified_At", "Password" },
-                values: new object[] { 1, "test@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$SOKYUyfQoFElCv9QOWoT0.w6uasMrFa8BZaEAEir5vZ/Iso2.teIe" });
+                columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
+                values: new object[] { 1, "test@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$ShSR9gvoBWByEn6ez0aui.2LLbFJp1R.z9kqUGZ0lkSqBb3enIkNK" });
 
             migrationBuilder.InsertData(
                 table: "Player",
-                columns: new[] { "PlayerID", "AccountID", "Modified_At", "PlayerName" },
-                values: new object[] { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG" });
+                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "TimeCapsules" },
+                values: new object[] { 1, 1, 160L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", 10L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Player_AccountID",

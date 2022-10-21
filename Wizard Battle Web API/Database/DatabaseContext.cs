@@ -10,7 +10,7 @@
 		public DbSet<RefreshToken> RefreshToken { get; set; }
 		public DbSet<Account> Account { get; set; }
 		public DbSet<Player> Player { get; set; }
-		public DbSet<PlayerStats> PlayerStats { get; set; }
+
 
 		/// <summary>
 		/// Creating models
@@ -41,7 +41,12 @@
 				{
 					PlayerID = 1,
 					AccountID = 1,
-					PlayerName = "NickTheG"
+					PlayerName = "NickTheG",
+					ExperiencePoints = 160,
+					KnowledgePoints = 10,
+					MaxHealth = 10,
+					MaxMana = 10,
+					TimeCapsules = 10
 				});
 		}
 	}
