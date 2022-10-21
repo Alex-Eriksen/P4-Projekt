@@ -805,7 +805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &552701288
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2670,6 +2670,7 @@ MonoBehaviour:
   - {fileID: 440968624174214640, guid: bcaf410828048d44aa6b68db2ea3639b, type: 3}
   - {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
   - {fileID: 8899393023844771727, guid: b6a240ea095aea6419b3a2053f7ce2cd, type: 3}
+  m_wizardPlayerPrefab: {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
 --- !u!4 &2117274031
 Transform:
   m_ObjectHideFlags: 0

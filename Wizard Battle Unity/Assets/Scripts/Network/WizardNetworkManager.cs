@@ -5,6 +5,8 @@ using Mirror;
 
 public class WizardNetworkManager : NetworkManager
 {
+    [SerializeField] private GameObject m_wizardPlayerPrefab;
+
     // Called when the server is turned on.
     public override void OnStartServer()
     {
@@ -17,9 +19,12 @@ public class WizardNetworkManager : NetworkManager
         Debug.LogWarning("Server stopped..");
     }
 
-    public override void OnServerConnect(NetworkConnectionToClient conn)
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        Debug.Log("Just joined: " + conn.connectionId);
+        base.OnServerAddPlayer(conn);
+        GameObject obj = Instantiate(m_wizardPlayerPrefab);
+        NetworkServer.Spawn(obj, conn);
+        conn.identity.GetComponent<PlayerConnection>().wizardIdentity = obj.GetComponent<NetworkIdentity>();
     }
 
     // Called on the client when the client connects to the server.

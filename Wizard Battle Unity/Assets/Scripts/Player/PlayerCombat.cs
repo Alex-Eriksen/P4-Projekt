@@ -37,7 +37,7 @@ public class PlayerCombat : NetworkBehaviour
 
     private void Start()
     {
-        if (!isLocalPlayer)
+        if (!hasAuthority)
         {
             return;
         }
@@ -134,7 +134,7 @@ public class PlayerCombat : NetworkBehaviour
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
         Spell spell = spawnedSpell.GetComponent<Spell>();
-        spell.RpcSetupSpell(connectionToClient.identity);
+        spell.RpcSetupSpell(connectionToClient.identity.GetComponent<PlayerConnection>().wizardIdentity);
         spell.OnServerSetup();
     }
     

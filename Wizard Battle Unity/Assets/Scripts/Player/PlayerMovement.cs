@@ -21,7 +21,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Start()
     {
-        if (!isLocalPlayer)
+        if (!hasAuthority)
         {
             return;
         }
@@ -31,7 +31,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        if (!isLocalPlayer)
+        if (!hasAuthority)
         {
             return;
         }
