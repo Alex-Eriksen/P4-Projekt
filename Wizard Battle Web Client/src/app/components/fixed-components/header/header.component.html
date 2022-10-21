@@ -1,4 +1,4 @@
-<div class="container-fluid m-0 background shadow position-fixed">
+<div class="container-fluid m-0 position-fixed">
 	<div class="row">
 			<div class="col-4"> <!-- Nav section -->
 				<div class="row h-100">
@@ -22,8 +22,8 @@
 					</div>
 			</div>
 			<div class="col-4"> <!-- Profile section -->
-        <div class="position-absolute top-0 end-0 p-2">
-          <button class="btn btn-danger" (click)="signOut()">Sign Out</button>
+        <div class="position-absolute top-0 end-0 p-3">
+          <button class="btn btn-secondary lh-1 rounded-0 shadow" style="font-size: 14px;" (click)="signOut()">Sign Out</button>
         </div>
         <div class="row h-100 p-3">
           <a routerLink="" class="position-relative d-block" style="width: 50px;">
@@ -38,16 +38,16 @@
 							</div>
 							<div class="flex-fill ps-2">
                 <div class="row">
-                  <div class="col-6 border-start" style="border-color: #606061;">
-                    <i class="fa-solid fa-hand-sparkles" style="color: gold"><span class="text-white"> {{player.knowledgePoints}}</span></i>
+                  <div class="col-6 border-start d-flex align-items-center" style="border-color: #606061; padding: 4px .75em;">
+                    <i class="fa-solid fa-hand-sparkles" style="color: gold; font-size: 16px;"><span class="text-white"> {{player.knowledgePoints}}</span></i>
                   </div>
-                  <div class="col-6 border-start" style="border-color: #606061;">
+                  <div class="col-6 border-start d-flex align-items-center" style="border-color: #606061;">
                     <i class="fa-solid fa-capsules" style="color: #50b3da"><span class="text-white"> {{player.timeCapsules}}</span></i>
                   </div>
                 </div>
               </div>
 						</div>
-						<div class="d-flex flex-row gap-1 h-50"> <!-- Navigation buttons-->
+						<div class="button-grid h-50"> <!-- Navigation buttons-->
 							<button class="flex-fill rounded border border-primary button-gradient" title="Profile" style="color: #fff"><i class="fa-solid fa-user fa-fw"></i></button>
 							<button class="flex-fill rounded border border-primary button-gradient" title="Library" style="color: #fff"><i class="fa-solid fa-book-tanakh fa-fw"></i></button>
 							<button class="flex-fill rounded border border-primary button-gradient" title="Spellbook" style="color: #fff"><i class="fa-solid fa-wand-magic-sparkles fa-fw"></i></button>
@@ -58,4 +58,3 @@
 			</div>
 	</div>
 </div>
-<div class="push-content" style="padding-top: 5.5rem;"></div>

@@ -16,6 +16,7 @@ import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@ang
 import { AuthenticationInterceptor } from './_interceptor/authentication.intercepter';
 import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
+import { ChatComponent } from './components/fixed-components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AuthenticationService } from './services/authentication.service';
     HeaderComponent,
     LoginComponent,
     SignupComponent,
-    SpellbookComponent
+    SpellbookComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

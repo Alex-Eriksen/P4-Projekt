@@ -1,6 +1,7 @@
-.background {
-  background-image: url("../../../../assets/texture.jpg");
-  background-position: center;
+:host {
+  display: flex;
+  z-index: 10!important;
+  height: 88px;
 }
 
 h4, #logo {
@@ -78,10 +79,14 @@ span {
 .button-gradient {
   background-image: linear-gradient(#6784bf, #102a47);
   transform: all .2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button-gradient:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transform: scale(1.02);
 }
 
 
@@ -98,6 +103,15 @@ span {
   -webkit-animation: gradient 15s ease infinite;
   animation: gradient 15s ease infinite;
 }
+
+.button-grid {
+  display: grid;
+  gap: .375em;
+
+  grid-template-columns: repeat(4, 1fr);
+}
+
+
 
 @-webkit-keyframes gradient {
 	0% {

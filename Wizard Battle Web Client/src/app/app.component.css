@@ -1,0 +1,18 @@
+.wrapper {
+  position: relative;
+  height: calc(100vh - 88px);
+  padding: 0px 0px 30px 30px;
+  display: grid;
+  grid-template-columns: 0px 80% 20%;
+}
+
+
+.wrapper-chat {
+  position: relative;
+  height: calc(100vh - 88px);
+  padding: 0px 30px 30px 30px;
+  display: grid;
+  grid-template-columns: 0px 100% 0px;
+}
+
+.content-container {}

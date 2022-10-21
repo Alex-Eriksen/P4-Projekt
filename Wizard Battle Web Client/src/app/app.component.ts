@@ -8,7 +8,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'WizardBattle';
-
+  showChat: boolean = false;
   showHeader: boolean = false;
 
   // Show header if client is not logging in or signing up
