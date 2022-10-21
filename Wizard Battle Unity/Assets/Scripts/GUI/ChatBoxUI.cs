@@ -13,7 +13,7 @@ public class ChatBoxUI : NetworkBehaviour
 
     public void SendMessage()
     {
-        CmdSendMessage("Player01", m_messageText.text);
+        CmdSendMessage(connectionToServer.address, m_messageText.text);
         m_messageText.text = "";
     }
 

@@ -5,13 +5,14 @@ using Mirror;
 
 public class PlayerConnection : NetworkBehaviour
 {
-    public string PlayerName { get { return m_playerName; } }
-    private string m_playerName = "NO NAME";
+    public string PlayerName { get { return m_playerData.PlayerName; } }
+    public string PlayerLevel { get { return m_playerData.PlayerExperience.ToString(); } } // TODO: Convert experience to LEVEL.
+    // TODO: Make a public getter for the players spellbooks.
 
-    // Add a class or object that contains the player's data - Name, Level, Spells, etc.
+    private PlayerData m_playerData = new PlayerData();
 
     public override void OnStartClient()
     {
-        
+        // TODO: Get player data from API.
     }
 }
