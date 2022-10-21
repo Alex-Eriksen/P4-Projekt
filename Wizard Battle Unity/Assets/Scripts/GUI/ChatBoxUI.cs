@@ -1,32 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using Mirror;
+using System.Linq;
+using UnityEngine.InputSystem;
 
-public class ChatBoxUI : NetworkBehaviour
+public class ChatBoxUI : MonoBehaviour
 {
-    [SerializeField] private Transform m_contentTransform;
-    [SerializeField] private GameObject m_messagePrefab;
-    [SerializeField] private TextMeshProUGUI m_messageText;
+    [SerializeField] private TMP_InputField m_messageText;
+    public PlayerConnection PlayerConnection { get; private set; }
 
-    public void SendMessage()
+    private void Start()
     {
-        CmdSendMessage(connectionToServer.address, m_messageText.text);
+        StartCoroutine(GetPlayerConnectionObjectBuffer());
+    }
+
+    private IEnumerator GetPlayerConnectionObjectBuffer()
+    {
+        try
+        {
+            PlayerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        }
+        catch
+        {
+            PlayerConnection = null;
+        }
+        yield return new WaitForEndOfFrame();
+        if(PlayerConnection == null)
+        {
+            StartCoroutine(GetPlayerConnectionObjectBuffer());
+        }
+        else
+        {
+            PlayerConnection.PlayerInput.actions["EnterChat"].started += SendMessage;
+            PlayerConnection.PlayerInput.actions["ExitChat"].started += SendMessage;
+        }
+    }
+
+    public void SendMessage(InputAction.CallbackContext ctx)
+    {
+        if (!m_messageText.isFocused)
+        {
+            OnStartEditing();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(m_messageText.text)) 
+        {
+            return;
+        }
+        ChatManager.Instance.CmdSendMessage(PlayerConnection.PlayerName, m_messageText.text);
         m_messageText.text = "";
+        OnStopEditing();
     }
 
-    [Command(requiresAuthority = false)]
-    public void CmdSendMessage(string playerName, string messageText)
+    public void OnStartEditing()
     {
-        RpcRecieveMessage(playerName, messageText);
+        m_messageText.ActivateInputField();
+        PlayerConnection.PlayerInput.SwitchCurrentActionMap("UI");
     }
 
-    [ClientRpc]
-    public void RpcRecieveMessage(string playerName, string messageText)
+    public void OnStopEditing()
     {
-        ChatMessageUI obj = Instantiate(m_messagePrefab, m_contentTransform).GetComponent<ChatMessageUI>();
-        obj.Setup(playerName, messageText);
+        m_messageText.DeactivateInputField();
+        PlayerConnection.PlayerInput.SwitchCurrentActionMap("Gameplay");
     }
 }

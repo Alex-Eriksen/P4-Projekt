@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 using Mirror;
 using UnityEditor.Experimental.GraphView;
 using System;
+using System.Linq;
 
 public class PlayerCombat : NetworkBehaviour
 {
+    private PlayerConnection m_playerConnection;
     private PlayerInput m_playerInput;
     private PlayerEntity m_playerEntity;
     private Transform m_graphicsTransform, m_targetPoint;
@@ -24,24 +26,22 @@ public class PlayerCombat : NetworkBehaviour
     public event ActionEvent OnCastingCanceled;
     public event Action<float> OnCastTimeChanged;
 
-    private void Awake()
+    public override void OnStartAuthority()
     {
         // Bind variables to components.
-        m_playerInput = GetComponent<PlayerInput>();
+        m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        m_playerInput = m_playerConnection.PlayerInput;
         m_playerEntity = GetComponent<PlayerEntity>();
         m_graphicsTransform = transform.GetChild(1);
         m_targetPoint = m_graphicsTransform.Find("TargetPoint");
         m_spellbook = FindObjectOfType<Spellbook>();
         m_animator = GetComponentInChildren<Animator>();
+
+        SetInput();
     }
 
-    private void Start()
+    private void SetInput()
     {
-        if (!hasAuthority)
-        {
-            return;
-        }
-
         // Subscribe to input events.
         m_playerInput.actions["LeftMouse"].started += LeftMouse_Started;
         m_playerInput.actions["RightMouse"].started += RightMouse_Started;

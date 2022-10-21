@@ -277,7 +277,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8478726905143321008}
   m_HandleRect: {fileID: 8478726905143321009}
   m_Direction: 3
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1003,7 +1003,7 @@ MonoBehaviour:
   syncInterval: 0.1
   m_contentTransform: {fileID: 8478726905128757434}
   m_messagePrefab: {fileID: 1915105354138569986, guid: e005780815de1774c8b3b7197c2d1830, type: 3}
-  m_messageText: {fileID: 8478726905946769567}
+  m_messageText: {fileID: 8478726904467755367}
 --- !u!114 &3199864502103550034
 MonoBehaviour:
   m_ObjectHideFlags: 0

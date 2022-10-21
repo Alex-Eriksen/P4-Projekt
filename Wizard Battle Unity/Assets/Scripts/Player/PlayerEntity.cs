@@ -10,8 +10,7 @@ public class PlayerEntity : NetworkBehaviour
     [SerializeField] private PlayerCombat m_playerCombat;
     private Coroutine m_regenRoutine;
 
-    [ServerCallback]
-    private void Start()
+    public override void OnStartServer()
     {
         m_regenRoutine = StartCoroutine(SCRegenTicker());
     }
