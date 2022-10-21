@@ -97,6 +97,7 @@ MonoBehaviour:
   syncInterval: 0.1
   spellData: {fileID: 11400000, guid: 38a6bcd54370f074fa6c702ad9ff750e, type: 2}
   m_vfx: {fileID: 4851502003381258857}
+  m_dmgColor: {r: 1, g: 0.36892486, b: 0, a: 1}
 --- !u!73398921 &3663957754686196144
 VFXRenderer:
   serializedVersion: 1

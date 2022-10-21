@@ -137,6 +137,7 @@ MonoBehaviour:
   syncInterval: 0.1
   spellData: {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
   m_vfx: {fileID: 3563944960043909012}
+  m_dmgColor: {r: 1, g: 0.62671626, b: 0, a: 1}
   m_speed: 300
 --- !u!50 &4603155144009025737
 Rigidbody2D:

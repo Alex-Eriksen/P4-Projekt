@@ -5,6 +5,7 @@ using Mirror;
 
 public class FireballSpell : Spell
 {
+    [SerializeField] private Color m_dmgColor;
     [SerializeField] private float m_speed = 10f;
     private Rigidbody2D m_rigidbody2D;
     private Transform m_transform;
@@ -38,6 +39,14 @@ public class FireballSpell : Spell
     {
         SCStartDeathTimer();
         base.SCOnHit();
-        opponentEntity.SCDrainHealth(((ElementalSpellObject)spellData).DamageAmount);
+        float dmg = ((ElementalSpellObject)spellData).DamageAmount;
+
+        NumberEffectData data = new NumberEffectData();
+        data.numberText = dmg.ToString();
+        data.numberColor = m_dmgColor;
+        data.position = opponentEntity.transform.position;
+
+        GameEffectsManager.Instance.CmdCreateNumberEffect(data);
+        opponentEntity.SCDrainHealth(dmg);
     }
 }
