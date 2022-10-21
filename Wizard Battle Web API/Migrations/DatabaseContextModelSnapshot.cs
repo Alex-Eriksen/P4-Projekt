@@ -49,6 +49,10 @@ namespace Wizard_Battle_Web_API.Migrations
 
                     b.HasKey("AccountID");
 
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
                     b.ToTable("Account");
 
                     b.HasData(
@@ -59,7 +63,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "test@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$ShSR9gvoBWByEn6ez0aui.2LLbFJp1R.z9kqUGZ0lkSqBb3enIkNK"
+                            Password = "$2a$10$qLvVRPsTsxKdFEpmZcD4feEsMao7y0MNdXln.1X5IplB83SC6JH/2"
                         });
                 });
 
@@ -100,6 +104,10 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.HasIndex("AccountID")
                         .IsUnique();
 
+                    b.HasIndex("PlayerName")
+                        .IsUnique()
+                        .HasFilter("[PlayerName] IS NOT NULL");
+
                     b.ToTable("Player");
 
                     b.HasData(
@@ -107,7 +115,7 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             PlayerID = 1,
                             AccountID = 1,
-                            ExperiencePoints = 160L,
+                            ExperiencePoints = 167L,
                             KnowledgePoints = 10L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,

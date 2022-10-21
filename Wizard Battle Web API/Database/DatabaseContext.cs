@@ -24,7 +24,12 @@
 			});
 
 			modelBuilder.Entity<Account>(entity => {
+				entity.HasIndex(e => e.Email).IsUnique();
 				entity.Property(e => e.Created_At).HasDefaultValueSql("getdate()");
+			});
+
+			modelBuilder.Entity<Player>(entity => {
+				entity.HasIndex(e => e.PlayerName).IsUnique();
 			});
 
 			// Making a acount
@@ -42,7 +47,7 @@
 					PlayerID = 1,
 					AccountID = 1,
 					PlayerName = "NickTheG",
-					ExperiencePoints = 160,
+					ExperiencePoints = 167,
 					KnowledgePoints = 10,
 					MaxHealth = 10,
 					MaxMana = 10,

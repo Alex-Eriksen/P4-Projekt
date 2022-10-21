@@ -80,18 +80,32 @@ namespace Wizard_Battle_Web_API.Migrations
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
-                values: new object[] { 1, "test@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$ShSR9gvoBWByEn6ez0aui.2LLbFJp1R.z9kqUGZ0lkSqBb3enIkNK" });
+                values: new object[] { 1, "test@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$qLvVRPsTsxKdFEpmZcD4feEsMao7y0MNdXln.1X5IplB83SC6JH/2" });
 
             migrationBuilder.InsertData(
                 table: "Player",
                 columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "TimeCapsules" },
-                values: new object[] { 1, 1, 160L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", 10L });
+                values: new object[] { 1, 1, 167L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", 10L });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Account_Email",
+                table: "Account",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Player_AccountID",
                 table: "Player",
                 column: "AccountID",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Player_PlayerName",
+                table: "Player",
+                column: "PlayerName",
+                unique: true,
+                filter: "[PlayerName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshToken_AccountID",

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { PlayerService } from 'src/app/services/player.service';
+import { AccountRequest } from 'src/app/_models/Account';
+import { AuthenticationRequest } from 'src/app/_models/Authentication';
+import { PlayerRequest } from 'src/app/_models/Player';
+import { PlayerAccountRequest } from 'src/app/_models/Player/PlayerAccountRequest';
 
 @Component({
   selector: 'app-signup',
@@ -9,23 +15,31 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
+  private returnUrl: string = "";
+	public passwordValidator: string = '';
+  public accountRequest: AccountRequest = { email: '', password: ''};
+	public playerRequest: PlayerRequest = { playerName: ""};
+	private request: PlayerAccountRequest = { account: this.accountRequest, player: this.playerRequest };
   error: string = '';
-  form: FormGroup = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    confirm: ['', Validators.required]
-  })
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private playerService: PlayerService) { }
 
   ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.queryParams[ "returnUrl" ] || "/";
+		this.authenticationService.OnTokenChanged.subscribe((token) =>
+		{
+			if (token !== "")
+			{
+				this.router.navigate([ this.returnUrl ]);
+			}
+		});
   }
 
-  private validateForm(): Promise<boolean>
+	private validateForm(): Promise<boolean>
 	{
 		return new Promise<boolean>((resolve) =>
 		{
-			if (this.form.controls['password'].value === this.form.controls['confirm'].value)
+			if (this.accountRequest.password === this.passwordValidator)
 			{
 				resolve(true);
 			}
@@ -40,16 +54,18 @@ export class SignupComponent implements OnInit {
 		{
 			if (result)
 			{
-				// this.customerService.create(this.request).subscribe({
-				// 	next: () =>
-				// 	{
-				// 		this.router.navigate([ this.returnUrl ]);
-				// 	},
-				// 	error: (err) =>
-				// 	{
-				// 		console.error(Object.values(err.error.errors).join(', '));
-				// 	}
-				// });
+				this.playerService.create(this.request).subscribe({
+					next: () =>
+					{
+            let loginRequest: AuthenticationRequest = { email: '', password: ''};
+            loginRequest = Object.assign(loginRequest, this.request.account);
+						this.authenticationService.authenticate(loginRequest).subscribe();
+					},
+					error: (err) =>
+					{
+						console.error(Object.values(err.error.errors).join(', '));
+					}
+				});
 			}
 		});
 	}

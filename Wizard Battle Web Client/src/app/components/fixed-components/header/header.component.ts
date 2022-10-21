@@ -46,4 +46,8 @@ export class HeaderComponent implements OnInit {
     }
     this.playerCurrentXp = playerExp; // Assings local variable current player experience
   }
+
+  signOut(): void {
+    this.authenticationService.revokeToken().subscribe();
+  }
 }

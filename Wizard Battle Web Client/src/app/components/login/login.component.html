@@ -12,9 +12,6 @@
           <label for="passwordInput" class="form-label mb-0">Password</label>
           <input type="password" class="form-control w-100 rounded" [(ngModel)]="request.password">
         </div>
-        <div>
-          <input type="checkbox" name="" id=""><span> Remember me</span>
-        </div>
         <button class="btn btn-success shadow" type="submit" (click)="login()">Login</button>
         <p>Don't have an account? You can create a account <a routerLink="/signup">here</a></p>
       </div>

@@ -8,15 +8,18 @@
 		/// Using IPlayerService as interface.
 		/// </summary>
 		private readonly IPlayerService m_playerService;
+		private readonly IAccountService m_accountService;
 
 
 		/// <summary>
 		/// Constructor for PlayerController
 		/// </summary>
 		/// <param name="playerService"></param>
-		public PlayerController(IPlayerService playerService)
+		/// <param name="accountService"></param>
+		public PlayerController(IPlayerService playerService, IAccountService accountService)
 		{
 			m_playerService = playerService;
+			m_accountService = accountService;
 		}
 
 
@@ -86,6 +89,12 @@
 		{
 			try
 			{
+				List<StaticAccountResponse> accounts = await m_accountService.GetAll();
+				if (accounts.Any(x => x.Email == request.Account.Email))
+				{
+					return Conflict();
+				}
+
 				DirectPlayerResponse player = await m_playerService.Create(request);
 
 				if (player == null)
