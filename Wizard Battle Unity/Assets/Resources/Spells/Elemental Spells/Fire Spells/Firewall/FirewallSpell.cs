@@ -28,11 +28,11 @@ public class FirewallSpell : Spell
     public override void OnServerSetup()
     {
         base.OnServerSetup();
-        StartCoroutine(SCDamageTick());
+        StartCoroutine(SC_DamageTick());
     }
 
     [ServerCallback]
-    private IEnumerator SCDamageTick()
+    private IEnumerator SC_DamageTick()
     {
         yield return new WaitForSeconds(m_tickRate);
         if(opponentEntity != null)
@@ -41,9 +41,9 @@ public class FirewallSpell : Spell
             data.numberText = m_damagePerTick.ToString();
             data.numberColor = m_dmgColor;
             data.position = opponentEntity.transform.position;
-            GameEffectsManager.Instance.CmdCreateNumberEffect(data);
-            opponentEntity.SCDrainHealth(m_damagePerTick);
+            GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+            opponentEntity.SC_DrainHealth(m_damagePerTick);
         }
-        StartCoroutine(SCDamageTick());
+        StartCoroutine(SC_DamageTick());
     }
 }

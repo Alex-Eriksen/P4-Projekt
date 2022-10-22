@@ -26,7 +26,13 @@ public class GameEffectsManager : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdCreateNumberEffect(NumberEffectData data)
+    public void Cmd_CreateNumberEffect(NumberEffectData data)
+    {
+        RpcCreateNumberEffect(data);
+    }
+
+    [ServerCallback]
+    public void SC_CreateNumberEffect(NumberEffectData data)
     {
         RpcCreateNumberEffect(data);
     }

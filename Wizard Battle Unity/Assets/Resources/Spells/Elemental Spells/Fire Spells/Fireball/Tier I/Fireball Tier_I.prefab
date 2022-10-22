@@ -139,6 +139,7 @@ MonoBehaviour:
   m_vfx: {fileID: 3563944960043909012}
   m_dmgColor: {r: 1, g: 0.62671626, b: 0, a: 1}
   m_speed: 300
+  statusEffect: {fileID: 11400000, guid: db94a35f1d8cb694782af337a40179a3, type: 2}
 --- !u!50 &4603155144009025737
 Rigidbody2D:
   serializedVersion: 4

@@ -89,7 +89,7 @@ public class PlayerCombat : NetworkBehaviour
         m_animator.SetBool("Attacking", m_isCasting);
         m_spellToCast = spell;
         m_playerEntity.OnManaDrained += PlayerEntity_OnManaDrained;
-        m_playerEntity.CmdDrainMana(spell.ManaCost);
+        m_playerEntity.Cmd_DrainMana(spell.ManaCost);
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class PlayerCombat : NetworkBehaviour
     private IEnumerator SpellCastingRoutine(SpellObject spell)
     {
         OnCastTimeChanged?.Invoke(spell.CastTime);
-        CmdSpawnSpell(spell.PrefabPath);
+        Cmd_SpawnSpell(spell.PrefabPath);
 
         yield return new WaitForSeconds(spell.CastTime);
 
@@ -128,7 +128,7 @@ public class PlayerCombat : NetworkBehaviour
     /// </summary>
     /// <param name="spellPrefabPath"></param>
     [Command]
-    private void CmdSpawnSpell(string spellPrefabPath)
+    private void Cmd_SpawnSpell(string spellPrefabPath)
     {
         GameObject spawnedSpell = Instantiate(Resources.Load<GameObject>(spellPrefabPath));
         NetworkServer.Spawn(spawnedSpell, connectionToClient);

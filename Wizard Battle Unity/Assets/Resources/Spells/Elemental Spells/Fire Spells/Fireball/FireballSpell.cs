@@ -7,8 +7,10 @@ public class FireballSpell : Spell
 {
     [SerializeField] private Color m_dmgColor;
     [SerializeField] private float m_speed = 10f;
+    [SerializeField] private StatusEffectObject statusEffect;
     private Rigidbody2D m_rigidbody2D;
     private Transform m_transform;
+    private NumberEffectData data;
 
     protected override void OnAwake()
     {
@@ -35,18 +37,18 @@ public class FireballSpell : Spell
     }
 
     [ServerCallback]
-    protected override void SCOnHit()
+    protected override void SC_OnHit()
     {
-        SCStartDeathTimer();
-        base.SCOnHit();
+        SC_StartDeathTimer();
+        base.SC_OnHit();
         float dmg = ((ElementalSpellObject)spellData).DamageAmount;
 
-        NumberEffectData data = new NumberEffectData();
         data.numberText = dmg.ToString();
         data.numberColor = m_dmgColor;
         data.position = opponentEntity.transform.position;
 
-        GameEffectsManager.Instance.CmdCreateNumberEffect(data);
-        opponentEntity.SCDrainHealth(dmg);
+        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+        opponentEntity.SC_DrainHealth(dmg);
+        opponentEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
     }
 }

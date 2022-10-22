@@ -30,7 +30,7 @@ public class Spell : NetworkBehaviour
     {
         if (isServer)
         {
-            m_deathRoutine = StartCoroutine(SCDestroySpellObject(gameObject, spellData.LifeTime, spellData.CastTime));
+            m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, spellData.LifeTime, spellData.CastTime));
         }
 
         OnStart();
@@ -51,7 +51,7 @@ public class Spell : NetworkBehaviour
 
         if (collision.TryGetComponent<PlayerEntity>(out opponentEntity))
         {
-            SCOnHit();
+            SC_OnHit();
         }
     }
 
@@ -87,7 +87,7 @@ public class Spell : NetworkBehaviour
         if (collision.TryGetComponent<PlayerEntity>(out _))
         {
             opponentEntity = null;
-            SCOnNoHit();
+            SC_OnNoHit();
         }
     }
 
@@ -155,7 +155,7 @@ public class Spell : NetworkBehaviour
     /// Responsible for telling clients that this spell has hit something.
     /// </summary>
     [ServerCallback]
-    protected virtual void SCOnHit()
+    protected virtual void SC_OnHit()
     {
         if (opponentEntity == null)
         {
@@ -173,14 +173,14 @@ public class Spell : NetworkBehaviour
     }
 
     [ServerCallback]
-    protected virtual void SCOnNoHit() { }
+    protected virtual void SC_OnNoHit() { }
 
     [ServerCallback]
-    protected void SCStartDeathTimer()
+    protected void SC_StartDeathTimer()
     {
         StopCoroutine(m_deathRoutine);
         m_shouldUpdate = false;
-        m_deathRoutine = StartCoroutine(SCDestroySpellObject(gameObject, 3f, 0f));
+        m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, 3f, 0f));
     }
 
     /// <summary>
@@ -191,7 +191,7 @@ public class Spell : NetworkBehaviour
     /// <param name="castTime"></param>
     /// <returns></returns>
     [ServerCallback]
-    private IEnumerator SCDestroySpellObject(GameObject obj, float lifeTime, float castTime)
+    private IEnumerator SC_DestroySpellObject(GameObject obj, float lifeTime, float castTime)
     {
         yield return new WaitForSeconds(lifeTime + castTime);
         NetworkServer.Destroy(obj);
