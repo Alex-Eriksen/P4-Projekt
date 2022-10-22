@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -12,6 +13,7 @@ public class BurnStatus : Status
     private VisualEffect m_vfx;
     private PlayerEntity m_target;
     private NumberEffectData data = new NumberEffectData();
+    private PlayerConnection m_playerConnection;
 
 
     private void Awake()
@@ -25,6 +27,47 @@ public class BurnStatus : Status
         m_vfx.SetFloat("Lifetime", statusEffectData.effectLifetime);
         data.numberText = damagePerTick.ToString();
         data.numberColor = numberColor;
+    }
+
+    public override void OnStartClient()
+    {
+        StartCoroutine(GetPlayerConnectionObjectBuffer());
+    }
+
+    private IEnumerator GetPlayerConnectionObjectBuffer()
+    {
+        try
+        {
+            m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        }
+        catch
+        {
+            m_playerConnection = null;
+        }
+        yield return new WaitForEndOfFrame();
+        if (m_playerConnection == null)
+        {
+            StartCoroutine(GetPlayerConnectionObjectBuffer());
+        }
+        else
+        {
+            if (m_target == null)
+            {
+                Cmd_RequestTargetTransform(m_playerConnection.netIdentity);
+            }
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_RequestTargetTransform(NetworkIdentity identity)
+    {
+        TRpc_RecieveTargetTransform(identity, m_target.transform);
+    }
+
+    [TargetRpc]
+    private void TRpc_RecieveTargetTransform(NetworkIdentity identity, Transform targetTransform)
+    {
+        transform.SetParent(targetTransform, false);
     }
 
     public override void OnStartServer()

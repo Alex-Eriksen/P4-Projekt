@@ -9,9 +9,16 @@ public class PlayerEntity : NetworkBehaviour
     public PlayerCombat PlayerCombat { get { return m_playerCombat; } }
     [SerializeField] private PlayerCombat m_playerCombat;
     private Coroutine m_regenRoutine;
+    private Transform m_transform;
+
+    private void Awake()
+    {
+        m_transform = transform;
+    }
 
     private void Start()
     {
+        // Load the status effect prefabs from Resources.
         GameObject[] statusEffectPrefabs = Resources.LoadAll<GameObject>("Spells/Status Effects");
         foreach (GameObject statusEffectPrefab in statusEffectPrefabs)
         {
@@ -92,7 +99,7 @@ public class PlayerEntity : NetworkBehaviour
             m_statusEffects.Add(statusEffect);
 
             // Spawns the status effect on and sets it in the relative dictionaries for tracking.
-            GameObject obj = Instantiate(m_statusEffectPrefabs[statusEffect.effectType], transform);
+            GameObject obj = Instantiate(m_statusEffectPrefabs[statusEffect.effectType], m_transform);
             m_activeStatusEffects.Add(statusEffect.effectType, StartCoroutine(StatusEffectDeathTimer(obj, statusEffect)));
             m_activeStatusEffectObjects.Add(statusEffect.effectType, obj);
             NetworkServer.Spawn(obj);
