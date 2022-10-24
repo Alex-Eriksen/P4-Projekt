@@ -38,6 +38,7 @@ h4:hover, #logo:hover {
 .border-linear-gradient {
   position: relative;
 }
+
 .border-linear-gradient::before {
   content: "";
   position: absolute;
@@ -70,7 +71,6 @@ h4:hover, #logo:hover {
 .progress-bar > span {
   cursor: default;
 }
-
 
 span {
   cursor: default;
@@ -111,6 +111,18 @@ span {
   grid-template-columns: repeat(4, 1fr);
 }
 
+.gray-border {
+  border-color: #606061;
+}
+
+#knowledge-points {
+  padding: 4px .75em;
+}
+
+#logo {
+  width: 55px;
+  border-radius: 50px;
+}
 
 
 @-webkit-keyframes gradient {

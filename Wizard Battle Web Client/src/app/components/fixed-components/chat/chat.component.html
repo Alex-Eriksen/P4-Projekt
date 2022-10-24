@@ -1,7 +1,7 @@
 <div class="w-100 h-100 text-white position-relative" *ngIf="chatOpen">
   <div class="d-flex flex-row" >
     <div class="flex-grow-1 border border-3 border-primary bg-primary d-flex">
-      <i class="fa-solid fa-circle text-danger px-2 align-self-end pb-2" style="font-size: 16px;"></i>
+      <i class="fa-solid fa-circle text-danger px-2 align-self-end pb-2"></i>
       <span class="fs-4 lh-1 align-self-center">{{playerName}}</span>
     </div>
     <div class="pb-1 ps-1 border-3 border-bottom border-primary minimize-background">
@@ -11,30 +11,44 @@
   <div class="fill-height border border-3 border-primary">
     <div class="w-100 h-100">
       <div class="w-100 p-2 bg-primary">
-        <input type="text" name="" id="" class="w-100 border-0 outline-0 text-white shadow" style="background-color: #081525;">
+        <input type="text" id="searchFriend" class="w-100 border-0 outline-0 text-white shadow">
       </div>
       <div class="w-100 text-start ps-2 bg-primary">FRIENDS LIST</div>
-      <div class="d-flex flex-column gap-1 p-1 bg-dark chat-tab" *ngIf="chatTab=='chat'">
-        <div class="w-100 p-1 rounded d-flex flex-row gap-1 position-relative friend-gradient" *ngFor="let player of players" (click)="addPlayer(this.player.playerName)">
+      <div class="d-flex flex-column gap-1 p-1 bg-dark chat-tab" *ngIf="chatTab=='chat'"> <!-- Chat TAB -->
+        <div class="w-100 p-1 rounded d-flex flex-row gap-1 position-relative friend-gradient cursor-pointer" *ngFor="let player of players" (click)="addPlayer(this.player.playerName)">
           <img [src]="player.playerSrc" alt="" width="48" height="48">
           <div class="d-flex flex-column flex-grow-1">
             <span>{{player.playerName}}</span>
             <span [ngClass]="{'text-danger': player.playerStatus === 'Offline', 'text-warning' : player.playerStatus === 'Away', 'text-success': player.playerStatus === 'Online' }">{{player.playerStatus}}</span>
           </div>
-          <i class="fa-solid fa-circle position-absolute" style="bottom:4px; right: 4px;" [ngClass]="{'text-danger': player.playerStatus === 'Offline', 'text-warning' : player.playerStatus === 'Away', 'text-success': player.playerStatus === 'Online' }"></i>
+          <i class="fa-solid fa-circle position-absolute" id="statusBtn" [ngClass]="{'text-danger': player.playerStatus === 'Offline', 'text-warning' : player.playerStatus === 'Away', 'text-success': player.playerStatus === 'Online' }"></i>
         </div>
       </div>
-      <div class="d-flex flex-column gap-1 p-1 bg-dark chat-tab" *ngIf="chatTab=='friends'">
+      <div class="d-flex flex-column gap-1 p-1 bg-dark chat-tab" *ngIf="chatTab=='friends'"> <!-- Friend TAB -->
         <div class="w-100 p-1 rounded d-flex flex-row gap-1 position-relative friend-gradient" *ngFor="let player of players">
           <img [src]="player.playerSrc" alt="" width="48" height="48">
           <div class="d-flex flex-column flex-grow-1">
             <span>{{player.playerName}}</span>
-            <span [ngClass]="{'text-danger': player.playerStatus === 'Offline', 'text-warning' : player.playerStatus === 'Away', 'text-success': player.playerStatus === 'Online' }">{{player.playerStatus}}</span>
           </div>
-          <i class="fa-solid fa-circle position-absolute" style="bottom:4px; right: 4px;" [ngClass]="{'text-danger': player.playerStatus === 'Offline', 'text-warning' : player.playerStatus === 'Away', 'text-success': player.playerStatus === 'Online' }"></i>
+          <button class="btn btn-primary"><i class="fa-solid fa-envelope"></i></button>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="position-fixed chat-box" *ngIf="chatOpen">
+  <div class="d-flex flex-column flex">
+    <div class="header d-flex align-items-center">
+      <img src="../../../../assets/alex.png" alt="" id="logo" class="px-1">
+      <span class="text-white">Username</span>
+    </div>
+    <div class="content px-2 py-1">
+      <span id="infoWarning">Please remember not to share your email or password with friends or game employees.</span>
+      <div class="d-flex flex-column gap-2">
+      </div>
+    </div>
+    <input id="chatInput" class="w-100 outline-0 bg-transparent text-white" type="text" height="30px" placeholder="Indtast text">
   </div>
 </div>
 <div class="position-fixed chat-btn-container">
