@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 public class Spell : NetworkBehaviour
 {
     [SerializeField] protected SpellObject spellData = null;
-    [SerializeField] private VisualEffect m_vfx;
+    [SerializeField] protected VisualEffect m_vfx;
     private Collider2D m_ownerCollider;
     private Coroutine m_deathRoutine;
     
@@ -44,7 +44,7 @@ public class Spell : NetworkBehaviour
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer)
+        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < 1f)
         {
             return;
         }
@@ -63,7 +63,7 @@ public class Spell : NetworkBehaviour
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer)
+        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < 1f)
         {
             return;
         }
@@ -79,7 +79,7 @@ public class Spell : NetworkBehaviour
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer)
+        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < 1f)
         {
             return;
         }
@@ -214,7 +214,7 @@ public class Spell : NetworkBehaviour
     /// <returns></returns>
     protected bool IsBeingCast()
     {
-        return CurrentCastTimerNormalized < m_maxCastTimer;
+        return CurrentCastTimerNormalized < 1f;
     }
 
     protected virtual void OnAwake() { }

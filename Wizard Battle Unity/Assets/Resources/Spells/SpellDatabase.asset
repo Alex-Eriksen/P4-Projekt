@@ -15,3 +15,4 @@ MonoBehaviour:
   spellObjects:
   - {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
   - {fileID: 11400000, guid: 38a6bcd54370f074fa6c702ad9ff750e, type: 2}
+  - {fileID: 11400000, guid: 05676091ab8c54f43b5356c37a0ece2d, type: 2}
