@@ -1,5 +1,5 @@
 <app-header *ngIf="showHeader"></app-header>
-<div class="wrapper" [ngClass]="showChat == true ? 'wrapper-chat' : 'wrapper'">
+<div class="" [ngClass]="showHeader == true ? 'wrapper' : ''">
   <router-outlet></router-outlet>
-  <chat></chat>
+  <chat *ngIf="showHeader"></chat>
 </div>

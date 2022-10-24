@@ -8,6 +8,6 @@
 }
 
 .chat-btn-container {
-  width: calc(20% - 7.5px);
+  width: calc(20% - 6px);
   height: 30px;
 }
