@@ -6,25 +6,34 @@ using UnityEngine.VFX;
 
 public class Spell : NetworkBehaviour
 {
-    [SerializeField] private SpellObject m_spellData = null;
+    [SerializeField] protected SpellObject spellData = null;
     [SerializeField] private VisualEffect m_vfx;
     private Collider2D m_ownerCollider;
+    private Coroutine m_deathRoutine;
     
     public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
     private float m_currentCastTimer = 0f;
     private float m_maxCastTimer = 0f;
-
-    protected bool keepPositionOnInit = false;
-    protected Transform initialTargetTransform;
     
     private bool m_shouldUpdate = false;
-    
+
+    protected Transform initialTargetTransform;
+    protected PlayerEntity opponentEntity;
     protected bool hitSomething = false;
 
-    [ServerCallback]
+    private void Awake()
+    {
+        OnAwake();
+    }
+
     private void Start()
     {
-        StartCoroutine(SCDestroySpellObject(gameObject, m_spellData.LifeTime, m_spellData.CastTime));
+        if (isServer)
+        {
+            m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, spellData.LifeTime, spellData.CastTime));
+        }
+
+        OnStart();
     }
 
     [ServerCallback]
@@ -35,20 +44,51 @@ public class Spell : NetworkBehaviour
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer || hitSomething)
+        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer)
         {
             return;
         }
 
-        if (collision.TryGetComponent<PlayerEntity>(out var opponentEntity))
+        if (collision.TryGetComponent<PlayerEntity>(out opponentEntity))
         {
-            opponentEntity.SCDrainHealth(m_spellData.DamageAmount);
-            Hit();
+            SC_OnHit();
+        }
+    }
+
+    [ServerCallback]
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!isServer || m_ownerCollider == null)
+        {
+            return;
         }
 
-        StopAllCoroutines();
-        m_shouldUpdate = false;
-        StartCoroutine(SCDestroySpellObject(gameObject, 3f, 0f));
+        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer)
+        {
+            return;
+        }
+
+        collision.TryGetComponent<PlayerEntity>(out opponentEntity);
+    }
+
+    [ServerCallback]
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!isServer || m_ownerCollider == null)
+        {
+            return;
+        }
+
+        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < m_maxCastTimer)
+        {
+            return;
+        }
+
+        if (collision.TryGetComponent<PlayerEntity>(out _))
+        {
+            opponentEntity = null;
+            SC_OnNoHit();
+        }
     }
 
     private void OnDestroy()
@@ -57,7 +97,6 @@ public class Spell : NetworkBehaviour
         m_shouldUpdate = false;
     }
 
-    [ClientCallback]
     private void Update()
     {
         if (!m_shouldUpdate)
@@ -70,33 +109,98 @@ public class Spell : NetworkBehaviour
             m_currentCastTimer += Time.deltaTime;
             m_vfx.SetFloat("Size", CurrentCastTimerNormalized);
         }
+
+        OnUpdate();
     }
 
+    /// <summary>
+    /// Sets up a spell when it is created.
+    /// </summary>
+    /// <param name="identity"></param>
+    /// <param name="keepPositionOnInit"></param>
     [ClientRpc]
-    public void SetupSpell(NetworkIdentity identity, bool keepPositionOnInit)
+    public void RpcSetupSpell(NetworkIdentity identity)
     {
         m_ownerCollider = identity.GetComponent<Collider2D>();
 
-        initialTargetTransform = identity.transform.Find("Graphics").Find("AttackPoint");
-        this.keepPositionOnInit = keepPositionOnInit;
+        if(spellData.SpellType == SpellType.Offensive)
+        {
+            switch (((OffensiveSpellObject)spellData).SpellBehaviour)
+            {
+                case SpellBehaviour.Aura:
+                    initialTargetTransform = identity.transform;
+                    break;
 
-        SetCastingTimer(m_spellData.CastTime);
+                case SpellBehaviour.Skillshot:
+                    initialTargetTransform = identity.transform.Find("Graphics").Find("AttackPoint");
+                    break;
+
+                case SpellBehaviour.Target:
+                    initialTargetTransform = identity.transform.Find("Graphics").Find("TargetPoint");
+                    break;
+
+                default:
+                    Debug.LogError($"For whatever reason the spell data of {name} did not have any spell behaviour.", this);
+                    break;
+            }
+        }
+
+        SetCastingTimer(spellData.CastTime);
+        m_vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
+
+        OnSetup();
+    }
+
+    /// <summary>
+    /// Responsible for telling clients that this spell has hit something.
+    /// </summary>
+    [ServerCallback]
+    protected virtual void SC_OnHit()
+    {
+        if (opponentEntity == null)
+        {
+            return;
+        }
+        hitSomething = true;
+        RpcOnHit();
     }
 
     [ClientRpc]
-    private void Hit()
+    protected virtual void RpcOnHit()
     {
-        m_vfx.SendEvent("OnHit");
         hitSomething = true;
+        m_vfx.SendEvent("OnHit");
     }
 
     [ServerCallback]
-    private IEnumerator SCDestroySpellObject(GameObject obj, float lifeTime, float castTime)
+    protected virtual void SC_OnNoHit() { }
+
+    [ServerCallback]
+    protected void SC_StartDeathTimer()
+    {
+        StopCoroutine(m_deathRoutine);
+        m_shouldUpdate = false;
+        m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, 3f, 0f));
+    }
+
+    /// <summary>
+    /// A coroutine running on the server, that destroys the spell object after its lifetime has run out.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="lifeTime"></param>
+    /// <param name="castTime"></param>
+    /// <returns></returns>
+    [ServerCallback]
+    private IEnumerator SC_DestroySpellObject(GameObject obj, float lifeTime, float castTime)
     {
         yield return new WaitForSeconds(lifeTime + castTime);
         NetworkServer.Destroy(obj);
     }
 
+    /// <summary>
+    /// Responsible for setting up the casting timer.
+    /// </summary>
+    /// <param name="castTime"></param>
     private void SetCastingTimer(float castTime)
     {
         m_maxCastTimer = castTime;
@@ -104,8 +208,18 @@ public class Spell : NetworkBehaviour
         m_shouldUpdate = true;
     }
 
+    /// <summary>
+    /// Checks wether the spell is currently being cast and returns true if it is.
+    /// </summary>
+    /// <returns></returns>
     protected bool IsBeingCast()
     {
         return CurrentCastTimerNormalized < m_maxCastTimer;
     }
+
+    protected virtual void OnAwake() { }
+    protected virtual void OnStart() { }
+    protected virtual void OnSetup() { }
+    [ServerCallback] public virtual void OnServerSetup() { }
+    protected virtual void OnUpdate() { }
 }

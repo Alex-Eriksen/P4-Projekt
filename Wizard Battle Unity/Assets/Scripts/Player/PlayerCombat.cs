@@ -5,17 +5,20 @@ using UnityEngine.InputSystem;
 using Mirror;
 using UnityEditor.Experimental.GraphView;
 using System;
+using System.Linq;
 
 public class PlayerCombat : NetworkBehaviour
 {
+    private PlayerConnection m_playerConnection;
     private PlayerInput m_playerInput;
     private PlayerEntity m_playerEntity;
-    private Transform m_graphicsTransform;
+    private Transform m_graphicsTransform, m_targetPoint;
     private Spellbook m_spellbook;
     private Coroutine m_spellCastingRoutine;
     private SpellObject m_spellToCast;
     private Animator m_animator;
 
+    public Vector2 MousePosition { get { return m_mousePosition; } }
     private Vector2 m_mousePosition = Vector2.zero;
     private bool m_isCasting = false;
 
@@ -23,23 +26,22 @@ public class PlayerCombat : NetworkBehaviour
     public event ActionEvent OnCastingCanceled;
     public event Action<float> OnCastTimeChanged;
 
-    private void Awake()
+    public override void OnStartAuthority()
     {
         // Bind variables to components.
-        m_playerInput = GetComponent<PlayerInput>();
+        m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        m_playerInput = m_playerConnection.PlayerInput;
         m_playerEntity = GetComponent<PlayerEntity>();
         m_graphicsTransform = transform.GetChild(1);
+        m_targetPoint = m_graphicsTransform.Find("TargetPoint");
         m_spellbook = FindObjectOfType<Spellbook>();
         m_animator = GetComponentInChildren<Animator>();
+
+        SetInput();
     }
 
-    private void Start()
+    private void SetInput()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
         // Subscribe to input events.
         m_playerInput.actions["LeftMouse"].started += LeftMouse_Started;
         m_playerInput.actions["RightMouse"].started += RightMouse_Started;
@@ -87,7 +89,7 @@ public class PlayerCombat : NetworkBehaviour
         m_animator.SetBool("Attacking", m_isCasting);
         m_spellToCast = spell;
         m_playerEntity.OnManaDrained += PlayerEntity_OnManaDrained;
-        m_playerEntity.CmdDrainMana(spell.ManaCost);
+        m_playerEntity.Cmd_DrainMana(spell.ManaCost);
     }
 
     /// <summary>
@@ -112,7 +114,7 @@ public class PlayerCombat : NetworkBehaviour
     private IEnumerator SpellCastingRoutine(SpellObject spell)
     {
         OnCastTimeChanged?.Invoke(spell.CastTime);
-        CmdSpawnSpell(spell.PrefabPath);
+        Cmd_SpawnSpell(spell.PrefabPath);
 
         yield return new WaitForSeconds(spell.CastTime);
 
@@ -126,13 +128,14 @@ public class PlayerCombat : NetworkBehaviour
     /// </summary>
     /// <param name="spellPrefabPath"></param>
     [Command]
-    private void CmdSpawnSpell(string spellPrefabPath)
+    private void Cmd_SpawnSpell(string spellPrefabPath)
     {
         GameObject spawnedSpell = Instantiate(Resources.Load<GameObject>(spellPrefabPath));
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
         Spell spell = spawnedSpell.GetComponent<Spell>();
-        spell.SetupSpell(connectionToClient.identity, true);
+        spell.RpcSetupSpell(connectionToClient.identity.GetComponent<PlayerConnection>().wizardIdentity);
+        spell.OnServerSetup();
     }
     
     /// <summary>
@@ -180,6 +183,8 @@ public class PlayerCombat : NetworkBehaviour
     {
         m_mousePosition = obj.ReadValue<Vector2>();
         Vector3 lookPos = Camera.main.ScreenToWorldPoint(m_mousePosition);
+        m_targetPoint.position = new Vector3(lookPos.x, lookPos.y, 0f);
+
         lookPos -= m_graphicsTransform.position;
         float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg - 90f;
         m_graphicsTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

@@ -3,35 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
+using System.Linq;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    private PlayerConnection m_playerConnection;
     private PlayerInput m_playerInput;
     private Vector2 m_inputVector = Vector2.zero, m_movementVector = Vector2.zero;
     private Rigidbody2D m_rigidbody2D;
     private Animator m_animator;
     [SerializeField] private float m_speed = 100f;
 
-    private void Awake()
+    public override void OnStartAuthority()
     {
-        m_playerInput = GetComponent<PlayerInput>();
+        m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        m_playerInput = m_playerConnection.PlayerInput;
         m_rigidbody2D = GetComponent<Rigidbody2D>();
         m_animator = GetComponentInChildren<Animator>();
+
+        SetInput();
     }
 
-    private void Start()
+    private void SetInput()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
         m_playerInput.actions["Movement"].performed += Movement_Performed;
     }
 
     private void Update()
     {
-        if (!isLocalPlayer)
+        if (!hasAuthority)
         {
             return;
         }
@@ -41,6 +41,11 @@ public class PlayerMovement : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        if (!hasAuthority)
+        {
+            return;
+        }
+
         m_rigidbody2D.velocity = m_movementVector * Time.deltaTime;
     }
 
