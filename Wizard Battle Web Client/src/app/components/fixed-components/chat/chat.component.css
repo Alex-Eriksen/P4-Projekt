@@ -1,0 +1,13 @@
+
+.button-grid {
+  display: grid;
+  gap: .25em;
+  width: 300px;
+  grid-template-columns: repeat(3, 1fr);
+  height: 30px;
+}
+
+.chat-btn-container {
+  width: calc(20% - 6px);
+  height: 30px;
+}
