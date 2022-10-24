@@ -10,11 +10,10 @@ public class BurnStatus : Status
     public float damagePerTick = 1f;
     public float tickRate = 0.1f;
     public Color numberColor;
+
     private VisualEffect m_vfx;
     private PlayerEntity m_target;
     private NumberEffectData data = new NumberEffectData();
-    private PlayerConnection m_playerConnection;
-
 
     private void Awake()
     {
@@ -22,57 +21,24 @@ public class BurnStatus : Status
         m_target = GetComponentInParent<PlayerEntity>();
     }
 
-    private void Start()
+    public override void OnStartClient()
     {
         m_vfx.SetFloat("Lifetime", statusEffectData.effectLifetime);
         data.numberText = damagePerTick.ToString();
         data.numberColor = numberColor;
-    }
 
-    public override void OnStartClient()
-    {
-        StartCoroutine(GetPlayerConnectionObjectBuffer());
-    }
-
-    private IEnumerator GetPlayerConnectionObjectBuffer()
-    {
-        try
+        // TODO: Figure out a better way of doing this.
+        if(m_target == null)
         {
-            m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
-        }
-        catch
-        {
-            m_playerConnection = null;
-        }
-        yield return new WaitForEndOfFrame();
-        if (m_playerConnection == null)
-        {
-            StartCoroutine(GetPlayerConnectionObjectBuffer());
-        }
-        else
-        {
-            if (m_target == null)
-            {
-                Cmd_RequestTargetTransform(m_playerConnection.netIdentity);
-            }
+            transform.SetParent(FindObjectsOfType<NetworkIdentity>().Where(x => x.netId == opponentNetworkID).Single().transform, false);
         }
     }
 
-    [Command(requiresAuthority = false)]
-    private void Cmd_RequestTargetTransform(NetworkIdentity identity)
-    {
-        TRpc_RecieveTargetTransform(identity, m_target.transform);
-    }
-
-    [TargetRpc]
-    private void TRpc_RecieveTargetTransform(NetworkIdentity identity, Transform targetTransform)
-    {
-        transform.SetParent(targetTransform, false);
-    }
 
     public override void OnStartServer()
     {
         StartCoroutine(DamageTick());
+        opponentNetworkID = m_target.GetComponent<NetworkIdentity>().netId;
     }
 
     [ServerCallback]

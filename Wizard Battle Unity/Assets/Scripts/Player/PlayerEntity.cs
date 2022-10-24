@@ -249,7 +249,7 @@ public class PlayerEntity : NetworkBehaviour
         bool valid = (m_mana - amount) >= 0;
         if (!valid)
         {
-            Raise_CastingCanceled(ActionEventArgsFlag.NotEnoughMana);
+            Raise_CastingCanceled(ActionEventArgsFlag.NotEnoughMana, "Casting Canceled");
             return;
         }
 
@@ -269,9 +269,9 @@ public class PlayerEntity : NetworkBehaviour
     }
 
     [TargetRpc]
-    private void Raise_CastingCanceled(ActionEventArgsFlag reason)
+    private void Raise_CastingCanceled(ActionEventArgsFlag reason, string message)
     {
-        m_playerCombat.Raise_CastingCanceled(this, reason);
+        m_playerCombat.Raise_CastingCanceled(this, reason, message);
     }
     #endregion
 

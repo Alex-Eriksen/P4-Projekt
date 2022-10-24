@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
-using UnityEditor.Experimental.GraphView;
 using System;
 using System.Linq;
 
@@ -17,6 +16,7 @@ public class PlayerCombat : NetworkBehaviour
     private Coroutine m_spellCastingRoutine;
     private SpellObject m_spellToCast;
     private Animator m_animator;
+    private ActionNotificationHandler m_notificationHandler;
 
     public Vector2 MousePosition { get { return m_mousePosition; } }
     private Vector2 m_mousePosition = Vector2.zero;
@@ -36,6 +36,7 @@ public class PlayerCombat : NetworkBehaviour
         m_targetPoint = m_graphicsTransform.Find("TargetPoint");
         m_spellbook = FindObjectOfType<Spellbook>();
         m_animator = GetComponentInChildren<Animator>();
+        m_notificationHandler = ActionNotificationHandler.Instance;
 
         SetInput();
     }
@@ -150,8 +151,7 @@ public class PlayerCombat : NetworkBehaviour
         m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
         m_isCasting = false;
         m_animator.SetBool("Attacking", m_isCasting);
-        Debug.Log("Canceled Casting - Reason: " + args.Flag.ToString());
-        // TODO: Add UI for displaying the ActionEventArgsFlag. (like not enough mana)
+        m_notificationHandler.AddActionEventNotification(sender, args);
     }
 
     /// <summary>
@@ -195,8 +195,8 @@ public class PlayerCombat : NetworkBehaviour
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="reason"></param>
-    public void Raise_CastingCanceled(object sender, ActionEventArgsFlag reason)
+    public void Raise_CastingCanceled(object sender, ActionEventArgsFlag reason, string message)
     {
-        OnCastingCanceled?.Invoke(sender, new ActionEventArgs(reason));
+        OnCastingCanceled?.Invoke(sender, new ActionEventArgs(reason, message));
     }
 }
