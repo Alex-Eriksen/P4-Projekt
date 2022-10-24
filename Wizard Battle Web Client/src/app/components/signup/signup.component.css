@@ -1,0 +1,9 @@
+.background {
+  background-image: url("../../../assets/texture.jpg");
+  background-position: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}

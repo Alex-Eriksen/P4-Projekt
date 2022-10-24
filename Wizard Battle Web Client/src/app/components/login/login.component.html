@@ -1,0 +1,20 @@
+<div class="container-fluid m-0 p-0 fill">
+  <div class="offset-11 col-1 p-3"><a routerLink="/signup"><button class="btn btn-primary w-100">Signup</button></a></div>
+	<div class="position-absolute top-50 start-50 translate-middle rounded bg-white">
+    <p class="ps-2 pt-2 fs-3">Account Login</p>
+    <div class="wrapper px-5 pb-5">
+      <div class="d-flex flex-column gap-2">
+        <div class="input-group">
+          <label for="usernameInput" class="form-label mb-0">Username</label>
+          <input type="text" class="form-control w-100 rounded" [(ngModel)]="request.email">
+        </div>
+        <div class="input-group">
+          <label for="passwordInput" class="form-label mb-0">Password</label>
+          <input type="password" class="form-control w-100 rounded" [(ngModel)]="request.password">
+        </div>
+        <button class="btn btn-success shadow" type="submit" (click)="login()">Login</button>
+        <p>Don't have an account? You can create a account <a routerLink="/signup">here</a></p>
+      </div>
+    </div>
+  </div>
+</div>
