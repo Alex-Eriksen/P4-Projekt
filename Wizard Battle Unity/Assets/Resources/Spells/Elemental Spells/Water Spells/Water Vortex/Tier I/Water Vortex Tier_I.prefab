@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5796656595241983764}
-  - component: {fileID: 7856823340117923859}
   - component: {fileID: 1712988470391705675}
+  - component: {fileID: 7856823340117923859}
   - component: {fileID: 800066931951081751}
   - component: {fileID: 1705821575649255911}
   - component: {fileID: 7634780254080753951}
@@ -38,22 +38,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7856823340117923859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8424187445854008679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 620dba972d940864fb5255883910bf54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  spellData: {fileID: 11400000, guid: 7c8a9911787082d4bb7e4255087bfda5, type: 2}
-  m_vfx: {fileID: 1712988470391705675}
 --- !u!2083052967 &1712988470391705675
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -71,7 +55,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 2
+      - m_Value: 0
         m_Name: Lifetime
         m_Overridden: 1
       - m_Value: 0
@@ -100,6 +84,24 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &7856823340117923859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8424187445854008679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620dba972d940864fb5255883910bf54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  spellData: {fileID: 11400000, guid: 7c8a9911787082d4bb7e4255087bfda5, type: 2}
+  m_vfx: {fileID: 1712988470391705675}
+  m_dmgColor: {r: 0, g: 0.550797, b: 1, a: 1}
+  statusEffect: {fileID: 11400000, guid: db94a35f1d8cb694782af337a40179a3, type: 2}
 --- !u!73398921 &800066931951081751
 VFXRenderer:
   serializedVersion: 1
@@ -189,7 +191,7 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
   syncPosition: 1
-  syncRotation: 0
+  syncRotation: 1
   syncScale: 0
   showGizmos: 0
   showOverlay: 0
@@ -207,7 +209,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008661509, y: 1.4014218}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
 --- !u!50 &2029283180703856723
@@ -229,5 +231,5 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 7

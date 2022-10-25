@@ -41,11 +41,13 @@ public class Spell : NetworkBehaviour
     {
         if (!isServer || m_ownerCollider == null)
         {
+            Debug.LogError($"OnTriggerEnter2D -> Failed: Server and ownerCollider check. isServer: {isServer} - ownerCollider: {m_ownerCollider}");
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < 1f)
+        if (collision.Equals(m_ownerCollider) || IsCasting())
         {
+            Debug.LogError($"OnTriggerEnter2D -> Failed: owner collision and casting timer check. IsOwnerColliding: {collision.Equals(m_ownerCollider)} - IsCasting: {IsCasting()}");
             return;
         }
 
@@ -60,15 +62,25 @@ public class Spell : NetworkBehaviour
     {
         if (!isServer || m_ownerCollider == null)
         {
+            Debug.LogError($"OnTriggerStay2D -> Failed: Server and ownerCollider check. isServer: {isServer} - ownerCollider: {m_ownerCollider}");
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < 1f)
+        if (collision.Equals(m_ownerCollider) || IsCasting())
         {
+            Debug.LogError($"OnTriggerStay2D -> Failed: owner collision and casting timer check. IsOwnerColliding: {collision.Equals(m_ownerCollider)} - IsCasting: {IsCasting()}");
             return;
         }
 
         collision.TryGetComponent<PlayerEntity>(out opponentEntity);
+        if(opponentEntity != null)
+        {
+            Debug.LogWarning($"OnTriggerStay2D -> Success: opponentEntity check. opponentEntity != null: {opponentEntity != null}");
+        }
+        else
+        {
+            Debug.LogError($"OnTriggerStay2D -> Failed: opponentEntity check. opponentEntity == null: {opponentEntity == null}");
+        }
     }
 
     [ServerCallback]
@@ -79,7 +91,7 @@ public class Spell : NetworkBehaviour
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || CurrentCastTimerNormalized < 1f)
+        if (collision.Equals(m_ownerCollider) || IsCasting())
         {
             return;
         }
@@ -108,6 +120,10 @@ public class Spell : NetworkBehaviour
         {
             m_currentCastTimer += Time.deltaTime;
             m_vfx.SetFloat("Size", CurrentCastTimerNormalized);
+            if(m_currentCastTimer >= m_maxCastTimer)
+            {
+                OnFinishedCasting();
+            }
         }
 
         OnUpdate();
@@ -212,9 +228,9 @@ public class Spell : NetworkBehaviour
     /// Checks wether the spell is currently being cast and returns true if it is.
     /// </summary>
     /// <returns></returns>
-    protected bool IsBeingCast()
+    protected bool IsCasting()
     {
-        return CurrentCastTimerNormalized < 1f;
+        return m_currentCastTimer < m_maxCastTimer;
     }
 
     protected virtual void OnAwake() { }
@@ -222,4 +238,5 @@ public class Spell : NetworkBehaviour
     protected virtual void OnSetup() { }
     [ServerCallback] public virtual void OnServerSetup() { }
     protected virtual void OnUpdate() { }
+    protected virtual void OnFinishedCasting() { }
 }

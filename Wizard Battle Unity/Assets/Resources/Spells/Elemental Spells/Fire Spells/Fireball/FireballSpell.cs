@@ -20,7 +20,7 @@ public class FireballSpell : Spell
 
     private void FixedUpdate()
     {
-        if (IsBeingCast())
+        if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
             m_rigidbody2D.velocity = Vector2.zero;

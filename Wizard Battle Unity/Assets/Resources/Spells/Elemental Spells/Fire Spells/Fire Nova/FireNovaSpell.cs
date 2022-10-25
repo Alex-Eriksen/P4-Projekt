@@ -27,7 +27,7 @@ public class FireNovaSpell : Spell
 
     protected override void OnUpdate()
     {
-        if (m_currentExpansion < m_maxExpansion && !IsBeingCast())
+        if (m_currentExpansion < m_maxExpansion && !IsCasting())
         {
             m_currentExpansion += m_expansionRate * Time.deltaTime;
         }
@@ -37,7 +37,7 @@ public class FireNovaSpell : Spell
     private void FixedUpdate()
     {
         m_collider2D.radius = m_currentExpansion;
-        if (IsBeingCast())
+        if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
             return;
