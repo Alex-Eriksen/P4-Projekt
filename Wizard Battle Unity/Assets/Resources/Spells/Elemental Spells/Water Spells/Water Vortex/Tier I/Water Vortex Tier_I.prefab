@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5796656595241983764}
+  - component: {fileID: 7856823340117923859}
   - component: {fileID: 1712988470391705675}
   - component: {fileID: 800066931951081751}
   - component: {fileID: 1705821575649255911}
@@ -37,6 +38,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7856823340117923859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8424187445854008679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620dba972d940864fb5255883910bf54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  spellData: {fileID: 11400000, guid: 7c8a9911787082d4bb7e4255087bfda5, type: 2}
+  m_vfx: {fileID: 1712988470391705675}
 --- !u!2083052967 &1712988470391705675
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -53,7 +70,13 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 2
+        m_Name: Lifetime
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -63,7 +86,10 @@ VisualEffect:
     m_Uint:
       m_Array: []
     m_Int:
-      m_Array: []
+      m_Array:
+      - m_Value: 3
+        m_Name: SpiralArms
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:

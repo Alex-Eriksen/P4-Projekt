@@ -15,12 +15,13 @@ MonoBehaviour:
   SpellID: 3
   SpellName: Water Vortex
   Description: A water vortex is created at the target location.
-  SpellIcon: {fileID: 0}
+  SpellIcon: {fileID: 21300000, guid: 4dfeabbb938ab9d45a97225e5c22c7ec, type: 3}
   ManaCost: 12
   LifeTime: 2
   CastTime: 1
   SpellType: 0
-  PrefabPath: Spells/
+  PrefabPath: Spells/Elemental Spells/Water Spells/Water Vortex/Tier I/Water Vortex
+    Tier_I
   SpellTier: 0
   DamageAmount: 16
   DamageType: 1
