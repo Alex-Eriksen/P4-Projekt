@@ -24,18 +24,26 @@ public class WaterVortexSpell : Spell
     }
 
     [ServerCallback]
+    protected override void SC_StartDeathTimer(float delay = 3f)
+    {
+        vfx.SendEvent("OnHit");
+        base.SC_StartDeathTimer(delay);
+    }
+
+    [ServerCallback]
     protected override void SC_OnHit()
     {
+        SC_StartDeathTimer(1.5f);
         base.SC_OnHit();
-        data.numberColor = m_dmgColor;
-        data.position = targetEntities[0].transform.position;
-        data.numberText = m_castSpellData.DamageAmount.ToString();
+        foreach (var entity in targetEntities)
+        {
+            data.numberColor = m_dmgColor;
+            data.position = targetEntities[0].transform.position;
+            data.numberText = m_castSpellData.DamageAmount.ToString();
 
-        vfx.SendEvent("OnStop");
-
-        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
-        targetEntities[0].SC_DrainHealth(m_castSpellData.DamageAmount);
-        // TODO: Create water status effect.
-        // opponentEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+            GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+            entity.SC_DrainHealth(m_castSpellData.DamageAmount);
+            entity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        }
     }
 }

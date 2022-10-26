@@ -6014,7 +6014,7 @@ MonoBehaviour:
       slotIndex: 1
     - context: {fileID: 8926484042661617164}
       slotIndex: 1
-  eventName: OnStop
+  eventName: OnHit
 --- !u!114 &8926484042661617973
 MonoBehaviour:
   m_ObjectHideFlags: 0

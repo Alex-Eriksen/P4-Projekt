@@ -51,44 +51,6 @@ public class Spell : NetworkBehaviour
         OnStart();
     }
 
-    [ServerCallback]
-    private void OnTriggerEnterCallback(PlayerEntity playerEntity)
-    {
-        if (IsCasting())
-        {
-            return;
-        }
-        targetEntities.Add(playerEntity);
-        SC_OnHit();
-    }
-
-    [ServerCallback]
-    private void OnTriggerStayCallback(PlayerEntity playerEntity)
-    {
-        if (IsCasting())
-        {
-            return;
-        }
-
-        if (targetEntities.Contains(playerEntity))
-        {
-            return;
-        }
-
-        OnTriggerEnter?.Invoke(playerEntity);
-    }
-
-    [ServerCallback]
-    private void OnTriggerExitCallback(PlayerEntity playerEntity)
-    {
-        if (IsCasting())
-        {
-            return;
-        }
-        targetEntities.Remove(playerEntity);
-        SC_OnNoHit();
-    }
-
     private void OnDestroy()
     {
         StopAllCoroutines();
@@ -131,6 +93,8 @@ public class Spell : NetworkBehaviour
             m_overlappingColliders.CopyTo(m_previousFrameOverlappingColliders);
         }
     }
+
+    #region Custom Collision
 
     /// <summary>
     /// Checks the previous- and current frame colliders to see if they; Entered, Stayed, or Exited.
@@ -226,6 +190,46 @@ public class Spell : NetworkBehaviour
         }
     }
 
+    [ServerCallback]
+    private void OnTriggerEnterCallback(PlayerEntity playerEntity)
+    {
+        if (IsCasting())
+        {
+            return;
+        }
+        targetEntities.Add(playerEntity);
+        SC_OnHit();
+    }
+
+    [ServerCallback]
+    private void OnTriggerStayCallback(PlayerEntity playerEntity)
+    {
+        if (IsCasting())
+        {
+            return;
+        }
+
+        if (targetEntities.Contains(playerEntity))
+        {
+            return;
+        }
+
+        OnTriggerEnter?.Invoke(playerEntity);
+    }
+
+    [ServerCallback]
+    private void OnTriggerExitCallback(PlayerEntity playerEntity)
+    {
+        if (IsCasting())
+        {
+            return;
+        }
+        targetEntities.Remove(playerEntity);
+        SC_OnNoHit();
+    }
+
+    #endregion
+
     /// <summary>
     /// Sets up a spell when it is created.
     /// </summary>
@@ -289,11 +293,11 @@ public class Spell : NetworkBehaviour
     protected virtual void SC_OnNoHit() { }
 
     [ServerCallback]
-    protected void SC_StartDeathTimer()
+    protected virtual void SC_StartDeathTimer(float delay = 3f)
     {
         StopCoroutine(m_deathRoutine);
         m_shouldUpdate = false;
-        m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, 3f, 0f));
+        m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, delay, 0f));
     }
 
     /// <summary>

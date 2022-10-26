@@ -7,6 +7,7 @@ using System.Linq;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    public float speedMultiplier = 1f;
     private PlayerConnection m_playerConnection;
     private PlayerInput m_playerInput;
     private Vector2 m_inputVector = Vector2.zero, m_movementVector = Vector2.zero;
@@ -36,7 +37,7 @@ public class PlayerMovement : NetworkBehaviour
             return;
         }
 
-        m_movementVector = m_inputVector * m_speed;
+        m_movementVector = m_speed * speedMultiplier * m_inputVector;
     }
 
     private void FixedUpdate()
@@ -65,7 +66,6 @@ public class PlayerMovement : NetworkBehaviour
         #endregion
     }
 
-    #region May or may not use...
     //[Command]
     //private void CmdValidatePlayerMovement(Vector2 oldVelocity, Vector2 newVelocity)
     //{
@@ -77,7 +77,6 @@ public class PlayerMovement : NetworkBehaviour
     //{
 
     //}
-    #endregion
 
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.
