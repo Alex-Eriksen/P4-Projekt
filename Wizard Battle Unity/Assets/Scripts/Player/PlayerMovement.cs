@@ -15,12 +15,16 @@ public class PlayerMovement : NetworkBehaviour
     private Animator m_animator;
     [SerializeField] private float m_speed = 100f;
 
+    private void Awake()
+    {
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
+        m_animator = GetComponentInChildren<Animator>();
+    }
+
     public override void OnStartAuthority()
     {
         m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
         m_playerInput = m_playerConnection.PlayerInput;
-        m_rigidbody2D = GetComponent<Rigidbody2D>();
-        m_animator = GetComponentInChildren<Animator>();
 
         SetInput();
     }
@@ -32,17 +36,12 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        if (!hasAuthority)
-        {
-            return;
-        }
-
         m_movementVector = m_speed * speedMultiplier * m_inputVector;
     }
 
     private void FixedUpdate()
     {
-        if (!hasAuthority)
+        if (!isServer)
         {
             return;
         }
@@ -57,26 +56,22 @@ public class PlayerMovement : NetworkBehaviour
     /// <param name="context"></param>
     private void Movement_Performed(InputAction.CallbackContext context)
     {
-        m_inputVector = context.ReadValue<Vector2>();
-        m_animator.SetBool("Moving", !(m_inputVector == Vector2.zero));
-        #region May or may not use...
-        //Vector2 newMovementVector = m_inputVector * m_speed;
-        //CmdValidatePlayerMovement(m_movementVector, newMovementVector);
-        //m_movementVector = newMovementVector;
-        #endregion
+        SendMovementInput(context.ReadValue<Vector2>());
     }
 
-    //[Command]
-    //private void CmdValidatePlayerMovement(Vector2 oldVelocity, Vector2 newVelocity)
-    //{
+    [Command]
+    private void SendMovementInput(Vector2 inputVector)
+    {
+        m_inputVector = inputVector;
+        RecieveMovementInput(m_inputVector);
+    }
 
-    //}
-
-    //[ClientRpc]
-    //private void RpcPlayerPositionReset(Vector2 newVelocity)
-    //{
-
-    //}
+    [TargetRpc]
+    private void RecieveMovementInput(Vector2 inputVector)
+    {
+        m_inputVector = inputVector;
+        m_animator.SetBool("Moving", !(m_inputVector == Vector2.zero));
+    }
 
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.
