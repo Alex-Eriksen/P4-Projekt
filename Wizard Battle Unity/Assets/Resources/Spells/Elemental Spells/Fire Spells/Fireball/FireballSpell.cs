@@ -6,7 +6,7 @@ using Mirror;
 public class FireballSpell : Spell
 {
     [SerializeField] private Color m_dmgColor;
-    [SerializeField] private float m_speed = 10f;
+    [SerializeField] private float m_speed = 10f, m_pushForce = 1f;
     [SerializeField] private StatusEffectObject statusEffect;
     private Rigidbody2D m_rigidbody2D;
     private Transform m_transform;
@@ -51,5 +51,6 @@ public class FireballSpell : Spell
         GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
         targetEntities[0].SC_DrainHealth(dmg);
         targetEntities[0].SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        targetEntities[0].GetComponent<Rigidbody2D>().AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse);
     }
 }
