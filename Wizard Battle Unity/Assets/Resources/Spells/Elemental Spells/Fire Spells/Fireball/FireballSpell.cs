@@ -18,6 +18,21 @@ public class FireballSpell : Spell
         m_transform = transform;
     }
 
+    public override void OnServerSetup()
+    {
+        OnTriggerEnter += OnTriggerEnterCallback;
+    }
+
+    private void OnTriggerEnterCallback(PlayerEntity obj)
+    {
+        if (IsCasting())
+        {
+            return;
+        }
+
+        SC_OnHit();
+    }
+
     protected override void OnFixedUpdate()
     {
         if (IsCasting())

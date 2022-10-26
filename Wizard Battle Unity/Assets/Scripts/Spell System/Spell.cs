@@ -30,8 +30,6 @@ public class Spell : NetworkBehaviour
     private float m_currentCastTimer = 0f;
     private float m_maxCastTimer = 0f;
     
-    private bool m_shouldUpdate = false;
-
     private void Awake()
     {
         spellCollider = GetComponent<Collider2D>();
@@ -43,9 +41,6 @@ public class Spell : NetworkBehaviour
         if (isServer)
         {
             m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, spellData.LifeTime, spellData.CastTime));
-            OnTriggerEnter += OnTriggerEnterCallback;
-            OnTriggerStay += OnTriggerStayCallback;
-            OnTriggerExit += OnTriggerExitCallback;
         }
 
         OnStart();
@@ -54,16 +49,10 @@ public class Spell : NetworkBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
-        m_shouldUpdate = false;
     }
 
     private void Update()
     {
-        if (!m_shouldUpdate)
-        {
-            return;
-        }
-
         if (m_currentCastTimer < m_maxCastTimer)
         {
             m_currentCastTimer += Time.deltaTime;
@@ -148,7 +137,7 @@ public class Spell : NetworkBehaviour
             // We can then check if it contains a player entity and if it does we can raise the OnTriggerExit event.
             if (m_previousFrameOverlappingColliders[i].TryGetComponent<PlayerEntity>(out playerEntity))
             {
-                OnTriggerExit?.Invoke(playerEntity);
+                Raise_OnTriggerExit(playerEntity);
                 continue;
             }
         }
@@ -180,52 +169,43 @@ public class Spell : NetworkBehaviour
             // we can raise the OnTriggerStay event, since it persisted through frames.
             if (m_previousFrameOverlappingColliders.Contains(m_overlappingColliders[i]))
             {
-                OnTriggerStay?.Invoke(playerEntity);
+                Raise_OnTriggerStay(playerEntity);
                 continue;
             }
 
             // If we make it to this point it means its a new collider that we haven't seen yet
             // so we can raise the OnTriggerEnter event announcing the arrival of a new player entity.
-            OnTriggerEnter?.Invoke(playerEntity);
+            Raise_OnTriggerEnter(playerEntity);
         }
     }
 
     [ServerCallback]
-    private void OnTriggerEnterCallback(PlayerEntity playerEntity)
+    private void Raise_OnTriggerEnter(PlayerEntity playerEntity)
     {
-        if (IsCasting())
-        {
-            return;
-        }
         targetEntities.Add(playerEntity);
-        SC_OnHit();
-    }
-
-    [ServerCallback]
-    private void OnTriggerStayCallback(PlayerEntity playerEntity)
-    {
-        if (IsCasting())
-        {
-            return;
-        }
-
-        if (targetEntities.Contains(playerEntity))
-        {
-            return;
-        }
 
         OnTriggerEnter?.Invoke(playerEntity);
     }
 
     [ServerCallback]
-    private void OnTriggerExitCallback(PlayerEntity playerEntity)
+    private void Raise_OnTriggerStay(PlayerEntity playerEntity)
     {
-        if (IsCasting())
+        if (targetEntities.Contains(playerEntity))
         {
             return;
         }
+
+        targetEntities.Add(playerEntity);
+
+        OnTriggerStay?.Invoke(playerEntity);
+    }
+
+    [ServerCallback]
+    private void Raise_OnTriggerExit(PlayerEntity playerEntity)
+    {
         targetEntities.Remove(playerEntity);
-        SC_OnNoHit();
+
+        OnTriggerExit?.Invoke(playerEntity);
     }
 
     #endregion
@@ -274,10 +254,6 @@ public class Spell : NetworkBehaviour
     [ServerCallback]
     protected virtual void SC_OnHit()
     {
-        if (targetEntities.Count == 0)
-        {
-            return;
-        }
         hitSomething = true;
         RpcOnHit();
     }
@@ -296,7 +272,6 @@ public class Spell : NetworkBehaviour
     protected virtual void SC_StartDeathTimer(float delay = 3f)
     {
         StopCoroutine(m_deathRoutine);
-        m_shouldUpdate = false;
         m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, delay, 0f));
     }
 
@@ -322,7 +297,6 @@ public class Spell : NetworkBehaviour
     {
         m_maxCastTimer = castTime;
         m_currentCastTimer = 0f;
-        m_shouldUpdate = true;
     }
 
     /// <summary>

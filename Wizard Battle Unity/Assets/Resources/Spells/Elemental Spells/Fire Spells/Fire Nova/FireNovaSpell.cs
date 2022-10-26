@@ -19,6 +19,25 @@ public class FireNovaSpell : Spell
         m_expansionRate = m_maxExpansion / spellData.LifeTime + spellData.CastTime;
     }
 
+    protected override void OnStart()
+    {
+        if (!isServer)
+        {
+            return;
+        }
+        OnTriggerEnter += OnTriggerEnterCallback;
+    }
+
+    private void OnTriggerEnterCallback(PlayerEntity obj)
+    {
+        if (IsCasting())
+        {
+            return;
+        }
+
+        SC_OnHit();
+    }
+
     protected override void OnAwake()
     {
         m_transform = transform;
@@ -49,15 +68,13 @@ public class FireNovaSpell : Spell
     {
         base.SC_OnHit();
         float dmg = ((ElementalSpellObject)spellData).DamageAmount;
-        foreach(var playerEntity in targetEntities)
-        {
-            data.numberText = dmg.ToString();
-            data.numberColor = m_dmgColor;
-            data.position = playerEntity.transform.position;
+        data.numberText = dmg.ToString();
+        data.numberColor = m_dmgColor;
+        PlayerEntity target = targetEntities[targetEntities.Count - 1];
+        data.position = target.transform.position;
 
-            GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
-            playerEntity.SC_DrainHealth(dmg);
-            playerEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
-        }
+        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+        target.SC_DrainHealth(dmg);
+        target.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
     }
 }

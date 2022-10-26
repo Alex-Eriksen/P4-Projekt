@@ -24,11 +24,13 @@ public class WaterVortexSpell : Spell
         m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
     }
 
-    [ServerCallback]
-    protected override void SC_StartDeathTimer(float delay = 3f)
+    protected override void OnFinishedCasting()
     {
-        vfx.SendEvent("OnHit");
-        base.SC_StartDeathTimer(delay);
+        if (!isServer)
+        {
+            return;
+        }
+        SC_OnHit();
     }
 
     [ServerCallback]
