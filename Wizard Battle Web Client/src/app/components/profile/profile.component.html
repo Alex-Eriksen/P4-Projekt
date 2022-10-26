@@ -1,3 +1,11 @@
 <div class="container-fluid h-100 px-3">
-    <div class="bg-danger h-100 border border-2">This is home container</div>
+    <div class="bg-danger h-100 border border-2">
+      <div *ngFor="let DirectPlayerResponse of Players">
+        <p>{{DirectPlayerResponse.playerName}}</p>
+        <p>{{DirectPlayerResponse.experiencePoints}}</p>
+        <p>{{DirectPlayerResponse.maxHealth}}</p>
+        <p>{{DirectPlayerResponse.maxMana}}</p>
+        <p>{{DirectPlayerResponse.knowledgePoints}}</p>
+        <p>{{DirectPlayerResponse.timeCapsules}}</p>
+      </div>
   </div>
