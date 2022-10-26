@@ -33,4 +33,12 @@ public class SlowStatus : Status
         opponentNetworkID = m_target.GetComponent<NetworkIdentity>().netId;
         m_target.speedMultiplier -= m_slowPercent / 100f;
     }
+
+    private void OnDestroy()
+    {
+        if (isServer)
+        {
+            m_target.speedMultiplier += m_slowPercent / 100f;
+        }
+    }
 }

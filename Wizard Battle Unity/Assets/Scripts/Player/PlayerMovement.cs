@@ -7,7 +7,7 @@ using System.Linq;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    public float speedMultiplier = 1f;
+    [SyncVar] public float speedMultiplier = 1f;
     private PlayerConnection m_playerConnection;
     private PlayerInput m_playerInput;
     private Vector2 m_inputVector = Vector2.zero, m_movementVector = Vector2.zero;
