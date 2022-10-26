@@ -116,6 +116,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_dmgColor: {r: 0, g: 0.550797, b: 1, a: 1}
   statusEffect: {fileID: 11400000, guid: dbc3d964f02d3b04a9093c4ad73d8b7a, type: 2}
+  m_pullForce: 5
 --- !u!73398921 &800066931951081751
 VFXRenderer:
   serializedVersion: 1

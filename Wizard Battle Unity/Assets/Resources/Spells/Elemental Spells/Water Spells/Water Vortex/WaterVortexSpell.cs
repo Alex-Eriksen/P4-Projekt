@@ -7,6 +7,7 @@ public class WaterVortexSpell : Spell
 {
     [SerializeField] private Color m_dmgColor;
     [SerializeField] private StatusEffectObject statusEffect;
+    [SerializeField] private float m_pullForce = 1f;
     private ElementalSpellObject m_castSpellData;
     private Transform m_transform;
     private NumberEffectData data;
@@ -44,6 +45,8 @@ public class WaterVortexSpell : Spell
             GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
             entity.SC_DrainHealth(m_castSpellData.DamageAmount);
             entity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+            Vector2 force = new Vector2(m_transform.position.x, m_transform.position.y) - (Vector2)entity.transform.position;
+            entity.GetComponent<Rigidbody2D>().AddForceAtPosition(force * m_pullForce, m_transform.position, ForceMode2D.Impulse);
         }
     }
 }
