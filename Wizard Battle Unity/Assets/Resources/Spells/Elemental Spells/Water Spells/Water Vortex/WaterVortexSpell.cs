@@ -39,7 +39,7 @@ public class WaterVortexSpell : Spell
         foreach (var entity in targetEntities)
         {
             data.numberColor = m_dmgColor;
-            data.position = targetEntities[0].transform.position;
+            data.position = entity.transform.position;
             data.numberText = m_castSpellData.DamageAmount.ToString();
 
             GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
