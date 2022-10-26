@@ -26,10 +26,12 @@ public class FirewallSpell : Spell
         m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
     }
 
-    [ServerCallback]
-    public override void OnServerSetup()
+    protected override void OnFinishedCasting()
     {
-        base.OnServerSetup();
+        if (!isServer)
+        {
+            return;
+        }
         StartCoroutine(SC_DamageTick());
     }
 
@@ -37,15 +39,15 @@ public class FirewallSpell : Spell
     private IEnumerator SC_DamageTick()
     {
         yield return new WaitForSeconds(m_tickRate);
-        if(opponentEntity != null)
+        foreach (var playerEntity in targetEntities)
         {
             data.numberText = m_damagePerTick.ToString();
             data.numberColor = m_dmgColor;
-            data.position = opponentEntity.transform.position;
+            data.position = playerEntity.transform.position;
 
             GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
-            opponentEntity.SC_DrainHealth(m_damagePerTick);
-            opponentEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+            playerEntity.SC_DrainHealth(m_damagePerTick);
+            playerEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
         }
         StartCoroutine(SC_DamageTick());
     }

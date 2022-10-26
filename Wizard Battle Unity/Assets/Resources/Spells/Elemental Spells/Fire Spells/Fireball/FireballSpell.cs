@@ -18,7 +18,7 @@ public class FireballSpell : Spell
         m_transform = transform;
     }
 
-    private void FixedUpdate()
+    protected override void OnFixedUpdate()
     {
         if (IsCasting())
         {
@@ -27,7 +27,7 @@ public class FireballSpell : Spell
             return;
         }
 
-        if (opponentEntity != null || hitSomething)
+        if (targetEntities.Count > 0|| hitSomething)
         {
             m_rigidbody2D.velocity = Vector2.zero;
             return;
@@ -39,16 +39,17 @@ public class FireballSpell : Spell
     [ServerCallback]
     protected override void SC_OnHit()
     {
+        spellCollider.enabled = false;
         SC_StartDeathTimer();
         base.SC_OnHit();
         float dmg = ((ElementalSpellObject)spellData).DamageAmount;
 
         data.numberText = dmg.ToString();
         data.numberColor = m_dmgColor;
-        data.position = opponentEntity.transform.position;
+        data.position = targetEntities[0].transform.position;
 
         GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
-        opponentEntity.SC_DrainHealth(dmg);
-        opponentEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        targetEntities[0].SC_DrainHealth(dmg);
+        targetEntities[0].SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
     }
 }

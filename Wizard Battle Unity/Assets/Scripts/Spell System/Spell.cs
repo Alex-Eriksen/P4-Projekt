@@ -3,26 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.VFX;
+using System;
 
 public class Spell : NetworkBehaviour
 {
+    /// <summary>
+    /// Get the spells current cast timer progress normalized between 0 to 1.
+    /// </summary>
+    public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
+    public event Action<PlayerEntity> OnTriggerEnter;
+    public event Action<PlayerEntity> OnTriggerStay;
+    public event Action<PlayerEntity> OnTriggerExit;
+
     [SerializeField] protected SpellObject spellData = null;
-    [SerializeField] protected VisualEffect m_vfx;
-    private Collider2D m_ownerCollider;
+    [SerializeField] protected VisualEffect vfx;
+    [SerializeField] protected ContactFilter2D contactFilter;
+    protected List<PlayerEntity> targetEntities = new List<PlayerEntity>();
+    protected Collider2D ownerCollider, spellCollider;
+    protected Transform initialTargetTransform;
+    protected bool hitSomething = false;
+
+    private readonly List<Collider2D> m_overlappingColliders = new List<Collider2D>();
+    private readonly List<Collider2D> m_previousFrameOverlappingColliders = new List<Collider2D>();
     private Coroutine m_deathRoutine;
     
-    public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
     private float m_currentCastTimer = 0f;
     private float m_maxCastTimer = 0f;
     
     private bool m_shouldUpdate = false;
 
-    protected Transform initialTargetTransform;
-    protected PlayerEntity opponentEntity;
-    protected bool hitSomething = false;
-
     private void Awake()
     {
+        spellCollider = GetComponent<Collider2D>();
         OnAwake();
     }
 
@@ -31,76 +43,50 @@ public class Spell : NetworkBehaviour
         if (isServer)
         {
             m_deathRoutine = StartCoroutine(SC_DestroySpellObject(gameObject, spellData.LifeTime, spellData.CastTime));
+            OnTriggerEnter += OnTriggerEnterCallback;
+            OnTriggerStay += OnTriggerStayCallback;
+            OnTriggerExit += OnTriggerExitCallback;
         }
 
         OnStart();
     }
 
     [ServerCallback]
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnterCallback(PlayerEntity playerEntity)
     {
-        if (!isServer || m_ownerCollider == null)
+        if (IsCasting())
         {
-            Debug.LogError($"OnTriggerEnter2D -> Failed: Server and ownerCollider check. isServer: {isServer} - ownerCollider: {m_ownerCollider}");
             return;
         }
-
-        if (collision.Equals(m_ownerCollider) || IsCasting())
-        {
-            Debug.LogError($"OnTriggerEnter2D -> Failed: owner collision and casting timer check. IsOwnerColliding: {collision.Equals(m_ownerCollider)} - IsCasting: {IsCasting()}");
-            return;
-        }
-
-        if (collision.TryGetComponent<PlayerEntity>(out opponentEntity))
-        {
-            SC_OnHit();
-        }
+        targetEntities.Add(playerEntity);
+        SC_OnHit();
     }
 
     [ServerCallback]
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStayCallback(PlayerEntity playerEntity)
     {
-        if (!isServer || m_ownerCollider == null)
+        if (IsCasting())
         {
-            Debug.LogError($"OnTriggerStay2D -> Failed: Server and ownerCollider check. isServer: {isServer} - ownerCollider: {m_ownerCollider}");
             return;
         }
 
-        if (collision.Equals(m_ownerCollider) || IsCasting())
+        if (targetEntities.Contains(playerEntity))
         {
-            Debug.LogError($"OnTriggerStay2D -> Failed: owner collision and casting timer check. IsOwnerColliding: {collision.Equals(m_ownerCollider)} - IsCasting: {IsCasting()}");
             return;
         }
 
-        collision.TryGetComponent<PlayerEntity>(out opponentEntity);
-        if(opponentEntity != null)
-        {
-            Debug.LogWarning($"OnTriggerStay2D -> Success: opponentEntity check. opponentEntity != null: {opponentEntity != null}");
-        }
-        else
-        {
-            Debug.LogError($"OnTriggerStay2D -> Failed: opponentEntity check. opponentEntity == null: {opponentEntity == null}");
-        }
+        OnTriggerEnter?.Invoke(playerEntity);
     }
 
     [ServerCallback]
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExitCallback(PlayerEntity playerEntity)
     {
-        if (!isServer || m_ownerCollider == null)
+        if (IsCasting())
         {
             return;
         }
-
-        if (collision.Equals(m_ownerCollider) || IsCasting())
-        {
-            return;
-        }
-
-        if (collision.TryGetComponent<PlayerEntity>(out _))
-        {
-            opponentEntity = null;
-            SC_OnNoHit();
-        }
+        targetEntities.Remove(playerEntity);
+        SC_OnNoHit();
     }
 
     private void OnDestroy()
@@ -119,7 +105,7 @@ public class Spell : NetworkBehaviour
         if (m_currentCastTimer < m_maxCastTimer)
         {
             m_currentCastTimer += Time.deltaTime;
-            m_vfx.SetFloat("Size", CurrentCastTimerNormalized);
+            vfx.SetFloat("Size", CurrentCastTimerNormalized);
             if(m_currentCastTimer >= m_maxCastTimer)
             {
                 OnFinishedCasting();
@@ -127,6 +113,117 @@ public class Spell : NetworkBehaviour
         }
 
         OnUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isServer)
+        {
+            spellCollider.OverlapCollider(contactFilter, m_overlappingColliders);
+            CheckOverlappingColliders();
+        }
+
+        OnFixedUpdate();
+
+        if (isServer)
+        {
+            m_previousFrameOverlappingColliders.Clear();
+            m_overlappingColliders.CopyTo(m_previousFrameOverlappingColliders);
+        }
+    }
+
+    /// <summary>
+    /// Checks the previous- and current frame colliders to see if they; Entered, Stayed, or Exited.
+    /// This is called every physics update.
+    /// <para>-> <see cref="OnTriggerEnter"/> when a new collider enters this collider.</para>
+    /// <para>-> <see cref="OnTriggerStay"/> when a collider was in the previous frame and this frame.</para>
+    /// <para>-> <see cref="OnTriggerExit"/> when a collider was in the previous frame but not in this frame.</para>
+    /// </summary>
+    [ServerCallback]
+    private void CheckOverlappingColliders()
+    {
+        // No reason to run the method if the current- and previous frame collider lists both don't contain any elements.
+        if(m_overlappingColliders.Count == 0 && m_previousFrameOverlappingColliders.Count == 0)
+        {
+            return;
+        }
+
+        // Return the method if our own collider isnt set (This shouldn't happen, but you never know).
+        if (ownerCollider == null)
+        {
+            Debug.LogError($"Spell::CheckOverlappingColliders() -> Failed: m_ownerCollider is NULL");
+            return;
+        }
+
+        PlayerEntity playerEntity;
+
+        // TODO(idea): Events for -Enter, -Stay, and OnTriggerExit that contains colliders.
+        // Loop through the previous frame colliders and check whether they are missing this frame.
+        // If they aren't and it has a PlayerEntity component we can raise the OnTriggerExit event.
+        for (int i = 0; i < m_previousFrameOverlappingColliders.Count; i++)
+        {
+            if(m_previousFrameOverlappingColliders[i] == null)
+            {
+                continue;
+            }
+
+            // Continue the loop if the collider is our own.
+            if (m_previousFrameOverlappingColliders[i].Equals(ownerCollider))
+            {
+                continue;
+            }
+
+            // Check if the current overlapping colliders contains the previous frame collider.
+            // If it does continue the loop, no need to act further on it.
+            if (m_overlappingColliders.Contains(m_previousFrameOverlappingColliders[i]))
+            {
+                continue;
+            }
+
+            // If the current overlapping colliders does NOT contain the previous frame collider.
+            // We can then check if it contains a player entity and if it does we can raise the OnTriggerExit event.
+            if (m_previousFrameOverlappingColliders[i].TryGetComponent<PlayerEntity>(out playerEntity))
+            {
+                OnTriggerExit?.Invoke(playerEntity);
+                continue;
+            }
+        }
+
+        // TODO(idea): Events for -Enter, -Stay, and OnTriggerExit that contains colliders.
+        // Loop through the current frame colliders and check if they stayed from last frame or if they are new.
+        // Either way we check if it has a player entity component and if it stayed we invoke the OnTriggerStay event,
+        // if its new we raise the OnTriggerEnter event.
+        for (int i = 0; i < m_overlappingColliders.Count; i++)
+        {
+            if(m_overlappingColliders[i] == null)
+            {
+                continue;
+            }
+
+            // Check if the current frame collider is our own, continue if it is.
+            if (m_overlappingColliders[i].Equals(ownerCollider))
+            {
+                continue;
+            }
+
+            // If the current frame collider doesnt NOT contain a player entity component continue the loop.
+            if (!m_overlappingColliders[i].TryGetComponent<PlayerEntity>(out playerEntity))
+            {
+                continue;
+            }
+
+            // If the current frame collider was present in the previous frame colliders
+            // we can raise the OnTriggerStay event, since it persisted through frames.
+            if (m_previousFrameOverlappingColliders.Contains(m_overlappingColliders[i]))
+            {
+                OnTriggerStay?.Invoke(playerEntity);
+                continue;
+            }
+
+            // If we make it to this point it means its a new collider that we haven't seen yet
+            // so we can raise the OnTriggerEnter event announcing the arrival of a new player entity.
+            OnTriggerEnter?.Invoke(playerEntity);
+        }
     }
 
     /// <summary>
@@ -137,7 +234,7 @@ public class Spell : NetworkBehaviour
     [ClientRpc]
     public void RpcSetupSpell(NetworkIdentity identity)
     {
-        m_ownerCollider = identity.GetComponent<Collider2D>();
+        ownerCollider = identity.GetComponent<Collider2D>();
 
         if(spellData.SpellType == SpellType.Offensive)
         {
@@ -162,7 +259,7 @@ public class Spell : NetworkBehaviour
         }
 
         SetCastingTimer(spellData.CastTime);
-        m_vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
+        vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
 
         OnSetup();
     }
@@ -173,7 +270,7 @@ public class Spell : NetworkBehaviour
     [ServerCallback]
     protected virtual void SC_OnHit()
     {
-        if (opponentEntity == null)
+        if (targetEntities.Count == 0)
         {
             return;
         }
@@ -185,7 +282,7 @@ public class Spell : NetworkBehaviour
     protected virtual void RpcOnHit()
     {
         hitSomething = true;
-        m_vfx.SendEvent("OnHit");
+        vfx.SendEvent("OnHit");
     }
 
     [ServerCallback]
@@ -238,5 +335,6 @@ public class Spell : NetworkBehaviour
     protected virtual void OnSetup() { }
     [ServerCallback] public virtual void OnServerSetup() { }
     protected virtual void OnUpdate() { }
+    protected virtual void OnFixedUpdate() { }
     protected virtual void OnFinishedCasting() { }
 }

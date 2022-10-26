@@ -31,10 +31,10 @@ public class FireNovaSpell : Spell
         {
             m_currentExpansion += m_expansionRate * Time.deltaTime;
         }
-        m_vfx.SetFloat("RingSize", m_currentExpansion);
+        vfx.SetFloat("RingSize", m_currentExpansion);
     }
 
-    private void FixedUpdate()
+    protected override void OnFixedUpdate()
     {
         m_collider2D.radius = m_currentExpansion;
         if (IsCasting())
@@ -49,13 +49,15 @@ public class FireNovaSpell : Spell
     {
         base.SC_OnHit();
         float dmg = ((ElementalSpellObject)spellData).DamageAmount;
+        foreach(var playerEntity in targetEntities)
+        {
+            data.numberText = dmg.ToString();
+            data.numberColor = m_dmgColor;
+            data.position = playerEntity.transform.position;
 
-        data.numberText = dmg.ToString();
-        data.numberColor = m_dmgColor;
-        data.position = opponentEntity.transform.position;
-
-        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
-        opponentEntity.SC_DrainHealth(dmg);
-        opponentEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+            GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+            playerEntity.SC_DrainHealth(dmg);
+            playerEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        }
     }
 }
