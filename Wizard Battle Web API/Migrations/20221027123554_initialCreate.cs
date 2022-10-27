@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Wizard_Battle_Web_API.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,6 +34,8 @@ namespace Wizard_Battle_Web_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountID = table.Column<int>(type: "int", nullable: false),
                     PlayerName = table.Column<string>(type: "nvarchar(32)", nullable: true),
+                    PlayerImage = table.Column<string>(type: "nvarchar(32)", nullable: true),
+                    PlayerStatus = table.Column<string>(type: "nvarchar(32)", nullable: true),
                     ExperiencePoints = table.Column<long>(type: "bigint", nullable: false),
                     MaxHealth = table.Column<double>(type: "float", nullable: false),
                     MaxMana = table.Column<double>(type: "float", nullable: false),
@@ -77,15 +79,78 @@ namespace Wizard_Battle_Web_API.Migrations
                         principalColumn: "AccountID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Friendship",
+                columns: table => new
+                {
+                    MainPlayerID = table.Column<int>(type: "int", nullable: false),
+                    FriendPlayerID = table.Column<int>(type: "int", nullable: false),
+                    Created_At = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
+                    IsPending = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Friendship", x => new { x.MainPlayerID, x.FriendPlayerID });
+                    table.ForeignKey(
+                        name: "FK_Friendship_Player_FriendPlayerID",
+                        column: x => x.FriendPlayerID,
+                        principalTable: "Player",
+                        principalColumn: "PlayerID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Friendship_Player_MainPlayerID",
+                        column: x => x.MainPlayerID,
+                        principalTable: "Player",
+                        principalColumn: "PlayerID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Message",
+                columns: table => new
+                {
+                    SenderID = table.Column<int>(type: "int", nullable: false),
+                    ReceiverID = table.Column<int>(type: "int", nullable: false),
+                    MessageID = table.Column<int>(type: "int", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    Created_At = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Message", x => new { x.SenderID, x.ReceiverID });
+                    table.ForeignKey(
+                        name: "FK_Message_Player_ReceiverID",
+                        column: x => x.ReceiverID,
+                        principalTable: "Player",
+                        principalColumn: "PlayerID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Message_Player_SenderID",
+                        column: x => x.SenderID,
+                        principalTable: "Player",
+                        principalColumn: "PlayerID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
-                values: new object[] { 1, "test@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$qLvVRPsTsxKdFEpmZcD4feEsMao7y0MNdXln.1X5IplB83SC6JH/2" });
+                values: new object[] { 1, "test@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$iRuM/fMkLlZSPj9tKo4D1OYxitvmWyOLCZ9lsrL5zw7.fgk.OpPw6" });
+
+            migrationBuilder.InsertData(
+                table: "Account",
+                columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
+                values: new object[] { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$UgOhCS6eT4w9PR6Q3tnO7OMlox3LjXVwJ5gnyOK/qz0WVX7h9Rix2" });
 
             migrationBuilder.InsertData(
                 table: "Player",
-                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "TimeCapsules" },
-                values: new object[] { 1, 1, 167L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", 10L });
+                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerImage", "PlayerName", "PlayerStatus", "TimeCapsules" },
+                values: new object[] { 1, 1, 167L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "NickTheG", "Online", 10L });
+
+            migrationBuilder.InsertData(
+                table: "Player",
+                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerImage", "PlayerName", "PlayerStatus", "TimeCapsules" },
+                values: new object[] { 2, 2, 138L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "AlexTheG", "Away", 10L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_Email",
@@ -93,6 +158,16 @@ namespace Wizard_Battle_Web_API.Migrations
                 column: "Email",
                 unique: true,
                 filter: "[Email] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Friendship_FriendPlayerID",
+                table: "Friendship",
+                column: "FriendPlayerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Message_ReceiverID",
+                table: "Message",
+                column: "ReceiverID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Player_AccountID",
@@ -116,10 +191,16 @@ namespace Wizard_Battle_Web_API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Player");
+                name: "Friendship");
+
+            migrationBuilder.DropTable(
+                name: "Message");
 
             migrationBuilder.DropTable(
                 name: "RefreshToken");
+
+            migrationBuilder.DropTable(
+                name: "Player");
 
             migrationBuilder.DropTable(
                 name: "Account");

@@ -5,6 +5,8 @@ import { PlayerService } from 'src/app/services/player.service';
 import { DirectPlayerResponse } from 'src/app/_models/Player';
 import { PlayerChat } from './player';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ChatService } from 'src/app/services/chat.service';
+import { StaticFriendshipResponse } from 'src/app/_models/Friendship';
 
 @Component({
   selector: 'chat',
@@ -19,40 +21,17 @@ export class ChatComponent implements OnInit {
   chatTab: string = 'chat';
   private playerId: number = 0;
   playerName: string = "";
-  players: PlayerChat[] = []
-  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService) { }
+  friendships: StaticFriendshipResponse[] = [];
+  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.authenticationService.OnTokenChanged.subscribe(x =>
       {
         this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
         this.playerService.getById(this.playerId).subscribe(data => this.playerName = data.playerName)
+        this.chatService.GetAll(this.playerId).subscribe(data => this.friendships = data);
       })
-
-      this.players.push({
-        playerName: "Alex",
-        playerSrc: "../../../../assets/alex.png",
-        playerStatus: "Away"
-      });
-
-      this.players.push({
-        playerName: "Nick",
-        playerSrc: "../../../../assets/alex.png",
-        playerStatus: "Online"
-      });
-
-      for(let i = 0; i < 50; i++) {
-        this.players.push({
-          playerName: `friend${i}`,
-          playerSrc: "../../../../assets/alex.png",
-          playerStatus: "Offline"
-        });
     }
-  }
-
-  addPlayer(playerName: string) {
-    console.log(playerName + " has been added to lobby");
-  }
 
   toggleChat(newChatTab?: string) {
     if(newChatTab == null) { // Close tab

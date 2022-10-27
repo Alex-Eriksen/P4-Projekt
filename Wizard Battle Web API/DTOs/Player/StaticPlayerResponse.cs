@@ -6,6 +6,10 @@
 
 		public string PlayerName { get; set; } = string.Empty;
 
+		public string PlayerImage { get; set; }
+
+		public string PlayerStatus { get; set; } = string.Empty;
+
 		public uint ExperiencePoints { get; set; } = 0;
 
 		public double MaxHealth { get; set; } = 0;
@@ -15,5 +19,6 @@
 		public uint KnowledgePoints { get; set; } = 0;
 
 		public uint TimeCapsules { get; set; } = 0;
+
 	}
 }

@@ -18,6 +18,7 @@ import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     LoginComponent,
     SignupComponent,
     SpellbookComponent,
-    ChatComponent
+    ChatComponent,
+    ChatBoxComponent
   ],
   imports: [
     BrowserModule,

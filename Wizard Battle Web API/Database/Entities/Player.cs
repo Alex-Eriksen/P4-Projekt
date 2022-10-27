@@ -12,6 +12,12 @@
 		[Column(TypeName = "nvarchar(32)")]
 		public string PlayerName { get; set; }
 
+		[Column(TypeName = "nvarchar(32)")]
+		public string PlayerImage { get; set; }
+
+		[Column(TypeName = "nvarchar(32)")]
+		public string PlayerStatus { get; set; }
+
 		public uint ExperiencePoints { get; set; }
 
 		[Column(TypeName = "float")]
@@ -26,5 +32,12 @@
 
 		[Column(TypeName = "datetime2")]
 		public DateTime Modified_At { get; set; }
+		
+		public virtual ICollection<Friendship> MainPlayerFriends { get; set; }
+
+		public virtual ICollection<Friendship> Friends { get; set; }
+
+		public virtual ICollection<Message> Messages { get; set; }
+		public virtual ICollection<Message> FriendMessages { get; set; }
 	}
 }
