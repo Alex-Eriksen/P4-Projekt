@@ -9,6 +9,18 @@ public class WizardNetworkManager : NetworkManager
     [Header("Gameplay Prefabs")]
     [SerializeField] private GameObject m_wizardPlayerPrefab;
 
+    public static float VelocityThreshold { get; private set; }
+    [SerializeField] private float m_velocityThreshold;
+    public static float PositionThreshold { get; private set; }
+    [SerializeField] private float m_positionThreshold;
+
+    public override void Awake()
+    {
+        base.Awake();
+        VelocityThreshold = m_velocityThreshold;
+        PositionThreshold = m_positionThreshold;
+    }
+
     //// Called when the server is turned on.
     //public override void OnStartServer()
     //{

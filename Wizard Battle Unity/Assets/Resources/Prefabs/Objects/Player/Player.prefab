@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 2571374289558284868}
   - component: {fileID: 751005970879742327}
   - component: {fileID: 6361119205874249930}
+  - component: {fileID: 8760034898287179866}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -204,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendRate: 60
   bufferTimeMultiplier: 2
   bufferSizeLimit: 64
@@ -319,6 +320,28 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 8111240854900246586}
+--- !u!114 &8760034898287179866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346366773692684749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 822937902773938258}
+  clientAuthority: 1
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 0
+  clearAngularVelocity: 1
+  angularVelocitySensitivity: 0.1
 --- !u!1 &3657621433126952096
 GameObject:
   m_ObjectHideFlags: 0
