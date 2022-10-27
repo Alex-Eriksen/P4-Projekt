@@ -21,17 +21,37 @@ public class WizardNetworkManager : NetworkManager
         PositionThreshold = m_positionThreshold;
     }
 
-    //// Called when the server is turned on.
-    //public override void OnStartServer()
-    //{
-    //    Debug.LogWarning("Server started..");
-    //}
+    /// <summary>
+    /// <para>Sets either the velocity- or position threshold.</para>
+    /// <br>If <paramref name="isVelocity"/> is equal to <see langword="true"/> it will set the velocity threshold to the <paramref name="threshold"/> parameter.</br>
+    /// <br>If <paramref name="isVelocity"/> is equal to <see langword="false"/> it will set the position threshold to the <paramref name="threshold"/> parameter.</br>
+    /// </summary>
+    /// <param name="threshold"></param>
+    /// <param name="isVelocity"></param>
+    [Server]
+    public static void SetThreshold(float threshold, bool isVelocity = true)
+    {
+        if (isVelocity)
+        {
+            VelocityThreshold = threshold;
+        }
+        else
+        {
+            PositionThreshold = threshold;
+        }
+    }
 
-    //// Called when the server is turned off.
-    //public override void OnStopServer()
-    //{
-    //    Debug.LogWarning("Server stopped..");
-    //}
+    /// <summary>
+    /// <para>Sets the velocity- and position threshold to their respective parameters.</para>
+    /// </summary>
+    /// <param name="velocityThreshold"></param>
+    /// <param name="positionThreshold"></param>
+    [Server]
+    public static void SetThreshold(float velocityThreshold, float positionThreshold)
+    {
+        VelocityThreshold = velocityThreshold;
+        PositionThreshold = positionThreshold;
+    }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
@@ -40,19 +60,4 @@ public class WizardNetworkManager : NetworkManager
         NetworkServer.Spawn(wizardObj, conn);
         conn.identity.GetComponent<PlayerConnection>().wizardIdentity = wizardObj.GetComponent<NetworkIdentity>();
     }
-
-    //// Called on the client when the client connects to the server.
-    //public override void OnClientConnect()
-    //{
-    //    base.OnClientConnect();
-    //    Debug.LogWarning("Client Connected..");
-    //    FindObjectOfType<ChatBoxUI>().SetPlayerConnection();
-    //}
-
-    //// Called on the client when the client disconnects from the server.
-    //public override void OnClientDisconnect()
-    //{
-    //    base.OnClientDisconnect();
-    //    Debug.LogWarning("Disconnected from the server..");
-    //}
 }

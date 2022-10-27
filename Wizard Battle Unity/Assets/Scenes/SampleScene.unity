@@ -3564,7 +3564,7 @@ MonoBehaviour:
   - {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
   - {fileID: 8899393023844771727, guid: b6a240ea095aea6419b3a2053f7ce2cd, type: 3}
   m_wizardPlayerPrefab: {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
-  m_velocityThreshold: 2.5
+  m_velocityThreshold: 3
   m_positionThreshold: 1
 --- !u!4 &2117274031
 Transform:
@@ -3955,7 +3955,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8478726904636186100}
   m_HandleRect: {fileID: 8478726904636186101}
   m_Direction: 3
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
