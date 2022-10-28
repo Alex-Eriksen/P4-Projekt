@@ -2,7 +2,7 @@
 {
 	public interface IFriendshipService
 	{
-		Task<List<StaticFriendshipResponse>> GetAllFriendship(int playerId);
+		Task<List<DirectFriendshipResponse>> GetAllFriendship(int playerId);
 		Task<DirectFriendshipResponse> GetFriendship(FriendshipRequest request);
 		Task<DirectFriendshipResponse> AddFriend(FriendshipRequest request);
 		Task<DirectFriendshipResponse> RemoveFriend(FriendshipRequest request);
@@ -43,12 +43,12 @@
 			return null;
 		}
 
-		public async Task<List<StaticFriendshipResponse>> GetAllFriendship(int playerId)
+		public async Task<List<DirectFriendshipResponse>> GetAllFriendship(int playerId)
 		{
 			List<Friendship> friendships = await m_friendshipRepository.GetAllFriendships(playerId);
 			if(friendships != null)
 			{
-				return friendships.Select(friendship => m_mapper.Map<StaticFriendshipResponse>(friendship)).ToList();
+				return friendships.Select(friendship => m_mapper.Map<DirectFriendshipResponse>(friendship)).ToList();
 			}
 
 			return null;

@@ -6,7 +6,7 @@ import { DirectPlayerResponse } from 'src/app/_models/Player';
 import { PlayerChat } from './player';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ChatService } from 'src/app/services/chat.service';
-import { StaticFriendshipResponse } from 'src/app/_models/Friendship';
+import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 
 @Component({
   selector: 'chat',
@@ -20,9 +20,9 @@ export class ChatComponent implements OnInit {
   playerName: string = "";
   playerId: number = 0;
 
-  backupFriends: StaticFriendshipResponse[] = [];
-  friendships: StaticFriendshipResponse[] = [];
-  currentFriendship: StaticFriendshipResponse;
+  backupFriends: DirectFriendshipResponse[] = [];
+  friendships: DirectFriendshipResponse[] = [];
+  currentFriendship: DirectFriendshipResponse;
 
   isChatWindowOpen: boolean = false;
   friendListOpen: boolean = true;
@@ -38,6 +38,13 @@ export class ChatComponent implements OnInit {
         this.backupFriends = data;
       });
     })
+  }
+
+  getFriendName(friendship: DirectFriendshipResponse) {
+    if(this.playerId != friendship.mainPlayer.playerID) {
+      return friendship.mainPlayer.playerName;
+    }
+    return friendship.friendPlayer.playerName;
   }
 
   toggleFriendList(): void {
@@ -56,21 +63,26 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  openMessages(friendship: StaticFriendshipResponse) {
+  openMessages(friendship: DirectFriendshipResponse) {
     if(!this.isChatWindowOpen)
       this.toggleChatWindow();
 
     this.currentFriendship = friendship;
   }
 
-  searchFriends(friends: StaticFriendshipResponse[], searchText: string):any {
+  searchFriends(friends: DirectFriendshipResponse[], searchText: string):any {
     if (!searchText) { // if input is null show all friends
       this.friendships = this.backupFriends;
       return;
     }
-	  let output: StaticFriendshipResponse[] = [];
+	  let output: DirectFriendshipResponse[] = [];
 	  for(let friend of friends) {
-		  let newFilter: string = `${friend.friendPlayer.playerName.toLowerCase()}`;
+      let newFilter: string = "";
+      if(this.playerId == friend.mainPlayer.playerID) {
+        newFilter = `${friend.friendPlayer.playerName.toLowerCase()}`;
+      } else {
+        newFilter = `${friend.mainPlayer.playerName.toLowerCase()}`;
+      }
 		  if(newFilter.indexOf(searchText.toLowerCase()) !== -1){
 			  output.push(friend);
 		  }

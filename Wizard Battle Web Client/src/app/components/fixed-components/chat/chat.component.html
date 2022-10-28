@@ -18,7 +18,7 @@
         <div class="w-100 p-1 rounded d-flex flex-row gap-1 position-relative friend-gradient cursor-pointer" *ngFor="let friend of friendships" (click)="openMessages(friend)">
           <img [src]="friend.friendPlayer.playerImage" alt="" width="48" height="48">
           <div class="d-flex flex-column flex-grow-1">
-            <span>{{friend.friendPlayer.playerName}}</span>
+            <span>{{getFriendName(friend)}}</span>
             <span [ngClass]="{'text-danger': friend.friendPlayer.playerStatus === 'Offline', 'text-warning' : friend.friendPlayer.playerStatus === 'Away', 'text-success': friend.friendPlayer.playerStatus === 'Online' }">{{friend.friendPlayer.playerStatus}}</span>
           </div>
           <i class="fa-solid fa-circle position-absolute" id="statusBtn" [ngClass]="{'text-danger': friend.friendPlayer.playerStatus === 'Offline', 'text-warning' : friend.friendPlayer.playerStatus === 'Away', 'text-success': friend.friendPlayer.playerStatus === 'Online' }"></i>

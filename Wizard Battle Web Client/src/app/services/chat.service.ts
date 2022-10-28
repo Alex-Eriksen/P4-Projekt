@@ -22,15 +22,11 @@ export class ChatService {
   }
 
 
-  public GetAll(playerId: number): Observable<StaticFriendshipResponse[]> {
-    return this.http.get<StaticFriendshipResponse[]>(`${this.url}/${playerId}`);
+  public GetAll(playerId: number): Observable<DirectFriendshipResponse[]> { // Gets all friendship displayed in the friendlist
+    return this.http.get<DirectFriendshipResponse[]>(`${this.url}/${playerId}`);
   }
 
-  public GetById(playerId: number): Observable<StaticFriendshipResponse[]> {
-    return this.http.get<StaticFriendshipResponse[]>(`${this.url}/${playerId}`);
-  }
-
-  public Create(request: FriendshipRequest): Observable<DirectFriendshipResponse> {
+  public Create(request: FriendshipRequest): Observable<DirectFriendshipResponse> { //
     return this.http.post<DirectFriendshipResponse>(`${this.url}`, request)
   }
 
