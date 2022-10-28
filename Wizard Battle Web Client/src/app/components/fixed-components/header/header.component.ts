@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   playerCurrentXp: number = 0;
   playerLvl: number = 1;
   playerId: number = 0;
-  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0 };
+  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
 
 
   ngOnInit(): void {

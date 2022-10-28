@@ -1,3 +1,9 @@
-:host {
-    position: relative;
+
+.text {
+    text-align: center;
+    color: gray;
+    font-family:fantasy;
+   padding: 220px;
   }
+
+

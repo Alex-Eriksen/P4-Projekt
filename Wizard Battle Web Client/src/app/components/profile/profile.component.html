@@ -1,11 +1,11 @@
 <div class="container-fluid h-100 px-3">
-    <div class="bg-danger h-100 border border-2">
-      <div *ngFor="let DirectPlayerResponse of Players">
-        <p>{{DirectPlayerResponse.playerName}}</p>
-        <p>{{DirectPlayerResponse.experiencePoints}}</p>
-        <p>{{DirectPlayerResponse.maxHealth}}</p>
-        <p>{{DirectPlayerResponse.maxMana}}</p>
-        <p>{{DirectPlayerResponse.knowledgePoints}}</p>
-        <p>{{DirectPlayerResponse.timeCapsules}}</p>
+    <div class="h-100"style=" background-image: url(../../../../assets/Scroll.png); background-repeat: no-repeat; background-position: 50% 0%;">
+      <div class="text" *ngFor="let DirectPlayerResponse of Players">
+        <p>Username: {{DirectPlayerResponse.playerName}}</p>
+        <p>Exp: {{DirectPlayerResponse.experiencePoints}}</p>
+        <p>Hp: {{DirectPlayerResponse.maxHealth}}</p>
+        <p>Mana: {{DirectPlayerResponse.maxMana}}</p>
+        <p>KnowledgePoints: {{DirectPlayerResponse.knowledgePoints}}</p>
+        <p>Time Played: {{DirectPlayerResponse.TimePlayed}}</p>
       </div>
   </div>

@@ -21,7 +21,8 @@ export class ProfileComponent implements OnInit {
       maxHealth: 100,
       maxMana: 80,
       knowledgePoints: 0,
-      timeCapsules: 120
+      timeCapsules: 120,
+      TimePlayed: "2hours"
 
 
     });

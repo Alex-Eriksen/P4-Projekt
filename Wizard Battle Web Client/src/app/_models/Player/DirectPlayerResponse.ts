@@ -1,3 +1,4 @@
+import { NumberSymbol } from "@angular/common";
 import { StaticAccountResponse } from "../Account/StaticAccountResponse";
 
 export interface DirectPlayerResponse {
@@ -9,4 +10,5 @@ export interface DirectPlayerResponse {
     maxMana: number;
     knowledgePoints: number;
     timeCapsules: number;
+    TimePlayed: string;
 }
