@@ -17,12 +17,10 @@ import { AuthenticationInterceptor } from './_interceptor/authentication.interce
 import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
-
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
-
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { LibraryComponent } from './components/library/library.component';
 
 @NgModule({
   declarations: [
@@ -33,11 +31,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     SignupComponent,
     SpellbookComponent,
     ChatComponent,
-
     ChatBoxComponent
-=======
     ProfileComponent
- 
+    LibraryComponent
   ],
   imports: [
     BrowserModule,
