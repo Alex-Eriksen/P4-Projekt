@@ -4,7 +4,13 @@
 	{
 		public int AccountID { get; set; } = 0;
 
+		public int PlayerID { get; set; } = 0;
+
 		public string PlayerName { get; set; } = string.Empty;
+
+		public string PlayerImage { get; set; }
+
+		public string PlayerStatus { get; set; } = string.Empty;
 
 		public uint ExperiencePoints { get; set; } = 0;
 
@@ -15,5 +21,6 @@
 		public uint KnowledgePoints { get; set; } = 0;
 
 		public uint TimeCapsules { get; set; } = 0;
+
 	}
 }

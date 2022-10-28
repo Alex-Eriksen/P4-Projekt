@@ -4,7 +4,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { DirectPlayerResponse } from 'src/app/_models/Player';
 import { PlayerChat } from './player';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ChatService } from 'src/app/services/chat.service';
+import { StaticFriendshipResponse } from 'src/app/_models/Friendship';
 
 @Component({
   selector: 'chat',
@@ -15,60 +17,64 @@ export class ChatComponent implements OnInit {
 
   @Output() openChat: EventEmitter<any> = new EventEmitter();
 
-  chatOpen: boolean = true;
-  chatTab: string = 'chat';
-  private playerId: number = 0;
   playerName: string = "";
-  players: PlayerChat[] = []
-  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService) { }
+  playerId: number = 0;
+
+  backupFriends: StaticFriendshipResponse[] = [];
+  friendships: StaticFriendshipResponse[] = [];
+  currentFriendship: StaticFriendshipResponse;
+
+  isChatWindowOpen: boolean = false;
+  friendListOpen: boolean = true;
+
+  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService) { }
 
   ngOnInit(): void {
-    this.authenticationService.OnTokenChanged.subscribe(x =>
-      {
-        this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
-        this.playerService.getById(this.playerId).subscribe(data => this.playerName = data.playerName)
-      })
-
-      this.players.push({
-        playerName: "Alex",
-        playerSrc: "../../../../assets/alex.png",
-        playerStatus: "Away"
+    this.authenticationService.OnTokenChanged.subscribe(x => {
+      this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
+      this.playerService.getById(this.playerId).subscribe(data => this.playerName = data.playerName)
+      this.chatService.GetAll(this.playerId).subscribe(data => {
+        this.friendships = data;
+        this.backupFriends = data;
       });
+    })
+  }
 
-      this.players.push({
-        playerName: "Nick",
-        playerSrc: "../../../../assets/alex.png",
-        playerStatus: "Online"
-      });
+  toggleFriendList(): void {
+    if(this.isChatWindowOpen)
+      this.toggleChatWindow();
+    this.friendListOpen = !this.friendListOpen;
+    this.openChat.emit();
+  }
 
-      for(let i = 0; i < 50; i++) {
-        this.players.push({
-          playerName: `friend${i}`,
-          playerSrc: "../../../../assets/alex.png",
-          playerStatus: "Offline"
-        });
+  toggleChatWindow() {
+    if(!this.friendListOpen)
+      this.toggleFriendList();
+
+    if(this.currentFriendship != null) {
+      this.isChatWindowOpen = !this.isChatWindowOpen;
     }
   }
 
-  addPlayer(playerName: string) {
-    console.log(playerName + " has been added to lobby");
+  openMessages(friendship: StaticFriendshipResponse) {
+    if(!this.isChatWindowOpen)
+      this.toggleChatWindow();
+
+    this.currentFriendship = friendship;
   }
 
-  toggleChat(newChatTab?: string) {
-    if(newChatTab == null) { // Close tab
-      this.chatOpen = false;
-      this.chatTab = '';
-      this.openChat.emit(null);
+  searchFriends(friends: StaticFriendshipResponse[], searchText: string):any {
+    if (!searchText) { // if input is null show all friends
+      this.friendships = this.backupFriends;
+      return;
     }
-    else {
-      if(newChatTab != null && !this.chatOpen) { // if new Chat is not null and chat is not open
-        this.openChat.emit(null);
-        this.chatTab = newChatTab!;
-        this.chatOpen = true;
-      }
-      else if(this.chatOpen && this.chatTab != newChatTab) {
-        this.chatTab = newChatTab!;
-      }
-    }
+	  let output: StaticFriendshipResponse[] = [];
+	  for(let friend of friends) {
+		  let newFilter: string = `${friend.friendPlayer.playerName.toLowerCase()}`;
+		  if(newFilter.indexOf(searchText.toLowerCase()) !== -1){
+			  output.push(friend);
+		  }
+	  }
+	  this.friendships = output;
   }
 }

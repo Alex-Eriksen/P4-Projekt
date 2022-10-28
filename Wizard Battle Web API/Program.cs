@@ -10,6 +10,9 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 
 builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
+
+builder.Services.AddTransient<IFriendshipRepository, FriendshipRepository>();
+builder.Services.AddTransient<IFriendshipService, FriendshipService>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {

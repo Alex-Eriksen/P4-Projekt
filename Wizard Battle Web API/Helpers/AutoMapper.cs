@@ -12,6 +12,13 @@
 			CreateMap<Player, StaticPlayerResponse>();
 			CreateMap<PlayerRequest, Player>();
 
+			CreateMap<Friendship, DirectFriendshipResponse>();
+			CreateMap<Friendship, StaticFriendshipResponse>();
+			CreateMap<FriendshipRequest, Friendship>();
+
+			CreateMap<MessageRequest, Message>();
+			CreateMap<Message, StaticMessageResponse>();
+
 			CreateMap<AuthenticationResponse, StaticRefreshTokenResponse>();
 		}
 	}

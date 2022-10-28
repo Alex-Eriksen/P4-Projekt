@@ -26,6 +26,5 @@ export class AppComponent {
 
   toggleChat() {
     this.showChat = !this.showChat;
-    console.log(this.showChat);
   }
 }
