@@ -1,4 +1,5 @@
 export interface MessageRequest {
-  playerID: number;
+  senderID: number;
+  receiverID: number;
   text: string;
 }

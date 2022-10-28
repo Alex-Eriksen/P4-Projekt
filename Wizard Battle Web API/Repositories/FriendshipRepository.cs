@@ -13,7 +13,7 @@
 
 	public class FriendshipRepository : IFriendshipRepository
 	{
-		private DatabaseContext _context;
+		private readonly DatabaseContext _context;
 
 		public FriendshipRepository(DatabaseContext context)
 		{

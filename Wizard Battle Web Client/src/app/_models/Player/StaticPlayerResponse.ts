@@ -1,5 +1,6 @@
 export interface StaticPlayerResponse {
   accountID: number;
+  playerID: number;
   playerName: string;
   playerImage: string;
   playerStatus: string;

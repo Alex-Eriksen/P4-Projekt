@@ -12,8 +12,8 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221027123554_initialCreate")]
-    partial class initialCreate
+    [Migration("20221028100736_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,10 +62,10 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             AccountID = 1,
                             Created_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "test@test.com",
+                            Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$iRuM/fMkLlZSPj9tKo4D1OYxitvmWyOLCZ9lsrL5zw7.fgk.OpPw6"
+                            Password = "$2a$10$D7XBMbDec78JIPt/c3Hhh.1U2AB2GtPtn6vc6GxslCsPChZXq3696"
                         },
                         new
                         {
@@ -74,7 +74,25 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$UgOhCS6eT4w9PR6Q3tnO7OMlox3LjXVwJ5gnyOK/qz0WVX7h9Rix2"
+                            Password = "$2a$10$b5RfqnSamknD85HaR2n7mu8s/xPCYvJERqrMZVBOjANVXyv0.naUO"
+                        },
+                        new
+                        {
+                            AccountID = 3,
+                            Created_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mart@test.com",
+                            Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "$2a$10$0AZ7xzZfYamzbGmnrLOrFOwnpVeZzOBa6DHKj6bFDrEOKKJSUB50u"
+                        },
+                        new
+                        {
+                            AccountID = 4,
+                            Created_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "marc@test.com",
+                            Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "$2a$10$bJfKIwJYhW8.pC56EXcyh.CL44QYEdWMVKI.OiFPiIXPcHLaa6DFC"
                         });
                 });
 
@@ -99,30 +117,79 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.HasIndex("FriendPlayerID");
 
                     b.ToTable("Friendship");
+
+                    b.HasData(
+                        new
+                        {
+                            MainPlayerID = 1,
+                            FriendPlayerID = 2,
+                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9223),
+                            IsPending = false
+                        },
+                        new
+                        {
+                            MainPlayerID = 1,
+                            FriendPlayerID = 3,
+                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9227),
+                            IsPending = false
+                        },
+                        new
+                        {
+                            MainPlayerID = 1,
+                            FriendPlayerID = 4,
+                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9227),
+                            IsPending = false
+                        },
+                        new
+                        {
+                            MainPlayerID = 2,
+                            FriendPlayerID = 3,
+                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9228),
+                            IsPending = false
+                        },
+                        new
+                        {
+                            MainPlayerID = 2,
+                            FriendPlayerID = 4,
+                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9229),
+                            IsPending = false
+                        },
+                        new
+                        {
+                            MainPlayerID = 3,
+                            FriendPlayerID = 4,
+                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9229),
+                            IsPending = false
+                        });
                 });
 
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Message", b =>
                 {
-                    b.Property<int>("SenderID")
+                    b.Property<int>("MessageID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ReceiverID")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageID"), 1L, 1);
 
                     b.Property<DateTime>("Created_At")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int>("MessageID")
+                    b.Property<int>("ReceiverID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SenderID")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("SenderID", "ReceiverID");
+                    b.HasKey("MessageID");
 
                     b.HasIndex("ReceiverID");
+
+                    b.HasIndex("SenderID");
 
                     b.ToTable("Message");
                 });
@@ -202,7 +269,35 @@ namespace Wizard_Battle_Web_API.Migrations
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerImage = "../../../../assets/alex.png",
                             PlayerName = "AlexTheG",
-                            PlayerStatus = "Away",
+                            PlayerStatus = "Online",
+                            TimeCapsules = 10L
+                        },
+                        new
+                        {
+                            PlayerID = 3,
+                            AccountID = 3,
+                            ExperiencePoints = 138L,
+                            KnowledgePoints = 10L,
+                            MaxHealth = 10.0,
+                            MaxMana = 10.0,
+                            Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PlayerImage = "../../../../assets/alex.png",
+                            PlayerName = "MartinTheG",
+                            PlayerStatus = "Online",
+                            TimeCapsules = 10L
+                        },
+                        new
+                        {
+                            PlayerID = 4,
+                            AccountID = 4,
+                            ExperiencePoints = 138L,
+                            KnowledgePoints = 10L,
+                            MaxHealth = 10.0,
+                            MaxMana = 10.0,
+                            Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PlayerImage = "../../../../assets/alex.png",
+                            PlayerName = "MarcoTheG",
+                            PlayerStatus = "Online",
                             TimeCapsules = 10L
                         });
                 });

@@ -38,6 +38,7 @@
 		public virtual ICollection<Friendship> Friends { get; set; }
 
 		public virtual ICollection<Message> Messages { get; set; }
+
 		public virtual ICollection<Message> FriendMessages { get; set; }
 	}
 }

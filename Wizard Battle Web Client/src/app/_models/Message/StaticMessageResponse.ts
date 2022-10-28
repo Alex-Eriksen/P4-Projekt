@@ -1,5 +1,6 @@
 export interface StaticMessageResponse {
-  playerID: number;
+  senderID: number;
+  receiverID: number;
   text: string;
   created_At: string;
 }

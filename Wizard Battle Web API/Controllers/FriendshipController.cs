@@ -141,7 +141,7 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// <param name="request"></param>
 		/// <returns></returns>
 		[HttpDelete]
-		public async Task<IActionResult> Delete([FromBody] FriendshipRequest request)
+		public async Task<IActionResult> Delete([FromQuery] FriendshipRequest request)
 		{
 			try
 			{
@@ -162,7 +162,7 @@ namespace Wizard_Battle_Web_API.Controllers
 		
 
 		[HttpPost]
-		[Route("messages/")]
+		[Route("messages")]
 		public async Task<IActionResult> CreateMessage([FromBody] MessageRequest request)
 		{
 			try
@@ -183,8 +183,8 @@ namespace Wizard_Battle_Web_API.Controllers
 		}
 
 		[HttpGet]
-		[Route("messages/{mainPlayerId}, {friendPlayerId}")]
-		public async Task<IActionResult> GetMessages(int mainPlayerId, int friendPlayerId)
+		[Route("messages/")]
+		public async Task<IActionResult> GetMessages([FromQuery] int mainPlayerId, [FromQuery] int friendPlayerId)
 		{
 			try
 			{

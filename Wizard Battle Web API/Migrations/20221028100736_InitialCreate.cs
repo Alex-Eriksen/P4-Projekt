@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Wizard_Battle_Web_API.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -109,15 +109,16 @@ namespace Wizard_Battle_Web_API.Migrations
                 name: "Message",
                 columns: table => new
                 {
+                    MessageID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SenderID = table.Column<int>(type: "int", nullable: false),
                     ReceiverID = table.Column<int>(type: "int", nullable: false),
-                    MessageID = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     Created_At = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Message", x => new { x.SenderID, x.ReceiverID });
+                    table.PrimaryKey("PK_Message", x => x.MessageID);
                     table.ForeignKey(
                         name: "FK_Message_Player_ReceiverID",
                         column: x => x.ReceiverID,
@@ -135,22 +136,37 @@ namespace Wizard_Battle_Web_API.Migrations
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
-                values: new object[] { 1, "test@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$iRuM/fMkLlZSPj9tKo4D1OYxitvmWyOLCZ9lsrL5zw7.fgk.OpPw6" });
-
-            migrationBuilder.InsertData(
-                table: "Account",
-                columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
-                values: new object[] { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$UgOhCS6eT4w9PR6Q3tnO7OMlox3LjXVwJ5gnyOK/qz0WVX7h9Rix2" });
-
-            migrationBuilder.InsertData(
-                table: "Player",
-                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerImage", "PlayerName", "PlayerStatus", "TimeCapsules" },
-                values: new object[] { 1, 1, 167L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "NickTheG", "Online", 10L });
+                values: new object[,]
+                {
+                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$D7XBMbDec78JIPt/c3Hhh.1U2AB2GtPtn6vc6GxslCsPChZXq3696" },
+                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$b5RfqnSamknD85HaR2n7mu8s/xPCYvJERqrMZVBOjANVXyv0.naUO" },
+                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$0AZ7xzZfYamzbGmnrLOrFOwnpVeZzOBa6DHKj6bFDrEOKKJSUB50u" },
+                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$bJfKIwJYhW8.pC56EXcyh.CL44QYEdWMVKI.OiFPiIXPcHLaa6DFC" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Player",
                 columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerImage", "PlayerName", "PlayerStatus", "TimeCapsules" },
-                values: new object[] { 2, 2, 138L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "AlexTheG", "Away", 10L });
+                values: new object[,]
+                {
+                    { 1, 1, 167L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "NickTheG", "Online", 10L },
+                    { 2, 2, 138L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "AlexTheG", "Online", 10L },
+                    { 3, 3, 138L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "MartinTheG", "Online", 10L },
+                    { 4, 4, 138L, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "../../../../assets/alex.png", "MarcoTheG", "Online", 10L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Friendship",
+                columns: new[] { "FriendPlayerID", "MainPlayerID", "Created_At", "IsPending" },
+                values: new object[,]
+                {
+                    { 2, 1, new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9223), false },
+                    { 3, 1, new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9227), false },
+                    { 4, 1, new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9227), false },
+                    { 3, 2, new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9228), false },
+                    { 4, 2, new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9229), false },
+                    { 4, 3, new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9229), false }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_Email",
@@ -168,6 +184,11 @@ namespace Wizard_Battle_Web_API.Migrations
                 name: "IX_Message_ReceiverID",
                 table: "Message",
                 column: "ReceiverID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Message_SenderID",
+                table: "Message",
+                column: "SenderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Player_AccountID",
