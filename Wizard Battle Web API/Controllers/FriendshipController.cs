@@ -33,7 +33,7 @@ namespace Wizard_Battle_Web_API.Controllers
 		{
 			try
 			{
-				List<StaticFriendshipResponse> friendships = await m_friendshipService.GetAllFriendship(playerId);
+				List<DirectFriendshipResponse> friendships = await m_friendshipService.GetAllFriendship(playerId);
 
 				if (friendships == null)
 				{

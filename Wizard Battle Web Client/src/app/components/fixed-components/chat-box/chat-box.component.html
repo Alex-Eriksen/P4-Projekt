@@ -11,7 +11,7 @@
     <div class="content px-2 py-1 position-relative">
       <span id="infoWarning">Please remember not to share your email or password with friends or game employees.</span>
       <div class="d-flex flex-column gap-2 pt-2 position-absolute scroll-box">
-        <div *ngFor="let message of messages" class="d-flex" [ngClass]="message.senderID == friendship.mainPlayerID ? 'right-side' : 'left-side'">
+        <div *ngFor="let message of messages" class="d-flex" [ngClass]="message.senderID == friendship.mainPlayer.playerID ? 'right-side' : 'left-side'">
           <span>{{message.text}}</span>
         </div>
       </div>
