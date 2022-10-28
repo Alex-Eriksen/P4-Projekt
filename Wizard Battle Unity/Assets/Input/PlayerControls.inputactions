@@ -15,6 +15,33 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "RightMouse",
+                    "type": "Button",
+                    "id": "a37cb300-c674-4f06-beab-d343eceb0d84",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Utility",
+                    "type": "Button",
+                    "id": "2517dfb9-09ab-4fdd-881e-1d49d8865333",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Spellbook",
+                    "type": "Button",
+                    "id": "e8e5b09e-2fcb-4c17-8947-3374abbb8a79",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Movement",
                     "type": "PassThrough",
                     "id": "f99f4e56-93fb-4d09-9d00-6f66216dc398",
@@ -37,24 +64,6 @@
                     "type": "PassThrough",
                     "id": "53f491e6-c483-4f1e-9f47-49abdb848c8b",
                     "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightMouse",
-                    "type": "Button",
-                    "id": "a37cb300-c674-4f06-beab-d343eceb0d84",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Utility",
-                    "type": "Button",
-                    "id": "2517dfb9-09ab-4fdd-881e-1d49d8865333",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -118,28 +127,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e44322d7-c259-410f-a314-cfdff9a92808",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightMouse",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "34e4c9d7-a4e3-48d5-a125-40fd7af39664",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Utility",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b9c39bc5-bb9d-4200-9fec-1a417ecd485a",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -168,6 +155,67 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e44322d7-c259-410f-a314-cfdff9a92808",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34e4c9d7-a4e3-48d5-a125-40fd7af39664",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Utility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e3e220e-85fd-42d5-a767-1cd85d25db9e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spellbook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "8ee11172-6952-4f68-a20a-24d63b9b233f",
+            "actions": [
+                {
+                    "name": "MousePosition",
+                    "type": "PassThrough",
+                    "id": "a5352347-65f1-4120-ae88-a7c85829f800",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "641fbae8-2ed3-4100-bb9c-48fc82d60b4c",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
