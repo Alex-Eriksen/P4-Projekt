@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
 
 
+
   ngOnInit(): void {
     this.authenticationService.OnTokenChanged.subscribe(x =>
       {

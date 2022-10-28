@@ -8,8 +8,8 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'WizardBattle';
-  showChat: boolean = false;
-  showHeader: boolean = false;
+  showChat: boolean = true;
+  showHeader: boolean = true;
 
   // Show header if client is not logging in or signing up
   constructor(private router: Router) {
@@ -22,5 +22,9 @@ export class AppComponent {
         }
       }
     })
+  }
+
+  toggleChat() {
+    this.showChat = !this.showChat;
   }
 }

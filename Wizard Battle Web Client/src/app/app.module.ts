@@ -17,7 +17,12 @@ import { AuthenticationInterceptor } from './_interceptor/authentication.interce
 import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
+
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
+
 import { ProfileComponent } from './components/profile/profile.component';
+
 
 @NgModule({
   declarations: [
@@ -28,14 +33,18 @@ import { ProfileComponent } from './components/profile/profile.component';
     SignupComponent,
     SpellbookComponent,
     ChatComponent,
+
+    ChatBoxComponent
+=======
     ProfileComponent
-  
+ 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ScrollingModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },

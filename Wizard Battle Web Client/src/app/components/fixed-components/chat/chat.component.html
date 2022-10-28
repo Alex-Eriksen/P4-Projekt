@@ -1,14 +1,38 @@
-<div class="w-100 h-100 bg-dark border border-3 border-primary text-white" *ngIf="chatTab">
-  This is chat message container<br>
-  Buttons below are fixed
-</div>
-<div class="w-100 h-100 bg-dark border border-3 border-primary text-white" *ngIf="!chatTab">
-  This is friend chat container<br>
-  Buttons below are fixed
-</div>
-<div class="position-fixed bottom-0 end-0 chat-btn-container">
-  <div class="d-flex flex-row p-0 h-100 gap-1">
-    <button class="btn btn-danger p-0 h-100 w-100 rounded-0 border border-3 border-primary" (click)="chatTab = true">Chat</button>
-    <button class="btn btn-danger p-0 h-100 w-100 rounded-0 border border-3 border-primary" (click)="chatTab = false">Friends</button>
+<div class="w-100 h-100 text-white position-relative" *ngIf="friendListOpen">
+  <div class="d-flex flex-row" >
+    <div class="flex-grow-1 border border-3 border-primary bg-primary d-flex">
+      <i class="fa-solid fa-circle text-danger px-2 align-self-end pb-2"></i>
+      <span class="fs-4 lh-1 align-self-center">{{playerName}}</span>
+    </div>
+    <div class="pb-1 ps-1 border-3 border-bottom border-primary minimize-background">
+      <button class="btn btn-primary rounded-0 p-1" (click)="toggleFriendList()"><i class="fa-solid fa-minus"></i></button>
+    </div>
+  </div>
+  <div class="fill-height border border-3 border-primary">
+    <div class="w-100 h-100">
+      <div class="w-100 p-2 bg-primary">
+        <input type="text" id="searchFriend" #text class="w-100 border-0 outline-0 text-white shadow" (keyup)="searchFriends(backupFriends, text.value)">
+      </div>
+      <div class="w-100 text-start ps-2 bg-primary">FRIENDS LIST</div>
+      <div class="d-flex flex-column gap-1 p-1 bg-dark chat-tab"> <!-- Chat TAB -->
+        <div class="w-100 p-1 rounded d-flex flex-row gap-1 position-relative friend-gradient cursor-pointer" *ngFor="let friend of friendships" (click)="openMessages(friend)">
+          <img [src]="friend.friendPlayer.playerImage" alt="" width="48" height="48">
+          <div class="d-flex flex-column flex-grow-1">
+            <span>{{friend.friendPlayer.playerName}}</span>
+            <span [ngClass]="{'text-danger': friend.friendPlayer.playerStatus === 'Offline', 'text-warning' : friend.friendPlayer.playerStatus === 'Away', 'text-success': friend.friendPlayer.playerStatus === 'Online' }">{{friend.friendPlayer.playerStatus}}</span>
+          </div>
+          <i class="fa-solid fa-circle position-absolute" id="statusBtn" [ngClass]="{'text-danger': friend.friendPlayer.playerStatus === 'Offline', 'text-warning' : friend.friendPlayer.playerStatus === 'Away', 'text-success': friend.friendPlayer.playerStatus === 'Online' }"></i>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<chat-box [friendship]="currentFriendship" (CloseChatWindow)="toggleChatWindow()" *ngIf="isChatWindowOpen"></chat-box>
+
+<div class="position-fixed chat-btn-container">
+  <div class="d-flex gap-1">
+    <button class="btn btn-primary p-0 h-100 w-100 rounded-0 border border-3 border-primary" (click)="toggleChatWindow()">Chat</button>
+    <button class="btn btn-primary p-0 h-100 w-100 rounded-0 border border-3 border-primary" (click)="toggleFriendList()">Friends</button>
+  </div>
+  </div>

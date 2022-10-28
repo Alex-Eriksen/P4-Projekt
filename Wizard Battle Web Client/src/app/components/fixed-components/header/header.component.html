@@ -4,13 +4,13 @@
 				<div class="row h-100">
 						<div class="col-3">
               <div class="d-flex align-items-center h-100">
-								<a href=""><img id="logo" src="../../../../assets/alex.png" style="border-radius: 50px;" alt="" width="55"></a>
+								<a routerLink=""><img id="logo" src="../../../../assets/alex.png" alt=""></a>
               </div>
 						</div>
 						<div class="col-9">
-              <div class="d-flex align-items-center h-100 py-3">
+              <div class="d-flex align-items-center h-100">
                 <a href="https://github.com/alex-eriksen">
-                  <img src="../../../../assets/banner.jpg" alt="" class="w-100 h-100">
+                  <img src="../../../../assets/wizard-banner.png" alt="" class="w-100 h-100 ">
                 </a>
               </div>
             </div>
@@ -38,17 +38,22 @@
 							</div>
 							<div class="flex-fill ps-2">
                 <div class="row">
-                  <div class="col-6 border-start d-flex align-items-center" style="border-color: #606061; padding: 4px .75em;">
-                    <i class="fa-solid fa-hand-sparkles" style="color: gold; font-size: 16px;"><span class="text-white"> {{player.knowledgePoints}}</span></i>
+                  <div class="col-6 border-start d-flex align-items-center gray-border" id="knowledge-points">
+                    <i class="fa-solid fa-hand-sparkles" style="color: gold;"><span class="text-white"> {{player.knowledgePoints}}</span></i>
                   </div>
-                  <div class="col-6 border-start d-flex align-items-center" style="border-color: #606061;">
+                  <div class="col-6 border-start d-flex align-items-center gray-border">
                     <i class="fa-solid fa-capsules" style="color: #50b3da"><span class="text-white"> {{player.timeCapsules}}</span></i>
                   </div>
                 </div>
               </div>
 						</div>
+
+						<div class="button-grid h-50 pb-1"> <!-- Navigation buttons-->
+							<button class="flex-fill rounded border border-primary button-gradient" title="Profile" style="color: #fff"><i class="fa-solid fa-user fa-fw"></i></button>
+
 						<div class="button-grid h-50"> <!-- Navigation buttons-->
 							<button class="flex-fill rounded border border-primary button-gradient" title="Profile" style="color: #fff" routerLink="profile"><i class="fa-solid fa-user fa-fw"></i></button>
+
 							<button class="flex-fill rounded border border-primary button-gradient" title="Library" style="color: #fff"><i class="fa-solid fa-book-tanakh fa-fw"></i></button>
 							<button class="flex-fill rounded border border-primary button-gradient" title="Spellbook" style="color: #fff"><i class="fa-solid fa-wand-magic-sparkles fa-fw"></i></button>
 							<button class="flex-fill rounded border border-primary button-gradient" title="Leaderboard" style="color: #fff"><i class="fa-solid fa-crown fa-fw"></i></button>
