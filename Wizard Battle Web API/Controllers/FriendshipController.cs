@@ -33,19 +33,19 @@ namespace Wizard_Battle_Web_API.Controllers
 		{
 			try
 			{
-				List<DirectFriendshipResponse> friendships = await m_friendshipService.GetAllFriendship(playerId);
+				List<StaticPlayerResponse> friends = await m_friendshipService.GetAllFriendship(playerId);
 
-				if (friendships == null)
+				if (friends == null)
 				{
 					return Problem("Nothing was returned from service, this was unexpected");
 				}
 
-				if (friendships.Count == 0)
+				if (friends.Count == 0)
 				{
 					return NoContent();
 				}
 
-				return Ok(friendships);
+				return Ok(friends);
 			}
 			catch (Exception ex)
 			{

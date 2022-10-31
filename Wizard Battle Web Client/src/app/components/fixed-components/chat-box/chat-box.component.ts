@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 import { MessageRequest, StaticMessageResponse } from 'src/app/_models/Message';
-import { StaticPlayerResponse } from 'src/app/_models/Player';
+import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';
 
 @Component({
   selector: 'chat-box',
@@ -13,26 +13,29 @@ export class ChatBoxComponent implements OnInit {
 
   constructor(private chatService: ChatService) { }
 
-  @Input() friendship: DirectFriendshipResponse;
+  @Input() friend: StaticPlayerResponse;
+
+  @Input() playerId: number;
 
   @Output() CloseChatWindow = new EventEmitter<any>();
 
   public messages: StaticMessageResponse[] = [];
 
-  public messageRequest: MessageRequest = {senderID: 0, receiverID: 0, text: ""}
+  public messageRequest: MessageRequest = { senderID: 0, receiverID: 0, text: "" }
 
   ngOnInit(): void {
-    this.chatService.GetAllMessages(this.friendship.mainPlayer.playerID, this.friendship.friendPlayer.playerID).subscribe(data => this.messages = data);
-    this.messageRequest = {senderID: this.friendship.mainPlayer.playerID, receiverID: this.friendship.friendPlayer.playerID, text: ""}
+    this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
+    this.messageRequest = { senderID: this.playerId, receiverID: this.friend.playerID, text: ""}
   }
 
-  closeWindow(): void {
-    this.CloseChatWindow.emit();
+  ngOnChanges() { // Gets messages if friend object is changed
+    this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
   }
 
   sendMessage(): void {
     if(this.messageRequest.text === '')
       return;
+
     this.chatService.SendMessage(this.messageRequest).subscribe({
       next: (response) => {
         this.messages.push(response);
@@ -41,5 +44,9 @@ export class ChatBoxComponent implements OnInit {
         this.messageRequest.text = '';
       }
     })
+  }
+
+  closeWindow(): void {
+    this.CloseChatWindow.emit();
   }
 }

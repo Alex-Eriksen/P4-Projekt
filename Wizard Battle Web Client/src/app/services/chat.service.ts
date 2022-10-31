@@ -6,6 +6,7 @@ import { Friend } from '../_models/Friend/Friend';
 import { DirectFriendshipResponse, FriendshipRequest, StaticFriendshipResponse } from '../_models/Friendship';
 import { MessageRequest } from '../_models/Message';
 import { StaticMessageResponse } from '../_models/Message/StaticMessageResponse';
+import { StaticPlayerResponse } from '../_models/Player';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class ChatService {
   }
 
 
-  public GetAll(playerId: number): Observable<DirectFriendshipResponse[]> { // Gets all friendship displayed in the friendlist
-    return this.http.get<DirectFriendshipResponse[]>(`${this.url}/${playerId}`);
+  public GetAll(playerId: number): Observable<StaticPlayerResponse[]> { // Gets all friendship displayed in the friendlist
+    return this.http.get<StaticPlayerResponse[]>(`${this.url}/${playerId}`);
   }
 
   public Create(request: FriendshipRequest): Observable<DirectFriendshipResponse> { //

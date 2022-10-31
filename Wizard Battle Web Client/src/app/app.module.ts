@@ -31,8 +31,8 @@ import { LibraryComponent } from './components/library/library.component';
     SignupComponent,
     SpellbookComponent,
     ChatComponent,
-    ChatBoxComponent
-    ProfileComponent
+    ChatBoxComponent,
+    ProfileComponent,
     LibraryComponent
   ],
   imports: [

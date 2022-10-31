@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
       playerName: "NickTheG",
       experiencePoints: 20,
       maxHealth: 100,
+      playerStatus: "",
       maxMana: 80,
       knowledgePoints: 0,
       timeCapsules: 120,
