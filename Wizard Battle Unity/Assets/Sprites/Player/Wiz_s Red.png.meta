@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wiz's-Sheet_0
+      name: Wiz_s Red_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db74eeab1a7c76b42b0eb1bd7bc1dd4c
-      internalID: 1459961429
+      spriteID: db7fb2ff37f2ce740b38fcff161d8712
+      internalID: 347158731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wiz's-Sheet_1
+      name: Wiz_s Red_1
       rect:
         serializedVersion: 2
         x: 32
@@ -139,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c552dcf00bec654bb40af09ae59ba5d
-      internalID: -863867158
+      spriteID: 76de2e8be4b2e6049a973d42220f5191
+      internalID: 1668765530
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wiz's-Sheet_2
+      name: Wiz_s Red_2
       rect:
         serializedVersion: 2
         x: 64
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8975d4d5a2c07ab4fb5da644f59b7a61
-      internalID: -1195848178
+      spriteID: 096f638f5124d5547b6b15bbaccbcd8a
+      internalID: -1236271372
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wiz's-Sheet_3
+      name: Wiz_s Red_3
       rect:
         serializedVersion: 2
         x: 96
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f68dc0ce5f105a42babe72a1509fc84
-      internalID: 1208206200
+      spriteID: b9a7aa3f088f5154aa8e8f01ab114b45
+      internalID: 1097069343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wiz's-Sheet_4
+      name: Wiz_s Red_4
       rect:
         serializedVersion: 2
         x: 0
@@ -202,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 282ebacf8b6c04c42ba9a18f1c9297e9
-      internalID: -348027223
+      spriteID: 8fd1c1cdb28e38e4789e582747ed066a
+      internalID: -1710216796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wiz's-Sheet_5
+      name: Wiz_s Red_5
       rect:
         serializedVersion: 2
         x: 32
@@ -223,8 +223,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c478d0cf34988d5489853d72142339cc
-      internalID: 615836238
+      spriteID: 7faf9e24adfc79e4d9b6955fccb1833e
+      internalID: 748062796
       vertices: []
       indices: 
       edges: []
@@ -240,12 +240,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wiz's-Sheet_2: -1195848178
-      Wiz's-Sheet_3: 1208206200
-      Wiz's-Sheet_4: -348027223
-      Wiz's-Sheet_1: -863867158
-      Wiz's-Sheet_5: 615836238
-      Wiz's-Sheet_0: 1459961429
+      Wiz_s Red_4: -1710216796
+      Wiz_s Red_5: 748062796
+      Wiz_s Red_0: 347158731
+      Wiz_s Red_3: 1097069343
+      Wiz_s Red_2: -1236271372
+      Wiz_s Red_1: 1668765530
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
