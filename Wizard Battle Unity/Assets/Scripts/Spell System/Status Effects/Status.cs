@@ -6,4 +6,5 @@ using UnityEngine;
 public class Status : NetworkBehaviour
 {
     public StatusEffectObject statusEffectData;
+    [SyncVar] public uint opponentNetworkID;
 }

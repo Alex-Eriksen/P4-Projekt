@@ -6,7 +6,7 @@ using Mirror;
 public class FireballSpell : Spell
 {
     [SerializeField] private Color m_dmgColor;
-    [SerializeField] private float m_speed = 10f;
+    [SerializeField] private float m_speed = 10f, m_pushForce = 1f;
     [SerializeField] private StatusEffectObject statusEffect;
     private Rigidbody2D m_rigidbody2D;
     private Transform m_transform;
@@ -18,16 +18,31 @@ public class FireballSpell : Spell
         m_transform = transform;
     }
 
-    private void FixedUpdate()
+    public override void OnServerSetup()
     {
-        if (IsBeingCast())
+        OnTriggerEnter += OnTriggerEnterCallback;
+    }
+
+    private void OnTriggerEnterCallback(PlayerEntity obj)
+    {
+        if (IsCasting())
+        {
+            return;
+        }
+
+        SC_OnHit();
+    }
+
+    protected override void OnFixedUpdate()
+    {
+        if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
             m_rigidbody2D.velocity = Vector2.zero;
             return;
         }
 
-        if (opponentEntity != null || hitSomething)
+        if (targetEntities.Count > 0|| hitSomething)
         {
             m_rigidbody2D.velocity = Vector2.zero;
             return;
@@ -39,16 +54,18 @@ public class FireballSpell : Spell
     [ServerCallback]
     protected override void SC_OnHit()
     {
+        spellCollider.enabled = false;
         SC_StartDeathTimer();
         base.SC_OnHit();
         float dmg = ((ElementalSpellObject)spellData).DamageAmount;
 
         data.numberText = dmg.ToString();
         data.numberColor = m_dmgColor;
-        data.position = opponentEntity.transform.position;
+        data.position = targetEntities[0].transform.position;
 
         GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
-        opponentEntity.SC_DrainHealth(dmg);
-        opponentEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        targetEntities[0].SC_DrainHealth(dmg);
+        targetEntities[0].SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        targetEntities[0].GetComponent<Rigidbody2D>().AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse);
     }
 }
