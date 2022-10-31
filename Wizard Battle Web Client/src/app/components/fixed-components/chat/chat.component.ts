@@ -7,7 +7,7 @@ import { PlayerChat } from './player';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ChatService } from 'src/app/services/chat.service';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
-import { find } from 'rxjs';
+import { delay, find } from 'rxjs';
 
 @Component({
   selector: 'chat',
@@ -53,8 +53,9 @@ export class ChatComponent implements OnInit {
     if(!this.friendListOpen)
       this.toggleFriendList();
 
-    if(this.friend != null) {
+    if(this.friend.playerID != 0 || !this.isChatWindowOpen) {
       this.isChatWindowOpen = !this.isChatWindowOpen;
+      console.log(this.isChatWindowOpen);
     }
   }
 

@@ -1,3 +1,4 @@
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
@@ -7,7 +8,24 @@ import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Play
 @Component({
   selector: 'chat-box',
   templateUrl: './chat-box.component.html',
-  styleUrls: ['./chat-box.component.css']
+  styleUrls: ['./chat-box.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        overflow: 'hidden',
+        width: '500px',
+        height: '500px',
+       'background-color': 'rgba(8, 21, 37, .5)'
+      })),
+      state('closed', style({
+        opacity: 0,
+        overflow: 'hidden',
+        height: '0px',
+        width: '0px'
+      })),
+      transition('* => *', animate('250ms ease-in'))
+    ])
+  ]
 })
 export class ChatBoxComponent implements OnInit {
 
@@ -17,7 +35,9 @@ export class ChatBoxComponent implements OnInit {
 
   @Input() playerId: number;
 
-  @Output() CloseChatWindow = new EventEmitter<any>();
+  @Input() chatWindow: boolean;
+
+  @Output() closedChatWindow = new EventEmitter<any>();
 
   public messages: StaticMessageResponse[] = [];
 
@@ -44,9 +64,5 @@ export class ChatBoxComponent implements OnInit {
         this.messageRequest.text = '';
       }
     })
-  }
-
-  closeWindow(): void {
-    this.CloseChatWindow.emit();
   }
 }

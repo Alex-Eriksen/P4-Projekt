@@ -21,6 +21,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LibraryComponent } from './components/library/library.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LibraryComponent } from './components/library/library.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     FormsModule,
     ScrollingModule
   ],

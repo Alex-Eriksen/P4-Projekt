@@ -1,9 +1,9 @@
 .chat-box {
   right: calc(20% + 2px);
-  width: 500px;
-  height: 500px;
+  max-width: 500px;
+  max-height: 500px;
   bottom: 0;
-  background-color: rgba(8, 21, 37, .5);
+  overflow: hidden;
 }
 
 .chat-box .header {

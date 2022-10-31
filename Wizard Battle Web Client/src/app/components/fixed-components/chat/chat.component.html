@@ -28,7 +28,7 @@
   </div>
 </div>
 
-<chat-box [friend]="friend" [playerId]="playerId" (CloseChatWindow)="toggleChatWindow()" *ngIf="isChatWindowOpen"></chat-box>
+<chat-box [friend]="friend" [playerId]="playerId" [chatWindow]="isChatWindowOpen" (closedChatWindow)="toggleChatWindow()"></chat-box>
 
 <div class="position-fixed chat-btn-container">
   <div class="d-flex gap-1">
