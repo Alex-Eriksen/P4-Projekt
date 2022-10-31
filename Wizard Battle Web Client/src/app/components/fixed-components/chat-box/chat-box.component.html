@@ -1,0 +1,21 @@
+<div class="position-fixed chat-box">
+  <div class="d-flex flex-column flex">
+    <div class="header d-flex align-items-center position-relative px-1">
+      <img [src]="friend.playerImage" alt="" id="userImage">
+      <span class="text-white">{{friend.playerName}}</span>
+      <i class="fa-solid fa-circle position-absolute" id="statusBtn" [ngClass]="{'text-danger': friend.playerStatus === 'Offline', 'text-warning' : friend.playerStatus === 'Away', 'text-success': friend.playerStatus === 'Online' }"></i>
+      <div class="d-flex justify-content-end w-100">
+        <i class="fa-solid fa-minus pe-2" id="closeWindow" (click)="closeWindow()"></i>
+      </div>
+    </div>
+    <div class="content px-2 py-1 position-relative">
+      <span id="infoWarning">Please remember not to share your email or password with friends or game employees.</span>
+      <div class="d-flex flex-column gap-2 pt-2 position-absolute scroll-box">
+        <div *ngFor="let message of messages" class="d-flex" [ngClass]="message.senderID == playerId ? 'right-side' : 'left-side'">
+          <span>{{message.text}}</span>
+        </div>
+      </div>
+    </div>
+    <input type="text" id="chatInput" class="w-100 outline-0 rounded-0 bg-transparent order-0 text-white px-2 py-1 lh-1" placeholder="Indtast text" [(ngModel)]="messageRequest.text" (keyup.enter)="sendMessage()">
+  </div>
+</div>

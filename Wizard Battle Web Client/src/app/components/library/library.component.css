@@ -1,0 +1,21 @@
+.no-gutters {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.chat-tab {
+    overflow-y:auto;
+    overflow-x: hidden;
+    height: calc(100vh - (100px + 145px));
+    right: -17px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+/*.buy {
+    position:absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 0;
+}*/
