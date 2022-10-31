@@ -14,6 +14,7 @@ public class PlayerEntity : NetworkBehaviour
     private void Awake()
     {
         m_transform = transform;
+        m_statusEffectsUI = GameObject.FindGameObjectWithTag("Status Effects").transform;
     }
 
     private void Start()
@@ -47,8 +48,11 @@ public class PlayerEntity : NetworkBehaviour
     #region Status Effects
     private readonly Dictionary<StatusEffectType, GameObject> m_statusEffectPrefabs = new Dictionary<StatusEffectType, GameObject>();
     private readonly Dictionary<StatusEffectType, GameObject> m_activeStatusEffectObjects = new Dictionary<StatusEffectType, GameObject>();
+    private readonly Dictionary<StatusEffectType, GameObject> m_activeUIStatusEffects = new Dictionary<StatusEffectType, GameObject>();
     private readonly Dictionary<StatusEffectType, Coroutine> m_activeStatusEffects = new Dictionary<StatusEffectType, Coroutine>();
     private readonly SyncList<StatusEffect> m_statusEffects = new SyncList<StatusEffect>();
+    private Transform m_statusEffectsUI;
+    [SerializeField] private GameObject m_statusEffectUIPrefab;
 
     /// <summary>
     /// Call back for when the SyncList m_statusEffects changes.
@@ -62,15 +66,21 @@ public class PlayerEntity : NetworkBehaviour
         switch (op)
         {
             case SyncList<StatusEffect>.Operation.OP_ADD:
+                GameObject obj = Instantiate(m_statusEffectUIPrefab, m_statusEffectsUI);
+                StatusEffectUI statusScript = obj.GetComponent<StatusEffectUI>();
+                statusScript.SetStatusEffect(newStatusEffect);
+                m_activeUIStatusEffects.Add(newStatusEffect.effectType, obj);
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_INSERT:
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_REMOVEAT:
+                m_activeUIStatusEffects.Remove(oldStatusEffect.effectType);
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_SET:
+                m_activeUIStatusEffects[oldStatusEffect.effectType].GetComponent<StatusEffectUI>().SetStatusEffect(newStatusEffect);
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_CLEAR:
