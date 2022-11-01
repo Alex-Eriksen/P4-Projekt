@@ -5470,6 +5470,7 @@ MonoBehaviour:
   - {fileID: 440968624174214640, guid: bcaf410828048d44aa6b68db2ea3639b, type: 3}
   - {fileID: 5112943787544954438, guid: 5df4c8f7db8678d439ae28bbdc6e3798, type: 3}
   - {fileID: 8424187445854008679, guid: 5e64a5e403845144e9817d3d9c2ccc52, type: 3}
+  - {fileID: 7014127902465579697, guid: 4d47c4b9a2d25fb4f827834872fd4c24, type: 3}
   - {fileID: 2177851725239415784, guid: 7fb7274e1d489434eb765711c87f9817, type: 3}
   - {fileID: 2073752616861318504, guid: 1e2ed74ed85b573459bc0e4dd035c2ca, type: 3}
   - {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
@@ -6044,7 +6045,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8478726904636186100}
   m_HandleRect: {fileID: 8478726904636186101}
   m_Direction: 3
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
