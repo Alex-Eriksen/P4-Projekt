@@ -4,13 +4,22 @@
 				<div class="row h-100">
 					<div class="col-3">
 						<div class="d-flex align-items-center h-100">
-							<a routerLink=""><img id="logo" src="../../../../assets/Wiz Profil Pic 1.png" alt=""></a>
+							<a routerLink=""><img id="logo" src="../../../../assets/Profile 1.png" alt=""></a>
 						</div>
 					</div>
 					<div class="col-9">
-              			<div class="d-flex align-items-center h-100">
+              			<div class="d-flex align-items-center h-100" style="position: relative;">
                 			<a href="https://github.com/alex-eriksen">
-                  				<img src="../../../../assets/wizard-banner.png" alt="" class="w-100 h-100 ">
+                  				<!--<img src="../../../../assets/wizard-banner.png" alt="" class="w-100 h-100 ">-->
+								<div id="bannercircle" style="position: absolute;">
+									<!-- Style resizes picture to stay inside banner div -->
+									<img src="../../../../assets/Profile 1.png" alt="" style=" width: 80px; height: 80px;object-fit: fill; border-radius: 100px;">
+								</div>
+								<div id="bannersquare" style="position: relative;">
+									<div class="centered"><span class="keeptogether">The Gloated Acolyte</span></div>
+									<!-- Style resizes picture to stay inside profile div -->
+									<img src="../../../../assets/Banner 4.png" alt="" style=" width: 440px; height: 70px;object-fit: fill;">
+								</div>
                 			</a>
               			</div>
             		</div>
@@ -28,7 +37,7 @@
         <div class="row h-100 p-3">
           <a routerLink="" class="position-relative d-block" style="width: 50px;">
 				  	<small class="player-level">{{playerLvl}}</small>
-				  	<img src="../../../../assets/Wiz Profil Pic 1.png" alt="" id="player-img" width="56" height="56" class="bg-danger">
+				  	<img src="../../../../assets/Profile 1.png" alt="" id="player-img" width="56" height="56" class="bg-danger">
 				  </a>
 					<div class="d-flex flex-column w-75 ps-4 gap-1">
 						<div class="d-flex flex-row bar-gradient border-linear-gradient rounded">
