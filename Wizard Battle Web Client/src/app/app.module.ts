@@ -46,7 +46,6 @@ import { Buymenu1Component } from './components/modals/change-icon/buy-menues/bu
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    ScrollingModule,
     MatDialogModule
   ],
   providers: [
