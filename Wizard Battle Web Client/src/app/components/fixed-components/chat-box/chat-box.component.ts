@@ -12,14 +12,12 @@ import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Play
   animations: [
     trigger('openClose', [
       state('open', style({
-        overflow: 'hidden',
         width: '500px',
         height: '500px',
        'background-color': 'rgba(8, 21, 37, .5)'
       })),
       state('closed', style({
         opacity: 0,
-        overflow: 'hidden',
         height: '0px',
         width: '0px'
       })),
@@ -31,29 +29,30 @@ export class ChatBoxComponent implements OnInit {
 
   constructor(private chatService: ChatService) { }
 
-  @Input() friend: StaticPlayerResponse;
-
   @Input() playerId: number;
 
-  @Input() chatWindow: boolean;
+  @Input() friend: StaticPlayerResponse;
 
-  @Output() closedChatWindow = new EventEmitter<any>();
+  @Input() chatWindow: boolean; // Chat window status : Open/Closed
+
+  @Output() closedChatWindow = new EventEmitter<any>(); // EventEmitter for chat window
 
   public messages: StaticMessageResponse[] = [];
 
   public messageRequest: MessageRequest = { senderID: 0, receiverID: 0, text: "" }
 
   ngOnInit(): void {
-    this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
-    this.messageRequest = { senderID: this.playerId, receiverID: this.friend.playerID, text: ""}
+    this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data); // Gets all messages from friend conversation
   }
 
   ngOnChanges() { // Gets messages if friend object is changed
     this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
+    this.messageRequest = { senderID: this.playerId, receiverID: this.friend.playerID, text: ""} // Assigns sender & receiver for messageRequest
   }
 
   sendMessage(): void {
-    if(this.messageRequest.text === '')
+    console.log(this.messageRequest);
+    if(this.messageRequest.text == '')
       return;
 
     this.chatService.SendMessage(this.messageRequest).subscribe({

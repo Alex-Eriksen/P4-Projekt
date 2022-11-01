@@ -23,23 +23,34 @@ export class ChatComponent implements OnInit {
   friends: StaticPlayerResponse[] = [];
   backupFriends: StaticPlayerResponse[] = []; // backup array of this.friends used in search function
 
-  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
+  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", playerImage: "", playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
   friend: StaticPlayerResponse = { playerID: 0,  accountID: 0, playerName: "", playerImage: "", playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0 };
 
   isChatWindowOpen: boolean = false;
   friendListOpen: boolean = true;
+
+  currentStatus: string = "";
 
   constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.authenticationService.OnTokenChanged.subscribe(x => {
       this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
+
+      this.playerService.OnStatusChanged.subscribe((status: string) => {
+        if(status === undefined)
+          return
+
+        this.getClass(status);
+      })
+
       this.playerService.getById(this.playerId).subscribe(data => this.player = data);
       this.chatService.GetAll(this.playerId).subscribe(data => {
         this.friends = data;
         this.backupFriends = data;
       });
     })
+
   }
 
   toggleFriendList(): void {
@@ -53,9 +64,8 @@ export class ChatComponent implements OnInit {
     if(!this.friendListOpen)
       this.toggleFriendList();
 
-    if(this.friend.playerID != 0 || !this.isChatWindowOpen) {
+    if(this.friend.playerID != 0) {
       this.isChatWindowOpen = !this.isChatWindowOpen;
-      console.log(this.isChatWindowOpen);
     }
   }
 
@@ -80,5 +90,14 @@ export class ChatComponent implements OnInit {
 		  }
 	  }
 	  this.friends = output;
+  }
+
+
+  getClass(status: string): void {
+    switch(status) {
+      case "Online": this.currentStatus="text-success"; break;
+      case "Offline": this.currentStatus="text-danger"; break;
+      default: this.currentStatus="text-warning"; break;
+    }
   }
 }

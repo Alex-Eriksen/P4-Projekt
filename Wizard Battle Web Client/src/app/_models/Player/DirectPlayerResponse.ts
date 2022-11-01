@@ -5,6 +5,7 @@ export interface DirectPlayerResponse {
     playerID: number;
     account: StaticAccountResponse;
     playerName: string;
+    playerImage: string;
     playerStatus: string;
     experiencePoints: number;
     maxHealth: number;

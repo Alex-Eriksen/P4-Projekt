@@ -1,0 +1,25 @@
+.flex-even {
+  flex: 1;
+}
+
+/* HUSK AT FJERN */
+
+.content {
+  height: 200px;
+}
+
+
+.footer {
+  height: 72px;
+}
+
+
+
+.icon-grid {
+  display: grid;
+  width: 100%;
+  height: 200px;
+  overflow-y: scroll;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .5em;
+}

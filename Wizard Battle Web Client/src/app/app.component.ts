@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { JwtDecodePlus } from './helpers/JWTDecodePlus';
+import { AuthenticationService } from './services/authentication.service';
+import { PlayerService } from './services/player.service';
 
 @Component({
   selector: 'app-root',

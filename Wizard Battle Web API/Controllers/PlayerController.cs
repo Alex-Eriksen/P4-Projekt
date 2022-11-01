@@ -34,19 +34,19 @@
 			{
 				List<StaticPlayerResponse> players = await m_playerService.GetAll();
 
-				if(players == null)
+				if (players == null)
 				{
 					return Problem("Nothing was returned from service, this was unexpected");
 				}
 
-				if(players.Count == 0)
+				if (players.Count == 0)
 				{
 					return NoContent();
 				}
 
 				return Ok(players);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				return Problem(ex.Message);
 			}
@@ -123,6 +123,26 @@
 			try
 			{
 				DirectPlayerResponse player = await m_playerService.Update(playerId, request);
+
+				if (player == null)
+				{
+					return NotFound();
+				}
+				return Ok(player);
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+		[HttpPut]
+		[Route("status")]
+		public async Task<IActionResult> ChangeStatus([FromQuery] int playerId, [FromQuery] string status)
+		{
+			try
+			{
+				DirectPlayerResponse player = await m_playerService.ChangeStatus(playerId, status);
 
 				if (player == null)
 				{

@@ -1,0 +1,17 @@
+<div class="container-fluid h-100 border border-1 border-white p-3">
+  <h3 class="mb-2 header">Hello</h3>
+  <div class="d-flex flex-row gap-2 content">
+    <div class="icon-grid flex-even border border-1 border-white p-3">
+      <img [src]="image" class="border border-3 border-white" *ngFor="let image of images" width="52">
+    </div>
+    <div class="text flex-even border border-1 border-white p-3">
+      <p>A Player Icon is a picture that represents you in chat rooms and your Friend List.
+        You can choose from these starter icons, and later you can unlock special icons to represent the achievements you have accomplished in Wizard Battle.
+        You can change your Player Icon at any time by clicking on the icon at the tp of the screen</p>
+    </div>
+  </div>
+  <div class="d-flex flex-row gap-2 justify-content-end footer">
+    <button>Save Changes</button>
+    <button class="btn btn-danger" (click)="onClose()">Close</button>
+  </div>
+</div>

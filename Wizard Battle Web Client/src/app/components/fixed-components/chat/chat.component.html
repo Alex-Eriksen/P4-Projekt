@@ -1,7 +1,7 @@
 <div class="w-100 h-100 text-white position-relative" *ngIf="friendListOpen">
   <div class="d-flex flex-row" >
     <div class="flex-grow-1 border border-3 border-primary bg-primary d-flex">
-      <i class="fa-solid fa-circle px-2 align-self-end pb-2" [ngClass]="{'text-danger': player.playerStatus === 'Offline', 'text-warning' : player.playerStatus === 'Away', 'text-success': player.playerStatus === 'Online' }"></i>
+      <i class="fa-solid fa-circle px-2 align-self-end pb-2" [ngClass]="currentStatus"></i>
       <span class="fs-4 lh-1 align-self-center">{{player.playerName}}</span>
     </div>
     <div class="pb-1 ps-1 border-3 border-bottom border-primary minimize-background">

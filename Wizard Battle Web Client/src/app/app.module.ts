@@ -22,6 +22,9 @@ import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-bo
 import { ProfileComponent } from './components/profile/profile.component';
 import { LibraryComponent } from './components/library/library.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from  '@angular/material/dialog';
+import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
+import { Buymenu1Component } from './components/modals/change-icon/buy-menues/buymenu1/buymenu1.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ChatComponent,
     ChatBoxComponent,
     ProfileComponent,
-    LibraryComponent
+    LibraryComponent,
+    ChangeIconComponent,
+    Buymenu1Component,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    MatDialogModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },

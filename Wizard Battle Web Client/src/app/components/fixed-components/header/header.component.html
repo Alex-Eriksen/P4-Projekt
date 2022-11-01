@@ -28,7 +28,7 @@
         <div class="row h-100 p-3">
           <a routerLink="" class="position-relative d-block" style="width: 50px;">
 				  	<small class="player-level">{{playerLvl}}</small>
-				  	<img src="../../../../assets/Wiz Profil Pic 1.png" alt="" id="player-img" width="56" height="56" class="bg-danger">
+				  	<img [src]="player.playerImage" alt="" id="player-img" width="56" height="56" class="bg-danger" (click)="openChangeIcon()">
 				  </a>
 					<div class="d-flex flex-column w-75 ps-4 gap-1">
 						<div class="d-flex flex-row bar-gradient border-linear-gradient rounded">
