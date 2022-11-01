@@ -148,3 +148,47 @@ span {
 		background-position: 0% 50%;
   }
 }
+
+#bannercircle {
+  width: 90px;
+  height: 90px;
+  background-color: transparent;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  border-color: gold;
+  border-style: solid;
+  border-width: 5px;
+  left: 400px;
+  bottom: -5.5px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+#bannersquare {
+  width: 450px;
+  height: 75px;
+  background-color: transparent;
+  border-color: gold;
+  border-style: outset;
+  border-width: 5px;
+  height: auto;
+  top: 4.5px;
+  z-index: 0;
+}
+
+.centered { /* Text Title for Banner */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px darkred;
+  font-size: 125%;
+  font-family: "Lucida Console", "Courier New", monospace;
+  display:inline;
+}
+
+span.keeptogether { /* Keeps title in one line on banner */
+  white-space: nowrap ;
+}
