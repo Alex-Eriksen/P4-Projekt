@@ -18,7 +18,7 @@ import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
 
-import { ScrollingModule } from '@angular/cdk/scrolling';
+
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
 
 import { ProfileComponent } from './components/profile/profile.component';
@@ -34,8 +34,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     SpellbookComponent,
     ChatComponent,
 
-    ChatBoxComponent
-=======
+    ChatBoxComponent,
+
     ProfileComponent
  
   ],
@@ -44,7 +44,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ScrollingModule
+    
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },

@@ -1,5 +1,6 @@
 <div class="container-fluid h-100 px-3">
-    <div class="h-100"style=" background-image: url(../../../../assets/Scroll.png); background-repeat: no-repeat; background-position: 50% 0%;">
+  <div class="table"style="background-image: url(../../../../assets/wood-texture-wood-planks-background-and-old-wood-free-photo.png); background-repeat: no-repeat; background-position: 50% 0%;z-index: -1;"></div>
+    <div class="h-100"style=" background-image: url(../../../../assets/Scroll.png); background-repeat: no-repeat; background-position: 50% 0%;z-index: 1;">
       <div class="text" *ngFor="let DirectPlayerResponse of Players">
         <p>Username: {{DirectPlayerResponse.playerName}}</p>
         <p>Exp: {{DirectPlayerResponse.experiencePoints}}</p>
@@ -9,3 +10,4 @@
         <p>Time Played: {{DirectPlayerResponse.TimePlayed}}</p>
       </div>
   </div>
+  
