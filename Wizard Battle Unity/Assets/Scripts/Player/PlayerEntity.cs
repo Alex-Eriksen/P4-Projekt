@@ -35,6 +35,10 @@ public class PlayerEntity : NetworkBehaviour
 
     public override void OnStartClient()
     {
+        if (!hasAuthority)
+        {
+            return;
+        }
         // When subscribing to the SyncList callback you dont get the initial values of the SyncList.
         m_statusEffects.Callback += OnStatusEffectsChanged;
 
@@ -49,7 +53,7 @@ public class PlayerEntity : NetworkBehaviour
     private readonly Dictionary<StatusEffectType, GameObject> m_statusEffectPrefabs = new Dictionary<StatusEffectType, GameObject>();
     private readonly Dictionary<StatusEffectType, GameObject> m_activeStatusEffectObjects = new Dictionary<StatusEffectType, GameObject>();
     private readonly Dictionary<StatusEffectType, GameObject> m_activeUIStatusEffects = new Dictionary<StatusEffectType, GameObject>();
-    private readonly Dictionary<StatusEffectType, Coroutine> m_activeStatusEffects = new Dictionary<StatusEffectType, Coroutine>();
+    private readonly Dictionary<StatusEffectType, Coroutine> m_activeStatusEffectsRoutines = new Dictionary<StatusEffectType, Coroutine>();
     private readonly SyncList<StatusEffect> m_statusEffects = new SyncList<StatusEffect>();
     private Transform m_statusEffectsUI;
     [SerializeField] private GameObject m_statusEffectUIPrefab;
@@ -76,11 +80,11 @@ public class PlayerEntity : NetworkBehaviour
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_REMOVEAT:
+                Destroy(m_activeUIStatusEffects[oldStatusEffect.effectType]);
                 m_activeUIStatusEffects.Remove(oldStatusEffect.effectType);
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_SET:
-                m_activeUIStatusEffects[oldStatusEffect.effectType].GetComponent<StatusEffectUI>().SetStatusEffect(newStatusEffect);
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_CLEAR:
@@ -98,11 +102,12 @@ public class PlayerEntity : NetworkBehaviour
         // Checks if the player entity already has the status effect.
         if (SC_ContainsStatusEffect(statusEffect))
         {
-            m_statusEffects[SC_GetStatusEffectIndex(statusEffect)] = statusEffect;
+            m_statusEffects.Remove(statusEffect);
+            m_statusEffects.Add(statusEffect);
 
             // Stops the destruction coroutine of the status effect and starts a new one.
-            StopCoroutine(m_activeStatusEffects[statusEffect.effectType]);
-            m_activeStatusEffects[statusEffect.effectType] = StartCoroutine(StatusEffectDeathTimer(m_activeStatusEffectObjects[statusEffect.effectType], statusEffect));
+            StopCoroutine(m_activeStatusEffectsRoutines[statusEffect.effectType]);
+            m_activeStatusEffectsRoutines[statusEffect.effectType] = StartCoroutine(StatusEffectDeathTimer(m_activeStatusEffectObjects[statusEffect.effectType], statusEffect));
         }
         else
         {
@@ -110,7 +115,7 @@ public class PlayerEntity : NetworkBehaviour
 
             // Spawns the status effect on and sets it in the relative dictionaries for tracking.
             GameObject obj = Instantiate(m_statusEffectPrefabs[statusEffect.effectType], m_transform);
-            m_activeStatusEffects.Add(statusEffect.effectType, StartCoroutine(StatusEffectDeathTimer(obj, statusEffect)));
+            m_activeStatusEffectsRoutines.Add(statusEffect.effectType, StartCoroutine(StatusEffectDeathTimer(obj, statusEffect)));
             m_activeStatusEffectObjects.Add(statusEffect.effectType, obj);
             NetworkServer.Spawn(obj);
         }
@@ -127,7 +132,7 @@ public class PlayerEntity : NetworkBehaviour
     {
         yield return new WaitForSeconds(statusEffect.effectLifetime);
         m_statusEffects.RemoveAt(SC_GetStatusEffectIndex(statusEffect));
-        m_activeStatusEffects.Remove(statusEffect.effectType);
+        m_activeStatusEffectsRoutines.Remove(statusEffect.effectType);
         m_activeStatusEffectObjects.Remove(statusEffect.effectType);
         NetworkServer.Destroy(obj);
     }
