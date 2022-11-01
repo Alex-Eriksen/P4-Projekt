@@ -104,6 +104,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   m_playerCombat: {fileID: 7390722938485721684}
+  m_isTargetDummy: 1
+  m_statusEffectUIPrefab: {fileID: 0}
   m_health: 100
   m_mana: 100
 --- !u!114 &7390722938485721684
@@ -400,6 +402,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2346366773692684751}
     m_Modifications:
+    - target: {fileID: 38471400663621082, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.012499988
+      objectReference: {fileID: 0}
     - target: {fileID: 2012527529218863521, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_Name
       value: Player World Canvas
@@ -408,6 +414,14 @@ PrefabInstance:
       propertyPath: m_entity
       value: 
       objectReference: {fileID: 2098348932656782256}
+    - target: {fileID: 2269085727189192656, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.012499988
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429852721386893187, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.012499988
+      objectReference: {fileID: 0}
     - target: {fileID: 2875690032297579012, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_entity
       value: 
@@ -484,6 +498,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5694018889397702189, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.012499988
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744091125913431202, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.012499988
+      objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -518,7 +540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.269
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_LocalPosition.x
@@ -572,6 +594,10 @@ PrefabInstance:
       propertyPath: m_playerCombat
       value: 
       objectReference: {fileID: 7390722938485721684}
+    - target: {fileID: 6471060310316482584, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.012499988
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
 --- !u!224 &1806441107554361460 stripped

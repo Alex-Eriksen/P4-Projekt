@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using TMPro;
+using System.Linq;
 
 public class PlayerEntity : NetworkBehaviour
 {
     public PlayerCombat PlayerCombat { get { return m_playerCombat; } }
+    private PlayerConnection m_playerConnection;
+    [SyncVar(hook = nameof(SetPlayerName))] private string m_playerName;
     [SerializeField] private PlayerCombat m_playerCombat;
+    [SerializeField] private bool m_isTargetDummy = false;
     private Coroutine m_regenRoutine;
     private Transform m_transform;
 
@@ -31,22 +36,36 @@ public class PlayerEntity : NetworkBehaviour
     public override void OnStartServer()
     {
         m_regenRoutine = StartCoroutine(SC_RegenTicker());
+        if (m_isTargetDummy)
+        {
+            m_playerName = "Target Dummy";
+        }
     }
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
-        if (!hasAuthority)
-        {
-            return;
-        }
+        m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        Cmd_SetPlayerName(m_playerConnection.PlayerName + $" - {m_playerConnection.netId}");
+
         // When subscribing to the SyncList callback you dont get the initial values of the SyncList.
         m_statusEffects.Callback += OnStatusEffectsChanged;
 
         // Because we dont get the initial values we update them here manually instead.
-        for(int index = 0; index < m_statusEffects.Count; index++)
+        for (int index = 0; index < m_statusEffects.Count; index++)
         {
             OnStatusEffectsChanged(SyncList<StatusEffect>.Operation.OP_ADD, index, new StatusEffect(), m_statusEffects[index]);
         }
+    }
+
+    [Command]
+    private void Cmd_SetPlayerName(string playerName)
+    {
+        m_playerName = playerName;
+    }
+
+    private void SetPlayerName(string oldName, string newName)
+    {
+        m_transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = newName;
     }
 
     #region Status Effects

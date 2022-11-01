@@ -1,7 +1,7 @@
 [System.Serializable]
 public class PlayerData
 {
-    public string PlayerName = "NO NAME";
+    public string PlayerName = "PLAYER";
     public int PlayerSpellbookID = -1;
     public uint PlayerExperience = 0;
     public int PlayerSkinID = -1;

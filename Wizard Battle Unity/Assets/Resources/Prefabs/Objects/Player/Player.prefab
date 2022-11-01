@@ -496,6 +496,10 @@ PrefabInstance:
       propertyPath: m_entity
       value: 
       objectReference: {fileID: 2098348932656782256}
+    - target: {fileID: 2806098916925154755, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2875690032297579012, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_entity
       value: 
@@ -606,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.269
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_LocalPosition.x
@@ -642,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.68
+      value: 0.6754
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -660,6 +664,10 @@ PrefabInstance:
       propertyPath: m_playerCombat
       value: 
       objectReference: {fileID: 7390722938485721684}
+    - target: {fileID: 9197271738198596470, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_fontSize
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
 --- !u!224 &550701320636835177 stripped
