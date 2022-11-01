@@ -13,6 +13,7 @@ public class Spellbook : MonoBehaviour
     private SpellObject m_primarySelectedSpell, m_secondarySelectedSpell;
 
     private PlayerInput m_playerInput;
+    public bool IsActive { get => m_spellbookUI.activeSelf; }
 
     [SerializeField] private GameObject m_spellbookUI;
     public SpellbookObject currentSpellbook;

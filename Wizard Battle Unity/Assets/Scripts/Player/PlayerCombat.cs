@@ -58,7 +58,7 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void RightMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.SecondarySelectedSpell == null || m_isCasting)
+        if (m_spellbook.SecondarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
         {
             return;
         }
@@ -72,7 +72,7 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void LeftMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.PrimarySelectedSpell == null || m_isCasting)
+        if (m_spellbook.PrimarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
         {
             return;
         }
