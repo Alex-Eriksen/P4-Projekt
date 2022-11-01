@@ -17,8 +17,10 @@ export class ProfileComponent implements OnInit {
         accountID:1
       },
       playerName: "NickTheG",
+      playerImage: "../../../../assets/Wiz Profil Pic 1.png",
       experiencePoints: 20,
       maxHealth: 100,
+      playerStatus: "",
       maxMana: 80,
       knowledgePoints: 0,
       timeCapsules: 120,

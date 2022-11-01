@@ -2,9 +2,10 @@
 	<div class="row">
 			<div class="col-4"> <!-- Nav section -->
 				<div class="row h-100">
-					<div class="col-3">
-						<div class="d-flex align-items-center h-100">
-							<a routerLink=""><img id="logo" src="../../../../assets/Profile 1.png" alt=""></a>
+						<div class="col-3">
+              <div class="d-flex align-items-center h-100">
+								<a routerLink=""><img id="logo" src="../../../../assets/Profile 1.png" style="border-radius: 50px;" alt="" width="55"></a>
+              </div>
 						</div>
 					</div>
 					<div class="col-9">
@@ -37,7 +38,7 @@
         <div class="row h-100 p-3">
           <a routerLink="" class="position-relative d-block" style="width: 50px;">
 				  	<small class="player-level">{{playerLvl}}</small>
-				  	<img src="../../../../assets/Profile 1.png" alt="" id="player-img" width="56" height="56" class="bg-danger">
+				  	<img [src]="player.playerImage" alt="" id="player-img" width="56" height="56" class="bg-danger" (click)="openChangeIcon()">
 				  </a>
 					<div class="d-flex flex-column w-75 ps-4 gap-1">
 						<div class="d-flex flex-row bar-gradient border-linear-gradient rounded">
@@ -56,7 +57,7 @@
                 </div>
               </div>
 						</div>
-						<div class="button-grid h-50 pb-1"> <!-- Navigation buttons-->
+						<div class="button-grid h-50"> <!-- Navigation buttons-->
 							<button class="flex-fill rounded border border-primary button-gradient" title="Profile" style="color: #fff" routerLink="profile"><i class="fa-solid fa-user fa-fw"></i></button>
 							<button class="flex-fill rounded border border-primary button-gradient" title="Library" style="color: #fff" routerLink="library"><i class="fa-solid fa-book-tanakh fa-fw"></i></button>
 							<button class="flex-fill rounded border border-primary button-gradient" title="Spellbook" style="color: #fff"><i class="fa-solid fa-wand-magic-sparkles fa-fw"></i></button>

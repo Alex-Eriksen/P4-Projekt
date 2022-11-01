@@ -6,6 +6,7 @@
 		Task<Player> GetById(int playerId);
 		Task<Player> Create(Player request);
 		Task<Player> Update(int playerId, Player request);
+		Task<Player> ChangeStatus(int playerId, string status);
 	}
 
 	public class PlayerRepository : IPlayerRepository
@@ -78,6 +79,19 @@
             }
 
             return player;
+        }
+
+        public async Task<Player> ChangeStatus(int playerId, string status)
+		{
+            Player player = await GetById(playerId);
+            if (player != null)
+            {
+                player.PlayerStatus = status;
+
+                await m_context.SaveChangesAsync();
+            }
+
+            return await GetById(playerId);
         }
     }
 }

@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { DirectPlayerResponse } from 'src/app/_models/Player';
+import { Buymenu1Component } from '../../modals/change-icon/buy-menues/buymenu1/buymenu1.component';
+import { ChangeIconComponent } from '../../modals/change-icon/change-icon.component';
+
 
 @Component({
   selector: 'app-header',
@@ -11,30 +16,38 @@ import { DirectPlayerResponse } from 'src/app/_models/Player';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService) { }
+  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private dialog: MatDialog) {
+    this.setTimeout();
+    this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Away").subscribe(() => this.isAway = true))
+  }
+
+  iteration: number = 0;
+  isAway: boolean = false;
+
+  userActivity: any;
+  userInactive: Subject<any> = new Subject();
 
   baseExp: number = 25;
   playerCurrentXp: number = 0;
   playerLvl: number = 1;
   playerId: number = 0;
-  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
+  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", playerImage: "", playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
 
 
 
   ngOnInit(): void {
-    this.authenticationService.OnTokenChanged.subscribe(x =>
-      {
-        this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
-        this.playerService.getById(this.playerId).subscribe({ // Gets player information
-          next: (data) => {
-            this.player = data; // Assigns data to player
-          },
-          complete: () => {
-            this.getLevel(this.player.experiencePoints); // Gets level of player after player data is assigned
-          }
-        });
+    this.authenticationService.OnTokenChanged.subscribe(x => {
+      this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
+      this.playerService.changeStatus(this.playerId, "Online").subscribe({
+        next: (playerResponse) => {
+          this.player = playerResponse;
+        },
+        complete: () => {
+          this.getLevel(this.player.experiencePoints); // Gets level of player after player data is assigned
+        }
       });
-    }
+    })
+  }
 
   // Calculates level of player
   getLevel(playerExp: number): void {
@@ -50,5 +63,44 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.authenticationService.revokeToken().subscribe();
+    this.playerService.changeStatus(this.playerId, "Offline").subscribe();
+  }
+
+  setTimeout() {
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 300000) // Sets timeout to be 5 minutes
+  }
+
+  @HostListener('window:mousemove') refreshUserState() {
+    if(this.isAway) { // Sets player status to Online if they were away and came back
+      this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Online").subscribe(() => this.isAway = false))
+    }
+    clearTimeout(this.userActivity);
+    this.setTimeout();
+  }
+
+  openChangeIcon(): void {
+    let dialogRef = this.dialog.open(ChangeIconComponent, {
+      width: '900px',
+      maxWidth: '100vw',
+      height: '400px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log("Dialog has been closed");
+    });
+  }
+
+  openBuyMenu(): void {
+    let dialogRef = this.dialog.open(Buymenu1Component, {
+      width: '536px',
+      maxWidth: '50vw',
+      height: '449px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log("Dialog has been closed");
+    });
   }
 }

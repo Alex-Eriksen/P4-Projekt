@@ -21,3 +21,47 @@ body, html {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.animateOut
+{
+  animation: fade-out 0.4s !important;
+}
+
+
+
+.backdropBackground
+{
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: hidden !important;
+  display: block;
+}
+
+.cdk-overlay-container {
+  position: absolute;
+  top: 0;
+}
+
+.abemamd {
+  position: absolute;
+}
+
+.new-overlay {
+  position: absolute;
+  top: 79px;
+  left: 19px;
+}
+
+mat-dialog-container {
+  padding: none!important;
+}
+
+
+
+.change-icon-overlay {
+  position: absolute;
+  top: 100px;
+  left: 500px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
