@@ -59,8 +59,9 @@ mat-dialog-container {
 
 .change-icon-overlay {
   position: absolute;
-  top: 100px;
-  left: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 html, body { height: 100%; }
