@@ -48,7 +48,6 @@ export class ChatComponent implements OnInit {
       this.chatService.GetAll(this.playerId).subscribe(data => {
         this.friends = data;
         this.backupFriends = data;
-        console.log(this.friends);
       });
     })
 
