@@ -1,17 +1,25 @@
-.table{
-    z-index: -1;
-    height: 100%;
-   
-}
+
 .text {
-   
     text-align: center;
     color: gray;
     font-family:fantasy;
    padding: 220px;
+   margin-left: 29%;
    z-index: 1;
-   position:absolute;
+position: absolute;
   }
+.table{
+ height: 100%;
+ width: 100%;
+ z-index: -1;
+ transform:translate(0%,-100%);
+ position: relative;
+}
+.h-100{
+   
+ z-index: 0;
+ position: relative;
+}
  
 
 
