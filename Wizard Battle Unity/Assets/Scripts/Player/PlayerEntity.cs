@@ -93,6 +93,10 @@ public class PlayerEntity : NetworkBehaviour
                 StatusEffectUI statusScript = obj.GetComponent<StatusEffectUI>();
                 statusScript.SetStatusEffect(newStatusEffect);
                 m_activeUIStatusEffects.Add(newStatusEffect.effectType, obj);
+                if(newStatusEffect.effectType == StatusEffectType.Stun)
+                {
+                    m_playerCombat.Raise_CastingCanceled(this, ActionEventArgsFlag.Stunned, "Status Effect");
+                }
                 break;
 
             case SyncList<StatusEffect>.Operation.OP_INSERT:
@@ -167,6 +171,18 @@ public class PlayerEntity : NetworkBehaviour
         foreach (StatusEffect statusEffect in m_statusEffects)
         {
             if(statusEffect.effectType == newStatusEffect.effectType)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool ContainsStatusEffect(StatusEffectType effectType)
+    {
+        foreach (StatusEffect statusEffect in m_statusEffects)
+        {
+            if (statusEffect.effectType == effectType)
             {
                 return true;
             }

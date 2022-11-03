@@ -49,6 +49,7 @@ public class Spell : NetworkBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+        ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled -= Spell_OnCastingCanceled;
     }
 
     private void Update()
@@ -220,6 +221,8 @@ public class Spell : NetworkBehaviour
     {
         ownerCollider = identity.GetComponent<Collider2D>();
 
+        ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled += Spell_OnCastingCanceled;
+
         if(spellData.SpellType == SpellType.Offensive)
         {
             switch (((OffensiveSpellObject)spellData).SpellBehaviour)
@@ -246,6 +249,17 @@ public class Spell : NetworkBehaviour
         vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
 
         OnSetup();
+    }
+
+    private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
+    {
+        CancelSelf();
+    }
+
+    [Command]
+    private void CancelSelf()
+    {
+        SC_StartDeathTimer(0);
     }
 
     /// <summary>

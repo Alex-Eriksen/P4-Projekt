@@ -11,6 +11,7 @@ public class PlayerMovement : NetworkBehaviour
     private float m_maxSpeed = 0f;
     private PlayerConnection m_playerConnection;
     private PlayerInput m_playerInput;
+    private PlayerEntity m_playerEntity;
     private Vector2 m_inputVector = Vector2.zero, m_movementVector = Vector2.zero;
     private Vector2 m_validSavedPosition, m_validSavedVelocity;
     private Rigidbody2D m_rigidbody2D;
@@ -22,6 +23,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         m_rigidbody2D = GetComponent<Rigidbody2D>();
         m_animator = GetComponentInChildren<Animator>();
+        m_playerEntity = GetComponent<PlayerEntity>();
         m_transform = transform;
     }
 
@@ -74,6 +76,10 @@ public class PlayerMovement : NetworkBehaviour
     private void Movement_Performed(InputAction.CallbackContext context)
     {
         m_inputVector = context.ReadValue<Vector2>();
+        if (m_playerEntity.ContainsStatusEffect(StatusEffectType.Stun))
+        {
+            m_inputVector = Vector2.zero;
+        }
         m_animator.SetBool("Moving", !(m_inputVector == Vector2.zero));
     }
 

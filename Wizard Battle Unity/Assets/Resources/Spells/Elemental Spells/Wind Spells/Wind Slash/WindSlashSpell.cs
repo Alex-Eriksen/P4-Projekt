@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockSpearSpell : Spell
+public class WindSlashSpell : Spell
 {
     [SerializeField] private Color m_dmgColor;
     [SerializeField] private float m_speed = 10f, m_pushForce = 1f;
@@ -65,7 +65,8 @@ public class RockSpearSpell : Spell
 
         GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
         targetEntities[0].SC_DrainHealth(dmg);
-        targetEntities[0].SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        // TODO: Add air status effect.
+        //targetEntities[0].SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
         targetEntities[0].GetComponent<Rigidbody2D>().AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse);
     }
 }
