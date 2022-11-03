@@ -23,8 +23,8 @@ export class ChatComponent implements OnInit {
   friends: StaticPlayerResponse[] = [];
   backupFriends: StaticPlayerResponse[] = []; // backup array of this.friends used in search function
 
-  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", playerImage: "", playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
-  friend: StaticPlayerResponse = { playerID: 0,  accountID: 0, playerName: "", playerImage: "", playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0 };
+  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", icon: {iconID: 0, iconLocation: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
+  friend: StaticPlayerResponse = { playerID: 0,  accountID: 0, playerName: "", icon: {iconID: 0, iconLocation: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0 };
 
   isChatWindowOpen: boolean = false;
   friendListOpen: boolean = true;
@@ -48,6 +48,7 @@ export class ChatComponent implements OnInit {
       this.chatService.GetAll(this.playerId).subscribe(data => {
         this.friends = data;
         this.backupFriends = data;
+        console.log(this.friends);
       });
     })
 

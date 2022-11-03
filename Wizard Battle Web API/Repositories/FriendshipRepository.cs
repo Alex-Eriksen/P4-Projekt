@@ -23,16 +23,16 @@
 		public async Task<Friendship> GetFriendship(int playerId, int friendId)
 		{
 			return await _context.Friendship
-				.Include(x => x.MainPlayer)
-				.Include(x => x.FriendPlayer)
+				.Include(x => x.MainPlayer).ThenInclude(x => x.Icon)
+				.Include(x => x.FriendPlayer).ThenInclude(x => x.Icon)
 				.FirstOrDefaultAsync(x => (x.MainPlayerID == playerId || x.MainPlayerID == friendId) && (x.FriendPlayerID == playerId || x.FriendPlayerID == friendId));
 		}
 
 		public async Task<List<Friendship>> GetAllFriendships(int playerId)
 		{
 			return await _context.Friendship
-				.Include(x => x.MainPlayer)
-				.Include(x => x.FriendPlayer)
+				.Include(x => x.MainPlayer).ThenInclude(x => x.Icon)
+				.Include(x => x.FriendPlayer).ThenInclude(x => x.Icon)
 				.Where(x => (x.MainPlayerID == playerId || x.FriendPlayerID == playerId) && (x.IsPending == false))
 				.ToListAsync();
 		}

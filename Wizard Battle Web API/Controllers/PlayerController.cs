@@ -155,5 +155,30 @@
 				return Problem(ex.Message);
 			}
 		}
+
+		[HttpGet]
+		[Route("icons")]
+		public async Task<IActionResult> GetAllIcons()
+		{
+			try
+			{
+				List<Icon> icons = await m_playerService.GetAllIcons();
+				if(icons == null)
+				{
+					return Problem("Nothing was returned from service, this was unexpected");
+				}
+
+				if (icons.Count == 0)
+				{
+					NoContent();
+				}
+
+				return Ok(icons);
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
 	}
 }

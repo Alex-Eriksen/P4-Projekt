@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
         accountID:1
       },
       playerName: "NickTheG",
-      playerImage: "../../../../assets/Wiz Profil Pic 1.png",
+      icon: {iconID: 0, iconLocation: ""},
       experiencePoints: 20,
       maxHealth: 100,
       playerStatus: "",
