@@ -8,7 +8,7 @@
 
 		public string PlayerName { get; set; } = string.Empty;
 
-		public string PlayerImage { get; set; }
+		public Icon Icon { get; set; }
 
 		public string PlayerStatus { get; set; } = string.Empty;
 

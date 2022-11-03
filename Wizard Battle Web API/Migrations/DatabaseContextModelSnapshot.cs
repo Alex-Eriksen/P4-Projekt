@@ -63,7 +63,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$D7XBMbDec78JIPt/c3Hhh.1U2AB2GtPtn6vc6GxslCsPChZXq3696"
+                            Password = "$2a$10$GAFI.rgmvfF12nR2UeSE0uTMq5a2zwtepZLDO0Ffw9AO/lsoRn9O."
                         },
                         new
                         {
@@ -72,7 +72,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$b5RfqnSamknD85HaR2n7mu8s/xPCYvJERqrMZVBOjANVXyv0.naUO"
+                            Password = "$2a$10$XTWuwUpV9jN7VFtY2QpEfujOCiatbfByQvAidfBDC1Hyz3zVZQgMG"
                         },
                         new
                         {
@@ -81,7 +81,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$0AZ7xzZfYamzbGmnrLOrFOwnpVeZzOBa6DHKj6bFDrEOKKJSUB50u"
+                            Password = "$2a$10$nk/SCzpI6SSy1AeFO02shuqMLb/3yglgAjQ6M03voQnAAZIm0ScMa"
                         },
                         new
                         {
@@ -90,7 +90,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$bJfKIwJYhW8.pC56EXcyh.CL44QYEdWMVKI.OiFPiIXPcHLaa6DFC"
+                            Password = "$2a$10$Ch2O5fA0Po7hpRUnxs5lLe9NQ9ndTz2tBFjgHwAYUVe3nlF7t5bH2"
                         });
                 });
 
@@ -121,43 +121,66 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9223),
+                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2499),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9227),
+                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2502),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9227),
+                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2503),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9228),
+                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2503),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9229),
+                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2504),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 10, 28, 10, 7, 35, 792, DateTimeKind.Utc).AddTicks(9229),
+                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2504),
                             IsPending = false
+                        });
+                });
+
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Icon", b =>
+                {
+                    b.Property<int>("IconID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IconID"), 1L, 1);
+
+                    b.Property<string>("IconLocation")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("IconID");
+
+                    b.ToTable("Icon");
+
+                    b.HasData(
+                        new
+                        {
+                            IconID = 1,
+                            IconLocation = "../../../../assets/alex.png"
                         });
                 });
 
@@ -206,6 +229,9 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<long>("ExperiencePoints")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("IconID")
+                        .HasColumnType("int");
+
                     b.Property<long>("KnowledgePoints")
                         .HasColumnType("bigint");
 
@@ -217,9 +243,6 @@ namespace Wizard_Battle_Web_API.Migrations
 
                     b.Property<DateTime>("Modified_At")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("PlayerImage")
-                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("PlayerName")
                         .HasColumnType("nvarchar(32)");
@@ -235,6 +258,8 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.HasIndex("AccountID")
                         .IsUnique();
 
+                    b.HasIndex("IconID");
+
                     b.HasIndex("PlayerName")
                         .IsUnique()
                         .HasFilter("[PlayerName] IS NOT NULL");
@@ -247,11 +272,11 @@ namespace Wizard_Battle_Web_API.Migrations
                             PlayerID = 1,
                             AccountID = 1,
                             ExperiencePoints = 167L,
+                            IconID = 1,
                             KnowledgePoints = 10L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlayerImage = "../../../../assets/alex.png",
                             PlayerName = "NickTheG",
                             PlayerStatus = "Online",
                             TimeCapsules = 10L
@@ -261,11 +286,11 @@ namespace Wizard_Battle_Web_API.Migrations
                             PlayerID = 2,
                             AccountID = 2,
                             ExperiencePoints = 138L,
+                            IconID = 1,
                             KnowledgePoints = 10L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlayerImage = "../../../../assets/alex.png",
                             PlayerName = "AlexTheG",
                             PlayerStatus = "Online",
                             TimeCapsules = 10L
@@ -275,11 +300,11 @@ namespace Wizard_Battle_Web_API.Migrations
                             PlayerID = 3,
                             AccountID = 3,
                             ExperiencePoints = 138L,
+                            IconID = 1,
                             KnowledgePoints = 10L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlayerImage = "../../../../assets/alex.png",
                             PlayerName = "MartinTheG",
                             PlayerStatus = "Online",
                             TimeCapsules = 10L
@@ -289,11 +314,11 @@ namespace Wizard_Battle_Web_API.Migrations
                             PlayerID = 4,
                             AccountID = 4,
                             ExperiencePoints = 138L,
+                            IconID = 1,
                             KnowledgePoints = 10L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlayerImage = "../../../../assets/alex.png",
                             PlayerName = "MarcoTheG",
                             PlayerStatus = "Online",
                             TimeCapsules = 10L
@@ -387,7 +412,15 @@ namespace Wizard_Battle_Web_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Wizard_Battle_Web_API.Database.Entities.Icon", "Icon")
+                        .WithMany()
+                        .HasForeignKey("IconID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Account");
+
+                    b.Navigation("Icon");
                 });
 
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.RefreshToken", b =>

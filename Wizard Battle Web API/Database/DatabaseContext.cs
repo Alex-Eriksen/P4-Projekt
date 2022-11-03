@@ -12,6 +12,7 @@
 		public DbSet<Player> Player { get; set; }
 		public DbSet<Friendship> Friendship { get; set; }
 		public DbSet<Message> Message { get; set; }
+		public DbSet<Icon> Icon { get; set; }
 
 
 		/// <summary>
@@ -75,12 +76,42 @@
 				Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"),
 			});
 
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 1,
+				IconLocation = "../../../../assets/profile 1.png"
+			});
+
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 2,
+				IconLocation = "../../../../assets/profile 2.png"
+			});
+
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 3,
+				IconLocation = "../../../../assets/profile 3.png"
+			});
+
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 4,
+				IconLocation = "../../../../assets/profile 4.png"
+			});
+
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 5,
+				IconLocation = "../../../../assets/alex.png"
+			});
+
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
 				PlayerID = 1,
 				AccountID = 1,
 				PlayerName = "NickTheG",
-				PlayerImage = "../../../../assets/alex.png",
+				IconID = 1,
 				PlayerStatus = "Online",
 				ExperiencePoints = 167,
 				KnowledgePoints = 10,
@@ -92,7 +123,7 @@
 				PlayerID = 2,
 				AccountID = 2,
 				PlayerName = "AlexTheG",
-				PlayerImage = "../../../../assets/alex.png",
+				IconID = 1,
 				PlayerStatus = "Online",
 				ExperiencePoints = 138,
 				KnowledgePoints = 10,
@@ -104,7 +135,7 @@
 				PlayerID = 3,
 				AccountID = 3,
 				PlayerName = "MartinTheG",
-				PlayerImage = "../../../../assets/alex.png",
+				IconID = 1,
 				PlayerStatus = "Online",
 				ExperiencePoints = 138,
 				KnowledgePoints = 10,
@@ -116,7 +147,7 @@
 				PlayerID = 4,
 				AccountID = 4,
 				PlayerName = "MarcoTheG",
-				PlayerImage = "../../../../assets/alex.png",
+				IconID = 1,
 				PlayerStatus = "Online",
 				ExperiencePoints = 138,
 				KnowledgePoints = 10,

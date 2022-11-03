@@ -7,7 +7,9 @@
 		Task<Player> Create(Player request);
 		Task<Player> Update(int playerId, Player request);
 		Task<Player> ChangeStatus(int playerId, string status);
-	}
+        Task<List<Icon>> GetAllIcons();
+        Task<Icon> CreateIcon(Icon icon);
+    }
 
 	public class PlayerRepository : IPlayerRepository
 	{
@@ -31,6 +33,7 @@
         {
             return await m_context.Player
                 .Include(x => x.Account)
+                .Include(x => x.Icon)
                 .ToListAsync();
         }
 
@@ -57,6 +60,7 @@
         {
             return await m_context.Player
                 .Include(x => x.Account)
+                .Include(x => x.Icon)
                 .FirstOrDefaultAsync(x => x.PlayerID == playerId);
         }
 
@@ -73,6 +77,7 @@
             if (player != null)
             {
                 player.PlayerName = request.PlayerName;
+                player.IconID = request.IconID;
                 player.Modified_At = DateTime.UtcNow;
 
                 await m_context.SaveChangesAsync();
@@ -80,6 +85,7 @@
 
             return player;
         }
+
 
         public async Task<Player> ChangeStatus(int playerId, string status)
 		{
@@ -93,5 +99,17 @@
 
             return await GetById(playerId);
         }
+
+        public async Task<List<Icon>> GetAllIcons()
+		{
+            return await m_context.Icon.ToListAsync();
+		}
+
+        public async Task<Icon> CreateIcon(Icon icon)
+		{
+            m_context.Icon.Add(icon);
+            await m_context.SaveChangesAsync();
+            return icon;
+		}
     }
 }

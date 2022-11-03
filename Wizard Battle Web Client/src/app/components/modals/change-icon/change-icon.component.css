@@ -1,3 +1,7 @@
+.container-fluid {
+  background-color: rgba(15, 20, 38, .95)
+}
+
 .flex-even {
   flex: 1;
 }
@@ -10,7 +14,7 @@
 
 
 .footer {
-  height: 72px;
+  height: 52px;
 }
 
 
@@ -21,5 +25,10 @@
   height: 200px;
   overflow-y: scroll;
   grid-template-columns: repeat(5, 1fr);
-  gap: .5em;
+  gap: .375em;
+  background-color: #0e0f13;
+}
+
+.active-icon {
+  border: 3px solid gold!important;
 }
