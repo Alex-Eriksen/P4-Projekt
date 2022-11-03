@@ -1,5 +1,5 @@
 .container-fluid {
-  background-image: url("../../../../assets/texture-50.png");
+  background-color: rgba(15, 20, 38, .95)
 }
 
 .flex-even {
@@ -26,6 +26,7 @@
   overflow-y: scroll;
   grid-template-columns: repeat(5, 1fr);
   gap: .375em;
+  background-color: #0e0f13;
 }
 
 .active-icon {

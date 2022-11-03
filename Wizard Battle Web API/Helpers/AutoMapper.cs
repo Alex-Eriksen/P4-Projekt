@@ -20,6 +20,8 @@
 			CreateMap<Message, StaticMessageResponse>();
 
 			CreateMap<AuthenticationResponse, StaticRefreshTokenResponse>();
+
+			CreateMap<IconRequest, Icon>();
 		}
 	}
 }

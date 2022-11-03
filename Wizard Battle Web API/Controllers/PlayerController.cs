@@ -180,5 +180,25 @@
 				return Problem(ex.Message);
 			}
 		}
+		[HttpPost]
+		[Route("icons")]
+		public async Task<IActionResult> CreateIcon([FromBody] IconRequest request) 
+		{
+			try
+			{
+				request.IconLocation = $"../../../../assets/player-icons/{request.IconLocation}";
+				Icon icon = await m_playerService.CreateIcon(request);
+				if (icon == null)
+				{
+					return Problem("Nothing was returned from service, this was unexpected");
+				}
+
+				return Ok(icon);
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
 	}
 }

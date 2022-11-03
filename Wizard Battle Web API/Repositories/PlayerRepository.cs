@@ -8,6 +8,7 @@
 		Task<Player> Update(int playerId, Player request);
 		Task<Player> ChangeStatus(int playerId, string status);
         Task<List<Icon>> GetAllIcons();
+        Task<Icon> CreateIcon(Icon icon);
     }
 
 	public class PlayerRepository : IPlayerRepository
@@ -102,6 +103,13 @@
         public async Task<List<Icon>> GetAllIcons()
 		{
             return await m_context.Icon.ToListAsync();
+		}
+
+        public async Task<Icon> CreateIcon(Icon icon)
+		{
+            m_context.Icon.Add(icon);
+            await m_context.SaveChangesAsync();
+            return icon;
 		}
     }
 }

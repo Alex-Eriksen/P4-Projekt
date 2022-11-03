@@ -80,9 +80,12 @@ export class HeaderComponent implements OnInit {
 
   openChangeIcon(): void {
     let dialogRef = this.dialog.open(ChangeIconComponent, {
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+      hasBackdrop: true,
       width: '900px',
       maxWidth: '100vw',
-      height: '380px',
+      height: '340px',
+      disableClose: true,
 
     });
 

@@ -8,6 +8,7 @@
 		Task<DirectPlayerResponse> Update(int playerId, PlayerRequest request);
 		Task<DirectPlayerResponse> ChangeStatus(int playerId, string status);
 		Task<List<Icon>> GetAllIcons();
+		Task<Icon> CreateIcon(IconRequest request);
 	}
 	public class PlayerService : IPlayerService
 	{
@@ -123,6 +124,17 @@
 			if(icons != null)
 			{
 				return icons;
+			}
+
+			return null;
+		}
+
+		public async Task<Icon> CreateIcon(IconRequest request)
+		{
+			Icon icon = await m_playerRepository.CreateIcon(m_mapper.Map<Icon>(request));
+			if(icon != null)
+			{
+				return icon;
 			}
 
 			return null;
