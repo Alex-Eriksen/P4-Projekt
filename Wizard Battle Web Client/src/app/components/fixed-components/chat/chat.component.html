@@ -16,7 +16,7 @@
       <div class="w-100 text-start ps-2 bg-primary">FRIENDS LIST</div>
       <div class="d-flex flex-column gap-1 p-1 bg-dark chat-tab"> <!-- Chat TAB -->
         <div class="w-100 p-1 rounded d-flex flex-row gap-1 position-relative friend-gradient cursor-pointer" *ngFor="let playerFriend of friends" (click)="openMessages(playerFriend)">
-          <img [src]="playerFriend.playerImage" alt="" width="48" height="48">
+          <img [src]="playerFriend.icon.iconLocation" alt="" width="48" height="48">
           <div class="d-flex flex-column flex-grow-1">
             <span>{{playerFriend.playerName}}</span>
             <span [ngClass]="{'text-danger': playerFriend.playerStatus === 'Offline', 'text-warning' : playerFriend.playerStatus === 'Away', 'text-success': playerFriend.playerStatus === 'Online' }">{{playerFriend.playerStatus}}</span>

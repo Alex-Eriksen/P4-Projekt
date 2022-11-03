@@ -17,6 +17,7 @@ global using Wizard_Battle_Web_API.DTOs.Authentication;
 global using Wizard_Battle_Web_API.DTOs.Player;
 global using Wizard_Battle_Web_API.DTOs.Account;
 global using Wizard_Battle_Web_API.DTOs.Message;
+global using Wizard_Battle_Web_API.DTOs.Misc;
 global using Wizard_Battle_Web_API.DTOs.Friendship;
 global using Wizard_Battle_Web_API.Services;
 global using Microsoft.Extensions.Options;

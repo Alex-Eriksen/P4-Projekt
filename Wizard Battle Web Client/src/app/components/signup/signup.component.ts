@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
   private returnUrl: string = "";
 	public passwordValidator: string = '';
   public accountRequest: AccountRequest = { email: '', password: ''};
-	public playerRequest: PlayerRequest = { playerName: ""};
+	public playerRequest: PlayerRequest = { playerName: "", iconID: 1};
 	private request: PlayerAccountRequest = { account: this.accountRequest, player: this.playerRequest };
   error: string = '';
 
