@@ -49,6 +49,10 @@ public class Spell : NetworkBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    private void OnDisable()
+    {
         ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled -= Spell_OnCastingCanceled;
     }
 

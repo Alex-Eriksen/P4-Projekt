@@ -65,8 +65,7 @@ public class WindSlashSpell : Spell
 
         GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
         targetEntities[0].SC_DrainHealth(dmg);
-        // TODO: Add air status effect.
-        //targetEntities[0].SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
+        ownerCollider.GetComponent<PlayerEntity>().SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
         targetEntities[0].GetComponent<Rigidbody2D>().AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse);
     }
 }

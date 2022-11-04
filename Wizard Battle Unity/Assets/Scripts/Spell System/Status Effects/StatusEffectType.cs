@@ -3,5 +3,6 @@ public enum StatusEffectType
 {
     Burn,
     Slow,
-    Stun
+    Stun,
+    Speed
 }

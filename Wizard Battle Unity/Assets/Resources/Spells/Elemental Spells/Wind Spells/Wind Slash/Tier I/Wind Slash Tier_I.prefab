@@ -114,7 +114,7 @@ MonoBehaviour:
   m_dmgColor: {r: 1, g: 1, b: 1, a: 1}
   m_speed: 450
   m_pushForce: 0
-  statusEffect: {fileID: 11400000, guid: db94a35f1d8cb694782af337a40179a3, type: 2}
+  statusEffect: {fileID: 11400000, guid: fa4748b1453971348813abd1e67956c1, type: 2}
 --- !u!73398921 &-3684902439239117345
 VFXRenderer:
   serializedVersion: 1

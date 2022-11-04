@@ -111,6 +111,7 @@ public class PlayerMovement : NetworkBehaviour
         
         if(Vector2.Distance(newPosition, m_validSavedPosition) > WizardNetworkManager.PositionThreshold)
         {
+            Debug.LogWarning($"PlayerMovement::Cmd_ValidatePosition() - Discarded Position: {newPosition}");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
@@ -134,8 +135,9 @@ public class PlayerMovement : NetworkBehaviour
             return;
         }
 
-        if(newVelocity.magnitude > WizardNetworkManager.VelocityThreshold)
+        if(newVelocity.magnitude > WizardNetworkManager.VelocityThreshold * speedMultiplier)
         {
+            Debug.LogWarning($"PlayerMovement::Cmd_ValidateVelocty() - Discarded Velocity Magnitude: {newVelocity.magnitude}");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
