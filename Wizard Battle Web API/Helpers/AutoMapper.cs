@@ -21,6 +21,7 @@
 
 			CreateMap<AuthenticationResponse, StaticRefreshTokenResponse>();
 
+			CreateMap<Icon, IconResponse>();
 			CreateMap<IconRequest, Icon>();
 		}
 	}

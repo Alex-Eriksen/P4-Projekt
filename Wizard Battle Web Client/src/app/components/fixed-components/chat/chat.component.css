@@ -32,7 +32,7 @@
 
 .chat-tab {
   overflow-y:scroll;
-  height: calc(100vh - (100px + 145px));
+  height: calc(100vh - (100px + 138px));
   right: 12px;
 }
 

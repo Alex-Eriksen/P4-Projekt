@@ -56,8 +56,8 @@ export class ChatBoxComponent implements OnInit {
       return;
 
     this.chatService.SendMessage(this.messageRequest).subscribe({
-      next: (response) => {
-        this.messages.push(response);
+      next: () => {
+        this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
       },
       complete: () => {
         this.messageRequest.text = '';

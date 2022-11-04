@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Icon } from '../_models/Misc/Icon';
 import { DirectPlayerResponse, PlayerRequest, StaticPlayerResponse } from '../_models/Player';
 import { PlayerAccountRequest } from '../_models/Player/PlayerAccountRequest';
 
@@ -48,9 +47,4 @@ export class PlayerService {
       return data;
     }));
   }
-
-  public getAllIcons(): Observable<Icon[]> {
-    return this.http.get<Icon[]>(`${this.url}/icons`);
-  }
-
 }

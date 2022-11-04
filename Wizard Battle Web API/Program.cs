@@ -13,6 +13,9 @@ builder.Services.AddTransient<IPlayerService, PlayerService>();
 
 builder.Services.AddTransient<IFriendshipRepository, FriendshipRepository>();
 builder.Services.AddTransient<IFriendshipService, FriendshipService>();
+
+builder.Services.AddTransient<IIconRepository, IconRepository>();
+builder.Services.AddTransient<IIconService, IconService>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {

@@ -13,6 +13,7 @@
 		public DbSet<Friendship> Friendship { get; set; }
 		public DbSet<Message> Message { get; set; }
 		public DbSet<Icon> Icon { get; set; }
+		public DbSet<SkinItem> Skin { get; set; }
 
 
 		/// <summary>
@@ -43,14 +44,12 @@
 			});
 
 			modelBuilder.Entity<Message>(entity => {
-				//entity.HasKey(x => new { x.SenderID, x.ReceiverID });
 				entity.HasOne(x => x.Sender).WithMany(x => x.Messages).HasForeignKey(x => x.SenderID).OnDelete(DeleteBehavior.Restrict);
 				entity.HasOne(x => x.Receiver).WithMany(x => x.FriendMessages).HasForeignKey(x => x.ReceiverID).OnDelete(DeleteBehavior.Restrict);
-				//entity.HasOne(x => x.Receiver).WithMany(x => x.FriendMessages).HasForeignKey(x => x.ReceiverID).OnDelete(DeleteBehavior.Restrict);
 				entity.Property(e => e.Created_At).HasDefaultValueSql("getdate()");
 			});
 
-			// Making a acount
+			// Creating accounts for developers to debug
 			modelBuilder.Entity<Account>().HasData(new Account
 			{
 				  AccountID = 1,
@@ -76,36 +75,7 @@
 				Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"),
 			});
 
-			modelBuilder.Entity<Icon>().HasData(new Icon
-			{
-				IconID = 1,
-				IconLocation = "../../../../assets/profile 1.png"
-			});
-
-			modelBuilder.Entity<Icon>().HasData(new Icon
-			{
-				IconID = 2,
-				IconLocation = "../../../../assets/profile 2.png"
-			});
-
-			modelBuilder.Entity<Icon>().HasData(new Icon
-			{
-				IconID = 3,
-				IconLocation = "../../../../assets/profile 3.png"
-			});
-
-			modelBuilder.Entity<Icon>().HasData(new Icon
-			{
-				IconID = 4,
-				IconLocation = "../../../../assets/profile 4.png"
-			});
-
-			modelBuilder.Entity<Icon>().HasData(new Icon
-			{
-				IconID = 5,
-				IconLocation = "../../../../assets/alex.png"
-			});
-
+			// Creating player entities associated with the accounts
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
 				PlayerID = 1,
@@ -118,7 +88,8 @@
 				MaxHealth = 10,
 				MaxMana = 10,
 				TimeCapsules = 10,
-			}, new Player
+			});
+			modelBuilder.Entity<Player>().HasData(new Player
 			{
 				PlayerID = 2,
 				AccountID = 2,
@@ -130,7 +101,8 @@
 				MaxHealth = 10,
 				MaxMana = 10,
 				TimeCapsules = 10,
-			}, new Player
+			});
+			modelBuilder.Entity<Player>().HasData(new Player
 			{
 				PlayerID = 3,
 				AccountID = 3,
@@ -142,7 +114,8 @@
 				MaxHealth = 10,
 				MaxMana = 10,
 				TimeCapsules = 10,
-			}, new Player
+			});
+			modelBuilder.Entity<Player>().HasData(new Player
 			{
 				PlayerID = 4,
 				AccountID = 4,
@@ -156,37 +129,95 @@
 				TimeCapsules = 10,
 			});
 
+			// Adding static icons
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 1,
+				IconName = "../../../../assets/player-icons/wizard1.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 2,
+				IconName = "../../../../assets/player-icons/wizard2.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 3,
+				IconName = "../../../../assets/player-icons/wizard3.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 4,
+				IconName = "../../../../assets/player-icons/wizard4.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 5,
+				IconName = "../../../../assets/player-icons/alex.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 6,
+				IconName = "../../../../assets/player-icons/alex-glasses.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 7,
+				IconName = "../../../../assets/player-icons/alex-mustache.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 8,
+				IconName = "../../../../assets/player-icons/alex-gangster.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 9,
+				IconName = "../../../../assets/player-icons/alex-impersonator.jpg"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 10,
+				IconName = "../../../../assets/player-icons/nick-gangster.png"
+			});
+
+			// Creating friendships between created players
 			modelBuilder.Entity<Friendship>().HasData(new Friendship
 			{
 				MainPlayerID = 1,
 				FriendPlayerID = 2,
 				Created_At = DateTime.UtcNow,
 				IsPending = false,
-			}, new Friendship
+			});
+			modelBuilder.Entity<Friendship>().HasData(new Friendship
 			{
 				MainPlayerID = 1,
 				FriendPlayerID = 3,
 				Created_At = DateTime.UtcNow,
 				IsPending = false,
-			}, new Friendship
+			});
+			modelBuilder.Entity<Friendship>().HasData(new Friendship
 			{
 				MainPlayerID = 1,
 				FriendPlayerID = 4,
 				Created_At = DateTime.UtcNow,
 				IsPending = false,
-			}, new Friendship
+			});
+			modelBuilder.Entity<Friendship>().HasData(new Friendship
 			{
 				MainPlayerID = 2,
 				FriendPlayerID = 3,
 				Created_At = DateTime.UtcNow,
 				IsPending = false,
-			}, new Friendship
+			}); 
+			modelBuilder.Entity<Friendship>().HasData(new Friendship
 			{
 				MainPlayerID = 2,
 				FriendPlayerID = 4,
 				Created_At = DateTime.UtcNow,
 				IsPending = false,
-			}, new Friendship
+			});
+			modelBuilder.Entity<Friendship>().HasData(new Friendship
 			{
 				MainPlayerID = 3,
 				FriendPlayerID = 4,

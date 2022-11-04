@@ -1,14 +1,13 @@
-import { Icon } from "../Misc/Icon";
+import { IconResponse } from "../Icon";
 
 export interface StaticPlayerResponse {
-  accountID: number;
   playerID: number;
+  accountID: number;
   playerName: string;
-  icon: Icon;
+  icon: IconResponse;
   playerStatus: string;
   experiencePoints: number;
-  maxHealth: number;
-  maxMana: number;
-  knowledgePoints: number;
-  timeCapsules: number;
+  matchWins: number;
+  matchLosses: number;
+  timePlayedMin: number;
 }

@@ -12,6 +12,7 @@
 		[Column(TypeName = "nvarchar(32)")]
 		public string PlayerName { get; set; }
 
+		[ForeignKey("Icon.IconID")]
 		public int IconID { get; set; }
 		public Icon Icon { get; set; }
 
@@ -29,6 +30,12 @@
 		public uint KnowledgePoints { get; set; }
 
 		public uint TimeCapsules { get; set; }
+
+		public uint MatchWins { get; set; }
+
+		public uint MatchLosses { get; set; }
+
+		public uint TimePlayedMin { get; set; }
 
 		[Column(TypeName = "datetime2")]
 		public DateTime Modified_At { get; set; }

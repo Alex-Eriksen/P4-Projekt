@@ -2,7 +2,7 @@
   <h3 class="mb-2 header text-white">Change your Player Icon</h3>
   <div class="d-flex flex-row gap-2 content">
     <div id="icon-grid" class="icon-grid flex-even border border-1 border-white p-3">
-      <img [src]="icon.iconLocation" src="../../../../assets/" #refIcon class="border border-3 border-white cursor-pointer" *ngFor="let icon of icons" width="60" (click)="changeIcon(refIcon, icon)">
+      <img [src]="icon.iconName" #refIcon class="border border-3 border-white cursor-pointer" *ngFor="let icon of icons" width="60" (click)="changeIcon(refIcon, icon)">
     </div>
     <div class="text flex-even border border-1 border-white p-3 text-white">
       <p>A Player Icon is a picture that represents you in chat rooms and your Friend List.
