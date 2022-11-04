@@ -20,6 +20,8 @@ global using Wizard_Battle_Web_API.DTOs.Message;
 global using Wizard_Battle_Web_API.DTOs.Friendship;
 global using Wizard_Battle_Web_API.DTOs.Icon;
 global using Wizard_Battle_Web_API.Services;
+global using Microsoft.AspNetCore.SignalR;
+global using Wizard_Battle_Web_API.Hubs;
 global using Microsoft.Extensions.Options;
 global using Wizard_Battle_Web_API.Repositories;
 global using BC = BCrypt.Net.BCrypt;

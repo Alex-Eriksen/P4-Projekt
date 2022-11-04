@@ -23,6 +23,7 @@ builder.Services.AddDbContext<DatabaseContext>(options => {
 });
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -81,6 +82,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(builder => {
     builder.SetIsOriginAllowed(option => true)
+    .WithOrigins("http://loclahost:4200")
     .AllowCredentials()
     .AllowAnyHeader()
     .AllowAnyMethod();
@@ -88,7 +90,15 @@ app.UseCors(builder => {
 
 app.UseAuthentication();
 
+app.UseRouting();
+
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<ChatHub>("/chatsocket");
+});
 
 app.MapControllers();
 

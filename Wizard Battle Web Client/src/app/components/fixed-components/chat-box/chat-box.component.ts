@@ -1,6 +1,7 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
+import { Message } from 'src/app/_models/Friend/Message';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 import { MessageRequest, StaticMessageResponse } from 'src/app/_models/Message';
 import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';
@@ -51,17 +52,19 @@ export class ChatBoxComponent implements OnInit {
   }
 
   sendMessage(): void {
-    console.log(this.messageRequest);
     if(this.messageRequest.text == '')
       return;
 
     this.chatService.SendMessage(this.messageRequest).subscribe({
-      next: () => {
-        this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
+      next: (response) => {
+        if(this.messages == null) {
+          this.messages = [];
+        }
+        this.messages.push(response);
       },
       complete: () => {
         this.messageRequest.text = '';
       }
-    })
+    });
   }
 }

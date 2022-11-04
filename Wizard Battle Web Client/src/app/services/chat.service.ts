@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Friend } from '../_models/Friend/Friend';
 import { DirectFriendshipResponse, FriendshipRequest, StaticFriendshipResponse } from '../_models/Friendship';
 import { MessageRequest } from '../_models/Message';
 import { StaticMessageResponse } from '../_models/Message/StaticMessageResponse';
 import { StaticPlayerResponse } from '../_models/Player';
+import * as signalR from '@microsoft/signalr';
+import { Message } from '../_models/Friend/Message';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +20,33 @@ export class ChatService {
   public OnFriendChanged: Observable<Friend>;
   private url: string = environment.ApiUrl + "/Friendship";
 
-  constructor(private http: HttpClient) {
+
+  private hubConnection: signalR.HubConnection
+    public startConnection = () => {
+      this.hubConnection = new signalR.HubConnectionBuilder()
+                              .withUrl('http://localhost:5000/chatsocket', { accessTokenFactory: () => this.authenticationService.AccessToken})
+                              .build();
+      this.hubConnection
+        .start()
+        .then(() => console.log('Connection started'))
+        .catch(err => console.log('Error while starting connection: ' + err))
+  }
+
+
+  public shut() {
+    this.hubConnection.invoke("broadcast").then((data) => {
+      console.log(data);
+    })
+  }
+
+
+  private receivedMessageObject: Message = new Message();
+  private sharedObj = new Subject<Message>();
+
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
     this.FriendSubject = new BehaviorSubject<Friend>(new Friend());
     this.OnFriendChanged = this.FriendSubject.asObservable();
   }
-
 
   public GetAll(playerId: number): Observable<StaticPlayerResponse[]> { // Gets all friendship displayed in the friendlist
     return this.http.get<StaticPlayerResponse[]>(`${this.url}/${playerId}`);
@@ -44,6 +69,7 @@ export class ChatService {
   }
 
   public SendMessage(request: MessageRequest): Observable<StaticMessageResponse> {
+    this.shut();
     return this.http.post<StaticMessageResponse>(`${this.url}/messages`, request);
   }
 }

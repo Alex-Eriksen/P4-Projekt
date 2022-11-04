@@ -1,7 +1,7 @@
 <div class="position-fixed chat-box" [@openClose]="chatWindow ? 'open' : 'closed'">
   <div class="d-flex flex-column flex">
     <div class="header d-flex align-items-center position-relative px-1">
-      <img [src]="friend.icon.iconLocation" alt="" id="userImage">
+      <img [src]="friend.icon.iconName" alt="" id="userImage">
       <span class="text-white">{{friend.playerName}}</span>
       <i class="fa-solid fa-circle position-absolute" id="statusBtn" [ngClass]="{'text-danger': friend.playerStatus === 'Offline', 'text-warning' : friend.playerStatus === 'Away', 'text-success': friend.playerStatus === 'Online' }"></i>
       <div class="d-flex justify-content-end w-100">
