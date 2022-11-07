@@ -23,7 +23,6 @@ builder.Services.AddDbContext<DatabaseContext>(options => {
 });
 
 builder.Services.AddControllers();
-builder.Services.AddSignalR();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -70,6 +69,8 @@ builder.Services.AddAuthentication(x => {
     };
 });
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -88,16 +89,19 @@ app.UseCors(builder => {
     .AllowAnyMethod();
 });
 
-app.UseAuthentication();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHub<ChatHub>("/chatsocket");
+    endpoints.MapHub<ChatHub>("/chatsocket", options =>
+	{
+        options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling;
+    });
 });
 
 app.MapControllers();

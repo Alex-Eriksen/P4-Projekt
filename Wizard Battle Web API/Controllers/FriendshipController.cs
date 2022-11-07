@@ -5,6 +5,7 @@ namespace Wizard_Battle_Web_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class FriendshipController : ControllerBase
 	{
 

@@ -35,17 +35,15 @@ export class HeaderComponent implements OnInit {
   player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0 };
 
   ngOnInit(): void {
-    this.authenticationService.OnTokenChanged.subscribe(x => {
-      this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
-      this.playerService.changeStatus(this.playerId, "Online").subscribe({
-        next: (playerResponse) => {
-          this.player = playerResponse;
-        },
-        complete: () => {
-          this.getLevel(this.player.experiencePoints); // Gets level of player after player data is assigned
-        }
-      });
-    })
+    this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid;
+    this.playerService.changeStatus(this.playerId, "Online").subscribe({
+      next: (playerResponse) => {
+        this.player = playerResponse;
+      },
+      complete: () => {
+        this.getLevel(this.player.experiencePoints); // Gets level of player after player data is assigned
+      }
+    });
   }
 
   // Calculates level of player

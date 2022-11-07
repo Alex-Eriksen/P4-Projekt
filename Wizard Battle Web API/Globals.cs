@@ -25,6 +25,7 @@ global using Wizard_Battle_Web_API.Hubs;
 global using Microsoft.Extensions.Options;
 global using Wizard_Battle_Web_API.Repositories;
 global using BC = BCrypt.Net.BCrypt;
+global using Microsoft.AspNetCore.Http.Connections;
 global using AutoMapper;
 global using Microsoft.OpenApi.Models;
 global using Swashbuckle.AspNetCore.Filters;

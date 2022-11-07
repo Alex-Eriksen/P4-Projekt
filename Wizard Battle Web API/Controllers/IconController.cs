@@ -2,6 +2,7 @@
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class IconController : ControllerBase
 	{
 		private readonly IIconService m_iconService;

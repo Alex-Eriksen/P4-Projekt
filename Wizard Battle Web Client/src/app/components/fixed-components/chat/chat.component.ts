@@ -3,11 +3,12 @@ import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';
-import { PlayerChat } from './player';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ChatService } from 'src/app/services/chat.service';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 import { delay, find } from 'rxjs';
+import { HubConnection } from '@microsoft/signalr';
+import * as signalR from '@microsoft/signalr';
 
 @Component({
   selector: 'chat',
@@ -19,6 +20,8 @@ export class ChatComponent implements OnInit {
   @Output() openChat: EventEmitter<any> = new EventEmitter();
 
   playerId: number = 0;
+
+  public connection: HubConnection;
 
   friends: StaticPlayerResponse[] = [];
   backupFriends: StaticPlayerResponse[] = []; // backup array of this.friends used in search function
@@ -34,23 +37,18 @@ export class ChatComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService) { }
 
   ngOnInit(): void {
-    this.authenticationService.OnTokenChanged.subscribe(x => {
-      this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
 
-      this.playerService.OnStatusChanged.subscribe((status: string) => {
-        if(status === undefined)
-          return
-
-        this.getClass(status);
-      })
-
-      this.playerService.getById(this.playerId).subscribe(data => this.player = data);
-      this.chatService.GetAll(this.playerId).subscribe(data => {
-        this.friends = data;
-        this.backupFriends = data;
-      });
-    })
-
+    this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets playerId
+    this.playerService.OnStatusChanged.subscribe((status: string) => {
+      if(status === undefined)
+        return
+      this.getClass(status);
+    });
+    this.playerService.getById(this.playerId).subscribe(data => this.player = data);
+    this.chatService.GetAll(this.playerId).subscribe(data => {
+      this.friends = data;
+      this.backupFriends = data;
+    });
   }
 
   toggleFriendList(): void {

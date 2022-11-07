@@ -3,21 +3,28 @@
 	[Authorize]
 	public class ChatHub : Hub
 	{
-		public Task SendMessage(MessageRequest message)
+		public string GetConnectionId() => Context.ConnectionId;
+
+		public string GetUserId() => Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+		public override async Task OnConnectedAsync()
 		{
-			var userId = (Context.User.Identity as ClaimsIdentity).Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).ToString();
-			return Clients.User(userId).SendAsync("ReceiveOne", message, userId);
+			await Clients.All.SendAsync("ReceiveSystemMessage", $"UserID: {Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!} has joined.");
+			await base.OnConnectedAsync();
 		}
 
-		public async Task BroadcastToConnection(string data, string connectionId)
-			=> await Clients.Client(connectionId).SendAsync("broadcasttoclient", data);
-
-		public async Task BroadcastToUser(string data, string userId)
-			=> await Clients.User(userId).SendAsync("broadcasttouser", data);
-
-		public async Task BroadcastAll()
+		public async Task UserMessage(string connectionId, string message)
 		{
-			await Clients.All.SendAsync("Broadcast", "Hello");
+			try
+			{
+				await Clients.Client(connectionId).SendAsync("usermessage", message);
+
+			}
+			catch (HubException ex)
+			{
+				throw new HubException("Something went wrong", ex);
+			}
+
 		}
 	}
 }

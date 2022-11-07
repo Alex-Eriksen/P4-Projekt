@@ -43,11 +43,12 @@ export class ChatBoxComponent implements OnInit {
   public messageRequest: MessageRequest = { senderID: 0, receiverID: 0, text: "" }
 
   ngOnInit(): void {
-    this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data); // Gets all messages from friend conversation
   }
 
   ngOnChanges() { // Gets messages if friend object is changed
-    this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
+    if(this.playerId != 0) {
+      this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data => this.messages = data);
+    }
     this.messageRequest = { senderID: this.playerId, receiverID: this.friend.playerID, text: ""} // Assigns sender & receiver for messageRequest
   }
 

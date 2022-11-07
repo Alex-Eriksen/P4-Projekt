@@ -37,7 +37,6 @@ export class ChangeIconComponent implements OnInit {
       this.playerService.getById(this.playerId).subscribe(x => {
         this.playerRequest.playerName = x.playerName;
         Object.assign(this.playerRequest, x);
-        console.log(this.playerRequest);
       });
       this.iconService.getAll().subscribe(data => this.icons = data);
     })
