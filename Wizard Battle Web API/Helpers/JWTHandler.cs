@@ -2,13 +2,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace Wizard_Battle_Web_API.Helpers
 {
 	/// <summary>
 	/// Handles JWT Tokens
 	/// </summary>
-	public class JWTHandler
+	public static class JWTHandler
     {
 		/// <summary>
 		/// Generates a Refresh Token
@@ -45,6 +46,7 @@ namespace Wizard_Battle_Web_API.Helpers
             byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             SecurityTokenDescriptor tokenDescriptor = new()
             {
+                
                 Issuer = "WizardBattle",
                 Subject = new ClaimsIdentity(new Claim[]
                 {
@@ -59,6 +61,24 @@ namespace Wizard_Battle_Web_API.Helpers
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        /// <summary>
+        /// Generates a JWT Token
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="appSettings"></param>
+        /// <returns>token</returns>
+        public static string GetAccountIdByToken(string Token)
+        {
+          
+            
+                var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(Token); 
+            //var dict= JsonSerializer.Deserialize<Dictionary<string, string>>(Token);
+            var tokenS = jsonToken as JwtSecurityToken;
+            var Id = tokenS.Claims.First(claim => claim.Type == "nameid").Value;
+            return Id;
         }
     }
 }
