@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output , AfterViewInit} from '@angular/core';
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
@@ -9,13 +9,14 @@ import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_mod
 import { delay, find } from 'rxjs';
 import { HubConnection } from '@microsoft/signalr';
 import * as signalR from '@microsoft/signalr';
+import { SignalrService } from 'src/app/services/signalr.service';
 
 @Component({
   selector: 'chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
 
   @Output() openChat: EventEmitter<any> = new EventEmitter();
 
@@ -34,10 +35,9 @@ export class ChatComponent implements OnInit {
 
   currentStatus: string = "";
 
-  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService) { }
+  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService, private signalrService: SignalrService) { }
 
   ngOnInit(): void {
-
     this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets playerId
     this.playerService.OnStatusChanged.subscribe((status: string) => {
       if(status === undefined)
@@ -49,6 +49,10 @@ export class ChatComponent implements OnInit {
       this.friends = data;
       this.backupFriends = data;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.signalrService.startConnection();
   }
 
   toggleFriendList(): void {
@@ -89,7 +93,6 @@ export class ChatComponent implements OnInit {
 	  }
 	  this.friends = output;
   }
-
 
   getClass(status: string): void {
     switch(status) {

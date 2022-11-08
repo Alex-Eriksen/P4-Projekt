@@ -9,7 +9,7 @@ namespace Wizard_Battle_Web_API.Controllers
 	public class FriendshipController : ControllerBase
 	{
 
-		private readonly IHubContext<ChatHub> m_hubContext;
+		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
 		/// <summary>
 		/// Using IFriendshipService to control Friendship
 		/// </summary>
@@ -20,7 +20,7 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// Constructor for FriendshipController
 		/// </summary>
 		/// <param name="friendshipService"></param>
-		public FriendshipController(IFriendshipService friendshipService, IHubContext<ChatHub> hubContext)
+		public FriendshipController(IFriendshipService friendshipService, IHubContext<ChatHub, IChatHub> hubContext)
 		{
 			m_friendshipService = friendshipService;
 			m_hubContext = hubContext;
@@ -166,7 +166,6 @@ namespace Wizard_Battle_Web_API.Controllers
 		
 
 		[HttpPost]
-		[Authorize]
 		[Route("messages")]
 		public async Task<IActionResult> CreateMessage([FromBody] MessageRequest request)
 		{
@@ -178,6 +177,8 @@ namespace Wizard_Battle_Web_API.Controllers
 				{
 					return Problem("Message was not created, something failed...");
 				}
+
+				await m_hubContext.Clients.User(request.ReceiverID.ToString()).ReceiveUserMessage(request);
 
 				return Ok(message);
 			}

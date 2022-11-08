@@ -1,30 +1,33 @@
-﻿namespace Wizard_Battle_Web_API.Hubs
-{
-	[Authorize]
-	public class ChatHub : Hub
-	{
-		public string GetConnectionId() => Context.ConnectionId;
+﻿using System.Diagnostics;
 
-		public string GetUserId() => Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+namespace Wizard_Battle_Web_API.Hubs
+{
+
+	public interface IChatHub
+	{
+		Task OnConnect(string message);
+		Task ReceiveUserMessage(MessageRequest request);
+	}
+
+	[Authorize]
+	public class ChatHub : Hub<IChatHub>
+	{
+		public async Task SendMessageToUser(MessageRequest request)
+			=> await Clients.User(request.ReceiverID.ToString()).ReceiveUserMessage(request);
 
 		public override async Task OnConnectedAsync()
 		{
-			await Clients.All.SendAsync("ReceiveSystemMessage", $"UserID: {Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!} has joined.");
+			await Clients.All.OnConnect($"UserID: {Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!} has joined.");
 			await base.OnConnectedAsync();
 		}
 
-		public async Task UserMessage(string connectionId, string message)
+		public override Task OnDisconnectedAsync(Exception exception)
 		{
-			try
-			{
-				await Clients.Client(connectionId).SendAsync("usermessage", message);
-
-			}
-			catch (HubException ex)
-			{
-				throw new HubException("Something went wrong", ex);
-			}
-
+			return base.OnDisconnectedAsync(exception);
 		}
+
+		public string GetConnectionId() => Context.ConnectionId;
+
+		public string GetUserId() => Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 	}
 }

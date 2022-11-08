@@ -20,45 +20,9 @@ export class ChatService {
   public OnFriendChanged: Observable<Friend>;
   private url: string = environment.ApiUrl + "/Friendship";
 
-  private userId: string;
-  private connectionId: string;
-
-
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
     this.FriendSubject = new BehaviorSubject<Friend>(new Friend());
     this.OnFriendChanged = this.FriendSubject.asObservable();
-  }
-
-  private hubConnection: signalR.HubConnection
-    public startConnection = () => {
-      this.hubConnection = new signalR.HubConnectionBuilder()
-                                .withUrl('http://localhost:5000/chatsocket', {
-                                accessTokenFactory: () => this.authenticationService.AccessToken,
-                                skipNegotiation: true,
-                                transport: signalR.HttpTransportType.WebSockets})
-                                .build();
-      this.hubConnection
-        .start()
-        .then(() => console.log('Connection started'))
-        .catch(err => console.log('Error while starting connection: ' + err))
-    }
-
-
-  private GetConnectionID = () => {
-    console.log("Something 1");
-    this.hubConnection.invoke('GetConnectionId')
-    .then((data) => {
-      this.connectionId = data;
-    });
-  }
-
-  private GetUserId = () => {
-    console.log("Something 2");
-    this.hubConnection.invoke('GetUserId')
-    .then((data) => {
-      this.userId = data;
-      console.log(this.userId);
-    });
   }
 
   public GetAll(playerId: number): Observable<StaticPlayerResponse[]> { // Gets all friendship displayed in the friendlist

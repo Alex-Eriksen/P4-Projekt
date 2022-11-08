@@ -67,6 +67,14 @@ builder.Services.AddAuthentication(x => {
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ClockSkew = TimeSpan.Zero
     };
+    x.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = ctx => {
+        if (ctx.Request.Query.ContainsKey("access_token"))
+        ctx.Token = ctx.Request.Query["access_token"];
+        return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddSignalR();
