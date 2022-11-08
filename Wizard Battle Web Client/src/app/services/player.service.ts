@@ -44,6 +44,7 @@ export class PlayerService {
   {
     return this.http.put<DirectPlayerResponse>(`${this.url}/status?playerId=${playerId}&status=${status}`, null).pipe(map(data => {
       this.currentStatusSubject.next(data.playerStatus);
+      console.log("Status changed");
       return data;
     }));
   }

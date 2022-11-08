@@ -10,6 +10,7 @@
 		/// </summary>
 		private readonly IPlayerService m_playerService;
 		private readonly IAccountService m_accountService;
+		private readonly IFriendshipService m_friendshipService;
 		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
 
 
@@ -18,10 +19,11 @@
 		/// </summary>
 		/// <param name="playerService"></param>
 		/// <param name="accountService"></param>
-		public PlayerController(IPlayerService playerService, IAccountService accountService, IHubContext<ChatHub, IChatHub> hubContext)
+		public PlayerController(IPlayerService playerService, IAccountService accountService, IHubContext<ChatHub, IChatHub> hubContext, IFriendshipService friendshipService)
 		{
 			m_playerService = playerService;
 			m_accountService = accountService;
+			m_friendshipService = friendshipService;
 			m_hubContext = hubContext;
 		}
 
@@ -151,6 +153,10 @@
 				{
 					return NotFound();
 				}
+
+				List<StaticPlayerResponse> friends = await m_friendshipService.GetAllFriendship(playerId);
+
+				await m_hubContext.Clients.Users(friends.Select(x => x.PlayerID.ToString()).ToArray()).ChangeFriendStatus("A friend changed his status");
 
 				return Ok(player);
 			}

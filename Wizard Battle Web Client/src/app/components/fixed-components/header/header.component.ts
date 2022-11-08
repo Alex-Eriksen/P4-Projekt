@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
+import { SignalrService } from 'src/app/services/signalr.service';
 import { DirectPlayerResponse } from 'src/app/_models/Player';
 import { Buymenu1Component } from '../../modals/change-icon/buy-menues/buymenu1/buymenu1.component';
 import { ChangeIconComponent } from '../../modals/change-icon/change-icon.component';
@@ -16,12 +17,11 @@ import { ChangeIconComponent } from '../../modals/change-icon/change-icon.compon
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private dialog: MatDialog) {
+  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private dialog: MatDialog, private signalrService: SignalrService) {
     this.setTimeout();
     this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Away").subscribe(() => this.isAway = true))
   }
 
-  iteration: number = 0;
   isAway: boolean = false;
 
   userActivity: any;
@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid;
+
     this.playerService.changeStatus(this.playerId, "Online").subscribe({
       next: (playerResponse) => {
         this.player = playerResponse;
@@ -45,6 +46,7 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+
 
   // Calculates level of player
   getLevel(playerExp: number): void {
@@ -58,6 +60,7 @@ export class HeaderComponent implements OnInit {
     this.playerCurrentXp = playerExp; // Assings local variable current player experience
   }
 
+
   signOut(): void {
     this.authenticationService.revokeToken().subscribe();
     this.playerService.changeStatus(this.playerId, "Offline").subscribe();
@@ -68,8 +71,9 @@ export class HeaderComponent implements OnInit {
   }
 
   @HostListener('window:mousemove') refreshUserState() {
-    if(this.isAway) { // Sets player status to Online if they were away and came back
+    if(this.isAway || this.player.playerStatus == 'Offline') { // Sets player status to Online if they were away and came back
       this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Online").subscribe(() => this.isAway = false))
+      console.log(this.isAway);
     }
     clearTimeout(this.userActivity);
     this.setTimeout();

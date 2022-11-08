@@ -43,12 +43,25 @@ export class ChatComponent implements OnInit, AfterViewInit {
       if(status === undefined)
         return
       this.getClass(status);
+
     });
+
     this.playerService.getById(this.playerId).subscribe(data => this.player = data);
-    this.chatService.GetAll(this.playerId).subscribe(data => {
+
+    this.chatService.GetAll(this.playerId).subscribe(data => { // Fetch friends
       this.friends = data;
       this.backupFriends = data;
     });
+
+    this.signalrService.OnStatusChanged.subscribe(() => { // If a friend changes status fetch friends again
+      this.chatService.GetAll(this.playerId).subscribe(data => {
+        this.friends = data;
+        this.backupFriends = data;
+        if(this.friend.playerID != 0) {
+          this.openMessages(this.friends.find(x => x.playerID = this.friend.playerID)!);
+        }
+      })
+    })
   }
 
   ngAfterViewInit(): void {

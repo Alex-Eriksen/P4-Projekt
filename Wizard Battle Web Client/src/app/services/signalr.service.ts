@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Message } from '../_models/Friend/Message';
+import { StaticFriendshipResponse } from '../_models/Friendship';
 import { MessageRequest } from '../_models/Message';
+import { StaticPlayerResponse } from '../_models/Player';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -14,9 +16,15 @@ export class SignalrService {
   private MessageSubject: BehaviorSubject<Message>;
   public OnMessageChanged: Observable<Message>;
 
+  private StatusSubject: BehaviorSubject<string>;
+  public OnStatusChanged: Observable<string>;
+
   constructor(private authenticationService: AuthenticationService) {
     this.MessageSubject = new BehaviorSubject<Message>(new Message());
     this.OnMessageChanged = this.MessageSubject.asObservable();
+
+    this.StatusSubject = new BehaviorSubject<string>("");
+    this.OnStatusChanged = this.StatusSubject.asObservable();
   }
 
   private userId: string = "";
@@ -38,15 +46,16 @@ export class SignalrService {
       .then(() => this.GetUserId())
       .catch(err => console.log('Error while starting connection: ' + err));
 
-    this.hubConnection.on("FriendStatus", (message: string) => {
-      console.log(message);
-    })
-
     this.hubConnection.on("ReceiveUserMessage", (message) => {
       this.MessageSubject.next(message);
     });
 
     this.hubConnection.on("OnConnect", (message: string) => {
+      console.log(message);
+    })
+
+    this.hubConnection.on("ChangeFriendStatus", (message) => {
+      this.StatusSubject.next(message);
       console.log(message);
     })
   }
