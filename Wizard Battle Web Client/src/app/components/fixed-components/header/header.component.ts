@@ -17,7 +17,7 @@ import { ChangeIconComponent } from '../../modals/change-icon/change-icon.compon
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private dialog: MatDialog, private signalrService: SignalrService) {
+  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private dialog: MatDialog) {
     this.setTimeout();
     this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Away").subscribe(() => this.isAway = true))
   }
@@ -72,8 +72,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:mousemove') refreshUserState() {
     if(this.isAway || this.player.playerStatus == 'Offline') { // Sets player status to Online if they were away and came back
-      this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Online").subscribe(() => this.isAway = false))
-      console.log(this.isAway);
+      this.playerService.changeStatus(this.playerId, "Online").subscribe(() => this.isAway = false);
     }
     clearTimeout(this.userActivity);
     this.setTimeout();
