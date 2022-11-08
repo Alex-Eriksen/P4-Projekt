@@ -36,7 +36,11 @@ export class SignalrService {
       .then(() => console.log('Connection started'))
       .then(() => this.GetConnectionId())
       .then(() => this.GetUserId())
-      .catch(err => console.log('Error while starting connection: ' + err))
+      .catch(err => console.log('Error while starting connection: ' + err));
+
+    this.hubConnection.on("FriendStatus", (message: string) => {
+      console.log(message);
+    })
 
     this.hubConnection.on("ReceiveUserMessage", (message) => {
       this.MessageSubject.next(message);

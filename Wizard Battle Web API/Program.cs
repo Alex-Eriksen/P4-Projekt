@@ -16,6 +16,9 @@ builder.Services.AddTransient<IFriendshipService, FriendshipService>();
 
 builder.Services.AddTransient<IIconRepository, IconRepository>();
 builder.Services.AddTransient<IIconService, IconService>();
+
+builder.Services.AddTransient<IChatRepository, ChatRepository>();
+builder.Services.AddTransient<IChatService, ChatService>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {

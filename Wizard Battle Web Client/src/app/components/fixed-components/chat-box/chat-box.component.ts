@@ -70,7 +70,7 @@ export class ChatBoxComponent implements OnInit {
     if(this.messageRequest.text == '')
       return;
 
-    this.chatService.SendMessage(this.messageRequest).subscribe({
+    this.chatService.CreateMessage(this.messageRequest).subscribe({
       next: (response) => {
         if(this.messages == null) {
           this.messages = [];

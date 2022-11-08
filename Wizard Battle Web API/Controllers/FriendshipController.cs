@@ -163,57 +163,5 @@ namespace Wizard_Battle_Web_API.Controllers
 				return Problem(ex.Message);
 			}
 		}
-		
-
-		[HttpPost]
-		[Route("messages")]
-		public async Task<IActionResult> CreateMessage([FromBody] MessageRequest request)
-		{
-			try
-			{
-				StaticMessageResponse message = await m_friendshipService.SendMessage(request);
-
-				if (message == null)
-				{
-					return Problem("Message was not created, something failed...");
-				}
-
-				await m_hubContext.Clients.User(request.ReceiverID.ToString()).ReceiveUserMessage(request);
-
-				return Ok(message);
-			}
-			catch (Exception ex)
-			{
-				return Problem(ex.Message);
-			}
-		}
-
-		[HttpGet]
-		[Route("messages/")]
-		public async Task<IActionResult> GetMessages([FromQuery] int mainPlayerId, [FromQuery] int friendPlayerId)
-		{
-			try
-			{
-				FriendshipRequest request = new FriendshipRequest { MainPlayerID = mainPlayerId, FriendPlayerID = friendPlayerId };
-				List<StaticMessageResponse> messages = await m_friendshipService.GetAllMessages(request);
-
-				if (messages == null)
-				{
-					return Problem("Message was not created, something failed...");
-				}
-
-				if(messages.Count == 0)
-				{
-					return NoContent();
-				}
-
-				return Ok(messages);
-			}
-			catch(Exception ex)
-			{
-				return Problem(ex.Message);
-			}
-		}
-
 	}
 }

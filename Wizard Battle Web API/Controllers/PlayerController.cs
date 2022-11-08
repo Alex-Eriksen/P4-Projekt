@@ -10,6 +10,7 @@
 		/// </summary>
 		private readonly IPlayerService m_playerService;
 		private readonly IAccountService m_accountService;
+		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
 
 
 		/// <summary>
@@ -17,10 +18,11 @@
 		/// </summary>
 		/// <param name="playerService"></param>
 		/// <param name="accountService"></param>
-		public PlayerController(IPlayerService playerService, IAccountService accountService)
+		public PlayerController(IPlayerService playerService, IAccountService accountService, IHubContext<ChatHub, IChatHub> hubContext)
 		{
 			m_playerService = playerService;
 			m_accountService = accountService;
+			m_hubContext = hubContext;
 		}
 
 
@@ -149,6 +151,7 @@
 				{
 					return NotFound();
 				}
+
 				return Ok(player);
 			}
 			catch (Exception ex)

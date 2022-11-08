@@ -7,8 +7,6 @@
 		Task<Friendship> AddFriend(Friendship friendship);
 		Task<Friendship> RemoveFriend(Friendship friendship);
 		Task<Friendship> AcceptFriend(int requesterId, int addreeseeId);
-		Task<Message> SendMessage(Message message);
-		Task<List<Message>> GetMessages(Friendship friendship);
 	}
 
 	public class FriendshipRepository : IFriendshipRepository
@@ -68,19 +66,6 @@
 			_context.Friendship.Remove(friendship);
 			await _context.SaveChangesAsync();
 			return friendship;
-		}
-
-		public async Task<Message> SendMessage(Message message)
-		{
-			_context.Message.Add(message);
-			await _context.SaveChangesAsync();
-			return message;
-		}
-
-		public async Task<List<Message>> GetMessages(Friendship friendship)
-		{
-			return await _context.Message.Where(x => (x.SenderID == friendship.MainPlayerID || x.SenderID == friendship.FriendPlayerID) 
-			&& (x.ReceiverID == friendship.MainPlayerID || x.ReceiverID == friendship.FriendPlayerID)).ToListAsync();
 		}
 	}
 }
