@@ -170,7 +170,20 @@ public class PlayerEntity : NetworkBehaviour
     {
         foreach (StatusEffect statusEffect in m_statusEffects)
         {
-            if(statusEffect.effectType == newStatusEffect.effectType)
+            if (statusEffect.effectType == newStatusEffect.effectType)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    [ServerCallback]
+    private bool SC_ContainsStatusEffect(StatusEffectType statusEffectType)
+    {
+        foreach (StatusEffect statusEffect in m_statusEffects)
+        {
+            if (statusEffect.effectType == statusEffectType)
             {
                 return true;
             }
@@ -245,6 +258,10 @@ public class PlayerEntity : NetworkBehaviour
     [ServerCallback]
     public void SC_DrainHealth(float amount)
     {
+        if (SC_ContainsStatusEffect(StatusEffectType.Invulnerable))
+        {
+            return;
+        }
         m_health -= amount;
         if (m_health <= 0f)
         {

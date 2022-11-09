@@ -176,6 +176,18 @@ public class PlayerMovement : NetworkBehaviour
         m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
     }
 
+    /// <summary>
+    /// Overrides the saved position the server has on the player.
+    /// This is used to override the position for spells like teleportation that moves the player more than the allowed distance.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    /// <param name="reason"></param>
+    [ServerCallback]
+    public void SC_OverrideCurrentSavedPosition(Vector2 newPosition, string reason)
+    {
+        m_validSavedPosition = newPosition;
+        Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden: {reason}");
+    }
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.
     // The server is the only one who will Log "Recieved Hola from client!".

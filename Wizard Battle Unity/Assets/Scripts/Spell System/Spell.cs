@@ -170,6 +170,12 @@ public class Spell : NetworkBehaviour
                 continue;
             }
 
+            // If the player entity hit is invulnerable continue since the target isnt a valid one.
+            if (playerEntity.ContainsStatusEffect(StatusEffectType.Invulnerable))
+            {
+                continue;
+            }
+
             // If the current frame collider was present in the previous frame colliders
             // we can raise the OnTriggerStay event, since it persisted through frames.
             if (m_previousFrameOverlappingColliders.Contains(m_overlappingColliders[i]))
@@ -221,7 +227,7 @@ public class Spell : NetworkBehaviour
     /// <param name="identity"></param>
     /// <param name="keepPositionOnInit"></param>
     [ClientRpc]
-    public void RpcSetupSpell(NetworkIdentity identity)
+    public void Rpc_SetupSpell(NetworkIdentity identity)
     {
         ownerCollider = identity.GetComponent<Collider2D>();
 
@@ -231,16 +237,33 @@ public class Spell : NetworkBehaviour
         {
             switch (((OffensiveSpellObject)spellData).SpellBehaviour)
             {
-                case SpellBehaviour.Aura:
+                case OffensiveSpellBehaviour.Aura:
                     initialTargetTransform = identity.transform;
                     break;
 
-                case SpellBehaviour.Skillshot:
+                case OffensiveSpellBehaviour.Skillshot:
                     initialTargetTransform = identity.transform.Find("Graphics").Find("AttackPoint");
                     break;
 
-                case SpellBehaviour.Target:
+                case OffensiveSpellBehaviour.Target:
                     initialTargetTransform = identity.transform.Find("Graphics").Find("TargetPoint");
+                    break;
+
+                default:
+                    Debug.LogError($"For whatever reason the spell data of {name} did not have any spell behaviour.", this);
+                    break;
+            }
+        }
+        else if(spellData.SpellType == SpellType.Utility)
+        {
+            switch (((UtilitySpellObject)spellData).spellBehaviour)
+            {
+                case UtilitySpellBehaviour.Teleport:
+                    initialTargetTransform = identity.transform;
+                    break;
+
+                case UtilitySpellBehaviour.Dash:
+                    initialTargetTransform = identity.transform;
                     break;
 
                 default:
@@ -257,13 +280,13 @@ public class Spell : NetworkBehaviour
 
     private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
     {
-        CancelSelf();
+        Cmd_CancelSelf(0f);
     }
 
     [Command]
-    private void CancelSelf()
+    protected void Cmd_CancelSelf(float delay)
     {
-        SC_StartDeathTimer(0);
+        SC_StartDeathTimer(delay);
     }
 
     /// <summary>

@@ -4,5 +4,6 @@ public enum StatusEffectType
     Burn,
     Slow,
     Stun,
-    Speed
+    Speed,
+    Invulnerable
 }
