@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
     this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Away").subscribe(() => this.isAway = true))
   }
 
-  iteration: number = 0;
   isAway: boolean = false;
 
   userActivity: any;
@@ -30,23 +29,22 @@ export class HeaderComponent implements OnInit {
   playerCurrentXp: number = 0;
   playerLvl: number = 1;
   playerId: number = 0;
-  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", icon: {iconID: 0, iconLocation: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, TimePlayed:"" };
 
-
+  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0 };
 
   ngOnInit(): void {
-    this.authenticationService.OnTokenChanged.subscribe(x => {
-      this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
-      this.playerService.changeStatus(this.playerId, "Online").subscribe({
-        next: (playerResponse) => {
-          this.player = playerResponse;
-        },
-        complete: () => {
-          this.getLevel(this.player.experiencePoints); // Gets level of player after player data is assigned
-        }
-      });
-    })
+    this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid;
+
+    this.playerService.changeStatus(this.playerId, "Online").subscribe({
+      next: (playerResponse) => {
+        this.player = playerResponse;
+      },
+      complete: () => {
+        this.getLevel(this.player.experiencePoints); // Gets level of player after player data is assigned
+      }
+    });
   }
+
 
   // Calculates level of player
   getLevel(playerExp: number): void {
@@ -60,6 +58,7 @@ export class HeaderComponent implements OnInit {
     this.playerCurrentXp = playerExp; // Assings local variable current player experience
   }
 
+
   signOut(): void {
     this.authenticationService.revokeToken().subscribe();
     this.playerService.changeStatus(this.playerId, "Offline").subscribe();
@@ -70,8 +69,8 @@ export class HeaderComponent implements OnInit {
   }
 
   @HostListener('window:mousemove') refreshUserState() {
-    if(this.isAway) { // Sets player status to Online if they were away and came back
-      this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Online").subscribe(() => this.isAway = false))
+    if(this.isAway || this.player.playerStatus == 'Offline') { // Sets player status to Online if they were away and came back
+      this.playerService.changeStatus(this.playerId, "Online").subscribe(() => this.isAway = false);
     }
     clearTimeout(this.userActivity);
     this.setTimeout();
@@ -85,7 +84,6 @@ export class HeaderComponent implements OnInit {
       maxWidth: '100vw',
       height: '340px',
       disableClose: true,
-
     });
 
     dialogRef.afterClosed().subscribe(() => {

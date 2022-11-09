@@ -17,16 +17,16 @@ export class ProfileComponent implements OnInit {
         accountID:1
       },
       playerName: "NickTheG",
-      icon: {iconID: 0, iconLocation: ""},
+      icon: {iconID: 0, iconName: ""},
       experiencePoints: 20,
       maxHealth: 100,
       playerStatus: "",
       maxMana: 80,
       knowledgePoints: 0,
       timeCapsules: 120,
-      TimePlayed: "2hours"
-
-
+      matchWins: 0,
+      matchLosses: 0,
+      timePlayedMin: 0
     });
   }
 

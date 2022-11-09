@@ -2,6 +2,7 @@
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PlayerController : ControllerBase
 	{
 		/// <summary>
@@ -9,6 +10,8 @@
 		/// </summary>
 		private readonly IPlayerService m_playerService;
 		private readonly IAccountService m_accountService;
+		private readonly IFriendshipService m_friendshipService;
+		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
 
 
 		/// <summary>
@@ -16,10 +19,12 @@
 		/// </summary>
 		/// <param name="playerService"></param>
 		/// <param name="accountService"></param>
-		public PlayerController(IPlayerService playerService, IAccountService accountService)
+		public PlayerController(IPlayerService playerService, IAccountService accountService, IHubContext<ChatHub, IChatHub> hubContext, IFriendshipService friendshipService)
 		{
 			m_playerService = playerService;
 			m_accountService = accountService;
+			m_friendshipService = friendshipService;
+			m_hubContext = hubContext;
 		}
 
 
@@ -148,52 +153,12 @@
 				{
 					return NotFound();
 				}
+
+				List<StaticPlayerResponse> friends = await m_friendshipService.GetAllFriendship(playerId);
+
+				await m_hubContext.Clients.Users(friends.Select(x => x.PlayerID.ToString()).ToArray()).ChangeFriendStatus("A friend changed his status");
+
 				return Ok(player);
-			}
-			catch (Exception ex)
-			{
-				return Problem(ex.Message);
-			}
-		}
-
-		[HttpGet]
-		[Route("icons")]
-		public async Task<IActionResult> GetAllIcons()
-		{
-			try
-			{
-				List<Icon> icons = await m_playerService.GetAllIcons();
-				if(icons == null)
-				{
-					return Problem("Nothing was returned from service, this was unexpected");
-				}
-
-				if (icons.Count == 0)
-				{
-					NoContent();
-				}
-
-				return Ok(icons);
-			}
-			catch (Exception ex)
-			{
-				return Problem(ex.Message);
-			}
-		}
-		[HttpPost]
-		[Route("icons")]
-		public async Task<IActionResult> CreateIcon([FromBody] IconRequest request) 
-		{
-			try
-			{
-				request.IconLocation = $"../../../../assets/player-icons/{request.IconLocation}";
-				Icon icon = await m_playerService.CreateIcon(request);
-				if (icon == null)
-				{
-					return Problem("Nothing was returned from service, this was unexpected");
-				}
-
-				return Ok(icon);
 			}
 			catch (Exception ex)
 			{

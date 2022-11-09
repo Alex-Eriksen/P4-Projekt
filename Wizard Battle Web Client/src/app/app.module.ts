@@ -47,14 +47,29 @@ import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buyme
     Buymenu3Component,
     Buymenu4Component,
     Buymenu5Component
+
+@NgModule({
+  	declarations: [
+		AppComponent,
+		HomeComponent,
+		HeaderComponent,
+		LoginComponent,
+		SignupComponent,
+		SpellbookComponent,
+		ChatComponent,
+		ChatBoxComponent,
+		ProfileComponent,
+		LibraryComponent,
+		ChangeIconComponent,
+		Buymenu1Component
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatDialogModule
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		MatDialogModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },

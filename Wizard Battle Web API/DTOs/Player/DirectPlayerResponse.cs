@@ -8,7 +8,7 @@
 
 		public string PlayerName { get; set; } = string.Empty;
 
-		public Icon Icon { get; set; } = null!;
+		public IconResponse Icon { get; set; } = null!;
 
 		public string PlayerStatus { get; set; } = string.Empty;
 
@@ -22,5 +22,12 @@
 
 		public uint TimeCapsules { get; set; } = 0;
 
+		public uint MatchWins { get; set; } = 0;
+
+		public uint MatchLosses { get; set; } = 0;
+
+		public uint TimePlayedMin { get; set; } = 0;
+
+		public DateTime Modified_At { get; set; }
 	}
 }

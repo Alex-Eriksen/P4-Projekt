@@ -1,17 +1,18 @@
-import { NumberSymbol } from "@angular/common";
-import { StaticAccountResponse } from "../Account/StaticAccountResponse";
-import { Icon } from "../Misc/Icon";
+import { StaticAccountResponse } from "../Account";
+import { IconResponse } from "../Icon/";
 
 export interface DirectPlayerResponse {
     playerID: number;
     account: StaticAccountResponse;
     playerName: string;
-    icon: Icon;
+    icon: IconResponse;
     playerStatus: string;
     experiencePoints: number;
     maxHealth: number;
     maxMana: number;
     knowledgePoints: number;
     timeCapsules: number;
-    TimePlayed: string;
+    matchWins: number;
+    matchLosses: number;
+    timePlayedMin: number;
 }
