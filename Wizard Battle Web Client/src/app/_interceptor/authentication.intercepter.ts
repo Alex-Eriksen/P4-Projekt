@@ -3,9 +3,10 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { environment } from 'src/environments/environment';
 
@@ -39,6 +40,17 @@ export class AuthenticationInterceptor implements HttpInterceptor
 				setHeaders: { Authorization: `bearer ${accessToken}` }
 			});
 		}
-    	return next.handle(request);
+    	return next.handle(request).pipe(
+        catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', error.error.message);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+        }
+        return EMPTY;
+      }));
   	}
 }

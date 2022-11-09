@@ -6,7 +6,9 @@
 		Task<DirectPlayerResponse> Create(PlayerAccountRequest request);
 		Task<DirectPlayerResponse> GetById(int playerId);
 		Task<DirectPlayerResponse> Update(int playerId, PlayerRequest request);
+		Task<DirectPlayerResponse> ChangeStatus(int playerId, string status);
 	}
+
 	public class PlayerService : IPlayerService
 	{
 		private readonly IPlayerRepository m_playerRepository;
@@ -96,6 +98,17 @@
 		public async Task<DirectPlayerResponse> Update(int playerId, PlayerRequest request)
 		{
 			Player player = await m_playerRepository.Update(playerId, m_mapper.Map<Player>(request));
+			if (player != null)
+			{
+				return m_mapper.Map<DirectPlayerResponse>(player);
+			}
+
+			return null;
+		}
+
+		public async Task<DirectPlayerResponse> ChangeStatus(int playerId, string status)
+		{
+			Player player = await m_playerRepository.ChangeStatus(playerId, status);
 			if (player != null)
 			{
 				return m_mapper.Map<DirectPlayerResponse>(player);

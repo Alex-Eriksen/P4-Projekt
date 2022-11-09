@@ -1,58 +1,50 @@
 <div class="container-fluid h-100">
     <div class="h-100 border border-2 position-relative" style="background-color: black; overflow:hidden;">
-        <div class="h-100 chat-tab position-absolute">
+        <div class="h-100 chat-tab position-absolute" id="chat-tab">
             <div class="row justify-content-start">
                 <div class="col-4 no-gutters">
-                    <a href="#BuyerModal" data-bs-toggle="modal"><img class="img-fluid w-100" src="../../../../assets/Shelf Item.png"/></a>
+                    <img class="img-fluid w-100" src="../../../../assets/Shelf Alt3.png"/>
                 </div>
+                <div class="col-4 no-gutters">
+                    <a data-bs-toggle="modal" (click)="openBuyMenu1()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Black.png"/></a>
+                </div>
+                <div class="col-4 no-gutters">
+                    <img class="img-fluid w-100" src="../../../../assets/Shelf Half.png"/>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-4 no-gutters">
+                    <a data-bs-toggle="modal" (click)="openBuyMenu2()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Blue.png"/></a>
+                </div>
+                <div class="col-4 no-gutters">
+                    <img class="img-fluid w-100" src="../../../../assets/Shelf Orb.png"/>
+                </div>
+                <div class="col-4 no-gutters">
+                    <a data-bs-toggle="modal" (click)="openBuyMenu3()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Green.png"/></a>
+                </div>
+            </div>
+            <div class="row justify-content-start">
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Filled.png"/>
                 </div>
                 <div class="col-4 no-gutters">
-                    <img class="img-fluid w-100" src="../../../../assets/Shelf Filled.png"/>
+                    <img class="img-fluid w-100" src="../../../../assets/Shelf Alt2.png"/>
                 </div>
-            </div> 
+                <div class="col-4 no-gutters">
+                    <a data-bs-toggle="modal" (click)="openBuyMenu4()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Yellow.png"/></a>
+                </div>
+            </div>
             <div class="row justify-content-start">
                 <div class="col-4 no-gutters">
-                    <img class="img-fluid" src="../../../../assets/Shelf Empty.png"/>
+                    <a data-bs-toggle="modal" (click)="openBuyMenu5()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Christmas.png"/></a>
                 </div>
                 <div class="col-4 no-gutters">
-                    <a href="#BuyerModal" data-bs-toggle="modal"><img class="img-fluid w-100" src="../../../../assets/Shelf Item.png"/></a>
+                    <img class="img-fluid w-100" src="../../../../assets/Shelf Alt1.png"/>
                 </div>
                 <div class="col-4 no-gutters">
-                    <img class="img-fluid" src="../../../../assets/Shelf Filled.png"/>
-                </div>
-            </div> 
-            <div class="row justify-content-start">
-                <div class="col-4 no-gutters">
-                    <img class="img-fluid" src="../../../../assets/Shelf Filled.png"/>
-                </div>
-                <div class="col-4 no-gutters">
-                    <img class="img-fluid" src="../../../../assets/Shelf Filled.png"/>
-                </div>
-                <div class="col-4 no-gutters">
-                    <a href="#BuyerModal" data-bs-toggle="modal"><img class="img-fluid w-100" src="../../../../assets/Shelf Item.png"/></a>
+                    <img class="img-fluid w-100" src="../../../../assets/Shelf Skull.png"/>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Popup window -->
-<div class="modal" tabindex="-1" id="#BuyerModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Black robed Wizard</h5>
-          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Premium Skin for your wizard (includes staff with red orb)</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Buy</button>
-        </div>
-      </div>
-    </div>
-  </div>

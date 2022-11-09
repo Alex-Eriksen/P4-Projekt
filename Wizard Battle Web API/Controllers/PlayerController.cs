@@ -2,6 +2,7 @@
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PlayerController : ControllerBase
 	{
 		/// <summary>
@@ -9,6 +10,8 @@
 		/// </summary>
 		private readonly IPlayerService m_playerService;
 		private readonly IAccountService m_accountService;
+		private readonly IFriendshipService m_friendshipService;
+		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
 
 
 		/// <summary>
@@ -16,10 +19,12 @@
 		/// </summary>
 		/// <param name="playerService"></param>
 		/// <param name="accountService"></param>
-		public PlayerController(IPlayerService playerService, IAccountService accountService)
+		public PlayerController(IPlayerService playerService, IAccountService accountService, IHubContext<ChatHub, IChatHub> hubContext, IFriendshipService friendshipService)
 		{
 			m_playerService = playerService;
 			m_accountService = accountService;
+			m_friendshipService = friendshipService;
+			m_hubContext = hubContext;
 		}
 
 
@@ -34,19 +39,19 @@
 			{
 				List<StaticPlayerResponse> players = await m_playerService.GetAll();
 
-				if(players == null)
+				if (players == null)
 				{
 					return Problem("Nothing was returned from service, this was unexpected");
 				}
 
-				if(players.Count == 0)
+				if (players.Count == 0)
 				{
 					return NoContent();
 				}
 
 				return Ok(players);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				return Problem(ex.Message);
 			}
@@ -128,6 +133,31 @@
 				{
 					return NotFound();
 				}
+				return Ok(player);
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
+		[HttpPut]
+		[Route("status")]
+		public async Task<IActionResult> ChangeStatus([FromQuery] int playerId, [FromQuery] string status)
+		{
+			try
+			{
+				DirectPlayerResponse player = await m_playerService.ChangeStatus(playerId, status);
+
+				if (player == null)
+				{
+					return NotFound();
+				}
+
+				List<StaticPlayerResponse> friends = await m_friendshipService.GetAllFriendship(playerId);
+
+				await m_hubContext.Clients.Users(friends.Select(x => x.PlayerID.ToString()).ToArray()).ChangeFriendStatus("A friend changed his status");
+
 				return Ok(player);
 			}
 			catch (Exception ex)

@@ -7,9 +7,8 @@
 		Task<DirectFriendshipResponse> AddFriend(FriendshipRequest request);
 		Task<DirectFriendshipResponse> RemoveFriend(FriendshipRequest request);
 		Task<DirectFriendshipResponse> AcceptFriend(FriendshipRequest request);
-		Task<StaticMessageResponse> SendMessage(MessageRequest request);
-		Task<List<StaticMessageResponse>> GetAllMessages(FriendshipRequest request);
 	}
+
 	public class FriendshipService : IFriendshipService
 	{
 		private readonly IFriendshipRepository m_friendshipRepository;
@@ -87,28 +86,6 @@
 			{
 				Friendship deletedFriendship = await m_friendshipRepository.RemoveFriend(friendship);
 				return m_mapper.Map<DirectFriendshipResponse>(deletedFriendship);
-			}
-
-			return null;
-		}
-
-		public async Task<StaticMessageResponse> SendMessage(MessageRequest request)
-		{
-			Message message = await m_friendshipRepository.SendMessage(m_mapper.Map<Message>(request));
-			if (message != null)
-			{
-				return m_mapper.Map<StaticMessageResponse>(message);
-			}
-
-			return null;
-		}
-
-		public async Task<List<StaticMessageResponse>> GetAllMessages(FriendshipRequest request)
-		{
-			List<Message> messages = await m_friendshipRepository.GetMessages(m_mapper.Map<Friendship>(request));
-			if(messages != null)
-			{
-				return messages.Select(message => m_mapper.Map<StaticMessageResponse>(message)).ToList();
 			}
 
 			return null;

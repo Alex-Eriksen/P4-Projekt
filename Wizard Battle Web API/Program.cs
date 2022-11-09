@@ -13,6 +13,12 @@ builder.Services.AddTransient<IPlayerService, PlayerService>();
 
 builder.Services.AddTransient<IFriendshipRepository, FriendshipRepository>();
 builder.Services.AddTransient<IFriendshipService, FriendshipService>();
+
+builder.Services.AddTransient<IIconRepository, IconRepository>();
+builder.Services.AddTransient<IIconService, IconService>();
+
+builder.Services.AddTransient<IChatRepository, ChatRepository>();
+builder.Services.AddTransient<IChatService, ChatService>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {
@@ -64,7 +70,17 @@ builder.Services.AddAuthentication(x => {
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ClockSkew = TimeSpan.Zero
     };
+    x.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = ctx => {
+        if (ctx.Request.Query.ContainsKey("access_token"))
+        ctx.Token = ctx.Request.Query["access_token"];
+        return Task.CompletedTask;
+        }
+    };
 });
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -78,14 +94,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(builder => {
     builder.SetIsOriginAllowed(option => true)
+    .WithOrigins("http://loclahost:4200")
     .AllowCredentials()
     .AllowAnyHeader()
     .AllowAnyMethod();
 });
 
-app.UseAuthentication();
 
+app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<ChatHub>("/chatsocket", options =>
+	{
+        options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling;
+    });
+});
 
 app.MapControllers();
 

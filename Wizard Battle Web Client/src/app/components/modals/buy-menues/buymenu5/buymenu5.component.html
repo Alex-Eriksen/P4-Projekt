@@ -1,0 +1,25 @@
+<div class="container" style="border-color: gold; border-style: outset; border-width: 5px;">
+    <!--<button (click)="onClose()">Close</button>-->
+    <div class="flip-parchment">
+      <div class="flip-parchment-inner">
+        <div class="flip-parchment-front">
+          <img src="../../../../assets/Flip-Wiz Christmas.png" alt="Front" style="width:100%;height:100%; border-image: fill;">
+        </div>
+        <div class="flip-parchment-back">
+          <img src="../../../../assets/Flip-Wiz Parchment.png" alt="Back" 
+            style="width:100%;height:100%; border-image: fill; position: relative; -webkit-transform: scaleX(-1); transform: scaleX(-1);">
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h1>Winter robed Wizard</h1>
+            <p>Wizard of the North</p>
+            <p>"I'll turn you into coal!"</p>
+            <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
+            <p class="mb-0" style="display: inline-block;">375</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <button class="btn btn-primary" (click)="onClose()" style="margin-right: 15px;">Unlock</button>
+      <button class="btn btn-danger" (click)="onClose()">Cancel</button>
+    </div>
+</div>

@@ -21,3 +21,100 @@ body, html {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.animateOut
+{
+  animation: fade-out 0.4s !important;
+}
+
+
+
+.backdropBackground
+{
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: hidden !important;
+  display: block;
+}
+
+.cdk-overlay-container {
+  position: absolute;
+  top: 0;
+}
+
+.abemamd {
+  position: absolute;
+}
+
+.new-overlay {
+  position: absolute;
+  top: 79px;
+  left: 19px;
+}
+
+mat-dialog-container {
+  padding: none!important;
+}
+
+
+
+.change-icon-overlay {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mat-dialog-container {
+  padding: 0px!important;
+}
+
+.dark-border-color {
+  border-color: #202c38!important;
+}
+
+.dark-background-1 {
+  background-color: #071220
+}
+
+.dark-background-2 {
+  background-color: #080e1c
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.buy-menu-overlay1 {
+  position: absolute;
+  top: -15%;
+  left: -9.3%;
+  /*top: 3%;
+  left: -9.3%;*/
+}
+
+.buy-menu-overlay2 {
+  position: absolute;
+  top: 25%;
+  left: -35%;
+}
+
+.buy-menu-overlay3 {
+  position: absolute;
+  top: 25%;
+  left: 16%;
+}
+
+.buy-menu-overlay4 {
+  position: absolute;
+  top: -15%;
+  left: 16%;
+}
+
+.buy-menu-overlay5 {
+  position: absolute;
+  top: 25%;
+  left: -35%;
+}
