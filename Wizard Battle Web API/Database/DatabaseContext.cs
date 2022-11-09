@@ -1,4 +1,4 @@
-﻿namespace Wizard_Battle_Web_API.Database
+namespace Wizard_Battle_Web_API.Database
 {
 	/// <summary>
 	/// Inheriting from DbContext
@@ -74,6 +74,7 @@
 				Email = "marc@test.com",
 				Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"),
 			});
+
 
 			// Creating player entities associated with the accounts
 			modelBuilder.Entity<Player>().HasData(new Player

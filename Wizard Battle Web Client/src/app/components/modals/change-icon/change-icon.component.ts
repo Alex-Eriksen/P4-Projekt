@@ -48,6 +48,7 @@ export class ChangeIconComponent implements OnInit {
 
   onClose(): void {
     this.dialogRef.close(); // Lukker dialog
+    document.body.children[6].classList.remove('change-icon-overlay');
   }
 
   saveChanges(): void {

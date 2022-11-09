@@ -24,6 +24,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from  '@angular/material/dialog';
 import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
 import { Buymenu1Component } from './components/modals/buy-menues/buymenu1/buymenu1.component';
+import { Buymenu2Component } from './components/modals/buy-menues/buymenu2/buymenu2.component';
+import { Buymenu3Component } from './components/modals/buy-menues/buymenu3/buymenu3.component';
+import { Buymenu4Component } from './components/modals/buy-menues/buymenu4/buymenu4.component';
+import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buymenu5.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    LoginComponent,
+    SignupComponent,
+    SpellbookComponent,
+    ChatComponent,
+    ChatBoxComponent,
+    ProfileComponent,
+    LibraryComponent,
+    ChangeIconComponent,
+    Buymenu1Component,
+    Buymenu2Component,
+    Buymenu3Component,
+    Buymenu4Component,
+    Buymenu5Component
 
 @NgModule({
   	declarations: [
