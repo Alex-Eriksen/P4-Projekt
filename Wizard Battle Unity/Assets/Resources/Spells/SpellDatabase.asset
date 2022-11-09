@@ -15,3 +15,9 @@ MonoBehaviour:
   spellObjects:
   - {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
   - {fileID: 11400000, guid: 38a6bcd54370f074fa6c702ad9ff750e, type: 2}
+  - {fileID: 11400000, guid: 05676091ab8c54f43b5356c37a0ece2d, type: 2}
+  - {fileID: 11400000, guid: 7c8a9911787082d4bb7e4255087bfda5, type: 2}
+  - {fileID: 11400000, guid: 08c8555ef7aa646469e53544d6b3a3e3, type: 2}
+  - {fileID: 11400000, guid: e08468fa1b7333148a12cb844d89b3fa, type: 2}
+  - {fileID: 11400000, guid: ef1d1104ecfd58d4ebe81b45dc9544b8, type: 2}
+  - {fileID: 11400000, guid: 9522b67011ab7204483d22efd8d5b475, type: 2}

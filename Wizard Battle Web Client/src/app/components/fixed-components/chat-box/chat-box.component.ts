@@ -30,7 +30,7 @@ import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Play
 export class ChatBoxComponent implements OnInit {
 
   constructor(private chatService: ChatService, private signalrService: SignalrService, private cdr: ChangeDetectorRef) { }
-
+  
   @Input() playerId: number;
 
   @Input() friend: StaticPlayerResponse;
@@ -42,7 +42,7 @@ export class ChatBoxComponent implements OnInit {
   public messages: StaticMessageResponse[] = [];
 
   public messageRequest: MessageRequest = { senderID: 0, receiverID: 0, text: "" }
-
+  
   @ViewChild('scroll', { read: ElementRef }) public scroll: ElementRef<any>;
 
   ngOnInit(): void {
@@ -69,8 +69,9 @@ export class ChatBoxComponent implements OnInit {
   sendMessage(): void {
     if(this.messageRequest.text == '')
       return;
-
+      
     this.chatService.CreateMessage(this.messageRequest).subscribe({
+
       next: (response) => {
         if(this.messages == null) {
           this.messages = [];
@@ -89,5 +90,9 @@ export class ChatBoxComponent implements OnInit {
     setTimeout(() => {
       this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
     }, 1);
+  }
+
+  closeWindow(): void {
+    this.CloseChatWindow.emit();
   }
 }

@@ -3,18 +3,224 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using TMPro;
+using System.Linq;
 
 public class PlayerEntity : NetworkBehaviour
 {
     public PlayerCombat PlayerCombat { get { return m_playerCombat; } }
+    private PlayerConnection m_playerConnection;
+    [SyncVar(hook = nameof(SetPlayerName))] private string m_playerName;
     [SerializeField] private PlayerCombat m_playerCombat;
+    [SerializeField] private bool m_isTargetDummy = false;
     private Coroutine m_regenRoutine;
+    private Transform m_transform;
 
-    [ServerCallback]
+    private void Awake()
+    {
+        m_transform = transform;
+        m_statusEffectsUI = GameObject.FindGameObjectWithTag("Status Effects").transform;
+    }
+
     private void Start()
     {
-        m_regenRoutine = StartCoroutine(SCRegenTicker());
+        // Load the status effect prefabs from Resources.
+        GameObject[] statusEffectPrefabs = Resources.LoadAll<GameObject>("Spells/Status Effects");
+        foreach (GameObject statusEffectPrefab in statusEffectPrefabs)
+        {
+            Status status = statusEffectPrefab.GetComponent<Status>();
+            m_statusEffectPrefabs.Add(status.statusEffectData.effectType, statusEffectPrefab);
+        }
     }
+
+    public override void OnStartServer()
+    {
+        m_regenRoutine = StartCoroutine(SC_RegenTicker());
+        if (m_isTargetDummy)
+        {
+            m_playerName = "Target Dummy";
+        }
+    }
+
+    public override void OnStartAuthority()
+    {
+        m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        Cmd_SetPlayerName(m_playerConnection.PlayerName + $" - {m_playerConnection.netId}");
+
+        // When subscribing to the SyncList callback you dont get the initial values of the SyncList.
+        m_statusEffects.Callback += OnStatusEffectsChanged;
+
+        // Because we dont get the initial values we update them here manually instead.
+        for (int index = 0; index < m_statusEffects.Count; index++)
+        {
+            OnStatusEffectsChanged(SyncList<StatusEffect>.Operation.OP_ADD, index, new StatusEffect(), m_statusEffects[index]);
+        }
+    }
+
+    [Command]
+    private void Cmd_SetPlayerName(string playerName)
+    {
+        m_playerName = playerName;
+    }
+
+    private void SetPlayerName(string oldName, string newName)
+    {
+        m_transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = newName;
+    }
+
+    #region Status Effects
+    private readonly Dictionary<StatusEffectType, GameObject> m_statusEffectPrefabs = new Dictionary<StatusEffectType, GameObject>();
+    private readonly Dictionary<StatusEffectType, GameObject> m_activeStatusEffectObjects = new Dictionary<StatusEffectType, GameObject>();
+    private readonly Dictionary<StatusEffectType, GameObject> m_activeUIStatusEffects = new Dictionary<StatusEffectType, GameObject>();
+    private readonly Dictionary<StatusEffectType, Coroutine> m_activeStatusEffectsRoutines = new Dictionary<StatusEffectType, Coroutine>();
+    private readonly SyncList<StatusEffect> m_statusEffects = new SyncList<StatusEffect>();
+    private Transform m_statusEffectsUI;
+    [SerializeField] private GameObject m_statusEffectUIPrefab;
+
+    /// <summary>
+    /// Call back for when the SyncList m_statusEffects changes.
+    /// </summary>
+    /// <param name="op"></param>
+    /// <param name="index"></param>
+    /// <param name="oldStatusEffect"></param>
+    /// <param name="newStatusEffect"></param>
+    private void OnStatusEffectsChanged(SyncList<StatusEffect>.Operation op, int index, StatusEffect oldStatusEffect, StatusEffect newStatusEffect)
+    {
+        switch (op)
+        {
+            case SyncList<StatusEffect>.Operation.OP_ADD:
+                GameObject obj = Instantiate(m_statusEffectUIPrefab, m_statusEffectsUI);
+                StatusEffectUI statusScript = obj.GetComponent<StatusEffectUI>();
+                statusScript.SetStatusEffect(newStatusEffect);
+                m_activeUIStatusEffects.Add(newStatusEffect.effectType, obj);
+                if(newStatusEffect.effectType == StatusEffectType.Stun)
+                {
+                    m_playerCombat.Raise_CastingCanceled(this, ActionEventArgsFlag.Stunned, "Status Effect");
+                }
+                break;
+
+            case SyncList<StatusEffect>.Operation.OP_INSERT:
+                break;
+
+            case SyncList<StatusEffect>.Operation.OP_REMOVEAT:
+                Destroy(m_activeUIStatusEffects[oldStatusEffect.effectType]);
+                m_activeUIStatusEffects.Remove(oldStatusEffect.effectType);
+                break;
+
+            case SyncList<StatusEffect>.Operation.OP_SET:
+                break;
+
+            case SyncList<StatusEffect>.Operation.OP_CLEAR:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Adds a status effect to the player entity.
+    /// </summary>
+    /// <param name="statusEffect"></param>
+    [ServerCallback]
+    public void SC_AddStatusEffect(StatusEffect statusEffect)
+    {
+        // Checks if the player entity already has the status effect.
+        if (SC_ContainsStatusEffect(statusEffect))
+        {
+            m_statusEffects.Remove(statusEffect);
+            m_statusEffects.Add(statusEffect);
+
+            // Stops the destruction coroutine of the status effect and starts a new one.
+            StopCoroutine(m_activeStatusEffectsRoutines[statusEffect.effectType]);
+            m_activeStatusEffectsRoutines[statusEffect.effectType] = StartCoroutine(StatusEffectDeathTimer(m_activeStatusEffectObjects[statusEffect.effectType], statusEffect));
+        }
+        else
+        {
+            m_statusEffects.Add(statusEffect);
+
+            // Spawns the status effect on and sets it in the relative dictionaries for tracking.
+            GameObject obj = Instantiate(m_statusEffectPrefabs[statusEffect.effectType], m_transform);
+            m_activeStatusEffectsRoutines.Add(statusEffect.effectType, StartCoroutine(StatusEffectDeathTimer(obj, statusEffect)));
+            m_activeStatusEffectObjects.Add(statusEffect.effectType, obj);
+            NetworkServer.Spawn(obj);
+        }
+    }
+
+    /// <summary>
+    /// Coroutine responsible for destroying the status effect gameobject when it has depleted.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="statusEffect"></param>
+    /// <returns></returns>
+    [ServerCallback]
+    private IEnumerator StatusEffectDeathTimer(GameObject obj, StatusEffect statusEffect)
+    {
+        yield return new WaitForSeconds(statusEffect.effectLifetime);
+        m_statusEffects.RemoveAt(SC_GetStatusEffectIndex(statusEffect));
+        m_activeStatusEffectsRoutines.Remove(statusEffect.effectType);
+        m_activeStatusEffectObjects.Remove(statusEffect.effectType);
+        NetworkServer.Destroy(obj);
+    }
+
+    /// <summary>
+    /// Method for checking if the status effect is already on the player entity.
+    /// </summary>
+    /// <param name="newStatusEffect"></param>
+    /// <returns></returns>
+    [ServerCallback]
+    private bool SC_ContainsStatusEffect(StatusEffect newStatusEffect)
+    {
+        foreach (StatusEffect statusEffect in m_statusEffects)
+        {
+            if (statusEffect.effectType == newStatusEffect.effectType)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    [ServerCallback]
+    private bool SC_ContainsStatusEffect(StatusEffectType statusEffectType)
+    {
+        foreach (StatusEffect statusEffect in m_statusEffects)
+        {
+            if (statusEffect.effectType == statusEffectType)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool ContainsStatusEffect(StatusEffectType effectType)
+    {
+        foreach (StatusEffect statusEffect in m_statusEffects)
+        {
+            if (statusEffect.effectType == effectType)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Gets the status effect index in the m_statusEffects SyncList
+    /// </summary>
+    /// <param name="newStatusEffect"></param>
+    /// <returns></returns>
+    [ServerCallback]
+    private int SC_GetStatusEffectIndex(StatusEffect newStatusEffect)
+    {
+        for (int i = 0; i < m_statusEffects.Count; i++)
+        {
+            if (m_statusEffects[i].effectType == newStatusEffect.effectType)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    #endregion
 
     #region Health
     public event EventHandler OnHealthDrained; 
@@ -28,13 +234,13 @@ public class PlayerEntity : NetworkBehaviour
     private float m_healthRegenRate = 2f;
 
     [Command]
-    public void CmdGainHealth(float amount)
+    public void Cmd_GainHealth(float amount)
     {
-        SCGainHealth(amount);
+        SC_GainHealth(amount);
     }
 
     [ServerCallback]
-    public void SCGainHealth(float amount)
+    public void SC_GainHealth(float amount)
     {
         m_health += amount;
         if (m_health > m_maxHealth)
@@ -44,14 +250,18 @@ public class PlayerEntity : NetworkBehaviour
     }
 
     [Command]
-    public void CmdDrainHealth(float amount)
+    public void Cmd_DrainHealth(float amount)
     {
-        SCDrainHealth(amount);
+        SC_DrainHealth(amount);
     }
 
     [ServerCallback]
-    public void SCDrainHealth(float amount)
+    public void SC_DrainHealth(float amount)
     {
+        if (SC_ContainsStatusEffect(StatusEffectType.Invulnerable))
+        {
+            return;
+        }
         m_health -= amount;
         if (m_health <= 0f)
         {
@@ -85,13 +295,13 @@ public class PlayerEntity : NetworkBehaviour
     private float m_manaRegenRate = 6f;
 
     [Command]
-    public void CmdGainMana(float amount)
+    public void Cmd_GainMana(float amount)
     {
-        SCGainMana(amount);
+        SC_GainMana(amount);
     }
 
     [ServerCallback]
-    public void SCGainMana(float amount)
+    public void SC_GainMana(float amount)
     {
         m_mana += amount;
         if (m_mana > m_maxMana)
@@ -101,12 +311,12 @@ public class PlayerEntity : NetworkBehaviour
     }
 
     [Command]
-    public void CmdDrainMana(float amount)
+    public void Cmd_DrainMana(float amount)
     {
         bool valid = (m_mana - amount) >= 0;
         if (!valid)
         {
-            Raise_CastingCanceled(ActionEventArgsFlag.NotEnoughMana);
+            Raise_CastingCanceled(ActionEventArgsFlag.NotEnoughMana, "Casting Canceled");
             return;
         }
 
@@ -126,28 +336,28 @@ public class PlayerEntity : NetworkBehaviour
     }
 
     [TargetRpc]
-    private void Raise_CastingCanceled(ActionEventArgsFlag reason)
+    private void Raise_CastingCanceled(ActionEventArgsFlag reason, string message)
     {
-        m_playerCombat.Raise_CastingCanceled(this, reason);
+        m_playerCombat.Raise_CastingCanceled(this, reason, message);
     }
     #endregion
 
     [ServerCallback]
-    private IEnumerator SCRegenTicker()
+    private IEnumerator SC_RegenTicker()
     {
         yield return new WaitForSeconds(1f);
 
         if(m_mana < m_maxMana)
         {
-            SCGainMana(m_manaRegenRate);
+            SC_GainMana(m_manaRegenRate);
         }
 
         if(m_health < m_maxHealth)
         {
-            SCGainHealth(m_healthRegenRate);
+            SC_GainHealth(m_healthRegenRate);
         }
 
-        m_regenRoutine = StartCoroutine(SCRegenTicker());
+        m_regenRoutine = StartCoroutine(SC_RegenTicker());
     }
 
     [ClientRpc]

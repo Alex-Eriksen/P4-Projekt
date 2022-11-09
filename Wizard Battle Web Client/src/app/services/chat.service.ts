@@ -23,7 +23,6 @@ export class ChatService {
     this.FriendSubject = new BehaviorSubject<Friend>(new Friend());
     this.OnFriendChanged = this.FriendSubject.asObservable();
   }
-
   public GetAll(playerId: number): Observable<StaticPlayerResponse[]> { // Gets all friendship displayed in the friendlist
     return this.http.get<StaticPlayerResponse[]>(`${this.url}/${playerId}`)
   }

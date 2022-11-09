@@ -63,11 +63,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
       })
     })
   }
-
   ngAfterViewInit(): void {
     this.signalrService.startConnection(); // Start connection
   }
-
   toggleFriendList(): void {
     if(this.isChatWindowOpen)
       this.toggleChatWindow();
@@ -78,7 +76,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   toggleChatWindow() {
     if(!this.friendListOpen)
       this.toggleFriendList();
-
     if(this.friend.playerID != 0) {
       this.isChatWindowOpen = !this.isChatWindowOpen;
     }

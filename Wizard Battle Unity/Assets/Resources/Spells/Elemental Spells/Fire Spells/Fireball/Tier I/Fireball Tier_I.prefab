@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6926986284450330350}
   - component: {fileID: 2678315183959880408}
   - component: {fileID: 3175618391732517472}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fireball Tier_I
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3563944960043909014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.67, y: -0.19, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57,6 +57,9 @@ VisualEffect:
       m_Array:
       - m_Value: 0
         m_Name: Size
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: Lifetime
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -116,7 +119,7 @@ VFXRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1270002007
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
 --- !u!114 &8807967466442193136
 MonoBehaviour:
@@ -132,9 +135,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  m_spellData: {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
-  m_vfx: {fileID: 3563944960043909012}
+  spellData: {fileID: 11400000, guid: 848b69cd99bc9f342995fb3560d0540c, type: 2}
+  vfx: {fileID: 3563944960043909012}
+  contactFilter:
+    useTriggers: 1
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 64
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  m_dmgColor: {r: 1, g: 0.62671626, b: 0, a: 1}
   m_speed: 300
+  statusEffect: {fileID: 11400000, guid: db94a35f1d8cb694782af337a40179a3, type: 2}
 --- !u!50 &4603155144009025737
 Rigidbody2D:
   serializedVersion: 4
@@ -169,7 +188,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.013001561, y: 0.0014243126}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.37485301
 --- !u!114 &2678315183959880408
