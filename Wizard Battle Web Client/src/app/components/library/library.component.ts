@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Buymenu1Component } from '../modals/change-icon/buy-menues/buymenu1/buymenu1.component';
-import { Buymenu2Component } from '../modals/change-icon/buy-menues/buymenu2/buymenu2.component';
-import { Buymenu3Component } from '../modals/change-icon/buy-menues/buymenu3/buymenu3.component';
-import { Buymenu4Component } from '../modals/change-icon/buy-menues/buymenu4/buymenu4.component';
-import { Buymenu5Component } from '../modals/change-icon/buy-menues/buymenu5/buymenu5.component';
+import { Buymenu1Component } from '../modals/buy-menues/buymenu1/buymenu1.component';
+import { Buymenu2Component } from '../modals/buy-menues/buymenu2/buymenu2.component';
+import { Buymenu3Component } from '../modals/buy-menues/buymenu3/buymenu3.component';
+import { Buymenu4Component } from '../modals/buy-menues/buymenu4/buymenu4.component';
+import { Buymenu5Component } from '../modals/buy-menues/buymenu5/buymenu5.component';
 
 @Component({
   selector: 'app-library',
