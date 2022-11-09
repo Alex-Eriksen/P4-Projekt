@@ -23,30 +23,30 @@ import { LibraryComponent } from './components/library/library.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from  '@angular/material/dialog';
 import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
-import { Buymenu1Component } from './components/modals/change-icon/buymenu1/buymenu1.component';
+import { Buymenu1Component } from './components/modals/buy-menues/buymenu1/buymenu1.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    HeaderComponent,
-    LoginComponent,
-    SignupComponent,
-    SpellbookComponent,
-    ChatComponent,
-    ChatBoxComponent,
-    ProfileComponent,
-    LibraryComponent,
-    ChangeIconComponent,
-    Buymenu1Component
+  	declarations: [
+		AppComponent,
+		HomeComponent,
+		HeaderComponent,
+		LoginComponent,
+		SignupComponent,
+		SpellbookComponent,
+		ChatComponent,
+		ChatBoxComponent,
+		ProfileComponent,
+		LibraryComponent,
+		ChangeIconComponent,
+		Buymenu1Component
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatDialogModule
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		MatDialogModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },
