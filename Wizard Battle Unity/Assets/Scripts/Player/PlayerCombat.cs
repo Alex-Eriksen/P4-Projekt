@@ -145,7 +145,9 @@ public class PlayerCombat : NetworkBehaviour
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
         Spell spell = spawnedSpell.GetComponent<Spell>();
-        spell.Rpc_SetupSpell(connectionToClient.identity.GetComponent<PlayerConnection>().wizardIdentity);
+        var conn = connectionToClient.identity.GetComponent<PlayerConnection>().wizardIdentity;
+        spell.SC_SetupSpell(conn);
+        spell.Rpc_SetupSpell(conn);
         spell.OnServerSetup();
     }
     

@@ -5502,7 +5502,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 2117274029}
-  networkAddress: localhost
+  networkAddress: 192.168.21.2
   maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 8485168614262982842, guid: 69d0afc7c99fe474b9857dfcacc6d134, type: 3}
@@ -5807,7 +5807,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 189.81343}
+  m_AnchoredPosition: {x: 0, y: 189.81342}
   m_SizeDelta: {x: 453, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &8478726904550085887

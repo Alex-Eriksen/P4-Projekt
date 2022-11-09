@@ -278,6 +278,12 @@ public class Spell : NetworkBehaviour
         OnSetup();
     }
 
+    [ServerCallback]
+    public void SC_SetupSpell(NetworkIdentity identity)
+    {
+        ownerCollider = identity.GetComponent<Collider2D>();
+    }
+
     private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
     {
         Cmd_CancelSelf(0f);
