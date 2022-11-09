@@ -43,7 +43,6 @@ public class BuildScript
         Console.WriteLine("Built Server (Linux).");
     }
 
-
     [MenuItem("Build/Build Client (Windows)")]
     public static void BuildWindowsClient()
     {

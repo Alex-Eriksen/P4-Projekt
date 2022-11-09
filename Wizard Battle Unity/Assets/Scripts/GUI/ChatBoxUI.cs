@@ -4,10 +4,16 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ChatBoxUI : MonoBehaviour
 {
     [SerializeField] private TMP_InputField m_messageText;
+    [SerializeField] private TextMeshProUGUI m_displayText;
+    [SerializeField] private CanvasGroup m_canvasGroup;
+    [SerializeField] private Image m_showImage, m_hideImage;
+    [SerializeField] private Toggle m_showToggle;
+
     public PlayerConnection PlayerConnection { get; private set; }
 
     private void Start()
@@ -64,5 +70,25 @@ public class ChatBoxUI : MonoBehaviour
     {
         m_messageText.DeactivateInputField();
         PlayerConnection.PlayerInput.SwitchCurrentActionMap("Gameplay");
+    }
+
+    public void ToggleChatDisplay(bool value)
+    {
+        if (value)
+        {
+            m_canvasGroup.alpha = 1f;
+            m_displayText.text = "Hide Chat";
+            m_showToggle.graphic = m_hideImage;
+            m_hideImage.gameObject.SetActive(true);
+            m_showImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_canvasGroup.alpha = 0f;
+            m_displayText.text = "Show Chat";
+            m_showToggle.graphic = m_showImage;
+            m_hideImage.gameObject.SetActive(false);
+            m_showImage.gameObject.SetActive(true);
+        }
     }
 }

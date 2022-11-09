@@ -46,12 +46,15 @@ public class BurnStatus : Status
     {
         yield return new WaitForSeconds(tickRate);
 
-        data.position = transform.position;
+        if (!m_target.ContainsStatusEffect(StatusEffectType.Invulnerable))
+        {
+            data.position = transform.position;
 
-        GameEffectsManager.Instance.SC_CreateNumberEffect(data);
+            GameEffectsManager.Instance.SC_CreateNumberEffect(data);
 
-        Rpc_ClientTick();
-        m_target.SC_DrainHealth(damagePerTick);
+            Rpc_ClientTick();
+            m_target.SC_DrainHealth(damagePerTick);
+        }
 
         StartCoroutine(DamageTick());
     }

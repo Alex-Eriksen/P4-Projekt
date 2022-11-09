@@ -51,6 +51,11 @@ public class Spell : NetworkBehaviour
         StopAllCoroutines();
     }
 
+    private void OnDisable()
+    {
+        ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled -= Spell_OnCastingCanceled;
+    }
+
     private void Update()
     {
         if (m_currentCastTimer < m_maxCastTimer)
@@ -165,6 +170,12 @@ public class Spell : NetworkBehaviour
                 continue;
             }
 
+            // If the player entity hit is invulnerable continue since the target isnt a valid one.
+            if (playerEntity.ContainsStatusEffect(StatusEffectType.Invulnerable))
+            {
+                continue;
+            }
+
             // If the current frame collider was present in the previous frame colliders
             // we can raise the OnTriggerStay event, since it persisted through frames.
             if (m_previousFrameOverlappingColliders.Contains(m_overlappingColliders[i]))
@@ -216,24 +227,43 @@ public class Spell : NetworkBehaviour
     /// <param name="identity"></param>
     /// <param name="keepPositionOnInit"></param>
     [ClientRpc]
-    public void RpcSetupSpell(NetworkIdentity identity)
+    public void Rpc_SetupSpell(NetworkIdentity identity)
     {
         ownerCollider = identity.GetComponent<Collider2D>();
+
+        ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled += Spell_OnCastingCanceled;
 
         if(spellData.SpellType == SpellType.Offensive)
         {
             switch (((OffensiveSpellObject)spellData).SpellBehaviour)
             {
-                case SpellBehaviour.Aura:
+                case OffensiveSpellBehaviour.Aura:
                     initialTargetTransform = identity.transform;
                     break;
 
-                case SpellBehaviour.Skillshot:
+                case OffensiveSpellBehaviour.Skillshot:
                     initialTargetTransform = identity.transform.Find("Graphics").Find("AttackPoint");
                     break;
 
-                case SpellBehaviour.Target:
+                case OffensiveSpellBehaviour.Target:
                     initialTargetTransform = identity.transform.Find("Graphics").Find("TargetPoint");
+                    break;
+
+                default:
+                    Debug.LogError($"For whatever reason the spell data of {name} did not have any spell behaviour.", this);
+                    break;
+            }
+        }
+        else if(spellData.SpellType == SpellType.Utility)
+        {
+            switch (((UtilitySpellObject)spellData).spellBehaviour)
+            {
+                case UtilitySpellBehaviour.Teleport:
+                    initialTargetTransform = identity.transform;
+                    break;
+
+                case UtilitySpellBehaviour.Dash:
+                    initialTargetTransform = identity.transform;
                     break;
 
                 default:
@@ -246,6 +276,23 @@ public class Spell : NetworkBehaviour
         vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
 
         OnSetup();
+    }
+
+    [ServerCallback]
+    public void SC_SetupSpell(NetworkIdentity identity)
+    {
+        ownerCollider = identity.GetComponent<Collider2D>();
+    }
+
+    private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
+    {
+        Cmd_CancelSelf(0f);
+    }
+
+    [Command]
+    protected void Cmd_CancelSelf(float delay)
+    {
+        SC_StartDeathTimer(delay);
     }
 
     /// <summary>

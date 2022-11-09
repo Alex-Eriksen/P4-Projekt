@@ -58,7 +58,12 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void RightMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.SecondarySelectedSpell == null || m_isCasting)
+        if (m_spellbook.SecondarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
+        {
+            return;
+        }
+
+        if (m_playerEntity.ContainsStatusEffect(StatusEffectType.Stun))
         {
             return;
         }
@@ -72,7 +77,12 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void LeftMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.PrimarySelectedSpell == null || m_isCasting)
+        if (m_spellbook.PrimarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
+        {
+            return;
+        }
+
+        if (m_playerEntity.ContainsStatusEffect(StatusEffectType.Stun))
         {
             return;
         }
@@ -135,7 +145,9 @@ public class PlayerCombat : NetworkBehaviour
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
         Spell spell = spawnedSpell.GetComponent<Spell>();
-        spell.RpcSetupSpell(connectionToClient.identity.GetComponent<PlayerConnection>().wizardIdentity);
+        var conn = connectionToClient.identity.GetComponent<PlayerConnection>().wizardIdentity;
+        spell.SC_SetupSpell(conn);
+        spell.Rpc_SetupSpell(conn);
         spell.OnServerSetup();
     }
     
@@ -147,6 +159,10 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="args"></param>
     private void PlayerEntity_CastingCanceled(object sender, ActionEventArgs args)
     {
+        if(m_spellCastingRoutine == null)
+        {
+            return;
+        }
         StopCoroutine(m_spellCastingRoutine);
         m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
         m_isCasting = false;
@@ -181,6 +197,10 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void MousePosition_Performed(InputAction.CallbackContext obj)
     {
+        if (m_playerEntity.ContainsStatusEffect(StatusEffectType.Stun))
+        {
+            return;
+        }
         m_mousePosition = obj.ReadValue<Vector2>();
         Vector3 lookPos = Camera.main.ScreenToWorldPoint(m_mousePosition);
         m_targetPoint.position = new Vector3(lookPos.x, lookPos.y, 0f);

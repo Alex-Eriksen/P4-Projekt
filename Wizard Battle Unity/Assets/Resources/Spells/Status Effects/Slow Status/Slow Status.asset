@@ -16,3 +16,4 @@ MonoBehaviour:
   effectLifetime: 3
   effectStackable: 0
   maxEffectStacks: 0
+  effectIcon: {fileID: 21300000, guid: 410ce04fd1a4ac34aa3c432629ecab22, type: 3}

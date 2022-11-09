@@ -9,6 +9,7 @@ public class StatusEffectObject : ScriptableObject
     public float effectLifetime;
     public bool effectStackable;
     public int maxEffectStacks;
+    public Sprite effectIcon;
     public StatusEffect GetStatusEffectStruct()
     {
         return new StatusEffect() { effectLifetime = effectLifetime, effectType = effectType };

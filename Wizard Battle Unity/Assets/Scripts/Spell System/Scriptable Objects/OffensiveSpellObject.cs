@@ -6,7 +6,7 @@ public class OffensiveSpellObject : SpellObject
 {
     public float DamageAmount = 0f;
     public DamageType DamageType = DamageType.Instant;
-    public SpellBehaviour SpellBehaviour = SpellBehaviour.Skillshot;
+    public OffensiveSpellBehaviour SpellBehaviour = OffensiveSpellBehaviour.Skillshot;
 
     public OffensiveSpellObject()
     {

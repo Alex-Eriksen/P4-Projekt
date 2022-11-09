@@ -11,6 +11,7 @@ public class PlayerMovement : NetworkBehaviour
     private float m_maxSpeed = 0f;
     private PlayerConnection m_playerConnection;
     private PlayerInput m_playerInput;
+    private PlayerEntity m_playerEntity;
     private Vector2 m_inputVector = Vector2.zero, m_movementVector = Vector2.zero;
     private Vector2 m_validSavedPosition, m_validSavedVelocity;
     private Rigidbody2D m_rigidbody2D;
@@ -22,6 +23,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         m_rigidbody2D = GetComponent<Rigidbody2D>();
         m_animator = GetComponentInChildren<Animator>();
+        m_playerEntity = GetComponent<PlayerEntity>();
         m_transform = transform;
     }
 
@@ -74,6 +76,10 @@ public class PlayerMovement : NetworkBehaviour
     private void Movement_Performed(InputAction.CallbackContext context)
     {
         m_inputVector = context.ReadValue<Vector2>();
+        if (m_playerEntity.ContainsStatusEffect(StatusEffectType.Stun))
+        {
+            m_inputVector = Vector2.zero;
+        }
         m_animator.SetBool("Moving", !(m_inputVector == Vector2.zero));
     }
 
@@ -105,6 +111,7 @@ public class PlayerMovement : NetworkBehaviour
         
         if(Vector2.Distance(newPosition, m_validSavedPosition) > WizardNetworkManager.PositionThreshold)
         {
+            Debug.LogWarning($"PlayerMovement::Cmd_ValidatePosition() - Discarded Position: {newPosition}");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
@@ -128,8 +135,9 @@ public class PlayerMovement : NetworkBehaviour
             return;
         }
 
-        if(newVelocity.magnitude > WizardNetworkManager.VelocityThreshold)
+        if(newVelocity.magnitude > WizardNetworkManager.VelocityThreshold * speedMultiplier)
         {
+            Debug.LogWarning($"PlayerMovement::Cmd_ValidateVelocty() - Discarded Velocity Magnitude: {newVelocity.magnitude}");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
@@ -168,6 +176,18 @@ public class PlayerMovement : NetworkBehaviour
         m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
     }
 
+    /// <summary>
+    /// Overrides the saved position the server has on the player.
+    /// This is used to override the position for spells like teleportation that moves the player more than the allowed distance.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    /// <param name="reason"></param>
+    [ServerCallback]
+    public void SC_OverrideCurrentSavedPosition(Vector2 newPosition, string reason)
+    {
+        m_validSavedPosition = newPosition;
+        Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden: {reason}");
+    }
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.
     // The server is the only one who will Log "Recieved Hola from client!".

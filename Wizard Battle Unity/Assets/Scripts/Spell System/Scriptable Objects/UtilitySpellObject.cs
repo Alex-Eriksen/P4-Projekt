@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UtilitySpellObject : MonoBehaviour
+[CreateAssetMenu(fileName = "New Utility Spell", menuName = "Spell System/New Utility Spell")]
+public class UtilitySpellObject : SpellObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public UtilitySpellBehaviour spellBehaviour = UtilitySpellBehaviour.Teleport;
 
-    // Update is called once per frame
-    void Update()
+    public UtilitySpellObject()
     {
-        
+        SpellType = SpellType.Utility;
     }
 }

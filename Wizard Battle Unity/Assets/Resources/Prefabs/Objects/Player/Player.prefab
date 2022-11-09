@@ -107,6 +107,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   m_playerCombat: {fileID: 7390722938485721684}
+  m_statusEffectUIPrefab: {fileID: 1647792765125859732, guid: 28ce28b07226cf34fbe41eed8cdece8a, type: 3}
   m_health: 100
   m_mana: 100
 --- !u!114 &7390722938485721684
@@ -149,8 +150,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 4
+  m_Mass: 0.5
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -449,7 +450,7 @@ SpriteRenderer:
   m_SortingLayerID: 2100454819
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1459961429, guid: 798d09c04851c8d47ab2d8e11b974c89, type: 3}
+  m_Sprite: {fileID: 347158731, guid: 798d09c04851c8d47ab2d8e11b974c89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -495,6 +496,10 @@ PrefabInstance:
       propertyPath: m_entity
       value: 
       objectReference: {fileID: 2098348932656782256}
+    - target: {fileID: 2806098916925154755, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2875690032297579012, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_entity
       value: 
@@ -605,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.269
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_LocalPosition.x
@@ -641,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.68
+      value: 0.6754
       objectReference: {fileID: 0}
     - target: {fileID: 6338032157062669478, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -659,6 +664,10 @@ PrefabInstance:
       propertyPath: m_playerCombat
       value: 
       objectReference: {fileID: 7390722938485721684}
+    - target: {fileID: 9197271738198596470, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
+      propertyPath: m_fontSize
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c8a7c7a50e93e048bf5615866019d98, type: 3}
 --- !u!224 &550701320636835177 stripped

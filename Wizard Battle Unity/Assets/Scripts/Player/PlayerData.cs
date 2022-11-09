@@ -1,15 +1,17 @@
 [System.Serializable]
 public class PlayerData
 {
-    public string PlayerName = "NO NAME";
-    public uint PlayerExperience = 0;
+    public string PlayerName = "PLAYER";
     public int PlayerSpellbookID = -1;
+    public uint PlayerExperience = 0;
+    public int PlayerSkinID = -1;
 
     public PlayerData() { }
-    public PlayerData(string playerName, uint playerExperience, int playerSpellbookID)
+    public PlayerData(string playerName, uint playerExperience, int playerSpellbookID, int playerSkinID)
     {
-        PlayerName = playerName;
-        PlayerExperience = playerExperience;
         PlayerSpellbookID = playerSpellbookID;
+        PlayerExperience = playerExperience;
+        PlayerSkinID = playerSkinID;
+        PlayerName = playerName;
     }
 }

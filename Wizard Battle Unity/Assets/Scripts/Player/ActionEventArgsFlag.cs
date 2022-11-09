@@ -1,5 +1,6 @@
 public enum ActionEventArgsFlag
 {
     None,
-    NotEnoughMana
+    NotEnoughMana,
+    Stunned
 }

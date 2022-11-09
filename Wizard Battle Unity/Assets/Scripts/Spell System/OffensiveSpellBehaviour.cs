@@ -1,4 +1,4 @@
-public enum SpellBehaviour
+public enum OffensiveSpellBehaviour
 {
     Aura,
     Skillshot,
