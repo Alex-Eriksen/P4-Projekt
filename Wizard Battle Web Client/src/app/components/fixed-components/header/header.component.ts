@@ -84,6 +84,7 @@ export class HeaderComponent implements OnInit {
       maxWidth: '100vw',
       height: '340px',
       disableClose: true,
+	  exitAnimationDuration: "0s"
     });
 
     dialogRef.afterClosed().subscribe(() => {

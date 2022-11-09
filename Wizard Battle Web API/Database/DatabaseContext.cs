@@ -14,6 +14,7 @@ namespace Wizard_Battle_Web_API.Database
 		public DbSet<Message> Message { get; set; }
 		public DbSet<Icon> Icon { get; set; }
 		public DbSet<SkinItem> Skin { get; set; }
+		public DbSet<Transaction> Transaction { get; set; }
 
 
 		/// <summary>

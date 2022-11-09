@@ -11,7 +11,11 @@
 		[Column(TypeName = "nvarchar(255)")]
 		public string SkinDescription { get; set; }
 
+		public Int16 SkinPrice { get; set; }
+
 		[Column(TypeName = "nvarchar(255)")]
 		public string ImageName { get; set; }
+
+		ICollection<Transaction> Transactions { get; set; }
 	}
 }

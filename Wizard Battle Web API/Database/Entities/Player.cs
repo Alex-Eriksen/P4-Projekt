@@ -47,5 +47,7 @@
 		public virtual ICollection<Message> Messages { get; set; }
 
 		public virtual ICollection<Message> FriendMessages { get; set; }
+
+		public virtual ICollection<Transaction> Transactions { get; set; }
 	}
 }

@@ -23,6 +23,15 @@
 
 			CreateMap<Icon, IconResponse>();
 			CreateMap<IconRequest, Icon>();
+
+			CreateMap<Transaction, DirectTransactionResponse>();
+			CreateMap<Transaction, DirectTransactionResponse>();
+			CreateMap<TransactionRequest, Transaction>();
+
+
+			CreateMap<SkinItem, DirectSkinItemResponse>();
+			CreateMap<SkinItem, DirectSkinItemResponse>();
+			CreateMap<SkinItemRequest, SkinItem>();
 		}
 	}
 }

@@ -2,7 +2,6 @@
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
 	public class PlayerController : ControllerBase
 	{
 		/// <summary>
@@ -33,6 +32,7 @@
 		/// </summary>
 		/// <returns>Players, HTTP 204 or exception</returns>
 		[HttpGet]
+		[Authorize]
 		public async Task<IActionResult> GetAll()
 		{
 			try
@@ -65,6 +65,7 @@
 		/// <returns>Player or HTTP 204</returns>
 		[HttpGet]
 		[Route("{playerId}")]
+		[Authorize]
 		public async Task<IActionResult> GetById(int playerId)
 		{
 			try
@@ -123,6 +124,7 @@
 		/// <returns>Player or exception</returns>
 		[HttpPut]
 		[Route("{playerId}")]
+		[Authorize]
 		public async Task<IActionResult> Update(int playerId, PlayerRequest request)
 		{
 			try

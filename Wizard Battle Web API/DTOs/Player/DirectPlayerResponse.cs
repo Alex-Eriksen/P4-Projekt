@@ -29,5 +29,7 @@
 		public uint TimePlayedMin { get; set; } = 0;
 
 		public DateTime Modified_At { get; set; }
+
+		public ICollection<StaticTransactionResponse> Transactions = new List<StaticTransactionResponse>();
 	}
 }
