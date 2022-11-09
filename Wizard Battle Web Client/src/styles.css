@@ -77,40 +77,32 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .buy-menu-overlay1 {
   position: absolute;
-  /*top: -15%;
-  left: -9.3%;*/
-  top: 3%;
+  top: -15%;
   left: -9.3%;
+  /*top: 3%;
+  left: -9.3%;*/
 }
 
 .buy-menu-overlay2 {
   position: absolute;
-  /*top: 25%;
-  left: -35%;*/
-  top: 3%;
-  left: -9.3%;
+  top: 25%;
+  left: -35%;
 }
 
 .buy-menu-overlay3 {
   position: absolute;
-  /*top: 25%;
-  left: 16%;*/
-  top: 3%;
-  left: -9.3%;
+  top: 25%;
+  left: 16%;
 }
 
 .buy-menu-overlay4 {
   position: absolute;
-  /*top: -15%;
-  left: 16%;*/
-  top: 3%;
-  left: -9.3%;
+  top: -15%;
+  left: 16%;
 }
 
 .buy-menu-overlay5 {
   position: absolute;
-  /*top: 25%;
-  left: -35%;*/
-  top: 3%;
-  left: -9.3%;
+  top: 25%;
+  left: -35%;
 }

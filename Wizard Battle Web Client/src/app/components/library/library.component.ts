@@ -19,6 +19,8 @@ export class LibraryComponent implements OnInit {
   }
 
   openBuyMenu1(): void {
+    let element = document.getElementById("chat-tab");
+    element!.scrollTop = 0;
     let dialogRef = this.dialog.open(Buymenu1Component, {
       width: '536px',
       maxWidth: '50vw',
@@ -36,6 +38,8 @@ export class LibraryComponent implements OnInit {
   }
 
   openBuyMenu2(): void {
+    let element = document.getElementById("chat-tab");
+    element!.scrollTop = 0;
     let dialogRef = this.dialog.open(Buymenu2Component, {
       width: '536px',
       maxWidth: '50vw',
@@ -53,6 +57,8 @@ export class LibraryComponent implements OnInit {
   }
 
   openBuyMenu3(): void {
+    let element = document.getElementById("chat-tab");
+    element!.scrollTop = 0;
     let dialogRef = this.dialog.open(Buymenu3Component, {
       width: '536px',
       maxWidth: '50vw',
@@ -70,6 +76,8 @@ export class LibraryComponent implements OnInit {
   }
 
   openBuyMenu4(): void {
+    let element = document.getElementById("chat-tab");
+    element!.scrollTop = element!.scrollHeight;
     let dialogRef = this.dialog.open(Buymenu4Component, {
       width: '536px',
       maxWidth: '50vw',
@@ -87,6 +95,8 @@ export class LibraryComponent implements OnInit {
   }
 
   openBuyMenu5(): void {
+    let element = document.getElementById("chat-tab");
+    element!.scrollTop = element!.scrollHeight;
     let dialogRef = this.dialog.open(Buymenu5Component, {
       width: '536px',
       maxWidth: '50vw',
