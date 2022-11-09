@@ -65,7 +65,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.signalrService.startConnection();
+    this.signalrService.startConnection(); // Start connection
   }
 
   toggleFriendList(): void {

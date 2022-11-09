@@ -43,6 +43,7 @@ export class ChangeIconComponent implements OnInit {
 
     // Tager fat i cdk-overlay-container i body og tilføjer en klasse så dens position absolute kan manipuleres
     document.body.children[6].classList.add('change-icon-overlay'); // Tilføjer sagt klasse til sidste element i body
+    document.body.children[6]
   }
 
   onClose(): void {

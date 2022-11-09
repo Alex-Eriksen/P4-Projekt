@@ -23,7 +23,7 @@ import { LibraryComponent } from './components/library/library.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from  '@angular/material/dialog';
 import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
-import { Buymenu1Component } from './components/modals/change-icon/buy-menues/buymenu1/buymenu1.component';
+import { Buymenu1Component } from './components/modals/buy-menues/buymenu1/buymenu1.component';
 
 @NgModule({
   declarations: [

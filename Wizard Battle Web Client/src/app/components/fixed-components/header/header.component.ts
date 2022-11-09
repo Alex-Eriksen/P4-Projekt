@@ -4,9 +4,7 @@ import { Subject } from 'rxjs';
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
-import { SignalrService } from 'src/app/services/signalr.service';
 import { DirectPlayerResponse } from 'src/app/_models/Player';
-import { Buymenu1Component } from '../../modals/change-icon/buy-menues/buymenu1/buymenu1.component';
 import { ChangeIconComponent } from '../../modals/change-icon/change-icon.component';
 
 
@@ -86,20 +84,6 @@ export class HeaderComponent implements OnInit {
       maxWidth: '100vw',
       height: '340px',
       disableClose: true,
-
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      console.log("Dialog has been closed");
-    });
-  }
-
-  openBuyMenu(): void {
-    let dialogRef = this.dialog.open(Buymenu1Component, {
-      width: '536px',
-      maxWidth: '50vw',
-      height: '449px',
-
     });
 
     dialogRef.afterClosed().subscribe(() => {

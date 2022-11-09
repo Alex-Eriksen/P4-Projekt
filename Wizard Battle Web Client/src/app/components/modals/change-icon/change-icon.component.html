@@ -1,17 +1,17 @@
-<div class="container-fluid h-100 border border-1 border-white p-3">
+<div class="container-fluid h-100 border border-2 dark-border-color dark-background-2 p-3">
   <h3 class="mb-2 header text-white">Change your Player Icon</h3>
   <div class="d-flex flex-row gap-2 content">
-    <div id="icon-grid" class="icon-grid flex-even border border-1 border-white p-3">
-      <img [src]="icon.iconName" #refIcon class="border border-3 border-white cursor-pointer" *ngFor="let icon of icons" width="60" (click)="changeIcon(refIcon, icon)">
+    <div id="icon-grid" class="icon-grid flex-even border border-1 dark-border-color dark-background-1 p-3">
+      <img [src]="icon.iconName" #refIcon class="border border-3 dark-border-color cursor-pointer" *ngFor="let icon of icons" width="60" (click)="changeIcon(refIcon, icon)">
     </div>
-    <div class="text flex-even border border-1 border-white p-3 text-white">
+    <div class="text flex-even border border-1 dark-border-color p-3 text-white dark-background-1">
       <p>A Player Icon is a picture that represents you in chat rooms and your Friend List.
         You can choose from these starter icons, and later you can unlock special icons to represent the achievements you have accomplished in Wizard Battle.
         You can change your Player Icon at any time by clicking on the icon at the top of the screen</p>
     </div>
   </div>
   <div class="d-flex flex-row gap-2 justify-content-end footer pt-3">
-    <button class="btn btn-danger" (click)="onClose()">Close</button>
-    <button class="btn btn-primary" [disabled]="chosenIcon.iconID == 0" (click)="saveChanges()">Save Changes</button>
+    <button class="btn btn-danger outline-0" (click)="onClose()">Close</button>
+    <button class="btn btn-primary outline-0" [disabled]="chosenIcon.iconID == 0" (click)="saveChanges()">Save Changes</button>
   </div>
 </div>

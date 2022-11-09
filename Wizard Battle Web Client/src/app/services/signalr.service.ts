@@ -56,7 +56,6 @@ export class SignalrService {
 
     this.hubConnection.on("ChangeFriendStatus", (message) => {
       this.StatusSubject.next(message);
-      console.log(message);
     })
   }
 
