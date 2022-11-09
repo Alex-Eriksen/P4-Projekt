@@ -12,8 +12,8 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221101124910_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221103133214_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$GAFI.rgmvfF12nR2UeSE0uTMq5a2zwtepZLDO0Ffw9AO/lsoRn9O."
+                            Password = "$2a$10$nq6j8z/Jd.vQ./bpU1GujOMtt80aYWq8DDvQjKQqIsUS8FghV01lq"
                         },
                         new
                         {
@@ -74,7 +74,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$XTWuwUpV9jN7VFtY2QpEfujOCiatbfByQvAidfBDC1Hyz3zVZQgMG"
+                            Password = "$2a$10$7gC6UTdnaBvOH4.2wBFmteVigkTwUup82uNtZbDB6OBYQA0UbmMCe"
                         },
                         new
                         {
@@ -83,7 +83,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$nk/SCzpI6SSy1AeFO02shuqMLb/3yglgAjQ6M03voQnAAZIm0ScMa"
+                            Password = "$2a$10$t66m17LnXDLZgf9y4qFw0O0lWm9xFEwQNQvWbfPiNxLegiqv6dr/W"
                         },
                         new
                         {
@@ -92,7 +92,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$Ch2O5fA0Po7hpRUnxs5lLe9NQ9ndTz2tBFjgHwAYUVe3nlF7t5bH2"
+                            Password = "$2a$10$jRoaAU.AgprH1F5X/Ik.0uuGJP9QMAhsUu7Mv77vvS18n0jcej9EK"
                         });
                 });
 
@@ -123,42 +123,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2499),
+                            Created_At = new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9569),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2502),
+                            Created_At = new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9572),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2503),
+                            Created_At = new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9573),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2503),
+                            Created_At = new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9574),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2504),
+                            Created_At = new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9574),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 1, 12, 49, 9, 848, DateTimeKind.Utc).AddTicks(2504),
+                            Created_At = new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9574),
                             IsPending = false
                         });
                 });
@@ -182,6 +182,26 @@ namespace Wizard_Battle_Web_API.Migrations
                         new
                         {
                             IconID = 1,
+                            IconLocation = "../../../../assets/profile 1.png"
+                        },
+                        new
+                        {
+                            IconID = 2,
+                            IconLocation = "../../../../assets/profile 2.png"
+                        },
+                        new
+                        {
+                            IconID = 3,
+                            IconLocation = "../../../../assets/profile 3.png"
+                        },
+                        new
+                        {
+                            IconID = 4,
+                            IconLocation = "../../../../assets/profile 4.png"
+                        },
+                        new
+                        {
+                            IconID = 5,
                             IconLocation = "../../../../assets/alex.png"
                         });
                 });

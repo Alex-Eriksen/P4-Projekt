@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wizard_Battle_Web_API.Database;
 
@@ -11,9 +12,10 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20221103133650_initialcreate2")]
+    partial class initialcreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +65,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$lvlx9aanrb/Yg.7cnmk.Lux2sIIRgvJEQNsNK7UOK/1nQUnltEddC"
+                            Password = "$2a$10$ppXJU/J/N8toBx2pOiOdperkmeZeynCAqO/WmYQVogUgPAoIgDaFO"
                         },
                         new
                         {
@@ -72,7 +74,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$Q389nQEBNpBcrF5qEfznxu0YiUU3rEclKYZppmTBXzbpuk5PaZVtK"
+                            Password = "$2a$10$OwCopQPn72vsek6akwzPXeAfivmB25vrLAeWQsMjTR/Gobrj8GjqS"
                         },
                         new
                         {
@@ -81,7 +83,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$s/XbkYhdve9wWavRUeTj7.meNnWUJZw9GfMO2QY9feeN46z6pL8UW"
+                            Password = "$2a$10$pMf8S4axWOUIA0P3ai4Cw.GWOdEw5A2J2DZQvAnsBwEtLT2K7f1LO"
                         },
                         new
                         {
@@ -90,7 +92,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$JEIVMxUaEwHac7zT3JwN/.ns1k0U6uyIE6J1GSVUVfIdP3Fo6LYDG"
+                            Password = "$2a$10$oGcrMbs59g0j13qlBQRDhO3PXsFMzYLfC.Ud0t2/q5Z9xVmeXHtAe"
                         });
                 });
 
@@ -121,42 +123,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 3, 13, 38, 40, 829, DateTimeKind.Utc).AddTicks(6191),
+                            Created_At = new DateTime(2022, 11, 3, 13, 36, 50, 493, DateTimeKind.Utc).AddTicks(7640),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 3, 13, 38, 40, 829, DateTimeKind.Utc).AddTicks(6194),
+                            Created_At = new DateTime(2022, 11, 3, 13, 36, 50, 493, DateTimeKind.Utc).AddTicks(7643),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 3, 13, 38, 40, 829, DateTimeKind.Utc).AddTicks(6194),
+                            Created_At = new DateTime(2022, 11, 3, 13, 36, 50, 493, DateTimeKind.Utc).AddTicks(7644),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 3, 13, 38, 40, 829, DateTimeKind.Utc).AddTicks(6195),
+                            Created_At = new DateTime(2022, 11, 3, 13, 36, 50, 493, DateTimeKind.Utc).AddTicks(7644),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 3, 13, 38, 40, 829, DateTimeKind.Utc).AddTicks(6195),
+                            Created_At = new DateTime(2022, 11, 3, 13, 36, 50, 493, DateTimeKind.Utc).AddTicks(7645),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 3, 13, 38, 40, 829, DateTimeKind.Utc).AddTicks(6196),
+                            Created_At = new DateTime(2022, 11, 3, 13, 36, 50, 493, DateTimeKind.Utc).AddTicks(7645),
                             IsPending = false
                         });
                 });
@@ -180,27 +182,27 @@ namespace Wizard_Battle_Web_API.Migrations
                         new
                         {
                             IconID = 1,
-                            IconLocation = "../../../../assets/player-icons/wizard1.png"
+                            IconLocation = "../../../../assets/profile-icons/wizard1.png"
                         },
                         new
                         {
                             IconID = 2,
-                            IconLocation = "../../../../assets/player-icons/wizard2.png"
+                            IconLocation = "../../../../assets/profile-icons/wizard2.png"
                         },
                         new
                         {
                             IconID = 3,
-                            IconLocation = "../../../../assets/player-icons/wizard3.png"
+                            IconLocation = "../../../../assets/profile-icons/wizard3.png"
                         },
                         new
                         {
                             IconID = 4,
-                            IconLocation = "../../../../assets/player-icons/wizard4.png"
+                            IconLocation = "../../../../assets/profile-icons/wizard4.png"
                         },
                         new
                         {
                             IconID = 5,
-                            IconLocation = "../../../../assets/player-icons/alex.png"
+                            IconLocation = "../../../../assets/alex.png"
                         });
                 });
 

@@ -79,31 +79,31 @@
 			modelBuilder.Entity<Icon>().HasData(new Icon
 			{
 				IconID = 1,
-				IconLocation = "../../../../assets/profile 1.png"
+				IconLocation = "../../../../assets/player-icons/wizard1.png"
 			});
 
 			modelBuilder.Entity<Icon>().HasData(new Icon
 			{
 				IconID = 2,
-				IconLocation = "../../../../assets/profile 2.png"
+				IconLocation = "../../../../assets/player-icons/wizard2.png"
 			});
 
 			modelBuilder.Entity<Icon>().HasData(new Icon
 			{
 				IconID = 3,
-				IconLocation = "../../../../assets/profile 3.png"
+				IconLocation = "../../../../assets/player-icons/wizard3.png"
 			});
 
 			modelBuilder.Entity<Icon>().HasData(new Icon
 			{
 				IconID = 4,
-				IconLocation = "../../../../assets/profile 4.png"
+				IconLocation = "../../../../assets/player-icons/wizard4.png"
 			});
 
 			modelBuilder.Entity<Icon>().HasData(new Icon
 			{
 				IconID = 5,
-				IconLocation = "../../../../assets/alex.png"
+				IconLocation = "../../../../assets/player-icons/alex.png"
 			});
 
 			modelBuilder.Entity<Player>().HasData(new Player
