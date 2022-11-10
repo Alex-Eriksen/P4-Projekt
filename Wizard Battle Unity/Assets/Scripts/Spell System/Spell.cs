@@ -239,6 +239,7 @@ public class Spell : NetworkBehaviour
         vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
 
         OnClientSetup();
+        OnSetup();
     }
 
     /// <summary>
@@ -255,6 +256,7 @@ public class Spell : NetworkBehaviour
         SetCastingTimer(spellData.CastTime);
 
         OnServerSetup();
+        OnSetup();
     }
 
     /// <summary>
@@ -377,8 +379,18 @@ public class Spell : NetworkBehaviour
     #region Protected Virtual Overrides
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
+    /// <summary>
+    /// Called only on the client.
+    /// </summary>
     protected virtual void OnClientSetup() { }
+    /// <summary>
+    /// Called only on the server.
+    /// </summary>
     [ServerCallback] protected virtual void OnServerSetup() { }
+    /// <summary>
+    /// Called on the server and client when they have respectively finished their setup.
+    /// </summary>
+    protected virtual void OnSetup() { }
     protected virtual void OnUpdate() { }
     protected virtual void OnFixedUpdate() { }
     protected virtual void OnFinishedCasting() { }

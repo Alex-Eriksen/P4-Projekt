@@ -21,7 +21,7 @@ public class FirewallSpell : Spell
         m_damagePerTick = m_castSpellData.DamageAmount / 10;
     }
 
-    protected override void OnServerSetup()
+    protected override void OnSetup()
     {
         m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
     }
