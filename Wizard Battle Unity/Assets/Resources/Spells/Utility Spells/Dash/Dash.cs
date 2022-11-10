@@ -7,9 +7,13 @@ public class Dash : Spell
 {
     [SerializeField] private StatusEffectObject m_invulnerableStatusObject;
 
-    [Command]
     protected override void OnFinishedCasting()
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         ownerCollider.GetComponent<PlayerEntity>().SC_AddStatusEffect(m_invulnerableStatusObject.GetStatusEffectStruct());
     }
 }
