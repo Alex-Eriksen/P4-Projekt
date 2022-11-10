@@ -10,4 +10,8 @@ export interface StaticPlayerResponse {
   matchWins: number;
   matchLosses: number;
   timePlayedMin: number;
+  maxHealth: number;
+  maxMana: number;
+  knowledgePoints: number;
+  timeCapsules: number;
 }
