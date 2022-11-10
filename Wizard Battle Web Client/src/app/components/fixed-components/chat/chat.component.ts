@@ -5,9 +5,9 @@ import { PlayerService } from 'src/app/services/player.service';
 
 import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-=======
-import { DirectPlayerResponse } from 'src/app/_models/Player';
-import { PlayerChat } from './player';
+
+
+import { PlayerChat } from './Player';
 
 
 import { ChatService } from 'src/app/services/chat.service';

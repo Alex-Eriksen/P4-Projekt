@@ -1,4 +1,6 @@
-﻿namespace Wizard_Battle_Web_API.Services
+﻿using Wizard_Battle_Web_API.DTOs.Icon;
+
+namespace Wizard_Battle_Web_API.Services
 {
 	public interface IIconService
 	{

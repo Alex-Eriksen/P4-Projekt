@@ -12,9 +12,8 @@
 		[Column(TypeName = "nvarchar(32)")]
 		public string PlayerName { get; set; }
 
-		[ForeignKey("Icon.IconID")]
-		public int IconID { get; set; }
-		public Icon Icon { get; set; }
+		[Column(TypeName = "nvarchar(32)")]
+		public string PlayerImage { get; set; }
 
 		[Column(TypeName = "nvarchar(32)")]
 		public string PlayerStatus { get; set; }
@@ -31,12 +30,6 @@
 
 		public uint TimeCapsules { get; set; }
 
-		public uint MatchWins { get; set; }
-
-		public uint MatchLosses { get; set; }
-
-		public uint TimePlayedMin { get; set; }
-
 		[Column(TypeName = "datetime2")]
 		public DateTime Modified_At { get; set; }
 		
@@ -47,5 +40,7 @@
 		public virtual ICollection<Message> Messages { get; set; }
 
 		public virtual ICollection<Message> FriendMessages { get; set; }
-	}
+        public int IconID { get; internal set; }
+        public object Icon { get; internal set; }
+    }
 }
