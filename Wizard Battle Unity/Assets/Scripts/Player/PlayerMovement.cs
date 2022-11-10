@@ -32,7 +32,15 @@ public class PlayerMovement : NetworkBehaviour
         m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
         m_playerInput = m_playerConnection.PlayerInput;
 
+        Cmd_ServerSetup(m_playerConnection.netId);
+
         SetInput();
+    }
+
+    [Command]
+    private void Cmd_ServerSetup(uint netId)
+    {
+        m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.netId == netId).Single();
     }
 
     public override void OnStartServer()
@@ -48,7 +56,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        m_maxSpeed = (WizardNetworkManager.VelocityThreshold - 0.5f) * speedMultiplier;
+        m_maxSpeed = (WizardNetworkManager.VelocityThreshold - WizardNetworkManager.VelocityError) * speedMultiplier;
 
         if (!hasAuthority)
         {
@@ -90,7 +98,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         m_rigidbody2D.velocity += m_movementVector * Time.deltaTime;
         m_rigidbody2D.velocity = Vector2.ClampMagnitude(m_rigidbody2D.velocity, m_maxSpeed);
-        Cmd_ValidateVelocity(m_rigidbody2D.velocity);
+        Cmd_ValidateVelocity(m_rigidbody2D.velocity, speedMultiplier);
         Cmd_ValidatePosition(m_transform.position);
     }
 
@@ -100,7 +108,7 @@ public class PlayerMovement : NetworkBehaviour
     /// <br>If the new position was invalid it will set the clients position to the last saved valid position.</br>
     /// </summary>
     /// <param name="newPosition"></param>
-    [Command(requiresAuthority = false)]
+    [Command]
     private void Cmd_ValidatePosition(Vector2 newPosition)
     {
         if(m_validSavedPosition == null)
@@ -126,18 +134,18 @@ public class PlayerMovement : NetworkBehaviour
     /// <br>If the new velocity was invalid it will set the client velocity to the last valid saved velocity.</br>
     /// </summary>
     /// <param name="newVelocity"></param>
-    [Command(requiresAuthority = false)]
-    private void Cmd_ValidateVelocity(Vector2 newVelocity)
+    [Command]
+    private void Cmd_ValidateVelocity(Vector2 newVelocity, float speedMultiplier)
     {
         if(m_validSavedVelocity == null)
         {
-            Debug.LogError($"PlayerMovement::Cmd_ValidateVelocity -> Failed: m_validSavedPosition is NULL");
+            Debug.LogError($"PlayerMovement::Cmd_ValidateVelocity -> Failed: m_validSavedVelocity is NULL");
             return;
         }
 
         if(newVelocity.magnitude > WizardNetworkManager.VelocityThreshold * speedMultiplier)
         {
-            Debug.LogWarning($"PlayerMovement::Cmd_ValidateVelocty() - Discarded Velocity Magnitude: {newVelocity.magnitude}");
+            Debug.LogWarning($"PlayerMovement::Cmd_ValidateVelocty() - Discarded Velocity Magnitude: {newVelocity.magnitude}>{WizardNetworkManager.VelocityThreshold * speedMultiplier}");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
@@ -154,7 +162,6 @@ public class PlayerMovement : NetworkBehaviour
     [ClientRpc]
     public void Rpc_OverrideClientPosition(Vector2 validSavedPosition)
     {
-        Debug.LogWarning($"PlayerMovement::Rpc_OverrideClientPosition()");
         m_transform.position = validSavedPosition;
     }
 
@@ -166,7 +173,6 @@ public class PlayerMovement : NetworkBehaviour
     [ClientRpc]
     public void Rpc_OverrideClientVelocity(Vector2 validSavedVelocity)
     {
-        Debug.LogWarning($"PlayerMovement::Rpc_OverrideClientVelocity()");
         m_rigidbody2D.velocity = validSavedVelocity;
     }
 
@@ -174,6 +180,13 @@ public class PlayerMovement : NetworkBehaviour
     public void Rpc_AddForceAtPosition(Vector2 force, Vector2 position, ForceMode2D forceMode)
     {
         m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
+    }
+
+    [ServerCallback]
+    public void SC_AddForceAtPosition(Vector2 force, Vector2 position, ForceMode2D forceMode)
+    {
+        m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
+        Rpc_AddForceAtPosition(force, position, forceMode);
     }
 
     /// <summary>
@@ -186,7 +199,8 @@ public class PlayerMovement : NetworkBehaviour
     public void SC_OverrideCurrentSavedPosition(Vector2 newPosition, string reason)
     {
         m_validSavedPosition = newPosition;
-        Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden: {reason}");
+        Rpc_OverrideClientPosition(newPosition);
+        Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden for {m_playerConnection.PlayerName}: {reason}");
     }
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.

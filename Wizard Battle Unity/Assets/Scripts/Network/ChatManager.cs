@@ -30,13 +30,13 @@ public class ChatManager : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdSendMessage(string playerName, string messageText)
+    public void Cmd_SendMessage(string playerName, string messageText)
     {
-        RpcRecieveMessage(playerName, messageText);
+        Rpc_RecieveMessage(playerName, messageText);
     }
 
     [ClientRpc]
-    public void RpcRecieveMessage(string playerName, string messageText)
+    public void Rpc_RecieveMessage(string playerName, string messageText)
     {
         ChatMessageUI obj = Instantiate(m_messagePrefab, m_contentTransform).GetComponent<ChatMessageUI>();
         obj.Setup(playerName, messageText);
