@@ -59,6 +59,7 @@
             return await m_context.Player
                 .Include(x => x.Account)
                 .Include(x => x.Icon)
+                .Include(x => x.Transactions)
                 .FirstOrDefaultAsync(x => x.PlayerID == playerId);
         }
 

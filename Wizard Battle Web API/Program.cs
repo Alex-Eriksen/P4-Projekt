@@ -19,6 +19,12 @@ builder.Services.AddTransient<IIconService, IconService>();
 
 builder.Services.AddTransient<IChatRepository, ChatRepository>();
 builder.Services.AddTransient<IChatService, ChatService>();
+
+builder.Services.AddTransient<ITransactionRepository, TransactionRepository>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
+
+builder.Services.AddTransient<ISkinItemRepository, SkinItemRepository>();
+builder.Services.AddTransient<ISkinItemService, SkinItemService>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {

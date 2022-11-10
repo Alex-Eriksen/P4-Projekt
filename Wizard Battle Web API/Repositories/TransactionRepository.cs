@@ -31,7 +31,7 @@
 		public async Task<Transaction> GetById(int transactionId)
 		{
 			return await m_databaseContext.Transaction
-				.Include(x => x.Player)
+				.Include(x => x.Player).ThenInclude(x => x.Icon)
 				.Include(x => x.SkinItem)
 				.FirstOrDefaultAsync(x => x.TransactionID == transactionId);
 		}
@@ -57,7 +57,7 @@
 				await m_databaseContext.SaveChangesAsync();
 			}
 
-			return transaction;
+			return await GetById(transactionId);
 		}
 
 

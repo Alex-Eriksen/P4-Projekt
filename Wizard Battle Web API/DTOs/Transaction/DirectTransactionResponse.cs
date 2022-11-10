@@ -6,7 +6,7 @@
 
 		public StaticPlayerResponse Player { get; set; } = null!;
 
-		public StaticSkinItemResponse SkinItemID { get; set; } = null!;
+		public StaticSkinItemResponse SkinItem { get; set; } = null!;
 
 		public int TotalCost = 0;
 

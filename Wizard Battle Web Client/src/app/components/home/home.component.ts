@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
+import { SkinService } from 'src/app/services/skin.service';
 import { DevblogItem } from 'src/app/_models/Misc/devblog-item';
 import { FeaturedItem } from 'src/app/_models/Misc/featured-item';
 import { DirectPlayerResponse } from 'src/app/_models/Player';
+import { StaticSkinItemResponse } from 'src/app/_models/SkinItem';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +15,11 @@ import { DirectPlayerResponse } from 'src/app/_models/Player';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService) { }
+  constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private skinService: SkinService) { }
 
-  featuredItems: FeaturedItem[] = [];
+  featuredItems: StaticSkinItemResponse[] = [];
 
   devblogItems: DevblogItem[] = [];
-
-  newItem: FeaturedItem = { itemName: 'Wise Wizard Skin', itemImageLocation: "../../../../assets/featured-item-card.jpg", itemPrice: 375 };
 
   newDevblog: DevblogItem = { title: "Wizard Battle Version 1.0 Release date", description: "We are not finished. Mf. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, consectetur repellat.", imageLocation: "../../../assets/devblog-image.jpg"}
 
@@ -31,8 +31,11 @@ export class HomeComponent implements OnInit {
       this.playerService.getById(this.player.playerID).subscribe(data => this.player = data);
     });
 
+	this.skinService.getAll().subscribe((data) => {
+		this.featuredItems = data.slice(0, 4);
+	});
+
     for(let i = 0; i < 4; i++) {
-      this.featuredItems.push(this.newItem);
       this.devblogItems.push(this.newDevblog);
     }
   }

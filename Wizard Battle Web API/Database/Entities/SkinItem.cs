@@ -16,6 +16,6 @@
 		[Column(TypeName = "nvarchar(255)")]
 		public string ImageName { get; set; }
 
-		ICollection<Transaction> Transactions { get; set; }
+		public ICollection<Transaction> Transactions { get; set; }
 	}
 }

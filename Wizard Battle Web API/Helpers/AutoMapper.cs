@@ -24,12 +24,12 @@
 			CreateMap<Icon, IconResponse>();
 			CreateMap<IconRequest, Icon>();
 
-			CreateMap<Transaction, DirectTransactionResponse>();
+			CreateMap<Transaction, StaticTransactionResponse>();
 			CreateMap<Transaction, DirectTransactionResponse>();
 			CreateMap<TransactionRequest, Transaction>();
 
 
-			CreateMap<SkinItem, DirectSkinItemResponse>();
+			CreateMap<SkinItem, StaticSkinItemResponse>();
 			CreateMap<SkinItem, DirectSkinItemResponse>();
 			CreateMap<SkinItemRequest, SkinItem>();
 		}

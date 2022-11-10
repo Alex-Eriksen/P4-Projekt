@@ -2,5 +2,10 @@
 {
 	public class TransactionRequest
 	{
+		public int SkinID { get; set; }
+
+		public int PlayerID { get; set; }
+
+		public int TotalCost { get; set; }
 	}
 }
