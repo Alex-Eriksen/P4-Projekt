@@ -32,11 +32,26 @@ namespace Wizard_Battle_Web_API.Migrations
                 {
                     IconID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IconLocation = table.Column<string>(type: "nvarchar(255)", nullable: true)
+                    IconName = table.Column<string>(type: "nvarchar(255)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Icon", x => x.IconID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Skin",
+                columns: table => new
+                {
+                    SkinID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SkinName = table.Column<string>(type: "nvarchar(60)", nullable: true),
+                    SkinDescription = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    ImageName = table.Column<string>(type: "nvarchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Skin", x => x.SkinID);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,6 +94,9 @@ namespace Wizard_Battle_Web_API.Migrations
                     MaxMana = table.Column<double>(type: "float", nullable: false),
                     KnowledgePoints = table.Column<long>(type: "bigint", nullable: false),
                     TimeCapsules = table.Column<long>(type: "bigint", nullable: false),
+                    MatchWins = table.Column<long>(type: "bigint", nullable: false),
+                    MatchLosses = table.Column<long>(type: "bigint", nullable: false),
+                    TimePlayedMin = table.Column<long>(type: "bigint", nullable: false),
                     Modified_At = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -157,33 +175,38 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
                 values: new object[,]
                 {
-                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$nq6j8z/Jd.vQ./bpU1GujOMtt80aYWq8DDvQjKQqIsUS8FghV01lq" },
-                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$7gC6UTdnaBvOH4.2wBFmteVigkTwUup82uNtZbDB6OBYQA0UbmMCe" },
-                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$t66m17LnXDLZgf9y4qFw0O0lWm9xFEwQNQvWbfPiNxLegiqv6dr/W" },
-                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$jRoaAU.AgprH1F5X/Ik.0uuGJP9QMAhsUu7Mv77vvS18n0jcej9EK" }
+                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$iZXrLpt.VHeVKvAYc9vCLeoyAM1gGDsMQhdbxywZz.VnhkpAUEliG" },
+                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$8f6fRaByDhLLuHo5GqE8I.EUgkAOCL94P/iij1pBRGQKKTLccvWfW" },
+                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$Z7ZT4biJH.Yi0MQ6BH62jeX4fm/sCsoiORdKTSRIXxwTQluNLp.O." },
+                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$iRAMSSVkVwpkK/QYwIC0ju/n2LFupCgRAwFVfX43XTjXvZCHY/Ey2" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Icon",
-                columns: new[] { "IconID", "IconLocation" },
+                columns: new[] { "IconID", "IconName" },
                 values: new object[,]
                 {
-                    { 1, "../../../../assets/profile 1.png" },
-                    { 2, "../../../../assets/profile 2.png" },
-                    { 3, "../../../../assets/profile 3.png" },
-                    { 4, "../../../../assets/profile 4.png" },
-                    { 5, "../../../../assets/alex.png" }
+                    { 1, "../../../../assets/player-icons/wizard1.png" },
+                    { 2, "../../../../assets/player-icons/wizard2.png" },
+                    { 3, "../../../../assets/player-icons/wizard3.png" },
+                    { 4, "../../../../assets/player-icons/wizard4.png" },
+                    { 5, "../../../../assets/player-icons/alex.png" },
+                    { 6, "../../../../assets/player-icons/alex-glasses.png" },
+                    { 7, "../../../../assets/player-icons/alex-mustache.png" },
+                    { 8, "../../../../assets/player-icons/alex-gangster.png" },
+                    { 9, "../../../../assets/player-icons/alex-impersonator.jpg" },
+                    { 10, "../../../../assets/player-icons/nick-gangster.png" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Player",
-                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "IconID", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "PlayerStatus", "TimeCapsules" },
+                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "IconID", "KnowledgePoints", "MatchLosses", "MatchWins", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "PlayerStatus", "TimeCapsules", "TimePlayedMin" },
                 values: new object[,]
                 {
-                    { 1, 1, 167L, 1, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", "Online", 10L },
-                    { 2, 2, 138L, 1, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "AlexTheG", "Online", 10L },
-                    { 3, 3, 138L, 1, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MartinTheG", "Online", 10L },
-                    { 4, 4, 138L, 1, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MarcoTheG", "Online", 10L }
+                    { 1, 1, 167L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", "Online", 10L, 0L },
+                    { 2, 2, 138L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "AlexTheG", "Online", 10L, 0L },
+                    { 3, 3, 138L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MartinTheG", "Online", 10L, 0L },
+                    { 4, 4, 138L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MarcoTheG", "Online", 10L, 0L }
                 });
 
             migrationBuilder.InsertData(
@@ -191,12 +214,12 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "FriendPlayerID", "MainPlayerID", "Created_At", "IsPending" },
                 values: new object[,]
                 {
-                    { 2, 1, new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9569), false },
-                    { 3, 1, new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9572), false },
-                    { 4, 1, new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9573), false },
-                    { 3, 2, new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9574), false },
-                    { 4, 2, new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9574), false },
-                    { 4, 3, new DateTime(2022, 11, 3, 13, 32, 14, 79, DateTimeKind.Utc).AddTicks(9574), false }
+                    { 2, 1, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1188), false },
+                    { 3, 1, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1234), false },
+                    { 4, 1, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1241), false },
+                    { 3, 2, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1248), false },
+                    { 4, 2, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1255), false },
+                    { 4, 3, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1263), false }
                 });
 
             migrationBuilder.CreateIndex(
@@ -255,6 +278,9 @@ namespace Wizard_Battle_Web_API.Migrations
 
             migrationBuilder.DropTable(
                 name: "RefreshToken");
+
+            migrationBuilder.DropTable(
+                name: "Skin");
 
             migrationBuilder.DropTable(
                 name: "Player");

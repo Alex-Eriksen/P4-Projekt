@@ -93,6 +93,6 @@ export class ChatBoxComponent implements OnInit {
   }
 
   closeWindow(): void {
-    this.CloseChatWindow.emit();
+    this.closedChatWindow.emit();
   }
 }

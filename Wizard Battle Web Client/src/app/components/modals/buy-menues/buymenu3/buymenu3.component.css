@@ -2,17 +2,20 @@
   width: 100%;
   height: 100%;
   background-color: black;
+  background-image: url('../../../../../assets/Shelf Empty Right Crop.png');
+  background-position: center;
+  background-size: contain;
 }
 
 .flip-parchment {
   background-color: transparent;
-  width: 400px;
-  height: 300px;
+  width: 325px;
+  height: 225px;
   perspective: 1000px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  position: relative;
+  top: 20%;
 }
 
 .flip-parchment-inner {
