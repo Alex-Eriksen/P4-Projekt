@@ -20,11 +20,21 @@ public class PlayerCombat : NetworkBehaviour
 
     public Vector2 MousePosition { get { return m_mousePosition; } }
     private Vector2 m_mousePosition = Vector2.zero;
-    private bool m_isCasting = false;
+    public bool IsCasting = false;
 
     public delegate void ActionEvent(object sender, ActionEventArgs args);
     public event ActionEvent OnCastingCanceled;
     public event Action<float> OnCastTimeChanged;
+
+    private void Update()
+    {
+        if (!isClient)
+        {
+            return;
+        }
+
+        m_animator.SetBool("Attacking", IsCasting);
+    }
 
     public override void OnStartAuthority()
     {
@@ -58,7 +68,7 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void RightMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.SecondarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
+        if (m_spellbook.SecondarySelectedSpell == null || IsCasting || m_spellbook.IsActive)
         {
             return;
         }
@@ -77,7 +87,7 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void LeftMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.PrimarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
+        if (m_spellbook.PrimarySelectedSpell == null || IsCasting || m_spellbook.IsActive)
         {
             return;
         }
@@ -96,8 +106,6 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="spell"></param>
     private void CastSpell(SpellObject spell)
     {
-        m_isCasting = true;
-        m_animator.SetBool("Attacking", m_isCasting);
         m_spellToCast = spell;
         m_playerEntity.OnManaDrained += PlayerEntity_OnManaDrained;
         m_playerEntity.Cmd_DrainMana(spell.ManaCost);
@@ -128,9 +136,6 @@ public class PlayerCombat : NetworkBehaviour
         Cmd_SpawnSpell(spell.PrefabPath);
 
         yield return new WaitForSeconds(spell.CastTime);
-
-        m_isCasting = false;
-        m_animator.SetBool("Attacking", m_isCasting);
     }
 
     /// <summary>
@@ -158,14 +163,12 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="args"></param>
     private void PlayerEntity_CastingCanceled(object sender, ActionEventArgs args)
     {
-        if(m_spellCastingRoutine == null)
+        if(m_spellCastingRoutine != null)
         {
-            return;
+            StopCoroutine(m_spellCastingRoutine);
         }
-        StopCoroutine(m_spellCastingRoutine);
         m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
-        m_isCasting = false;
-        m_animator.SetBool("Attacking", m_isCasting);
+        m_animator.SetBool("Attacking", IsCasting);
         m_notificationHandler.AddActionEventNotification(sender, args);
     }
 

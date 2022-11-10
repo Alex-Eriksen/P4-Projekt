@@ -20,6 +20,7 @@ public class Spell : NetworkBehaviour
     [SerializeField] protected ContactFilter2D contactFilter;
     protected List<PlayerEntity> targetEntities = new List<PlayerEntity>();
     protected Collider2D ownerCollider, spellCollider;
+    protected PlayerCombat ownerPlayerCombat;
     protected Transform initialTargetTransform;
     protected bool hitSomething = false;
 
@@ -64,6 +65,7 @@ public class Spell : NetworkBehaviour
             vfx.SetFloat("Size", CurrentCastTimerNormalized);
             if(m_currentCastTimer >= m_maxCastTimer)
             {
+                ownerPlayerCombat.IsCasting = IsCasting();
                 OnFinishedCasting();
             }
         }
@@ -230,8 +232,9 @@ public class Spell : NetworkBehaviour
     public void Rpc_SetupSpell(NetworkIdentity identity)
     {
         ownerCollider = identity.GetComponent<Collider2D>();
+        ownerPlayerCombat = identity.GetComponent<PlayerCombat>();
 
-        ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled += Spell_OnCastingCanceled;
+        ownerPlayerCombat.OnCastingCanceled += Spell_OnCastingCanceled;
 
         SetInitialTransform(identity);
 
@@ -250,6 +253,7 @@ public class Spell : NetworkBehaviour
     public void SC_SetupSpell(NetworkIdentity identity)
     {
         ownerCollider = identity.GetComponent<Collider2D>();
+        ownerPlayerCombat = identity.GetComponent<PlayerCombat>();
 
         SetInitialTransform(identity);
 
@@ -307,6 +311,10 @@ public class Spell : NetworkBehaviour
 
     private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
     {
+        if (!IsCasting())
+        {
+            return;
+        }
         Cmd_CancelSelf(0f);
     }
 
@@ -365,6 +373,7 @@ public class Spell : NetworkBehaviour
     {
         m_maxCastTimer = castTime;
         m_currentCastTimer = 0f;
+        ownerPlayerCombat.IsCasting = IsCasting();
     }
 
     /// <summary>
