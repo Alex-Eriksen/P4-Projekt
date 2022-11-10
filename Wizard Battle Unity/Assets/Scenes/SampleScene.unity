@@ -2066,6 +2066,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1979444767
       objectReference: {fileID: 0}
+    - target: {fileID: 1818826132627614960, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2346366773692684749, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
       propertyPath: m_Name
       value: Target Dummy (2)
@@ -2486,6 +2490,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 195985996
       objectReference: {fileID: 0}
+    - target: {fileID: 1818826132627614960, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2346366773692684749, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
       propertyPath: m_Name
       value: Target Dummy (4)
@@ -2811,6 +2819,10 @@ PrefabInstance:
     - target: {fileID: 1454730359846632775, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
       propertyPath: sceneId
       value: 2329318850
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818826132627614960, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2346366773692684749, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
       propertyPath: m_Name
@@ -3201,6 +3213,10 @@ PrefabInstance:
     - target: {fileID: 1454730359846632775, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
       propertyPath: sceneId
       value: 2665056657
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818826132627614960, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2346366773692684749, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
       propertyPath: m_Name
@@ -5153,6 +5169,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3110675895
       objectReference: {fileID: 0}
+    - target: {fileID: 1818826132627614960, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2346366773692684749, guid: 3502f442c179b62429bd89e1e5f2c2f2, type: 3}
       propertyPath: m_Name
       value: Target Dummy (5)
@@ -6096,7 +6116,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8478726904636186100}
   m_HandleRect: {fileID: 8478726904636186101}
   m_Direction: 3
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

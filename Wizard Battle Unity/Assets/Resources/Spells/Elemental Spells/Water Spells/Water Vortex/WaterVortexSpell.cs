@@ -19,7 +19,7 @@ public class WaterVortexSpell : Spell
         m_castSpellData = (ElementalSpellObject)spellData;
     }
 
-    protected override void OnServerSetup()
+    protected override void OnSetup()
     {
         m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
     }
@@ -48,7 +48,7 @@ public class WaterVortexSpell : Spell
             entity.SC_DrainHealth(m_castSpellData.DamageAmount);
             entity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
             Vector2 force = m_transform.position - entity.transform.position;
-            entity.GetComponent<PlayerMovement>().Rpc_AddForceAtPosition(force * m_pullForce, m_transform.position, ForceMode2D.Impulse);
+            entity.GetComponent<PlayerMovement>().SC_AddForceAtPosition(force * m_pullForce, m_transform.position, ForceMode2D.Impulse);
         }
     }
 }
