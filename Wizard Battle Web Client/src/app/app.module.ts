@@ -16,8 +16,6 @@ import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@ang
 import { AuthenticationInterceptor } from './_interceptor/authentication.intercepter';
 import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
-import { ChatComponent } from './components/fixed-components/chat/chat.component';
-
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LibraryComponent } from './components/library/library.component';
@@ -29,6 +27,7 @@ import { Buymenu2Component } from './components/modals/buy-menues/buymenu2/buyme
 import { Buymenu3Component } from './components/modals/buy-menues/buymenu3/buymenu3.component';
 import { Buymenu4Component } from './components/modals/buy-menues/buymenu4/buymenu4.component';
 import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buymenu5.component';
+import { ChatComponent } from './components/fixed-components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +37,6 @@ import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buyme
     LoginComponent,
     SignupComponent,
     SpellbookComponent,
-    ChatComponent,
-
     ChatBoxComponent,
     ProfileComponent,
     LibraryComponent,
@@ -48,7 +45,8 @@ import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buyme
     Buymenu2Component,
     Buymenu3Component,
     Buymenu4Component,
-    Buymenu5Component
+    Buymenu5Component,
+    ChatComponent
   ],
 	imports: [
 		BrowserModule,
@@ -56,21 +54,7 @@ import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buyme
 		HttpClientModule,
 		BrowserAnimationsModule,
 		FormsModule,
-		MatDialogModule
-=======
-
-    ChatBoxComponent,
-
-    ProfileComponent
- 
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    
-
+		MatDialogModule,
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },
