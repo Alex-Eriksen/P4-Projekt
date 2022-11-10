@@ -3,6 +3,11 @@
     padding-left: 0;
 }
 
+/*
+.border {
+    border: transparent!important;
+}*/
+
 .chat-tab {
     overflow-y:auto;
     overflow-x: hidden;
