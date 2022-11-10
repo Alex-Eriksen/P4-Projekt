@@ -1,6 +1,7 @@
 import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from 'src/app/services/account.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthenticationRequest } from 'src/app/_models/Authentication/AuthenticationRequest';
 
@@ -15,7 +16,10 @@ export class LoginComponent implements OnInit {
 	private returnUrl: string = "";
 	private guardType: number = 0;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService, private route: ActivatedRoute,private accountService:AccountService)
+   { 
+
+   }
 
 	ngOnInit(): void
 	{
@@ -23,6 +27,7 @@ export class LoginComponent implements OnInit {
 		this.guardType = this.route.snapshot.queryParams[ "guard" ] || 0;
 		this.authenticationService.OnTokenChanged.subscribe((token) =>
 		{
+			
 			if (token !== "")
 			{
 				this.router.navigate([ this.returnUrl ]);
@@ -32,15 +37,20 @@ export class LoginComponent implements OnInit {
 
 	public login(): void
 	{
-    this.authenticationService.authenticate(this.request).subscribe({
-      next: () =>
-      {
-        this.router.navigate([ this.returnUrl ]);
-      },
-      error: (err) =>
-      {
-        console.error(Object.values(err.error.errors).join(', '));
-      }
-    });
+	this.authenticationService.authenticate(this.request).subscribe(authresponse=>{
+		
+		this.router.navigate([ this.returnUrl ]);
+	})
+    // this.authenticationService.authenticate(this.request).subscribe({
+    //   next: () =>
+    //   {
+
+        
+    //   },
+    //   error: (err) =>
+    //   {
+    //     console.error(Object.values(err.error.errors).join(', '));
+    //   }
+    // });
 	}
 }
