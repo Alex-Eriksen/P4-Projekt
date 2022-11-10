@@ -28,6 +28,7 @@ import { Buymenu2Component } from './components/modals/buy-menues/buymenu2/buyme
 import { Buymenu3Component } from './components/modals/buy-menues/buymenu3/buymenu3.component';
 import { Buymenu4Component } from './components/modals/buy-menues/buymenu4/buymenu4.component';
 import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buymenu5.component';
+import { SkinInfoComponent } from './components/modals/skin-info/skin-info.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buyme
     Buymenu2Component,
     Buymenu3Component,
     Buymenu4Component,
-    Buymenu5Component
+    Buymenu5Component,
+    SkinInfoComponent
   ],
 	imports: [
 		BrowserModule,

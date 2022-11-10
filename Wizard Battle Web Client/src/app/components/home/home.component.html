@@ -70,8 +70,8 @@
               </div>
               <div class="wrapper">
                 <div class="d-flex flex-row gap-2">
-                  <button class="btn btn-primary w-100 p-0 pt-1">INFO</button>
-                  <button class="btn btn-primary w-100 p-0 pt-1">UNLOCK</button>
+                  <button class="btn btn-primary w-100 p-0 pt-1" (click)="openSkin(item)">INFO</button>
+                  <button class="btn btn-primary w-100 p-0 pt-1" [disabled]="isOwned(item.skinID)">UNLOCK</button>
                 </div>
               </div>
             </div>

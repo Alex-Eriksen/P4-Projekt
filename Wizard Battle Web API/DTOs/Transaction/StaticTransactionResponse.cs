@@ -6,7 +6,7 @@
 
 		public int PlayerID { get; set; } = 0;
 
-		public int SkinItemID { get; set; } = 0;
+		public int SkinID { get; set; } = 0;
 
 		public int TotalCost = 0;
 
