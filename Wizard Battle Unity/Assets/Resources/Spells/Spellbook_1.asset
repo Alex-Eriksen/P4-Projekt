@@ -16,9 +16,9 @@ MonoBehaviour:
   spellSlots:
   - currentSpellID: 0
   - currentSpellID: 1
-  - currentSpellID: -1
-  - currentSpellID: -1
-  - currentSpellID: -1
-  - currentSpellID: -1
-  - currentSpellID: -1
-  - currentSpellID: -1
+  - currentSpellID: 2
+  - currentSpellID: 3
+  - currentSpellID: 4
+  - currentSpellID: 5
+  - currentSpellID: 6
+  - currentSpellID: 7

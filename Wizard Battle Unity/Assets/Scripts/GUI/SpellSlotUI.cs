@@ -7,15 +7,19 @@ using UnityEngine.UI;
 public class SpellSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [HideInInspector] public SpellObject currentSpell;
+    [SerializeField] private Color m_hoverColor, m_normalColor;
     private Spellbook m_spellbook;
-    private Image m_spellImage, m_slotImage;
+    private Image m_spellImage, m_slotImage, m_backgroundImage;
     private SpellDatabaseObject m_spellDatabase;
     private int m_index;
+    private Transform m_transform;
 
     private void Awake()
     {
-        m_spellImage = transform.GetChild(0).GetComponent<Image>();
-        m_slotImage = GetComponent<Image>();
+        m_transform = transform;
+        m_backgroundImage = m_transform.GetChild(0).GetComponent<Image>();
+        m_slotImage = m_transform.GetChild(1).GetComponent<Image>();
+        m_spellImage = m_transform.GetChild(2).GetComponent<Image>();
         m_spellbook = GetComponentInParent<Spellbook>();
         m_spellDatabase = Resources.Load<SpellDatabaseObject>("Spells/SpellDatabase");
         m_index = int.Parse(gameObject.name[^1..]);
@@ -23,6 +27,7 @@ public class SpellSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void Start()
     {
+        m_backgroundImage.color = m_normalColor;
         int spellIndex = m_spellbook.currentSpellbook.spellSlots[m_index - 1].currentSpellID;
         if(spellIndex == -1)
         {
@@ -41,12 +46,12 @@ public class SpellSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-
+        m_backgroundImage.color = m_hoverColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
+        m_backgroundImage.color = m_normalColor;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -62,5 +67,10 @@ public class SpellSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         m_spellbook.CloseSpellbook();
+    }
+
+    private void OnEnable()
+    {
+        m_backgroundImage.color = m_normalColor;
     }
 }

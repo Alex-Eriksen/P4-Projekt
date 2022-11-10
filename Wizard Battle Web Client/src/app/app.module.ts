@@ -18,11 +18,17 @@ import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
 
-
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
-
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { LibraryComponent } from './components/library/library.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from  '@angular/material/dialog';
+import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
+import { Buymenu1Component } from './components/modals/buy-menues/buymenu1/buymenu1.component';
+import { Buymenu2Component } from './components/modals/buy-menues/buymenu2/buymenu2.component';
+import { Buymenu3Component } from './components/modals/buy-menues/buymenu3/buymenu3.component';
+import { Buymenu4Component } from './components/modals/buy-menues/buymenu4/buymenu4.component';
+import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buymenu5.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,25 @@ import { ProfileComponent } from './components/profile/profile.component';
     ChatComponent,
 
     ChatBoxComponent,
+    ProfileComponent,
+    LibraryComponent,
+    ChangeIconComponent,
+    Buymenu1Component,
+    Buymenu2Component,
+    Buymenu3Component,
+    Buymenu4Component,
+    Buymenu5Component
+  ],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		MatDialogModule
+=======
+
+    ChatBoxComponent,
 
     ProfileComponent
  
@@ -45,6 +70,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     HttpClientModule,
     FormsModule,
     
+
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },

@@ -32,7 +32,7 @@
 
 .chat-tab {
   overflow-y:scroll;
-  height: calc(100vh - (100px + 145px));
+  height: calc(100vh - (100px + 138px));
   right: 12px;
 }
 
@@ -49,28 +49,4 @@
   border-radius: 50px;
 }
 
-.chat-box .header {
-  border: 2px solid #5f5434;
-  height: 45px;
-}
-
-.chat-box img {
-  height: 35px;
-}
-
-.chat-box .content {
-  height: 325px;
-  border: 2px solid #5f5434;
-  border-top: 0;
-  border-bottom: 0;
-}
-
-.chat-box input {
-  border: 2px solid #5f5434;
-}
-
-#infoWarning {
-  font-size: 12px;
-  opacity: .6;
-}
 

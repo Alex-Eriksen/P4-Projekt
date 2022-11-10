@@ -5,6 +5,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { JwtDecodePlus } from '../helpers/JWTDecodePlus';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'

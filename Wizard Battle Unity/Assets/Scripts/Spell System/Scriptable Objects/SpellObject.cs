@@ -11,8 +11,8 @@ public class SpellObject : ScriptableObject
     public Sprite SpellIcon = null;
     public float ManaCost = 0f;
     public float LifeTime = 0f;
-    public float DamageAmount = 0f;
     public float CastTime = 0f;
+    public SpellType SpellType = SpellType.Offensive;
     public string PrefabPath = "Spells/";
     public SpellTier SpellTier = SpellTier.Tier_I;
 }

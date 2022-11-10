@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Component, HostListener } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router, RoutesRecognized } from '@angular/router';
+import { Subject } from 'rxjs';
+import { JwtDecodePlus } from './helpers/JWTDecodePlus';
+import { AuthenticationService } from './services/authentication.service';
+import { PlayerService } from './services/player.service';
+import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +28,6 @@ export class AppComponent {
       }
     })
   }
-
   toggleChat() {
     this.showChat = !this.showChat;
   }

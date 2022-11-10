@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Friend } from '../_models/Friend/Friend';
-import { DirectFriendshipResponse, FriendshipRequest, StaticFriendshipResponse } from '../_models/Friendship';
+import { DirectFriendshipResponse, FriendshipRequest } from '../_models/Friendship';
 import { MessageRequest } from '../_models/Message';
 import { StaticMessageResponse } from '../_models/Message/StaticMessageResponse';
+import { StaticPlayerResponse } from '../_models/Player';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,22 +17,17 @@ export class ChatService {
   private FriendSubject: BehaviorSubject<Friend>;
   public OnFriendChanged: Observable<Friend>;
   private url: string = environment.ApiUrl + "/Friendship";
+  private chatUrl: string = environment.ApiUrl + "/Chat";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
     this.FriendSubject = new BehaviorSubject<Friend>(new Friend());
     this.OnFriendChanged = this.FriendSubject.asObservable();
   }
-
-
-  public GetAll(playerId: number): Observable<StaticFriendshipResponse[]> {
-    return this.http.get<StaticFriendshipResponse[]>(`${this.url}/${playerId}`);
+  public GetAll(playerId: number): Observable<StaticPlayerResponse[]> { // Gets all friendship displayed in the friendlist
+    return this.http.get<StaticPlayerResponse[]>(`${this.url}/${playerId}`)
   }
 
-  public GetById(playerId: number): Observable<StaticFriendshipResponse[]> {
-    return this.http.get<StaticFriendshipResponse[]>(`${this.url}/${playerId}`);
-  }
-
-  public Create(request: FriendshipRequest): Observable<DirectFriendshipResponse> {
+  public Create(request: FriendshipRequest): Observable<DirectFriendshipResponse> { //
     return this.http.post<DirectFriendshipResponse>(`${this.url}`, request)
   }
 
@@ -43,10 +40,14 @@ export class ChatService {
   }
 
   public GetAllMessages(playerId: number, friendId: number): Observable<StaticMessageResponse[]> {
-    return this.http.get<StaticMessageResponse[]>(`${this.url}/messages?mainPlayerId=${playerId}&friendPlayerId=${friendId}`);
+    return this.http.get<StaticMessageResponse[]>(`${this.chatUrl}?mainPlayerId=${playerId}&friendPlayerId=${friendId}`);
   }
 
-  public SendMessage(request: MessageRequest): Observable<StaticMessageResponse> {
-    return this.http.post<StaticMessageResponse>(`${this.url}/messages`, request);
+  public CreateMessage(request: MessageRequest): Observable<StaticMessageResponse> {
+    return this.http.post<StaticMessageResponse>(this.chatUrl, request);
+  }
+
+  public DeleteMessage(request: MessageRequest): Observable<StaticMessageResponse> {
+    return this.http.delete<StaticMessageResponse>(this.chatUrl, {body: request});
   }
 }
