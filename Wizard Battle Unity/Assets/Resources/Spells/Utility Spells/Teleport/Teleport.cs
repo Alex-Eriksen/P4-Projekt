@@ -14,7 +14,12 @@ public class Teleport : Spell
         m_transform = transform;
     }
 
-    protected override void OnSetup()
+    protected override void OnServerSetup()
+    {
+        m_playerMovement = ownerCollider.GetComponent<PlayerMovement>();
+    }
+
+    protected override void OnClientSetup()
     {
         m_playerMovement = ownerCollider.GetComponent<PlayerMovement>();
         m_transform.SetParent(initialTargetTransform, false);
@@ -23,12 +28,13 @@ public class Teleport : Spell
         vfx.SetVector3("EndPos", m_endPosition);
     }
 
-    protected override void OnUpdate()
-    {
-    }
-
     protected override void OnFinishedCasting()
     {
+        if (!isClient)
+        {
+            return;
+        }
+
         vfx.SetVector3("StartPos", m_transform.position);
         vfx.SendEvent("OnHit");
         Cmd_MovePlayer(m_endPosition);
@@ -38,6 +44,5 @@ public class Teleport : Spell
     private void Cmd_MovePlayer(Vector3 newPosition)
     {
         m_playerMovement.SC_OverrideCurrentSavedPosition(newPosition, "Used Teleport.");
-        ownerCollider.transform.position = newPosition;
     }
 }

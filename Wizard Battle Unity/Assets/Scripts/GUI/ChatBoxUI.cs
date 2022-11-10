@@ -39,13 +39,17 @@ public class ChatBoxUI : MonoBehaviour
         else
         {
             PlayerConnection.PlayerInput.actions["EnterChat"].started += SendMessage;
-            PlayerConnection.PlayerInput.actions["ExitChat"].started += SendMessage;
         }
     }
 
     public void SendMessage(InputAction.CallbackContext ctx)
     {
-        if (!m_messageText.isFocused)
+        if(!m_canvasGroup.interactable)
+        {
+            return;
+        }
+
+        if (ctx.action.name == "EnterChat")
         {
             OnStartEditing();
             return;
@@ -53,9 +57,11 @@ public class ChatBoxUI : MonoBehaviour
 
         if (string.IsNullOrEmpty(m_messageText.text)) 
         {
+            OnStopEditing();
             return;
         }
-        ChatManager.Instance.CmdSendMessage(PlayerConnection.PlayerName, m_messageText.text);
+
+        ChatManager.Instance.Cmd_SendMessage(PlayerConnection.PlayerName, m_messageText.text);
         m_messageText.text = "";
         OnStopEditing();
     }
@@ -63,20 +69,26 @@ public class ChatBoxUI : MonoBehaviour
     public void OnStartEditing()
     {
         m_messageText.ActivateInputField();
+        PlayerConnection.PlayerInput.actions["EnterChat"].started -= SendMessage;
         PlayerConnection.PlayerInput.SwitchCurrentActionMap("UI");
+        PlayerConnection.PlayerInput.actions["ExitChat"].started += SendMessage;
     }
 
     public void OnStopEditing()
     {
         m_messageText.DeactivateInputField();
+        PlayerConnection.PlayerInput.actions["ExitChat"].started -= SendMessage;
         PlayerConnection.PlayerInput.SwitchCurrentActionMap("Gameplay");
+        PlayerConnection.PlayerInput.actions["EnterChat"].started += SendMessage;
     }
 
     public void ToggleChatDisplay(bool value)
     {
-        if (value)
+        if (!value)
         {
             m_canvasGroup.alpha = 1f;
+            m_canvasGroup.interactable = true;
+            m_canvasGroup.blocksRaycasts = true;
             m_displayText.text = "Hide Chat";
             m_showToggle.graphic = m_hideImage;
             m_hideImage.gameObject.SetActive(true);
@@ -85,6 +97,8 @@ public class ChatBoxUI : MonoBehaviour
         else
         {
             m_canvasGroup.alpha = 0f;
+            m_canvasGroup.interactable = false;
+            m_canvasGroup.blocksRaycasts = false;
             m_displayText.text = "Show Chat";
             m_showToggle.graphic = m_showImage;
             m_hideImage.gameObject.SetActive(false);

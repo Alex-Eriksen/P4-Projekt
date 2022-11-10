@@ -45,7 +45,7 @@ public class FirewallSpell : Spell
             data.numberColor = m_dmgColor;
             data.position = playerEntity.transform.position;
 
-            GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+            GameEffectsManager.Instance.SC_CreateNumberEffect(data);
             playerEntity.SC_DrainHealth(m_damagePerTick);
             playerEntity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
         }

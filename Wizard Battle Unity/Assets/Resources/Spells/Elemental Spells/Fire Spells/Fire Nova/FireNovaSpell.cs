@@ -12,19 +12,16 @@ public class FireNovaSpell : Spell
     private Transform m_transform;
     private CircleCollider2D m_collider2D;
     private NumberEffectData data;
-    private float m_currentExpansion = 0f, m_expansionRate = 0f;
+    private float m_currentExpansion = 0f;
+    private float m_expansionRate = 0f;
 
     protected override void OnSetup()
     {
         m_expansionRate = m_maxExpansion / spellData.LifeTime + spellData.CastTime;
     }
 
-    protected override void OnStart()
+    protected override void OnServerSetup()
     {
-        if (!isServer)
-        {
-            return;
-        }
         OnTriggerEnter += OnTriggerEnterCallback;
     }
 
@@ -50,16 +47,13 @@ public class FireNovaSpell : Spell
         {
             m_currentExpansion += m_expansionRate * Time.deltaTime;
         }
-        vfx.SetFloat("RingSize", m_currentExpansion);
-    }
 
-    protected override void OnFixedUpdate()
-    {
         m_collider2D.radius = m_currentExpansion;
+        vfx.SetFloat("RingSize", m_currentExpansion);
+
         if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
-            return;
         }
     }
 
@@ -73,7 +67,7 @@ public class FireNovaSpell : Spell
         PlayerEntity target = targetEntities[targetEntities.Count - 1];
         data.position = target.transform.position;
 
-        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+        GameEffectsManager.Instance.SC_CreateNumberEffect(data);
         target.SC_DrainHealth(dmg);
         target.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
     }

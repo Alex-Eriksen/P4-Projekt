@@ -18,7 +18,7 @@ public class WindSlashSpell : Spell
         m_transform = transform;
     }
 
-    public override void OnServerSetup()
+    protected override void OnServerSetup()
     {
         OnTriggerEnter += OnTriggerEnterCallback;
     }
@@ -35,6 +35,11 @@ public class WindSlashSpell : Spell
 
     protected override void OnFixedUpdate()
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
@@ -63,7 +68,7 @@ public class WindSlashSpell : Spell
         data.numberColor = m_dmgColor;
         data.position = targetEntities[0].transform.position;
 
-        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+        GameEffectsManager.Instance.SC_CreateNumberEffect(data);
         targetEntities[0].SC_DrainHealth(dmg);
         ownerCollider.GetComponent<PlayerEntity>().SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
         targetEntities[0].GetComponent<Rigidbody2D>().AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse);

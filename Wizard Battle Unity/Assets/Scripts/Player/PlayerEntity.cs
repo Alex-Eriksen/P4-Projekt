@@ -45,7 +45,7 @@ public class PlayerEntity : NetworkBehaviour
     public override void OnStartAuthority()
     {
         m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
-        Cmd_SetPlayerName(m_playerConnection.PlayerName + $" - {m_playerConnection.netId}");
+        Cmd_SetPlayerName(m_playerConnection.PlayerName);
 
         // When subscribing to the SyncList callback you dont get the initial values of the SyncList.
         m_statusEffects.Callback += OnStatusEffectsChanged;

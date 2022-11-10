@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 6058223390588533030}
   - component: {fileID: 1454730359846632775}
   - component: {fileID: -1238796479948798882}
+  - component: {fileID: 4171697074158984299}
   m_Layer: 6
   m_Name: Target Dummy
   m_TagString: Player
@@ -80,7 +81,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2346366773692684749}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed445c25111908d408a496ad33e4a2f4, type: 3}
   m_Name: 
@@ -235,7 +236,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   clientAuthority: 0
-  sendRate: 30
+  sendRate: 60
   bufferTimeMultiplier: 2
   bufferSizeLimit: 64
   catchupNegativeThreshold: -1
@@ -257,6 +258,28 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &4171697074158984299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346366773692684749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 822937902773938258}
+  clientAuthority: 0
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 0
+  clearAngularVelocity: 1
+  angularVelocitySensitivity: 0.1
 --- !u!1 &3657621433126952096
 GameObject:
   m_ObjectHideFlags: 0
