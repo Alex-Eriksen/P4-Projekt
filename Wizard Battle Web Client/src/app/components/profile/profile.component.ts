@@ -15,7 +15,7 @@ import { DirectPlayerResponse } from 'src/app/_models/Player';
 
 export class ProfileComponent implements OnInit {
   public request: AuthenticationRequest = { email: '', password: '' };
- Players:DirectPlayerResponse[] = [];
+ Playerr:DirectPlayerResponse[] = [];
 
 
   player:DirectPlayerResponse = {

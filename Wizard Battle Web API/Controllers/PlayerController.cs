@@ -1,6 +1,8 @@
-﻿namespace Wizard_Battle_Web_API.Controllers
+﻿using Microsoft.AspNetCore.SignalR;
+using Wizard_Battle_Web_API.Hubs;
+namespace Wizard_Battle_Web_API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	[Authorize]
 	public class PlayerController : ControllerBase
