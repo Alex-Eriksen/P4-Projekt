@@ -222,7 +222,7 @@ public class Spell : NetworkBehaviour
     #endregion
 
     /// <summary>
-    /// Sets up a spell when it is created.
+    /// Setup for when the spell is created, this is called on the client only.
     /// </summary>
     /// <param name="identity"></param>
     /// <param name="keepPositionOnInit"></param>
@@ -233,7 +233,39 @@ public class Spell : NetworkBehaviour
 
         ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled += Spell_OnCastingCanceled;
 
-        if(spellData.SpellType == SpellType.Offensive)
+        SetInitialTransform(identity);
+
+        SetCastingTimer(spellData.CastTime);
+        vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
+
+        OnClientSetup();
+        OnSetup();
+    }
+
+    /// <summary>
+    /// Setup for when the spell is created, this is called on the server only.
+    /// </summary>
+    /// <param name="identity"></param>
+    [ServerCallback]
+    public void SC_SetupSpell(NetworkIdentity identity)
+    {
+        ownerCollider = identity.GetComponent<Collider2D>();
+
+        SetInitialTransform(identity);
+
+        SetCastingTimer(spellData.CastTime);
+
+        OnServerSetup();
+        OnSetup();
+    }
+
+    /// <summary>
+    /// Sets the initial transform target depending on spell type.
+    /// </summary>
+    /// <param name="identity"></param>
+    private void SetInitialTransform(NetworkIdentity identity)
+    {
+        if (spellData.SpellType == SpellType.Offensive)
         {
             switch (((OffensiveSpellObject)spellData).SpellBehaviour)
             {
@@ -254,7 +286,7 @@ public class Spell : NetworkBehaviour
                     break;
             }
         }
-        else if(spellData.SpellType == SpellType.Utility)
+        else if (spellData.SpellType == SpellType.Utility)
         {
             switch (((UtilitySpellObject)spellData).spellBehaviour)
             {
@@ -271,17 +303,6 @@ public class Spell : NetworkBehaviour
                     break;
             }
         }
-
-        SetCastingTimer(spellData.CastTime);
-        vfx.SetFloat("Lifetime", spellData.LifeTime + spellData.CastTime);
-
-        OnSetup();
-    }
-
-    [ServerCallback]
-    public void SC_SetupSpell(NetworkIdentity identity)
-    {
-        ownerCollider = identity.GetComponent<Collider2D>();
     }
 
     private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
@@ -302,11 +323,11 @@ public class Spell : NetworkBehaviour
     protected virtual void SC_OnHit()
     {
         hitSomething = true;
-        RpcOnHit();
+        Rpc_OnHit();
     }
 
     [ClientRpc]
-    protected virtual void RpcOnHit()
+    protected virtual void Rpc_OnHit()
     {
         hitSomething = true;
         vfx.SendEvent("OnHit");
@@ -355,11 +376,23 @@ public class Spell : NetworkBehaviour
         return m_currentCastTimer < m_maxCastTimer;
     }
 
+    #region Protected Virtual Overrides
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
+    /// <summary>
+    /// Called only on the client.
+    /// </summary>
+    protected virtual void OnClientSetup() { }
+    /// <summary>
+    /// Called only on the server.
+    /// </summary>
+    [ServerCallback] protected virtual void OnServerSetup() { }
+    /// <summary>
+    /// Called on the server and client when they have respectively finished their setup.
+    /// </summary>
     protected virtual void OnSetup() { }
-    [ServerCallback] public virtual void OnServerSetup() { }
     protected virtual void OnUpdate() { }
     protected virtual void OnFixedUpdate() { }
     protected virtual void OnFinishedCasting() { }
+    #endregion
 }

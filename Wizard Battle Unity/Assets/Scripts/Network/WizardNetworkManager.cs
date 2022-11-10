@@ -11,6 +11,9 @@ public class WizardNetworkManager : NetworkManager
 
     public static float VelocityThreshold { get; private set; }
     [SerializeField] private float m_velocityThreshold;
+
+    public static float VelocityError { get; private set; }
+    [SerializeField] private float m_velocityError;
     public static float PositionThreshold { get; private set; }
     [SerializeField] private float m_positionThreshold;
 
@@ -19,6 +22,8 @@ public class WizardNetworkManager : NetworkManager
         base.Awake();
         VelocityThreshold = m_velocityThreshold;
         PositionThreshold = m_positionThreshold;
+        VelocityError = m_velocityError;
+        Debug.Log("...Server Initialized...");
     }
 
     /// <summary>
