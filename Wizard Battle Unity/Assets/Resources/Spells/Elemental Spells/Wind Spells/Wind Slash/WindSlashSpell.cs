@@ -18,7 +18,7 @@ public class WindSlashSpell : Spell
         m_transform = transform;
     }
 
-    public override void OnServerSetup()
+    protected override void OnServerSetup()
     {
         OnTriggerEnter += OnTriggerEnterCallback;
     }
@@ -35,6 +35,11 @@ public class WindSlashSpell : Spell
 
     protected override void OnFixedUpdate()
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);

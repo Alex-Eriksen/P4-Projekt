@@ -14,7 +14,7 @@ public class FireNovaSpell : Spell
     private NumberEffectData data;
     private float m_currentExpansion = 0f, m_expansionRate = 0f;
 
-    protected override void OnSetup()
+    protected override void OnClientSetup()
     {
         m_expansionRate = m_maxExpansion / spellData.LifeTime + spellData.CastTime;
     }
@@ -56,6 +56,11 @@ public class FireNovaSpell : Spell
     protected override void OnFixedUpdate()
     {
         m_collider2D.radius = m_currentExpansion;
+        if(!isServer)
+        {
+            return;
+        }
+
         if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);

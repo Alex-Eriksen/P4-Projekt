@@ -32,7 +32,15 @@ public class PlayerMovement : NetworkBehaviour
         m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
         m_playerInput = m_playerConnection.PlayerInput;
 
+        Cmd_ServerSetup(m_playerConnection.netId);
+
         SetInput();
+    }
+
+    [Command]
+    private void Cmd_ServerSetup(uint netId)
+    {
+        m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.netId == netId).Single();
     }
 
     public override void OnStartServer()
@@ -100,7 +108,7 @@ public class PlayerMovement : NetworkBehaviour
     /// <br>If the new position was invalid it will set the clients position to the last saved valid position.</br>
     /// </summary>
     /// <param name="newPosition"></param>
-    [Command(requiresAuthority = false)]
+    [Command]
     private void Cmd_ValidatePosition(Vector2 newPosition)
     {
         if(m_validSavedPosition == null)
@@ -126,7 +134,7 @@ public class PlayerMovement : NetworkBehaviour
     /// <br>If the new velocity was invalid it will set the client velocity to the last valid saved velocity.</br>
     /// </summary>
     /// <param name="newVelocity"></param>
-    [Command(requiresAuthority = false)]
+    [Command]
     private void Cmd_ValidateVelocity(Vector2 newVelocity, float speedMultiplier)
     {
         if(m_validSavedVelocity == null)
@@ -184,7 +192,8 @@ public class PlayerMovement : NetworkBehaviour
     public void SC_OverrideCurrentSavedPosition(Vector2 newPosition, string reason)
     {
         m_validSavedPosition = newPosition;
-        Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden: {reason}");
+        Rpc_OverrideClientPosition(newPosition);
+        Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden for {m_playerConnection.PlayerName}: {reason}");
     }
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.

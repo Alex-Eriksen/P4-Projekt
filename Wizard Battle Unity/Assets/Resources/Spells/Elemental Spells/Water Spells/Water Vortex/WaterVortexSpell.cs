@@ -19,7 +19,7 @@ public class WaterVortexSpell : Spell
         m_castSpellData = (ElementalSpellObject)spellData;
     }
 
-    protected override void OnSetup()
+    protected override void OnServerSetup()
     {
         m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
     }

@@ -148,7 +148,6 @@ public class PlayerCombat : NetworkBehaviour
         var conn = connectionToClient.identity.GetComponent<PlayerConnection>().wizardIdentity;
         spell.SC_SetupSpell(conn);
         spell.Rpc_SetupSpell(conn);
-        spell.OnServerSetup();
     }
     
     /// <summary>
