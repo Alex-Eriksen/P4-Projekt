@@ -12,19 +12,16 @@ public class FireNovaSpell : Spell
     private Transform m_transform;
     private CircleCollider2D m_collider2D;
     private NumberEffectData data;
-    private float m_currentExpansion = 0f, m_expansionRate = 0f;
+    private float m_currentExpansion = 0f;
+    private float m_expansionRate = 0f;
 
-    protected override void OnClientSetup()
+    protected override void OnSetup()
     {
         m_expansionRate = m_maxExpansion / spellData.LifeTime + spellData.CastTime;
     }
 
-    protected override void OnStart()
+    protected override void OnServerSetup()
     {
-        if (!isServer)
-        {
-            return;
-        }
         OnTriggerEnter += OnTriggerEnterCallback;
     }
 
@@ -50,21 +47,13 @@ public class FireNovaSpell : Spell
         {
             m_currentExpansion += m_expansionRate * Time.deltaTime;
         }
-        vfx.SetFloat("RingSize", m_currentExpansion);
-    }
 
-    protected override void OnFixedUpdate()
-    {
         m_collider2D.radius = m_currentExpansion;
-        if(!isServer)
-        {
-            return;
-        }
+        vfx.SetFloat("RingSize", m_currentExpansion);
 
         if (IsCasting())
         {
             m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
-            return;
         }
     }
 
