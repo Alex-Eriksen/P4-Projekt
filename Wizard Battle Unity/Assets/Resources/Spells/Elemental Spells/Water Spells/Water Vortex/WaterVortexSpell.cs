@@ -44,7 +44,7 @@ public class WaterVortexSpell : Spell
             data.position = entity.transform.position;
             data.numberText = m_castSpellData.DamageAmount.ToString();
 
-            GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+            GameEffectsManager.Instance.SC_CreateNumberEffect(data);
             entity.SC_DrainHealth(m_castSpellData.DamageAmount);
             entity.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
             Vector2 force = m_transform.position - entity.transform.position;

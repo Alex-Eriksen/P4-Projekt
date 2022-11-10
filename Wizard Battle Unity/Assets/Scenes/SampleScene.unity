@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1709415435}
   toggleTransition: 0
-  graphic: {fileID: 2127573352}
+  graphic: {fileID: 0}
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
@@ -5527,6 +5527,7 @@ MonoBehaviour:
   - {fileID: 8817219846173845392, guid: 2702cb529037a934eb6aff79620fe5e8, type: 3}
   m_wizardPlayerPrefab: {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
   m_velocityThreshold: 3
+  m_velocityError: 0.75
   m_positionThreshold: 1
 --- !u!4 &2117274031
 Transform:

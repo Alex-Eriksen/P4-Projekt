@@ -48,7 +48,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        m_maxSpeed = (WizardNetworkManager.VelocityThreshold - 0.5f) * speedMultiplier;
+        m_maxSpeed = (WizardNetworkManager.VelocityThreshold - WizardNetworkManager.VelocityError) * speedMultiplier;
 
         if (!hasAuthority)
         {
@@ -90,7 +90,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         m_rigidbody2D.velocity += m_movementVector * Time.deltaTime;
         m_rigidbody2D.velocity = Vector2.ClampMagnitude(m_rigidbody2D.velocity, m_maxSpeed);
-        Cmd_ValidateVelocity(m_rigidbody2D.velocity);
+        Cmd_ValidateVelocity(m_rigidbody2D.velocity, speedMultiplier);
         Cmd_ValidatePosition(m_transform.position);
     }
 
@@ -127,17 +127,17 @@ public class PlayerMovement : NetworkBehaviour
     /// </summary>
     /// <param name="newVelocity"></param>
     [Command(requiresAuthority = false)]
-    private void Cmd_ValidateVelocity(Vector2 newVelocity)
+    private void Cmd_ValidateVelocity(Vector2 newVelocity, float speedMultiplier)
     {
         if(m_validSavedVelocity == null)
         {
-            Debug.LogError($"PlayerMovement::Cmd_ValidateVelocity -> Failed: m_validSavedPosition is NULL");
+            Debug.LogError($"PlayerMovement::Cmd_ValidateVelocity -> Failed: m_validSavedVelocity is NULL");
             return;
         }
 
         if(newVelocity.magnitude > WizardNetworkManager.VelocityThreshold * speedMultiplier)
         {
-            Debug.LogWarning($"PlayerMovement::Cmd_ValidateVelocty() - Discarded Velocity Magnitude: {newVelocity.magnitude}");
+            Debug.LogWarning($"PlayerMovement::Cmd_ValidateVelocty() - Discarded Velocity Magnitude: {newVelocity.magnitude}>{WizardNetworkManager.VelocityThreshold * speedMultiplier}");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
@@ -154,7 +154,6 @@ public class PlayerMovement : NetworkBehaviour
     [ClientRpc]
     public void Rpc_OverrideClientPosition(Vector2 validSavedPosition)
     {
-        Debug.LogWarning($"PlayerMovement::Rpc_OverrideClientPosition()");
         m_transform.position = validSavedPosition;
     }
 
@@ -166,7 +165,6 @@ public class PlayerMovement : NetworkBehaviour
     [ClientRpc]
     public void Rpc_OverrideClientVelocity(Vector2 validSavedVelocity)
     {
-        Debug.LogWarning($"PlayerMovement::Rpc_OverrideClientVelocity()");
         m_rigidbody2D.velocity = validSavedVelocity;
     }
 

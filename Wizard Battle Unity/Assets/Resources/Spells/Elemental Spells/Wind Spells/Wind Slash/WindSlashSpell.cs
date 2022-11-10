@@ -63,7 +63,7 @@ public class WindSlashSpell : Spell
         data.numberColor = m_dmgColor;
         data.position = targetEntities[0].transform.position;
 
-        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+        GameEffectsManager.Instance.SC_CreateNumberEffect(data);
         targetEntities[0].SC_DrainHealth(dmg);
         ownerCollider.GetComponent<PlayerEntity>().SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
         targetEntities[0].GetComponent<Rigidbody2D>().AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse);

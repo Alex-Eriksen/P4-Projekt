@@ -28,17 +28,17 @@ public class GameEffectsManager : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void Cmd_CreateNumberEffect(NumberEffectData data)
     {
-        RpcCreateNumberEffect(data);
+        Rpc_CreateNumberEffect(data);
     }
 
     [ServerCallback]
     public void SC_CreateNumberEffect(NumberEffectData data)
     {
-        RpcCreateNumberEffect(data);
+        Rpc_CreateNumberEffect(data);
     }
 
     [ClientRpc]
-    private void RpcCreateNumberEffect(NumberEffectData data)
+    private void Rpc_CreateNumberEffect(NumberEffectData data)
     {
         Instantiate(m_numberEffectPrefab).GetComponent<NumberEffect>().data = data;
     }

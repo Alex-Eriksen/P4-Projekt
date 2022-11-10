@@ -73,7 +73,7 @@ public class FireNovaSpell : Spell
         PlayerEntity target = targetEntities[targetEntities.Count - 1];
         data.position = target.transform.position;
 
-        GameEffectsManager.Instance.Cmd_CreateNumberEffect(data);
+        GameEffectsManager.Instance.SC_CreateNumberEffect(data);
         target.SC_DrainHealth(dmg);
         target.SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
     }
