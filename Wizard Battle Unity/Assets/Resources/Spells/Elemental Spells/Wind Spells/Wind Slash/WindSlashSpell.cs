@@ -23,7 +23,7 @@ public class WindSlashSpell : Spell
         OnTriggerEnter += OnTriggerEnterCallback;
     }
 
-    protected override void OnClientSetup()
+    protected override void OnSetup()
     {
         m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
     }

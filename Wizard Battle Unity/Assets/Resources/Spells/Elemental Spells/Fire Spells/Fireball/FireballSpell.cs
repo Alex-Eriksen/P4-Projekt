@@ -23,6 +23,11 @@ public class FireballSpell : Spell
         OnTriggerEnter += OnTriggerEnterCallback;
     }
 
+    protected override void OnSetup()
+    {
+        m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
+    }
+
     private void OnTriggerEnterCallback(PlayerEntity obj)
     {
         if (IsCasting())
