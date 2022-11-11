@@ -2,10 +2,8 @@ import { Component, EventEmitter, OnInit, Output , AfterViewInit} from '@angular
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
-
 import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
 import { ChatService } from 'src/app/services/chat.service';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 import { delay, find } from 'rxjs';

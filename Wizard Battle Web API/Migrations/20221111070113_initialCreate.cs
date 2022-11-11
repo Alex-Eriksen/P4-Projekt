@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Wizard_Battle_Web_API.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,7 @@ namespace Wizard_Battle_Web_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SkinName = table.Column<string>(type: "nvarchar(60)", nullable: true),
                     SkinDescription = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    SkinPrice = table.Column<short>(type: "smallint", nullable: false),
                     ImageName = table.Column<string>(type: "nvarchar(255)", nullable: true)
                 },
                 constraints: table =>
@@ -87,6 +88,7 @@ namespace Wizard_Battle_Web_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountID = table.Column<int>(type: "int", nullable: false),
                     PlayerName = table.Column<string>(type: "nvarchar(32)", nullable: true),
+                    PlayerImage = table.Column<string>(type: "nvarchar(32)", nullable: true),
                     IconID = table.Column<int>(type: "int", nullable: false),
                     PlayerStatus = table.Column<string>(type: "nvarchar(32)", nullable: true),
                     ExperiencePoints = table.Column<long>(type: "bigint", nullable: false),
@@ -94,9 +96,6 @@ namespace Wizard_Battle_Web_API.Migrations
                     MaxMana = table.Column<double>(type: "float", nullable: false),
                     KnowledgePoints = table.Column<long>(type: "bigint", nullable: false),
                     TimeCapsules = table.Column<long>(type: "bigint", nullable: false),
-                    MatchWins = table.Column<long>(type: "bigint", nullable: false),
-                    MatchLosses = table.Column<long>(type: "bigint", nullable: false),
-                    TimePlayedMin = table.Column<long>(type: "bigint", nullable: false),
                     Modified_At = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -170,15 +169,43 @@ namespace Wizard_Battle_Web_API.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Transaction",
+                columns: table => new
+                {
+                    TransactionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SkinID = table.Column<int>(type: "int", nullable: false),
+                    PlayerID = table.Column<int>(type: "int", nullable: false),
+                    TotalCost = table.Column<int>(type: "int", nullable: false),
+                    Created_At = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transaction", x => x.TransactionID);
+                    table.ForeignKey(
+                        name: "FK_Transaction_Player_PlayerID",
+                        column: x => x.PlayerID,
+                        principalTable: "Player",
+                        principalColumn: "PlayerID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Transaction_Skin_SkinID",
+                        column: x => x.SkinID,
+                        principalTable: "Skin",
+                        principalColumn: "SkinID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
                 values: new object[,]
                 {
-                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$iZXrLpt.VHeVKvAYc9vCLeoyAM1gGDsMQhdbxywZz.VnhkpAUEliG" },
-                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$8f6fRaByDhLLuHo5GqE8I.EUgkAOCL94P/iij1pBRGQKKTLccvWfW" },
-                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$Z7ZT4biJH.Yi0MQ6BH62jeX4fm/sCsoiORdKTSRIXxwTQluNLp.O." },
-                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$iRAMSSVkVwpkK/QYwIC0ju/n2LFupCgRAwFVfX43XTjXvZCHY/Ey2" }
+                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$2rxroRUTnzjlkIosh9nuz.eWS.GxpM5TGZB/556OJXbovZGAod0ZS" },
+                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$dJXQGZUaU2xxpBOwatxPdubmHU8h4ZSWjHdIDrdWQDbgbMOp1Gt.i" },
+                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$AEfc3iOE3g76JyPMEgzQWe1PWJKyN67nPK5tDKFFsfjeAtPZA/6UO" },
+                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$Kp1ZdAjVOH0yqRGBtq0er.grVFFcchEr1bw2Ipm.NaoPtJ9BAUuEG" }
                 });
 
             migrationBuilder.InsertData(
@@ -199,14 +226,25 @@ namespace Wizard_Battle_Web_API.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Player",
-                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "IconID", "KnowledgePoints", "MatchLosses", "MatchWins", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "PlayerStatus", "TimeCapsules", "TimePlayedMin" },
+                table: "Skin",
+                columns: new[] { "SkinID", "ImageName", "SkinDescription", "SkinName", "SkinPrice" },
                 values: new object[,]
                 {
-                    { 1, 1, 167L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", "Online", 10L, 0L },
-                    { 2, 2, 138L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "AlexTheG", "Online", 10L, 0L },
-                    { 3, 3, 138L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MartinTheG", "Online", 10L, 0L },
-                    { 4, 4, 138L, 1, 10L, 0L, 0L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MarcoTheG", "Online", 10L, 0L }
+                    { 1, "../../../../assets/skin-images/wise-wizard.jpg", "A very wise wizard", "Wise Wizard", (short)125 },
+                    { 2, "../../../../assets/skin-images/evil-wizard.jpg", "A very evil wizard", "Evil Wizard", (short)125 },
+                    { 3, "../../../../assets/skin-images/suspicious-wizard.jpg", "A very suspicious wizard", "Suspicious Wizard", (short)125 },
+                    { 4, "../../../../assets/skin-images/robot-wizard.jpg", "A very unhuman wizard", "Robot Wizard", (short)125 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Player",
+                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "IconID", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerImage", "PlayerName", "PlayerStatus", "TimeCapsules" },
+                values: new object[,]
+                {
+                    { 1, 1, 167L, 1, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "NickTheG", "Offline", 1000L },
+                    { 2, 2, 138L, 2, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "AlexTheG", "Offline", 10L },
+                    { 3, 3, 138L, 3, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "MartinTheG", "Offline", 10L },
+                    { 4, 4, 138L, 4, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "MarcoTheG", "Offline", 10L }
                 });
 
             migrationBuilder.InsertData(
@@ -214,12 +252,12 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "FriendPlayerID", "MainPlayerID", "Created_At", "IsPending" },
                 values: new object[,]
                 {
-                    { 2, 1, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1188), false },
-                    { 3, 1, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1234), false },
-                    { 4, 1, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1241), false },
-                    { 3, 2, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1248), false },
-                    { 4, 2, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1255), false },
-                    { 4, 3, new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1263), false }
+                    { 2, 1, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2830), false },
+                    { 3, 1, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2842), false },
+                    { 4, 1, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2846), false },
+                    { 3, 2, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2849), false },
+                    { 4, 2, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2852), false },
+                    { 4, 3, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2919), false }
                 });
 
             migrationBuilder.CreateIndex(
@@ -266,6 +304,16 @@ namespace Wizard_Battle_Web_API.Migrations
                 name: "IX_RefreshToken_AccountID",
                 table: "RefreshToken",
                 column: "AccountID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transaction_PlayerID",
+                table: "Transaction",
+                column: "PlayerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transaction_SkinID",
+                table: "Transaction",
+                column: "SkinID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -280,10 +328,13 @@ namespace Wizard_Battle_Web_API.Migrations
                 name: "RefreshToken");
 
             migrationBuilder.DropTable(
-                name: "Skin");
+                name: "Transaction");
 
             migrationBuilder.DropTable(
                 name: "Player");
+
+            migrationBuilder.DropTable(
+                name: "Skin");
 
             migrationBuilder.DropTable(
                 name: "Account");

@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
-import { PlayerService } from 'src/app/services/player.service';
-
 import { AccountService } from 'src/app/services/account.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AuthenticationRequest } from 'src/app/_models/Authentication';
-
 import { DirectPlayerResponse } from 'src/app/_models/Player';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -15,7 +12,7 @@ import { DirectPlayerResponse } from 'src/app/_models/Player';
 
 export class ProfileComponent implements OnInit {
   public request: AuthenticationRequest = { email: '', password: '' };
- Playerr:DirectPlayerResponse[] = [];
+ Players:DirectPlayerResponse[] = [];
 
 
   player:DirectPlayerResponse = {
@@ -40,7 +37,7 @@ export class ProfileComponent implements OnInit {
     playerStatus:""
   }
   constructor(private authService:AuthenticationService,private ActService:AccountService) { }
-  ngOnInit(): void {
+  ngOnInit():void {
       this.ActService.getByToken(this.authService.AccessToken).subscribe(res=>
         {this.player.account=res
           this.player.playerID=res.player.playerID

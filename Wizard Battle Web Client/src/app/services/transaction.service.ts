@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, ObservableInput } from 'rxjs';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { environment } from 'src/environments/environment';
 import { DirectTransactionResponse, StaticTransactionResponse, TransactionRequest } from '../_models/Transaction';
 
@@ -15,7 +16,15 @@ export class TransactionService {
 
 	public getAll(): Observable<StaticTransactionResponse[]>
 	{
-	  return this.http.get<StaticTransactionResponse[]>(this.url);
+		return this.http.get<StaticTransactionResponse[]>(this.url).pipe(catchError<StaticTransactionResponse[],ObservableInput<StaticTransactionResponse[]>>(Response=>{
+			var a: StaticTransactionResponse[]=[]
+			 	  if(Response == null)
+			 	  {
+			 		  return a
+					
+			 	  }
+			 	return Response
+			   }))
 	}
 
 	public getById(id: number): Observable<DirectTransactionResponse>

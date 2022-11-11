@@ -12,8 +12,8 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221109085908_initialcreate")]
-    partial class initialcreate
+    [Migration("20221111070113_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$iZXrLpt.VHeVKvAYc9vCLeoyAM1gGDsMQhdbxywZz.VnhkpAUEliG"
+                            Password = "$2a$10$2rxroRUTnzjlkIosh9nuz.eWS.GxpM5TGZB/556OJXbovZGAod0ZS"
                         },
                         new
                         {
@@ -74,7 +74,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$8f6fRaByDhLLuHo5GqE8I.EUgkAOCL94P/iij1pBRGQKKTLccvWfW"
+                            Password = "$2a$10$dJXQGZUaU2xxpBOwatxPdubmHU8h4ZSWjHdIDrdWQDbgbMOp1Gt.i"
                         },
                         new
                         {
@@ -83,7 +83,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$Z7ZT4biJH.Yi0MQ6BH62jeX4fm/sCsoiORdKTSRIXxwTQluNLp.O."
+                            Password = "$2a$10$AEfc3iOE3g76JyPMEgzQWe1PWJKyN67nPK5tDKFFsfjeAtPZA/6UO"
                         },
                         new
                         {
@@ -92,7 +92,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$iRAMSSVkVwpkK/QYwIC0ju/n2LFupCgRAwFVfX43XTjXvZCHY/Ey2"
+                            Password = "$2a$10$Kp1ZdAjVOH0yqRGBtq0er.grVFFcchEr1bw2Ipm.NaoPtJ9BAUuEG"
                         });
                 });
 
@@ -123,42 +123,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1188),
+                            Created_At = new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2830),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1234),
+                            Created_At = new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2842),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1241),
+                            Created_At = new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2846),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1248),
+                            Created_At = new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2849),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1255),
+                            Created_At = new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2852),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1263),
+                            Created_At = new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2919),
                             IsPending = false
                         });
                 });
@@ -282,12 +282,6 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<long>("KnowledgePoints")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("MatchLosses")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("MatchWins")
-                        .HasColumnType("bigint");
-
                     b.Property<double>("MaxHealth")
                         .HasColumnType("float");
 
@@ -297,6 +291,9 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<DateTime>("Modified_At")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PlayerImage")
+                        .HasColumnType("nvarchar(32)");
+
                     b.Property<string>("PlayerName")
                         .HasColumnType("nvarchar(32)");
 
@@ -304,9 +301,6 @@ namespace Wizard_Battle_Web_API.Migrations
                         .HasColumnType("nvarchar(32)");
 
                     b.Property<long>("TimeCapsules")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("TimePlayedMin")
                         .HasColumnType("bigint");
 
                     b.HasKey("PlayerID");
@@ -330,66 +324,54 @@ namespace Wizard_Battle_Web_API.Migrations
                             ExperiencePoints = 167L,
                             IconID = 1,
                             KnowledgePoints = 10L,
-                            MatchLosses = 0L,
-                            MatchWins = 0L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "NickTheG",
-                            PlayerStatus = "Online",
-                            TimeCapsules = 10L,
-                            TimePlayedMin = 0L
+                            PlayerStatus = "Offline",
+                            TimeCapsules = 1000L
                         },
                         new
                         {
                             PlayerID = 2,
                             AccountID = 2,
                             ExperiencePoints = 138L,
-                            IconID = 1,
+                            IconID = 2,
                             KnowledgePoints = 10L,
-                            MatchLosses = 0L,
-                            MatchWins = 0L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "AlexTheG",
-                            PlayerStatus = "Online",
-                            TimeCapsules = 10L,
-                            TimePlayedMin = 0L
+                            PlayerStatus = "Offline",
+                            TimeCapsules = 10L
                         },
                         new
                         {
                             PlayerID = 3,
                             AccountID = 3,
                             ExperiencePoints = 138L,
-                            IconID = 1,
+                            IconID = 3,
                             KnowledgePoints = 10L,
-                            MatchLosses = 0L,
-                            MatchWins = 0L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "MartinTheG",
-                            PlayerStatus = "Online",
-                            TimeCapsules = 10L,
-                            TimePlayedMin = 0L
+                            PlayerStatus = "Offline",
+                            TimeCapsules = 10L
                         },
                         new
                         {
                             PlayerID = 4,
                             AccountID = 4,
                             ExperiencePoints = 138L,
-                            IconID = 1,
+                            IconID = 4,
                             KnowledgePoints = 10L,
-                            MatchLosses = 0L,
-                            MatchWins = 0L,
                             MaxHealth = 10.0,
                             MaxMana = 10.0,
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "MarcoTheG",
-                            PlayerStatus = "Online",
-                            TimeCapsules = 10L,
-                            TimePlayedMin = 0L
+                            PlayerStatus = "Offline",
+                            TimeCapsules = 10L
                         });
                 });
 
@@ -451,9 +433,77 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<string>("SkinName")
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<short>("SkinPrice")
+                        .HasColumnType("smallint");
+
                     b.HasKey("SkinID");
 
                     b.ToTable("Skin");
+
+                    b.HasData(
+                        new
+                        {
+                            SkinID = 1,
+                            ImageName = "../../../../assets/skin-images/wise-wizard.jpg",
+                            SkinDescription = "A very wise wizard",
+                            SkinName = "Wise Wizard",
+                            SkinPrice = (short)125
+                        },
+                        new
+                        {
+                            SkinID = 2,
+                            ImageName = "../../../../assets/skin-images/evil-wizard.jpg",
+                            SkinDescription = "A very evil wizard",
+                            SkinName = "Evil Wizard",
+                            SkinPrice = (short)125
+                        },
+                        new
+                        {
+                            SkinID = 3,
+                            ImageName = "../../../../assets/skin-images/suspicious-wizard.jpg",
+                            SkinDescription = "A very suspicious wizard",
+                            SkinName = "Suspicious Wizard",
+                            SkinPrice = (short)125
+                        },
+                        new
+                        {
+                            SkinID = 4,
+                            ImageName = "../../../../assets/skin-images/robot-wizard.jpg",
+                            SkinDescription = "A very unhuman wizard",
+                            SkinName = "Robot Wizard",
+                            SkinPrice = (short)125
+                        });
+                });
+
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Transaction", b =>
+                {
+                    b.Property<int>("TransactionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransactionID"), 1L, 1);
+
+                    b.Property<DateTime>("Created_At")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("PlayerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkinID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalCost")
+                        .HasColumnType("int");
+
+                    b.HasKey("TransactionID");
+
+                    b.HasIndex("PlayerID");
+
+                    b.HasIndex("SkinID");
+
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Friendship", b =>
@@ -520,6 +570,25 @@ namespace Wizard_Battle_Web_API.Migrations
                         .HasForeignKey("AccountID");
                 });
 
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Transaction", b =>
+                {
+                    b.HasOne("Wizard_Battle_Web_API.Database.Entities.Player", "Player")
+                        .WithMany("Transactions")
+                        .HasForeignKey("PlayerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Wizard_Battle_Web_API.Database.Entities.SkinItem", "SkinItem")
+                        .WithMany("Transactions")
+                        .HasForeignKey("SkinID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Player");
+
+                    b.Navigation("SkinItem");
+                });
+
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Account", b =>
                 {
                     b.Navigation("Player");
@@ -536,6 +605,13 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Navigation("MainPlayerFriends");
 
                     b.Navigation("Messages");
+
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SkinItem", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
