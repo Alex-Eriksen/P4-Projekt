@@ -1,4 +1,6 @@
-﻿namespace Wizard_Battle_Web_API.DTOs.Player
+﻿using Wizard_Battle_Web_API.DTOs.Icon;
+
+namespace Wizard_Battle_Web_API.DTOs.Player
 {
 	public class StaticPlayerResponse
 	{
@@ -14,10 +16,10 @@
 
 		public uint ExperiencePoints { get; set; } = 0;
 
-		public uint MatchWins { get; set; }
+		public uint MatchWins { get; set; } = 0;
 
-		public uint MatchLosses { get; set; }
+		public uint MatchLosses { get; set; } = 0;
 
-		public uint TimePlayedMin { get; set; }
+		public uint TimePlayedMin { get; set; } = 0;
 	}
 }

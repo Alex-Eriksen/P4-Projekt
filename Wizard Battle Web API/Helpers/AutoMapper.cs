@@ -1,4 +1,6 @@
-﻿namespace Wizard_Battle_Web_API.Helpers
+﻿using Wizard_Battle_Web_API.DTOs.Icon;
+
+namespace Wizard_Battle_Web_API.Helpers
 {
 	public class AutoMapper : Profile
 	{
@@ -23,6 +25,15 @@
 
 			CreateMap<Icon, IconResponse>();
 			CreateMap<IconRequest, Icon>();
+
+			CreateMap<Transaction, StaticTransactionResponse>();
+			CreateMap<Transaction, DirectTransactionResponse>();
+			CreateMap<TransactionRequest, Transaction>();
+
+
+			CreateMap<SkinItem, StaticSkinItemResponse>();
+			CreateMap<SkinItem, DirectSkinItemResponse>();
+			CreateMap<SkinItemRequest, SkinItem>();
 		}
 	}
 }

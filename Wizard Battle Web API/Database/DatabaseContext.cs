@@ -14,6 +14,7 @@ namespace Wizard_Battle_Web_API.Database
 		public DbSet<Message> Message { get; set; }
 		public DbSet<Icon> Icon { get; set; }
 		public DbSet<SkinItem> Skin { get; set; }
+		public DbSet<Transaction> Transaction { get; set; }
 
 
 		/// <summary>
@@ -22,7 +23,7 @@ namespace Wizard_Battle_Web_API.Database
 		/// <param name="modelBuilder"></param>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			// Capturing the datetime when the entities was createt in the database. Sets Created_At default to getdate()
+			// Capturing the datetime when the entities was created in the database. Sets Created_At default to getdate()
 			modelBuilder.Entity<RefreshToken>(entity => {
 				entity.Property(e => e.Created_At).HasDefaultValueSql("getdate()");
 			});
@@ -47,6 +48,12 @@ namespace Wizard_Battle_Web_API.Database
 				entity.HasOne(x => x.Sender).WithMany(x => x.Messages).HasForeignKey(x => x.SenderID).OnDelete(DeleteBehavior.Restrict);
 				entity.HasOne(x => x.Receiver).WithMany(x => x.FriendMessages).HasForeignKey(x => x.ReceiverID).OnDelete(DeleteBehavior.Restrict);
 				entity.Property(e => e.Created_At).HasDefaultValueSql("getdate()");
+			});
+
+			modelBuilder.Entity<Transaction>(entity => {
+				entity.Property(e => e.Created_At).HasDefaultValueSql("getdate()");
+				entity.HasOne(x => x.SkinItem).WithMany(x => x.Transactions).HasForeignKey(x => x.SkinID).OnDelete(DeleteBehavior.Restrict);
+				entity.HasOne(x => x.Player).WithMany(x => x.Transactions).HasForeignKey(x => x.PlayerID).OnDelete(DeleteBehavior.Restrict);
 			});
 
 			// Creating accounts for developers to debug
@@ -83,20 +90,20 @@ namespace Wizard_Battle_Web_API.Database
 				AccountID = 1,
 				PlayerName = "NickTheG",
 				IconID = 1,
-				PlayerStatus = "Online",
+				PlayerStatus = "Offline",
 				ExperiencePoints = 167,
 				KnowledgePoints = 10,
 				MaxHealth = 10,
 				MaxMana = 10,
-				TimeCapsules = 10,
+				TimeCapsules = 1000,
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
 				PlayerID = 2,
 				AccountID = 2,
 				PlayerName = "AlexTheG",
-				IconID = 1,
-				PlayerStatus = "Online",
+				IconID = 2,
+				PlayerStatus = "Offline",
 				ExperiencePoints = 138,
 				KnowledgePoints = 10,
 				MaxHealth = 10,
@@ -108,8 +115,8 @@ namespace Wizard_Battle_Web_API.Database
 				PlayerID = 3,
 				AccountID = 3,
 				PlayerName = "MartinTheG",
-				IconID = 1,
-				PlayerStatus = "Online",
+				IconID = 3,
+				PlayerStatus = "Offline",
 				ExperiencePoints = 138,
 				KnowledgePoints = 10,
 				MaxHealth = 10,
@@ -121,8 +128,8 @@ namespace Wizard_Battle_Web_API.Database
 				PlayerID = 4,
 				AccountID = 4,
 				PlayerName = "MarcoTheG",
-				IconID = 1,
-				PlayerStatus = "Online",
+				IconID = 4,
+				PlayerStatus = "Offline",
 				ExperiencePoints = 138,
 				KnowledgePoints = 10,
 				MaxHealth = 10,
@@ -224,6 +231,42 @@ namespace Wizard_Battle_Web_API.Database
 				FriendPlayerID = 4,
 				Created_At = DateTime.UtcNow,
 				IsPending = false,
+			});
+
+			modelBuilder.Entity<SkinItem>().HasData(new SkinItem
+			{
+				SkinID = 1,
+				SkinName = "Wise Wizard",
+				SkinDescription = "A very wise wizard",
+				SkinPrice = 125,
+				ImageName = "../../../../assets/skin-images/wise-wizard.jpg",
+			});
+
+			modelBuilder.Entity<SkinItem>().HasData(new SkinItem
+			{
+				SkinID = 2,
+				SkinName = "Evil Wizard",
+				SkinDescription = "A very evil wizard",
+				SkinPrice = 125,
+				ImageName = "../../../../assets/skin-images/evil-wizard.jpg",
+			});
+
+			modelBuilder.Entity<SkinItem>().HasData(new SkinItem
+			{
+				SkinID = 3,
+				SkinName = "Suspicious Wizard",
+				SkinDescription = "A very suspicious wizard",
+				SkinPrice = 125,
+				ImageName = "../../../../assets/skin-images/suspicious-wizard.jpg",
+			});
+
+			modelBuilder.Entity<SkinItem>().HasData(new SkinItem
+			{
+				SkinID = 4,
+				SkinName = "Robot Wizard",
+				SkinDescription = "A very unhuman wizard",
+				SkinPrice = 125,
+				ImageName = "../../../../assets/skin-images/robot-wizard.jpg",
 			});
 		}
 	}

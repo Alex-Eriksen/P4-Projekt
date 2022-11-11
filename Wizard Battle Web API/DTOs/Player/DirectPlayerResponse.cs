@@ -1,4 +1,6 @@
-﻿namespace Wizard_Battle_Web_API.DTOs.Player
+﻿using Wizard_Battle_Web_API.DTOs.Icon;
+
+namespace Wizard_Battle_Web_API.DTOs.Player
 {
 	public class DirectPlayerResponse
 	{
@@ -29,5 +31,7 @@
 		public uint TimePlayedMin { get; set; } = 0;
 
 		public DateTime Modified_At { get; set; }
+
+		public ICollection<StaticTransactionResponse> Transactions = new List<StaticTransactionResponse>();
 	}
 }

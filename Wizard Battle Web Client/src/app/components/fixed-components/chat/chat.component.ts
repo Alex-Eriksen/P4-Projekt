@@ -6,7 +6,6 @@ import { PlayerService } from 'src/app/services/player.service';
 import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
-
 import { ChatService } from 'src/app/services/chat.service';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 import { delay, find } from 'rxjs';
@@ -51,13 +50,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     this.playerService.getById(this.playerId).subscribe(data => this.player = data);
 
-    this.chatService.GetAll(this.playerId).subscribe(data => { // Fetch friends
+    this.chatService.getAll(this.playerId).subscribe(data => { // Fetch friends
       this.friends = data;
       this.backupFriends = data;
     });
 
     this.signalrService.OnStatusChanged.subscribe(() => { // If a friend changes status fetch friends again
-      this.chatService.GetAll(this.playerId).subscribe(data => {
+      this.chatService.getAll(this.playerId).subscribe(data => {
         this.friends = data;
         this.backupFriends = data;
         if(this.friend.playerID != 0) {

@@ -60,18 +60,18 @@
           <p class="mb-0 text-white">FEATURED ITEM</p>
           <div class="row p-2 gx-0 border border-1 border-color rounded-1" style="background-color: #080e1c;">
             <div class="col-2">
-              <img [src]="item.itemImageLocation" alt="" height="120px" width="80px" class="border border-1 border-color">
+              <img [src]="item.imageName" alt="" height="120px" width="80px" class="border border-1 border-color">
             </div>
             <div class="offset-2 col-6 d-flex flex-column justify-content-between">
-              <p class="mb-0 text-white">{{item.itemName}}</p>
+              <p class="mb-0 text-white">{{item.skinName}}</p>
               <div class="d-flex flex-row gap-2 text-white">
                 <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da;"></i>
-                <p class="mb-0">{{item.itemPrice}}</p>
+                <p class="mb-0">{{item.skinPrice}}</p>
               </div>
               <div class="wrapper">
                 <div class="d-flex flex-row gap-2">
-                  <button class="btn btn-primary w-100 p-0 pt-1">INFO</button>
-                  <button class="btn btn-primary w-100 p-0 pt-1">UNLOCK</button>
+                  <button class="btn btn-primary w-100 p-0 pt-1" (click)="openSkin(item)">INFO</button>
+                  <button class="btn btn-primary w-100 p-0 pt-1" [disabled]="isOwned(item.skinID)">UNLOCK</button>
                 </div>
               </div>
             </div>

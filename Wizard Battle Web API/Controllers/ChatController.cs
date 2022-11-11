@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Wizard_Battle_Web_API.Hubs;
 
 namespace Wizard_Battle_Web_API.Controllers
 {

@@ -6,7 +6,7 @@
 		Task<Player> GetById(int playerId);
 		Task<Player> Create(Player request);
 		Task<Player> Update(int playerId, Player request);
-		Task<Player> ChangeStatus(int playerId, string status);
+        Task<Player> ChangeStatus(int playerId, string status);
     }
 
 	public class PlayerRepository : IPlayerRepository
@@ -31,7 +31,6 @@
         {
             return await m_context.Player
                 .Include(x => x.Account)
-                .Include(x => x.Icon)
                 .ToListAsync();
         }
 
@@ -59,6 +58,7 @@
             return await m_context.Player
                 .Include(x => x.Account)
                 .Include(x => x.Icon)
+                .Include(x => x.Transactions)
                 .FirstOrDefaultAsync(x => x.PlayerID == playerId);
         }
 
@@ -75,13 +75,6 @@
             if (player != null)
             {
                 player.PlayerName = request.PlayerName;
-                player.IconID = request.IconID;
-                player.ExperiencePoints = request.ExperiencePoints;
-                player.KnowledgePoints = request.KnowledgePoints;
-                player.TimeCapsules = request.TimeCapsules;
-                player.MatchWins = request.MatchWins;
-                player.MatchLosses = request.MatchLosses;
-                player.TimePlayedMin = request.TimePlayedMin;
                 player.Modified_At = DateTime.UtcNow;
 
                 await m_context.SaveChangesAsync();
@@ -90,18 +83,9 @@
             return player;
         }
 
-
-        public async Task<Player> ChangeStatus(int playerId, string status)
-		{
-            Player player = await GetById(playerId);
-            if (player != null)
-            {
-                player.PlayerStatus = status;
-
-                await m_context.SaveChangesAsync();
-            }
-
-            return await GetById(playerId);
+        public Task<Player> ChangeStatus(int playerId, string status)
+        {
+            throw new NotImplementedException();
         }
     }
 }

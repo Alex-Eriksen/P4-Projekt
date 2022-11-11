@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.Connections;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,6 +21,12 @@ builder.Services.AddTransient<IIconService, IconService>();
 
 builder.Services.AddTransient<IChatRepository, ChatRepository>();
 builder.Services.AddTransient<IChatService, ChatService>();
+
+builder.Services.AddTransient<ITransactionRepository, TransactionRepository>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
+
+builder.Services.AddTransient<ISkinItemRepository, SkinItemRepository>();
+builder.Services.AddTransient<ISkinItemService, SkinItemService>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {
@@ -109,7 +117,7 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHub<ChatHub>("/chatsocket", options =>
+    endpoints.MapHub<Wizard_Battle_Web_API.Hubs.ChatHub>("/chatsocket", options =>
 	{
         options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling;
     });
