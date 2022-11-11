@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid;
-
+    console.log(this.playerId);
 	this.playerService.OnProfileUpdated.subscribe(() => {
 		setTimeout(() => {
 			this.playerService.getById(this.playerId).subscribe(data => this.player = data)
