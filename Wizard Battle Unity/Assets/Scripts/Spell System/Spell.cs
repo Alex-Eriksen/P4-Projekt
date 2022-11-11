@@ -299,7 +299,7 @@ public class Spell : NetworkBehaviour
                     break;
 
                 case UtilitySpellBehaviour.Dash:
-                    initialTargetTransform = identity.transform;
+                    initialTargetTransform = identity.transform.Find("Graphics");
                     break;
 
                 default:

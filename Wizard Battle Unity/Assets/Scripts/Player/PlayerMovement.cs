@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
 using System.Linq;
+using System;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -102,6 +103,31 @@ public class PlayerMovement : NetworkBehaviour
         Cmd_ValidatePosition(m_transform.position);
     }
 
+    [ClientRpc]
+    public void Rpc_MovePlayer(float distance, float travelTime, Vector2 direction)
+    {
+        m_startPosition = m_transform.position;
+        StartCoroutine(RecursiveMove(distance, travelTime, direction));
+    }
+
+    private Vector2 m_startPosition;
+    public event EventHandler RecursiveMoveCallback;
+    private IEnumerator RecursiveMove(float distance, float travelTime, Vector2 direction)
+    {
+        m_transform.position += (distance / travelTime) * Time.deltaTime * new Vector3(direction.x, direction.y, 0);
+        float currentDistance = distance - Vector2.Distance(m_transform.position, m_startPosition);
+        yield return new WaitForEndOfFrame();
+        if (currentDistance > 0)
+        {
+            StartCoroutine(RecursiveMove(currentDistance, travelTime, direction));
+        }
+        else
+        {
+            RecursiveMoveCallback?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    #region Movement Validation
     /// <summary>
     /// <para>Validates the new position sent by the client.</para>
     /// <br>If the new position was valid it stores the position.</br>
@@ -176,19 +202,6 @@ public class PlayerMovement : NetworkBehaviour
         m_rigidbody2D.velocity = validSavedVelocity;
     }
 
-    [ClientRpc]
-    public void Rpc_AddForceAtPosition(Vector2 force, Vector2 position, ForceMode2D forceMode)
-    {
-        m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
-    }
-
-    [ServerCallback]
-    public void SC_AddForceAtPosition(Vector2 force, Vector2 position, ForceMode2D forceMode)
-    {
-        m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
-        Rpc_AddForceAtPosition(force, position, forceMode);
-    }
-
     /// <summary>
     /// Overrides the saved position the server has on the player.
     /// This is used to override the position for spells like teleportation that moves the player more than the allowed distance.
@@ -202,6 +215,21 @@ public class PlayerMovement : NetworkBehaviour
         Rpc_OverrideClientPosition(newPosition);
         Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden for {m_playerConnection.PlayerName}: {reason}");
     }
+    #endregion
+
+    [ClientRpc]
+    public void Rpc_AddForceAtPosition(Vector2 force, Vector2 position, ForceMode2D forceMode)
+    {
+        m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
+    }
+
+    [ServerCallback]
+    public void SC_AddForceAtPosition(Vector2 force, Vector2 position, ForceMode2D forceMode)
+    {
+        m_rigidbody2D.AddForceAtPosition(force, position, forceMode);
+        Rpc_AddForceAtPosition(force, position, forceMode);
+    }
+
     // [Command]
     // Can be called from a client or server, and will only be executed on the server.
     // The server is the only one who will Log "Recieved Hola from client!".

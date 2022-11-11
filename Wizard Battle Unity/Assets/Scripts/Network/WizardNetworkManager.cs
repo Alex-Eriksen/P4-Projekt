@@ -23,7 +23,7 @@ public class WizardNetworkManager : NetworkManager
         VelocityThreshold = m_velocityThreshold;
         PositionThreshold = m_positionThreshold;
         VelocityError = m_velocityError;
-        Debug.Log("...Server Initialized...");
+        Debug.Log("... Network Manager Initialized ...");
     }
 
     /// <summary>

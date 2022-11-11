@@ -113,7 +113,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   m_invulnerableStatusObject: {fileID: 11400000, guid: d06fdc40f554ace429418882f105aae9, type: 2}
-  m_dashDistance: 3
+  m_dashDistance: 5
+  m_dashTime: 1.5
 --- !u!114 &-7739496001905103806
 MonoBehaviour:
   m_ObjectHideFlags: 0
