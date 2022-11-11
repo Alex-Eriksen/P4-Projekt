@@ -40,7 +40,7 @@
 		public virtual ICollection<Message> Messages { get; set; }
 
 		public virtual ICollection<Message> FriendMessages { get; set; }
-        public int IconID { get; internal set; }
-        public object Icon { get; internal set; }
-    }
+
+		public virtual ICollection<Transaction> Transactions { get; set; }
+	}
 }

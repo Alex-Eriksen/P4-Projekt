@@ -25,6 +25,15 @@ namespace Wizard_Battle_Web_API.Helpers
 
 			CreateMap<Icon, IconResponse>();
 			CreateMap<IconRequest, Icon>();
+
+			CreateMap<Transaction, StaticTransactionResponse>();
+			CreateMap<Transaction, DirectTransactionResponse>();
+			CreateMap<TransactionRequest, Transaction>();
+
+
+			CreateMap<SkinItem, StaticSkinItemResponse>();
+			CreateMap<SkinItem, DirectSkinItemResponse>();
+			CreateMap<SkinItemRequest, SkinItem>();
 		}
 	}
 }

@@ -48,7 +48,7 @@ export class ChatBoxComponent implements OnInit {
   ngOnInit(): void {
     this.signalrService.OnMessageChanged.subscribe((x) => {
       if(this.friend.playerID == x.senderID) {
-        this.chatService.GetAllMessages(x.senderID, x.receiverID).subscribe(data => {
+        this.chatService.getAllMessages(x.senderID, x.receiverID).subscribe(data => {
           this.messages = data
           this.scrollToBottom();
         });
@@ -58,7 +58,7 @@ export class ChatBoxComponent implements OnInit {
 
   ngOnChanges() { // Gets messages if friend object is changed
     if(this.playerId != 0) {
-      this.chatService.GetAllMessages(this.playerId, this.friend.playerID).subscribe(data =>{
+      this.chatService.getAllMessages(this.playerId, this.friend.playerID).subscribe(data =>{
         this.messages = data
         this.scrollToBottom();
       });
@@ -69,9 +69,8 @@ export class ChatBoxComponent implements OnInit {
   sendMessage(): void {
     if(this.messageRequest.text == '')
       return;
-      
-    this.chatService.CreateMessage(this.messageRequest).subscribe({
 
+    this.chatService.createMessage(this.messageRequest).subscribe({ 
       next: (response) => {
         if(this.messages == null) {
           this.messages = [];

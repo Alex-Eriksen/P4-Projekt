@@ -64,6 +64,13 @@ mat-dialog-container {
   transform: translate(-50%, -50%);
 }
 
+.skin-item-overlay {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .mat-dialog-container {
   padding: 0px!important;
 }
@@ -90,6 +97,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+/* Buy meneus */
 .buy-menu-overlay1 {
   position: absolute;
   top: -17.775%;
@@ -124,5 +133,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   top: 25.19%;
   left: -35%;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

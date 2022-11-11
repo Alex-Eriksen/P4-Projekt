@@ -14,6 +14,8 @@ global using Wizard_Battle_Web_API.Database;
 global using Wizard_Battle_Web_API.Helpers;
 global using System.Text.Json.Serialization;
 global using Wizard_Battle_Web_API.DTOs.Authentication;
+global using Wizard_Battle_Web_API.DTOs.SkinItem;
+global using Wizard_Battle_Web_API.DTOs.Transaction;
 global using Wizard_Battle_Web_API.DTOs.Player;
 global using Wizard_Battle_Web_API.DTOs.Account;
 global using Wizard_Battle_Web_API.DTOs.Message;
