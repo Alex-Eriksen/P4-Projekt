@@ -106,6 +106,7 @@
 			return null;
 		}
 
+
 		public async Task<DirectPlayerResponse> ChangeStatus(int playerId, string status)
 		{
 			Player player = await m_playerRepository.ChangeStatus(playerId, status);
@@ -117,4 +118,8 @@
 			return null;
 		}
 	}
+
+
 }
+
+

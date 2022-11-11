@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -11,10 +13,14 @@ public class Spellbook : MonoBehaviour
     private SpellObject m_primarySelectedSpell, m_secondarySelectedSpell;
 
     private PlayerInput m_playerInput;
+    public bool IsActive { get => m_spellbookUI.activeSelf; }
 
     [SerializeField] private GameObject m_spellbookUI;
     public SpellbookObject currentSpellbook;
     private Vector2 m_mousePosition;
+
+    public UnityEvent<int> OnPrimaryChanged;
+    public UnityEvent<int> OnSecondaryChanged;
 
     private void Awake()
     {
@@ -52,10 +58,22 @@ public class Spellbook : MonoBehaviour
     public void SetPrimarySpell(SpellSlotUI sender)
     {
         m_primarySelectedSpell = sender.currentSpell;
+        if(m_primarySelectedSpell == null)
+        {
+            OnPrimaryChanged?.Invoke(-1);
+            return;
+        }
+        OnPrimaryChanged?.Invoke(m_primarySelectedSpell.SpellID);
     }   
     
     public void SetSecondarySpell(SpellSlotUI sender)
     {
         m_secondarySelectedSpell = sender.currentSpell;
+        if(m_secondarySelectedSpell == null)
+        {
+            OnSecondaryChanged?.Invoke(-1);
+            return;
+        }
+        OnSecondaryChanged?.Invoke(m_secondarySelectedSpell.SpellID);
     }
 }

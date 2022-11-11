@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.Connections;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -115,7 +117,7 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHub<ChatHub>("/chatsocket", options =>
+    endpoints.MapHub<Wizard_Battle_Web_API.Hubs.ChatHub>("/chatsocket", options =>
 	{
         options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling;
     });

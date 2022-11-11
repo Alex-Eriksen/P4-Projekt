@@ -22,13 +22,12 @@ export class LibraryComponent implements OnInit {
     let element = document.getElementById("chat-tab");
     element!.scrollTop = 0;
     let dialogRef = this.dialog.open(Buymenu1Component, {
-      width: '536px',
+      width: '500px',
       maxWidth: '50vw',
-      height: '449px',
+      height: '402.34px',
       backdropClass: 'cdk-overlay-transparent-backdrop',
-      hasBackdrop: true,
       disableClose: true,
-
+      enterAnimationDuration: "0s",
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -41,12 +40,12 @@ export class LibraryComponent implements OnInit {
     let element = document.getElementById("chat-tab");
     element!.scrollTop = 0;
     let dialogRef = this.dialog.open(Buymenu2Component, {
-      width: '536px',
+      width: '488px',
       maxWidth: '50vw',
-      height: '449px',
+      height: '402.34px',
       backdropClass: 'cdk-overlay-transparent-backdrop',
-      hasBackdrop: true,
-      disableClose: true
+      disableClose: true,
+      enterAnimationDuration: "0s",
 
     });
 
@@ -60,12 +59,12 @@ export class LibraryComponent implements OnInit {
     let element = document.getElementById("chat-tab");
     element!.scrollTop = 0;
     let dialogRef = this.dialog.open(Buymenu3Component, {
-      width: '536px',
+      width: '488px',
       maxWidth: '50vw',
-      height: '449px',
+      height: '402.34px',
       backdropClass: 'cdk-overlay-transparent-backdrop',
-      hasBackdrop: true,
-      disableClose: true
+      disableClose: true,
+      enterAnimationDuration: "0s",
 
     });
 
@@ -79,12 +78,12 @@ export class LibraryComponent implements OnInit {
     let element = document.getElementById("chat-tab");
     element!.scrollTop = element!.scrollHeight;
     let dialogRef = this.dialog.open(Buymenu4Component, {
-      width: '536px',
+      width: '488px',
       maxWidth: '50vw',
-      height: '449px',
+      height: '402.34px',
       backdropClass: 'cdk-overlay-transparent-backdrop',
-      hasBackdrop: true,
-      disableClose: true
+      disableClose: true,
+      enterAnimationDuration: "0s",
 
     });
 
@@ -98,12 +97,12 @@ export class LibraryComponent implements OnInit {
     let element = document.getElementById("chat-tab");
     element!.scrollTop = element!.scrollHeight;
     let dialogRef = this.dialog.open(Buymenu5Component, {
-      width: '536px',
+      width: '488px',
       maxWidth: '50vw',
-      height: '449px',
+      height: '402.34px',
       backdropClass: 'cdk-overlay-transparent-backdrop',
-      hasBackdrop: true,
-      disableClose: true
+      disableClose: true,
+      enterAnimationDuration: "0s",
 
     });
 

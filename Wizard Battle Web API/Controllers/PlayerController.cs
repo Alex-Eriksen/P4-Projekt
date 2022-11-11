@@ -1,6 +1,8 @@
-﻿namespace Wizard_Battle_Web_API.Controllers
+﻿using Microsoft.AspNetCore.SignalR;
+using Wizard_Battle_Web_API.Hubs;
+namespace Wizard_Battle_Web_API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class PlayerController : ControllerBase
 	{
@@ -83,7 +85,7 @@
 				return Problem(ex.Message);
 			}
 		}
-
+		
 
 		/// <summary>
 		/// Creates a Player.

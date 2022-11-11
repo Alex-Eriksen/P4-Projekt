@@ -1,4 +1,6 @@
-﻿namespace Wizard_Battle_Web_API.DTOs.Player
+﻿using Wizard_Battle_Web_API.DTOs.Icon;
+
+namespace Wizard_Battle_Web_API.DTOs.Player
 {
 	public class StaticPlayerResponse
 	{

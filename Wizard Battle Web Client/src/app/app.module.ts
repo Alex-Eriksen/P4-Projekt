@@ -16,7 +16,6 @@ import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@ang
 import { AuthenticationInterceptor } from './_interceptor/authentication.intercepter';
 import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
-import { ChatComponent } from './components/fixed-components/chat/chat.component';
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LibraryComponent } from './components/library/library.component';
@@ -29,6 +28,7 @@ import { Buymenu3Component } from './components/modals/buy-menues/buymenu3/buyme
 import { Buymenu4Component } from './components/modals/buy-menues/buymenu4/buymenu4.component';
 import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buymenu5.component';
 import { SkinInfoComponent } from './components/modals/skin-info/skin-info.component';
+import { ChatComponent } from './components/fixed-components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,6 @@ import { SkinInfoComponent } from './components/modals/skin-info/skin-info.compo
     LoginComponent,
     SignupComponent,
     SpellbookComponent,
-    ChatComponent,
     ChatBoxComponent,
     ProfileComponent,
     LibraryComponent,
@@ -49,6 +48,7 @@ import { SkinInfoComponent } from './components/modals/skin-info/skin-info.compo
     Buymenu4Component,
     Buymenu5Component,
     SkinInfoComponent
+    ChatComponent
   ],
 	imports: [
 		BrowserModule,
@@ -56,7 +56,7 @@ import { SkinInfoComponent } from './components/modals/skin-info/skin-info.compo
 		HttpClientModule,
 		BrowserAnimationsModule,
 		FormsModule,
-		MatDialogModule
+		MatDialogModule,
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },
