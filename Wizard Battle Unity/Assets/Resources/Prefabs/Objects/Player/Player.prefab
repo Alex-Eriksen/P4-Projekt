@@ -107,6 +107,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   m_playerCombat: {fileID: 7390722938485721684}
+  m_isTargetDummy: 0
   m_statusEffectUIPrefab: {fileID: 1647792765125859732, guid: 28ce28b07226cf34fbe41eed8cdece8a, type: 3}
   m_health: 100
   m_mana: 100
@@ -124,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  IsCasting: 0
 --- !u!114 &2151042180134924039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +222,7 @@ MonoBehaviour:
   deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
-  positionSensitivity: 0.01
+  positionSensitivity: 0.001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
   syncPosition: 1
