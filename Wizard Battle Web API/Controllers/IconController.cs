@@ -1,4 +1,6 @@
-﻿namespace Wizard_Battle_Web_API.Controllers
+﻿using Wizard_Battle_Web_API.DTOs.Icon;
+
+namespace Wizard_Battle_Web_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]

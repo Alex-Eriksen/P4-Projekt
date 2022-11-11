@@ -15,9 +15,16 @@ export class PlayerService {
   public currentStatusSubject: Subject<string>;
   public OnStatusChanged: Observable<string>;
 
+  public profileUpdateSubject: Subject<any>;
+  public OnProfileUpdated: Observable<any>;
+
   constructor(private http: HttpClient) {
     this.currentStatusSubject = new Subject<string>();
     this.OnStatusChanged = this.currentStatusSubject.asObservable();
+
+	this.profileUpdateSubject = new Subject<any>();
+	this.OnProfileUpdated = this.profileUpdateSubject.asObservable();
+
   }
 
   public getAll(): Observable<StaticPlayerResponse[]>
@@ -37,6 +44,7 @@ export class PlayerService {
 
   public update(playerId: number, request: PlayerRequest): Observable<DirectPlayerResponse>
   {
+	this.profileUpdateSubject.next("");
     return this.http.put<DirectPlayerResponse>(`${this.url}/${playerId}`, request);
   }
 

@@ -23,31 +23,32 @@ export class ChatService {
     this.FriendSubject = new BehaviorSubject<Friend>(new Friend());
     this.OnFriendChanged = this.FriendSubject.asObservable();
   }
-  public GetAll(playerId: number): Observable<StaticPlayerResponse[]> { // Gets all friendship displayed in the friendlist
+
+  public getAll(playerId: number): Observable<StaticPlayerResponse[]> { // Gets all friendship displayed in the friendlist
     return this.http.get<StaticPlayerResponse[]>(`${this.url}/${playerId}`)
   }
 
-  public Create(request: FriendshipRequest): Observable<DirectFriendshipResponse> { //
+  public create(request: FriendshipRequest): Observable<DirectFriendshipResponse> { //
     return this.http.post<DirectFriendshipResponse>(`${this.url}`, request)
   }
 
-  public Update(request: FriendshipRequest): Observable<DirectFriendshipResponse> {
+  public update(request: FriendshipRequest): Observable<DirectFriendshipResponse> {
     return this.http.put<DirectFriendshipResponse>(`${this.url}`, request);
   }
 
-  public Delete(request: FriendshipRequest): Observable<DirectFriendshipResponse> {
+  public delete(request: FriendshipRequest): Observable<DirectFriendshipResponse> {
     return this.http.delete<DirectFriendshipResponse>(`${this.url}?MainPlayerID=${request.mainPlayerID}&FriendPlayerID=${request.mainPlayerID}`);
   }
 
-  public GetAllMessages(playerId: number, friendId: number): Observable<StaticMessageResponse[]> {
+  public getAllMessages(playerId: number, friendId: number): Observable<StaticMessageResponse[]> {
     return this.http.get<StaticMessageResponse[]>(`${this.chatUrl}?mainPlayerId=${playerId}&friendPlayerId=${friendId}`);
   }
 
-  public CreateMessage(request: MessageRequest): Observable<StaticMessageResponse> {
+  public createMessage(request: MessageRequest): Observable<StaticMessageResponse> {
     return this.http.post<StaticMessageResponse>(this.chatUrl, request);
   }
 
-  public DeleteMessage(request: MessageRequest): Observable<StaticMessageResponse> {
+  public deleteMessage(request: MessageRequest): Observable<StaticMessageResponse> {
     return this.http.delete<StaticMessageResponse>(this.chatUrl, {body: request});
   }
 }

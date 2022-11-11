@@ -35,6 +35,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid;
 
+	this.playerService.OnProfileUpdated.subscribe(() => {
+		setTimeout(() => {
+			this.playerService.getById(this.playerId).subscribe(data => this.player = data)
+		  }, 1500);
+	});
+
     this.playerService.changeStatus(this.playerId, "Online").subscribe({
       next: (playerResponse) => {
         this.player = playerResponse;
@@ -84,6 +90,7 @@ export class HeaderComponent implements OnInit {
       maxWidth: '100vw',
       height: '340px',
       disableClose: true,
+	  exitAnimationDuration: "0s"
     });
 
     dialogRef.afterClosed().subscribe(() => {

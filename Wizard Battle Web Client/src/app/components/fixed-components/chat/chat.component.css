@@ -25,11 +25,6 @@
   border: 4px solid #0d1110;
 }
 
-.minimize-background {
-  background: rgb(5,17,43);
-  background: radial-gradient(circle, rgba(5,17,43,1) 0%, rgba(6,29,45,1) 100%);
-}
-
 .chat-tab {
   overflow-y:scroll;
   height: calc(100vh - (100px + 138px));
