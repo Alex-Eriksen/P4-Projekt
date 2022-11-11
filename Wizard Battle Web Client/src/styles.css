@@ -87,6 +87,9 @@ mat-dialog-container {
   background-color: #080e1c
 }
 
+.mat-dialog-container {
+  box-shadow: none!important;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -98,32 +101,35 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Buy meneus */
 .buy-menu-overlay1 {
   position: absolute;
-  top: -15%;
-  left: -9.3%;
+  top: -17.775%;
+  /*top: -17.69%;*/
+  left: -9.284%;
   /*top: 3%;
   left: -9.3%;*/
+  overflow: hidden;
 }
 
 .buy-menu-overlay2 {
   position: absolute;
-  top: 25%;
+  top: 25.30%;
   left: -35%;
+  overflow: hidden;
 }
 
 .buy-menu-overlay3 {
   position: absolute;
-  top: 25%;
-  left: 16%;
+  top: 25.31%;
+  left: 16.45%;
 }
 
 .buy-menu-overlay4 {
   position: absolute;
-  top: -15%;
-  left: 16%;
+  top: -17.79%;
+  left: 16.45%;
 }
 
 .buy-menu-overlay5 {
   position: absolute;
-  top: 25%;
+  top: 25.19%;
   left: -35%;
 }

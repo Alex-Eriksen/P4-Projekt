@@ -5,6 +5,8 @@
 		Task<List<StaticAccountResponse>> GetAll();
 		Task<DirectAccountResponse> GetById(int accountId);
 		Task<DirectAccountResponse> Update(int accountId, AccountRequest request);
+
+		Task<DirectAccountResponse> GetByToken(string Token);
 	}
 
 	public class AccountService : IAccountService
@@ -58,14 +60,26 @@
 			return null;
 		}
 
+        public async Task<DirectAccountResponse> GetByToken(string Token)
+        {
+			var Id = Convert.ToInt32(JWTHandler.GetAccountIdByToken(Token));
+			Account account = await m_accountRepository.GetById(Id);
+			if (account != null)
+			{
+				return m_mapper.Map<DirectAccountResponse>(account);
+			}
 
-		/// <summary>
-		/// Updates a account.
-		/// </summary>
-		/// <param name="accountId"></param>
-		/// <param name="request"></param>
-		/// <returns>player or null</returns>
-		public async Task<DirectAccountResponse> Update(int accountId, AccountRequest request)
+			return null;
+		}
+
+
+        /// <summary>
+        /// Updates a account.
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="request"></param>
+        /// <returns>player or null</returns>
+        public async Task<DirectAccountResponse> Update(int accountId, AccountRequest request)
 		{
 			Account account = await m_accountRepository.Update(accountId, m_mapper.Map<Account>(request));
 			if (account != null)

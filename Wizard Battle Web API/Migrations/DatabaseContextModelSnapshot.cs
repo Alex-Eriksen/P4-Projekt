@@ -142,7 +142,7 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 10, 9, 2, 50, 80, DateTimeKind.Utc).AddTicks(9030),
+                            Created_At = new DateTime(2022, 11, 9, 8, 59, 7, 867, DateTimeKind.Utc).AddTicks(1248),
                             IsPending = false
                         },
                         new

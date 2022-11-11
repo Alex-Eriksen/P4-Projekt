@@ -2,30 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class WizardNetworkManager : NetworkManager
 {
-    // Called when the server is turned on.
-    public override void OnStartServer()
+    [Header("Gameplay Prefabs")]
+    [SerializeField] private GameObject m_wizardPlayerPrefab;
+
+    public static float VelocityThreshold { get; private set; }
+    [SerializeField] private float m_velocityThreshold;
+
+    public static float VelocityError { get; private set; }
+    [SerializeField] private float m_velocityError;
+    public static float PositionThreshold { get; private set; }
+    [SerializeField] private float m_positionThreshold;
+
+    public override void Awake()
     {
-        Debug.LogWarning("Server started..");
+        base.Awake();
+        VelocityThreshold = m_velocityThreshold;
+        PositionThreshold = m_positionThreshold;
+        VelocityError = m_velocityError;
+        Debug.Log("...Server Initialized...");
     }
 
-    // Called when the server is turned off.
-    public override void OnStopServer()
+    /// <summary>
+    /// <para>Sets either the velocity- or position threshold.</para>
+    /// <br>If <paramref name="isVelocity"/> is equal to <see langword="true"/> it will set the velocity threshold to the <paramref name="threshold"/> parameter.</br>
+    /// <br>If <paramref name="isVelocity"/> is equal to <see langword="false"/> it will set the position threshold to the <paramref name="threshold"/> parameter.</br>
+    /// </summary>
+    /// <param name="threshold"></param>
+    /// <param name="isVelocity"></param>
+    [Server]
+    public static void SetThreshold(float threshold, bool isVelocity = true)
     {
-        Debug.LogWarning("Server stopped..");
+        if (isVelocity)
+        {
+            VelocityThreshold = threshold;
+        }
+        else
+        {
+            PositionThreshold = threshold;
+        }
     }
 
-    // Called on the client when the client connects to the server.
-    public override void OnClientConnect()
+    /// <summary>
+    /// <para>Sets the velocity- and position threshold to their respective parameters.</para>
+    /// </summary>
+    /// <param name="velocityThreshold"></param>
+    /// <param name="positionThreshold"></param>
+    [Server]
+    public static void SetThreshold(float velocityThreshold, float positionThreshold)
     {
-        Debug.LogWarning("Connected to the server..");
+        VelocityThreshold = velocityThreshold;
+        PositionThreshold = positionThreshold;
     }
 
-    // Called on the client when the client disconnects from the server.
-    public override void OnClientDisconnect()
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        Debug.LogWarning("Disconnected from the server..");
+        base.OnServerAddPlayer(conn);
+        GameObject wizardObj = Instantiate(m_wizardPlayerPrefab);
+        NetworkServer.Spawn(wizardObj, conn);
+        conn.identity.GetComponent<PlayerConnection>().wizardIdentity = wizardObj.GetComponent<NetworkIdentity>();
     }
 }

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7852615758dfc33459c029f429a2d47e, type: 3}
+  m_Name: Rock Spear Tier_I
+  m_EditorClassIdentifier: 
+  SpellID: 4
+  SpellName: Rock Spear
+  Description: Throw a spear made of solid rock that stuns on impact.
+  SpellIcon: {fileID: 21300000, guid: 94fff02e29607c147836ff768b66f782, type: 3}
+  ManaCost: 10
+  LifeTime: 4
+  CastTime: 0.75
+  SpellType: 0
+  PrefabPath: Spells/Elemental Spells/Earth Spells/Rock Spear/Tier I/Rock Spear Tier_I
+  SpellTier: 0
+  DamageAmount: 12
+  DamageType: 1
+  SpellBehaviour: 1
+  SpellSchool: 2

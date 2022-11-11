@@ -27,5 +27,8 @@ export class AccountService {
 	{
 		return this.http.put<DirectAccountResponse>(`${this.url}/${accountId}`, request);
 	}
-
+  public getByToken(token:string): Observable<DirectAccountResponse>
+  {
+    return this.http.get<DirectAccountResponse>(`${this.url}/getbytoken/${token}`, );
+  }
 }

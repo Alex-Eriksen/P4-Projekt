@@ -4,7 +4,23 @@
     color: gray;
     font-family:fantasy;
    padding: 220px;
+   margin-left: 29%;
+   z-index: 1;
+position: absolute;
   }
+.table{
+ height: 100%;
+ width: 100%;
+ z-index: -1;
+ transform:translate(0%,-100%);
+ position: relative;
+}
+.h-100{
+   
+ z-index: 0;
+ position: relative;
+}
+ 
 
 .bg-depth {
     background-color: rgba(0, 0, 0, 0.8);

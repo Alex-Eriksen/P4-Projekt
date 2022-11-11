@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.AspNetCore.SignalR;
+using System.Diagnostics;
 
 namespace Wizard_Battle_Web_API.Hubs
 {

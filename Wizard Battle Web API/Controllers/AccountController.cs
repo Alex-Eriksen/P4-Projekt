@@ -75,6 +75,31 @@
 			}
 		}
 
+		/// <summary>
+		/// Gets Account by Active Token.
+		/// </summary>
+		/// <param name="Token"></param>
+		/// <returns>Account or HTTP 204</returns>
+		[HttpGet("getbytoken/{Token}")]
+		public async Task<IActionResult> GetByToken(string Token)
+		{
+			try
+			{
+				DirectAccountResponse account = await m_accountService.GetByToken(Token);
+
+				if (account == null)
+				{
+					return NotFound();
+				}
+
+				return Ok(account);
+			}
+			catch (Exception ex)
+			{
+				return Problem(ex.Message);
+			}
+		}
+
 
 		/// <summary>
 		/// Updates a Account.
