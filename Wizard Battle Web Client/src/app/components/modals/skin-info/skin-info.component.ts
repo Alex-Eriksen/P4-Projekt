@@ -56,7 +56,7 @@ export class SkinInfoComponent implements OnInit {
 			})
 		}
 		else {
-			this.error = "Unable to purchase item. Insufffiecent funds."
+			this.error = "Unable to purchase item. Insufficient funds."
 		}
 	}
 

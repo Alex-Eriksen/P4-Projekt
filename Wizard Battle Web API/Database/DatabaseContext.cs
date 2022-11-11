@@ -268,6 +268,14 @@ namespace Wizard_Battle_Web_API.Database
 				SkinPrice = 125,
 				ImageName = "../../../../assets/skin-images/robot-wizard.jpg",
 			});
+
+			modelBuilder.Entity<Transaction>().HasData(new Transaction
+			{
+				TransactionID = 1,
+				SkinID = 1,
+				PlayerID = 1,
+				TotalCost = 125,
+			});
 		}
 	}
 }
