@@ -55,9 +55,9 @@ export class SkinInfoComponent implements OnInit {
 				}
 			})
 		}
-
-		this.error = "You do not have enough time capsules to purchase this item."
-
+		else {
+			this.error = "Unable to purchase item. Insufffiecent funds."
+		}
 	}
 
 	onClose(): void {

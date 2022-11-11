@@ -47,7 +47,7 @@ import { ChatComponent } from './components/fixed-components/chat/chat.component
     Buymenu3Component,
     Buymenu4Component,
     Buymenu5Component,
-    SkinInfoComponent
+    SkinInfoComponent,
     ChatComponent
   ],
 	imports: [
