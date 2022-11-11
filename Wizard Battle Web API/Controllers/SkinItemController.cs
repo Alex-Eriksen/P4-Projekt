@@ -5,10 +5,10 @@ namespace Wizard_Battle_Web_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class SkinItemController : ControllerBase
 	{
 		private readonly ISkinItemService m_skinItemService;
-
 
 		public SkinItemController(ISkinItemService skinItemService)
 		{

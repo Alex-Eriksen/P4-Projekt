@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
   }
 
   isOwned(id: number): boolean {
-	  return this.transactions?.filter(transaction => transaction.playerID == this.player.playerID && transaction.skinID == id).length != 0
+	  return true // this.transactions.filter(transaction => transaction.playerID == this.player.playerID && transaction.skinID == id).length != 0
   }
 
   openSkin(skin: StaticSkinItemResponse): void {
