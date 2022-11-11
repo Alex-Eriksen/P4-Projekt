@@ -83,9 +83,17 @@
             return player;
         }
 
-        public Task<Player> ChangeStatus(int playerId, string status)
+        public async Task<Player> ChangeStatus(int playerId, string status)
         {
-            throw new NotImplementedException();
+            Player player = await GetById(playerId);
+            if(player != null)
+			{
+                player.PlayerStatus = status;
+
+                await m_context.SaveChangesAsync();
+			}
+
+            return player;
         }
     }
 }
