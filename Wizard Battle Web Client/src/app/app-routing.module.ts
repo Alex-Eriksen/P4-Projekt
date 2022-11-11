@@ -15,8 +15,7 @@ const routes: Routes = [
   { path: 'spellbook',  component: SpellbookComponent, canActivate: [AuthenticationGuard]},
   { path: 'login',  component: LoginComponent },
   { path: 'signup',  component: SignupComponent },
-  {path: 'profile', component: ProfileComponent},
-  {path: 'profile', component: ChangeIconComponent},
+ 	{path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard]},
   { path: '**', redirectTo: ''}
 ];
 
