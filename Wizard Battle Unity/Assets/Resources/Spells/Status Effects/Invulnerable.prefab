@@ -51,7 +51,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.2
+        m_Name: Lifetime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -126,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  statusEffectData: {fileID: 11400000, guid: d06fdc40f554ace429418882f105aae9, type: 2}
+  m_statusEffectData: {fileID: 11400000, guid: d06fdc40f554ace429418882f105aae9, type: 2}
   opponentNetworkID: 0
 --- !u!114 &6170242258307775675
 MonoBehaviour:

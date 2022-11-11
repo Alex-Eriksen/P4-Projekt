@@ -29,7 +29,7 @@ public class PlayerEntity : NetworkBehaviour
         foreach (GameObject statusEffectPrefab in statusEffectPrefabs)
         {
             Status status = statusEffectPrefab.GetComponent<Status>();
-            m_statusEffectPrefabs.Add(status.statusEffectData.effectType, statusEffectPrefab);
+            m_statusEffectPrefabs.Add(status.StatusEffectData.effectType, statusEffectPrefab);
         }
     }
 
@@ -131,16 +131,22 @@ public class PlayerEntity : NetworkBehaviour
             // Stops the destruction coroutine of the status effect and starts a new one.
             StopCoroutine(m_activeStatusEffectsRoutines[statusEffect.effectType]);
             m_activeStatusEffectsRoutines[statusEffect.effectType] = StartCoroutine(StatusEffectDeathTimer(m_activeStatusEffectObjects[statusEffect.effectType], statusEffect));
+            Status statusScript = m_activeStatusEffectObjects[statusEffect.effectType].GetComponent<Status>();
+            statusScript.Rpc_ResetStatus();
         }
         else
         {
             m_statusEffects.Add(statusEffect);
 
             // Spawns the status effect on and sets it in the relative dictionaries for tracking.
-            GameObject obj = Instantiate(m_statusEffectPrefabs[statusEffect.effectType], m_transform);
+            GameObject obj = Instantiate(m_statusEffectPrefabs[statusEffect.effectType]);
             m_activeStatusEffectsRoutines.Add(statusEffect.effectType, StartCoroutine(StatusEffectDeathTimer(obj, statusEffect)));
             m_activeStatusEffectObjects.Add(statusEffect.effectType, obj);
             NetworkServer.Spawn(obj);
+            Status statusScript = m_activeStatusEffectObjects[statusEffect.effectType].GetComponent<Status>();
+            statusScript.SC_ServerSetup(m_transform);
+            statusScript.Rpc_ClientSetup(m_transform);
+            statusScript.Rpc_ResetStatus();
         }
     }
 

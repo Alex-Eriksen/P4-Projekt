@@ -11,34 +11,19 @@ public class BurnStatus : Status
     public float tickRate = 0.1f;
     public Color numberColor;
 
-    private VisualEffect m_vfx;
-    private PlayerEntity m_target;
     private NumberEffectData data = new NumberEffectData();
-
-    private void Awake()
-    {
-        m_vfx = GetComponent<VisualEffect>();
-        m_target = GetComponentInParent<PlayerEntity>();
-    }
 
     public override void OnStartClient()
     {
-        m_vfx.SetFloat("Lifetime", statusEffectData.effectLifetime);
+        base.OnStartClient();
         data.numberText = damagePerTick.ToString();
         data.numberColor = numberColor;
-
-        // TODO: Figure out a better way of doing this.
-        if(m_target == null)
-        {
-            transform.SetParent(FindObjectsOfType<NetworkIdentity>().Where(x => x.netId == opponentNetworkID).Single().transform, false);
-        }
     }
-
 
     public override void OnStartServer()
     {
+        base.OnStartServer();
         StartCoroutine(DamageTick());
-        opponentNetworkID = m_target.GetComponent<NetworkIdentity>().netId;
     }
 
     [ServerCallback]
@@ -46,14 +31,14 @@ public class BurnStatus : Status
     {
         yield return new WaitForSeconds(tickRate);
 
-        if (!m_target.ContainsStatusEffect(StatusEffectType.Invulnerable))
+        if (!target.ContainsStatusEffect(StatusEffectType.Invulnerable))
         {
             data.position = transform.position;
 
             GameEffectsManager.Instance.SC_CreateNumberEffect(data);
 
             Rpc_ClientTick();
-            m_target.SC_DrainHealth(damagePerTick);
+            target.SC_DrainHealth(damagePerTick);
         }
 
         StartCoroutine(DamageTick());
@@ -62,6 +47,6 @@ public class BurnStatus : Status
     [ClientRpc]
     private void Rpc_ClientTick()
     {
-        m_vfx.SendEvent("OnTick");
+        vfx.SendEvent("OnTick");
     }
 }
