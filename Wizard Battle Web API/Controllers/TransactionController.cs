@@ -2,6 +2,7 @@
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class TransactionController : ControllerBase
 	{
 		private readonly ITransactionService m_transactionService;
