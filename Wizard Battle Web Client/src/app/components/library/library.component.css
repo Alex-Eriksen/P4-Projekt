@@ -42,3 +42,18 @@
 .card:hover .img-top {
     opacity: 1;
 }
+
+.btn-plate {
+    /*background-image: url("../../../../assets/Shelf Plate.png");*/
+    /*border-image: linear-gradient(#FCF6BA, #BF953F);*/
+    background-image: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    background-repeat: no-repeat;
+    background-size: auto;
+    text-align: center; 
+    position: absolute; 
+    width: 30%;
+    bottom: -3%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
