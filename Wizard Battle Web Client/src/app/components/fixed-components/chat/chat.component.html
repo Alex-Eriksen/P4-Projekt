@@ -4,13 +4,17 @@
 			<img [src]="player.icon.iconName" alt="" width="50" height="50">
 			<span class="fs-4 lh-1 align-self-end">{{player.playerName}}</span>
 		</div>
-		<i class="fa-solid fa-circle align-self-end fs-5 pb-2 pe-2" [ngClass]="currentStatus"></i>
+		<div class="d-flex flex-column align-self-end align-content-between justify-content-end gap-3 h-100">
+			<i class="fa-solid fa-user-plus cursor-pointer" style="font-size: 18px; padding-left: 2px!important;" (click)="openAddFriend()"></i>
+			<i class="fa-solid fa-circle fs-5" [ngClass]="currentStatus"></i>
+		</div>
 	</div>
 	<div class="d-flex flex-column gap-1 p-1">
 		<input type="text" id="searchFriend" #text class="w-100 border-0 outline-0 text-white shadow dark-background-1" (keyup)="searchFriends(backupFriends, text.value)">
 	</div>
 	<div class="p-1">
 		<div class="d-flex flex-column gap-1 p-1 bg-dark chat-tab"> <!-- Chat TAB -->
+				<div>FRIEND LIST</div>
 				<div class="w-100 p-1 rounded d-flex flex-row gap-1 position-relative friend-gradient cursor-pointer" *ngFor="let playerFriend of friends" (click)="openMessages(playerFriend)">
 					<img [src]="playerFriend.icon.iconName" alt="" width="48" height="48">
 					<div class="d-flex flex-column flex-grow-1">

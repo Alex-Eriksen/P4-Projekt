@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Message } from '../_models/Friend/Message';
-import { StaticFriendshipResponse } from '../_models/Friendship';
-import { MessageRequest } from '../_models/Message';
-import { StaticPlayerResponse } from '../_models/Player';
+import { Message } from '../_models/Misc/Message';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({

@@ -7,7 +7,6 @@ namespace Wizard_Battle_Web_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
 	public class FriendshipController : ControllerBase
 	{
 
@@ -67,8 +66,7 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// <param name="friendPlayerId"></param>
 		/// <returns></returns>
 		[HttpGet]
-		[Route("{mainPlayerId}, {friendPlayerId}")]
-		public async Task<IActionResult> GetById(int mainPlayerId, int friendPlayerId)
+		public async Task<IActionResult> GetById([FromQuery] int mainPlayerId, [FromQuery] int friendPlayerId)
 		{
 			try
 			{
