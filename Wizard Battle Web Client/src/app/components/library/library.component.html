@@ -5,8 +5,17 @@
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Alt3.png"/>
                 </div>
-                <div class="col-4 no-gutters">
-                    <a data-bs-toggle="modal" (click)="openBuyMenu1()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Black.png"/></a>
+                <div class="col-4 no-gutters card" style="border: 0;">
+                    <!--<a data-bs-toggle="modal" (click)="openBuyMenu1()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Black.png"/></a>-->
+                    <div (mouseenter) ="hideBuyMenu = false"  (mouseleave) ="hideBuyMenu = true" >
+                        <img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Black.png"/>
+                    </div>
+                    <div (mouseenter) ="hideBuyMenu = true"  (mouseleave) ="hideBuyMenu = false">
+                        <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Empty.png"/>
+                        <div style="text-align: center; position: absolute;">
+                            <button class="btn btn-primary">Unlock</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Half.png"/>

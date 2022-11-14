@@ -17,3 +17,23 @@
     left: 0;
     bottom: 0;
 }
+
+.card {
+    position: relative;
+    max-width: 100%;
+}
+
+.card .img-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity .2s;
+}
+
+.card:hover .img-top {
+    opacity: 1;
+}
