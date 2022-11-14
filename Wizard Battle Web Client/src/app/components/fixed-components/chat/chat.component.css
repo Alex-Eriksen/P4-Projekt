@@ -1,4 +1,3 @@
-
 .button-grid {
   display: grid;
   gap: .25em;
@@ -8,14 +7,14 @@
 }
 
 .chat-btn-container {
-  width: calc(20% - 10px);
-  height: 30px;
+  width: calc(20% - 6px);
+  height: 27px;
   bottom: 0 !important;
-  right: 12px;
+  right: 10px;
 }
 
 .fill-height {
-  height: calc(100% - 44px);
+  height: calc(100% - 42px);
 }
 
 .friend-gradient {

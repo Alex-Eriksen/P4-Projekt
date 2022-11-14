@@ -15,7 +15,10 @@ export class LibraryComponent implements OnInit {
 
   constructor(private dialog: MatDialog) { }
 
+	value: number = 0;
+
   ngOnInit(): void {
+
   }
 
   openBuyMenu1(): void {

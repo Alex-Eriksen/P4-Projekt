@@ -1,7 +1,7 @@
 .wrapper {
   position: relative;
-  height: calc(100vh - 100px);
-  padding: 0px 10px 30px 30px;
+  height: calc(100vh - 105px);
+  padding: 0px 10px 30px 18px;
   display: grid;
   grid-template-columns: 0px 80% 20%;
 }
@@ -9,8 +9,8 @@
 
 .wrapper-chat {
   position: relative;
-  height: calc(100vh - 100px);
-  padding: 0px 0px 30px 30px;
+  height: calc(100vh - 105x);
+  padding: 0px 15px 30px 10px;
   display: grid;
   grid-template-columns: 0px 100% 0px;
 }

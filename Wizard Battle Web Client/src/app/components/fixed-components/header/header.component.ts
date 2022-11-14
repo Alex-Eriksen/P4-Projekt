@@ -17,7 +17,11 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private dialog: MatDialog) {
     this.setTimeout();
-    this.userInactive.subscribe(() => this.playerService.changeStatus(this.playerId, "Away").subscribe(() => this.isAway = true))
+    this.userInactive.subscribe(() => {
+		if(!this.isAway) {
+			this.playerService.changeStatus(this.playerId, "Away").subscribe(() => this.isAway = true)
+		}
+	});
   }
 
   isAway: boolean = false;
