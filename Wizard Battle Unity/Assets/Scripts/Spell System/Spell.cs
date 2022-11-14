@@ -302,6 +302,10 @@ public class Spell : NetworkBehaviour
                     initialTargetTransform = identity.transform.Find("Graphics");
                     break;
 
+                case UtilitySpellBehaviour.Invisibility:
+                    initialTargetTransform = identity.transform;
+                    break;
+
                 default:
                     Debug.LogError($"For whatever reason the spell data of {name} did not have any spell behaviour.", this);
                     break;

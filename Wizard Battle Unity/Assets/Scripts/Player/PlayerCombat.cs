@@ -25,6 +25,8 @@ public class PlayerCombat : NetworkBehaviour
     public delegate void ActionEvent(object sender, ActionEventArgs args);
     public event ActionEvent OnCastingCanceled;
     public event Action<float> OnCastTimeChanged;
+    public event Action Casting_Started;
+    public event Action Casting_Canceled;
 
     private void Awake()
     {
@@ -151,6 +153,7 @@ public class PlayerCombat : NetworkBehaviour
     [Command]
     private void Cmd_SpawnSpell(string spellPrefabPath)
     {
+        Rpc_AnnounceSpellCasting();
         GameObject spawnedSpell = Instantiate(Resources.Load<GameObject>(spellPrefabPath));
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
@@ -159,7 +162,13 @@ public class PlayerCombat : NetworkBehaviour
         spell.SC_SetupSpell(conn);
         spell.Rpc_SetupSpell(conn);
     }
-    
+
+    [ClientRpc]
+    private void Rpc_AnnounceSpellCasting()
+    {
+        Casting_Started?.Invoke();
+    }
+
     /// <summary>
     /// Method listening on the PlayerEntity OnCastingCanceled event.
     /// Responsible for canceling the players casting coroutine and informing the player of the reason.
@@ -172,6 +181,7 @@ public class PlayerCombat : NetworkBehaviour
         {
             StopCoroutine(m_spellCastingRoutine);
         }
+        Casting_Canceled?.Invoke();
         m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
         m_animator.SetBool("Attacking", IsCasting);
         m_notificationHandler.AddActionEventNotification(sender, args);

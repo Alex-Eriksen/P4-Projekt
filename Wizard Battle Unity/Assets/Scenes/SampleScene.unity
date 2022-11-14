@@ -5517,7 +5517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  autoStartServerBuild: 1
+  autoStartServerBuild: 0
   serverTickRate: 60
   offlineScene: 
   onlineScene: 
@@ -5539,12 +5539,14 @@ MonoBehaviour:
   - {fileID: 7014127902465579697, guid: 4d47c4b9a2d25fb4f827834872fd4c24, type: 3}
   - {fileID: 4067953420648876639, guid: fbbc0864d3ad8f145ac8faf11fb39a7f, type: 3}
   - {fileID: 7849410016038814330, guid: b850813d5d522d141a911d9c3046060f, type: 3}
+  - {fileID: 4988016012612225492, guid: 0f2738c12b26f2649982d36c03e1b91a, type: 3}
+  - {fileID: 8817219846173845392, guid: 2702cb529037a934eb6aff79620fe5e8, type: 3}
   - {fileID: 2177851725239415784, guid: 7fb7274e1d489434eb765711c87f9817, type: 3}
   - {fileID: 2073752616861318504, guid: 1e2ed74ed85b573459bc0e4dd035c2ca, type: 3}
   - {fileID: 1471888602625434449, guid: c88463f3bb883ca49bbc6b5fd23d38a7, type: 3}
   - {fileID: 8996631079789448360, guid: 11f72c39c596f6441b33eaf7c18627bb, type: 3}
   - {fileID: 3685094166238501257, guid: 6ac2bf0ed9217ac4ab0bafe0ace820fa, type: 3}
-  - {fileID: 8817219846173845392, guid: 2702cb529037a934eb6aff79620fe5e8, type: 3}
+  - {fileID: 254206836659971, guid: e33b02acec3bb6148bf341721623ebd2, type: 3}
   m_wizardPlayerPrefab: {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
   m_velocityThreshold: 3
   m_velocityError: 0.75
@@ -5828,7 +5830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 189.8134}
+  m_AnchoredPosition: {x: 0, y: 189.81343}
   m_SizeDelta: {x: 453, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &8478726904550085887
@@ -6116,7 +6118,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8478726904636186100}
   m_HandleRect: {fileID: 8478726904636186101}
   m_Direction: 3
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
