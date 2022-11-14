@@ -9,7 +9,7 @@
 
 .wrapper-chat {
   position: relative;
-  height: calc(100vh - 105x);
+  height: calc(100vh - 105px);
   padding: 0px 15px 30px 10px;
   display: grid;
   grid-template-columns: 0px 100% 0px;
