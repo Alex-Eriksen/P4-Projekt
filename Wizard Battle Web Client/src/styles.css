@@ -3,7 +3,6 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-image: url(./assets/wizard-battle-border.png);
   background-position: center;
   overflow: hidden;
 }

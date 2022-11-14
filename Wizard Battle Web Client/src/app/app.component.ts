@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RoutesRecognized } from '@angular/router';
 import { Subject } from 'rxjs';
 import { JwtDecodePlus } from './helpers/JWTDecodePlus';
@@ -22,12 +22,15 @@ export class AppComponent {
       if(event instanceof NavigationEnd) {
         if(event['url'].includes("/login") || event['url'].includes('/signup')) {
           this.showHeader = false;
+		  document.body.style.backgroundImage = "url('./assets/texture.jpg')";
         } else {
           this.showHeader = true;
+		  document.body.style.backgroundImage = "url('./assets/wizard-battle-border.png')";
         }
       }
     })
   }
+
   toggleChat() {
     this.showChat = !this.showChat;
   }
