@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output , AfterViewInit} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output , AfterViewInit, Input} from '@angular/core';
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
@@ -19,6 +19,8 @@ import { SignalrService } from 'src/app/services/signalr.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, AfterViewInit {
+
+	@Input() isChatOpen: boolean;
 
   @Output() openChat: EventEmitter<any> = new EventEmitter();
 
@@ -108,9 +110,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   getClass(status: string): void {
     switch(status) {
-      case "Online": this.currentStatus="text-success"; break;
-      case "Offline": this.currentStatus="text-danger"; break;
-      default: this.currentStatus="text-warning"; break;
+      case "Online": this.currentStatus="online-status"; break;
+      case "Offline": this.currentStatus="offline-status"; break;
+      default: this.currentStatus="away-status"; break;
     }
   }
 }
