@@ -34,10 +34,11 @@ public class Teleport : Spell
         if (isClient)
         {
             vfx.SetVector3("StartPos", m_transform.position);
+            Debug.Log(m_transform.position);
             vfx.SendEvent("OnHit");
             return;
         }
 
-        m_playerMovement.SC_OverrideCurrentSavedPosition(m_endPosition, "Used Teleport.", spellData.LifeTime);
+        m_playerMovement.SC_OverrideCurrentSavedPosition(m_endPosition, "Used Teleport.", 0.1f);
     }
 }

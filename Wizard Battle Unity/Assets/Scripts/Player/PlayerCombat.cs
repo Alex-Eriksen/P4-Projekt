@@ -41,6 +41,7 @@ public class PlayerCombat : NetworkBehaviour
             return;
         }
 
+        RotatePlayerGraphics();
         m_animator.SetBool("Attacking", IsCasting);
     }
 
@@ -198,7 +199,7 @@ public class PlayerCombat : NetworkBehaviour
 
     /// <summary>
     /// Method listening on the MousePosition performed event.
-    /// Responsible for reading the mouse position and updating graphics.
+    /// Responsible for reading the mouse position.
     /// </summary>
     /// <param name="obj"></param>
     private void MousePosition_Performed(InputAction.CallbackContext obj)
@@ -208,6 +209,13 @@ public class PlayerCombat : NetworkBehaviour
             return;
         }
         m_mousePosition = obj.ReadValue<Vector2>();
+    }
+
+    /// <summary>
+    /// Responsible for updating the player graphics rotation.
+    /// </summary>
+    private void RotatePlayerGraphics()
+    {
         Vector3 lookPos = Camera.main.ScreenToWorldPoint(m_mousePosition);
         m_targetPoint.position = new Vector3(lookPos.x, lookPos.y, 0f);
 
