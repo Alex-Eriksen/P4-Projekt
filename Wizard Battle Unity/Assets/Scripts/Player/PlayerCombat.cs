@@ -26,6 +26,14 @@ public class PlayerCombat : NetworkBehaviour
     public event ActionEvent OnCastingCanceled;
     public event Action<float> OnCastTimeChanged;
 
+    private void Awake()
+    {
+        m_animator = GetComponentInChildren<Animator>();
+        m_graphicsTransform = transform.GetChild(1);
+        m_targetPoint = m_graphicsTransform.Find("TargetPoint");
+        m_playerEntity = GetComponent<PlayerEntity>();
+    }
+
     private void Update()
     {
         if (!isClient)
@@ -41,11 +49,7 @@ public class PlayerCombat : NetworkBehaviour
         // Bind variables to components.
         m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
         m_playerInput = m_playerConnection.PlayerInput;
-        m_playerEntity = GetComponent<PlayerEntity>();
-        m_graphicsTransform = transform.GetChild(1);
-        m_targetPoint = m_graphicsTransform.Find("TargetPoint");
         m_spellbook = FindObjectOfType<Spellbook>();
-        m_animator = GetComponentInChildren<Animator>();
         m_notificationHandler = ActionNotificationHandler.Instance;
 
         SetInput();

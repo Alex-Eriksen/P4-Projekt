@@ -65,4 +65,10 @@ public class WizardNetworkManager : NetworkManager
         NetworkServer.Spawn(wizardObj, conn);
         conn.identity.GetComponent<PlayerConnection>().wizardIdentity = wizardObj.GetComponent<NetworkIdentity>();
     }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        Debug.Log($"Listening on {networkAddress}");
+    }
 }

@@ -14,35 +14,30 @@ public class Teleport : Spell
         m_transform = transform;
     }
 
-    protected override void OnServerSetup()
-    {
-        m_playerMovement = ownerCollider.GetComponent<PlayerMovement>();
-    }
-
-    protected override void OnClientSetup()
+    protected override void OnSetup()
     {
         m_playerMovement = ownerCollider.GetComponent<PlayerMovement>();
         m_transform.SetParent(initialTargetTransform, false);
         m_targetTransform = initialTargetTransform.Find("Graphics").Find("TargetPoint");
         m_endPosition = m_targetTransform.position;
-        vfx.SetVector3("EndPos", m_endPosition);
-    }
 
-    protected override void OnFinishedCasting()
-    {
         if (!isClient)
         {
             return;
         }
 
-        vfx.SetVector3("StartPos", m_transform.position);
-        vfx.SendEvent("OnHit");
-        Cmd_MovePlayer(m_endPosition);
+        vfx.SetVector3("EndPos", m_endPosition);
     }
 
-    [Command]
-    private void Cmd_MovePlayer(Vector3 newPosition)
+    protected override void OnFinishedCasting()
     {
-        m_playerMovement.SC_OverrideCurrentSavedPosition(newPosition, "Used Teleport.");
+        if (isClient)
+        {
+            vfx.SetVector3("StartPos", m_transform.position);
+            vfx.SendEvent("OnHit");
+            return;
+        }
+
+        m_playerMovement.SC_OverrideCurrentSavedPosition(m_endPosition, "Used Teleport.", spellData.LifeTime);
     }
 }
