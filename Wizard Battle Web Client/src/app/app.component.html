@@ -1,5 +1,5 @@
 <app-header *ngIf="showHeader"></app-header>
-<div [ngClass]="showHeader == true && showChat == true ? 'wrapper' : 'wrapper-chat'">
+<div [ngClass]="{'wrapper': showHeader && showChat, 'wrapper-chat': showHeader && !showChat, 'no-wrapper': !showHeader && showChat}">
   <router-outlet></router-outlet>
   <chat *ngIf="showHeader" (openChat)="toggleChat()"></chat>
 </div>
