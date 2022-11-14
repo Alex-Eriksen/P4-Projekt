@@ -90,6 +90,19 @@ mat-dialog-container {
   box-shadow: none!important;
 }
 
+
+.online-status {
+	color: #00e200;
+}
+
+.away-status {
+	color:  #fad800;
+}
+
+.offline-status {
+	color: #ff2A04 ;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 

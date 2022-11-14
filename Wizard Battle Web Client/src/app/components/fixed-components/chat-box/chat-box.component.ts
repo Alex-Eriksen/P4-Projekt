@@ -16,7 +16,7 @@ import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Play
       state('open', style({
         width: '500px',
         height: '500px',
-       'background-color': 'rgba(8, 21, 37, .5)'
+       'background-color': 'rgba(8, 21, 37, .8)'
       })),
       state('closed', style({
         opacity: 0,
@@ -30,7 +30,7 @@ import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Play
 export class ChatBoxComponent implements OnInit {
 
   constructor(private chatService: ChatService, private signalrService: SignalrService, private cdr: ChangeDetectorRef) { }
-  
+
   @Input() playerId: number;
 
   @Input() friend: StaticPlayerResponse;
@@ -42,7 +42,7 @@ export class ChatBoxComponent implements OnInit {
   public messages: StaticMessageResponse[] = [];
 
   public messageRequest: MessageRequest = { senderID: 0, receiverID: 0, text: "" }
-  
+
   @ViewChild('scroll', { read: ElementRef }) public scroll: ElementRef<any>;
 
   ngOnInit(): void {
@@ -70,7 +70,7 @@ export class ChatBoxComponent implements OnInit {
     if(this.messageRequest.text == '')
       return;
 
-    this.chatService.createMessage(this.messageRequest).subscribe({ 
+    this.chatService.createMessage(this.messageRequest).subscribe({
       next: (response) => {
         if(this.messages == null) {
           this.messages = [];

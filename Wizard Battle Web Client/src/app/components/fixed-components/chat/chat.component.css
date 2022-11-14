@@ -7,14 +7,10 @@
 }
 
 .chat-btn-container {
-  width: calc(20% - 6px);
-  height: 27px;
+  width: calc(15% - 3px);
+  height: 25px;
   bottom: 0 !important;
   right: 10px;
-}
-
-.fill-height {
-  height: calc(100% - 42px);
 }
 
 .friend-gradient {
@@ -35,12 +31,17 @@
   right: 4px;
 }
 
-#searchFriend {
-  background-color: #081525;
-}
-
 #logo {
   border-radius: 50px;
 }
+.chat-invisible {
+	height: 0px;
+}
+i.fa-circle {
+	padding-bottom: 0px!important;
+}
 
-
+img {
+	border: 1px solid #3a5a81;
+	outline: 1px solid #1c3158;
+}
