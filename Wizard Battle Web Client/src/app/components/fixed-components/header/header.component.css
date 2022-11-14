@@ -1,7 +1,7 @@
 :host {
   display: flex;
   z-index: 10!important;
-  height: 100px;
+  height: 105px;
 }
 
 h4, #logo {
