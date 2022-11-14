@@ -65,7 +65,6 @@ public class Spell : NetworkBehaviour
             vfx.SetFloat("Size", CurrentCastTimerNormalized);
             if(m_currentCastTimer >= m_maxCastTimer)
             {
-                Debug.Log($"[{System.DateTime.Now}] {CurrentCastTimerNormalized}");
                 ownerPlayerCombat.IsCasting = IsCasting();
                 OnFinishedCasting();
             }

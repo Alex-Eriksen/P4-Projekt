@@ -136,15 +136,15 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(m_validSavedPosition == null)
         {
-            Debug.LogError($"PlayerMovement::SC_ValidatePosition -> Failed: m_validSavedPosition is NULL");
+            Debug.LogError($"[{System.DateTime.Now}] PlayerMovement::SC_ValidatePosition -> Failed: m_validSavedPosition is NULL");
             return;
         }
         
         if(Vector2.Distance(newPosition, m_validSavedPosition) > WizardNetworkManager.PositionThreshold)
         {
-            Debug.LogWarning($"\nPlayerMovement::SC_ValidatePosition() - Saved Position: {m_validSavedPosition}");
-            Debug.LogWarning($"PlayerMovement::SC_ValidatePosition() - New Position: {newPosition}");
-            Debug.LogWarning($"PlayerMovement::SC_ValidatePosition() - Invalid Distance: {Vector2.Distance(newPosition, m_validSavedPosition)}\n");
+            Debug.LogWarning($"\n[{System.DateTime.Now}] PlayerMovement::SC_ValidatePosition() - Saved Position: {m_validSavedPosition}");
+            Debug.LogWarning($"[{System.DateTime.Now}] PlayerMovement::SC_ValidatePosition() - New Position: {newPosition}");
+            Debug.LogWarning($"[{System.DateTime.Now}] PlayerMovement::SC_ValidatePosition() - Invalid Distance: {Vector2.Distance(newPosition, m_validSavedPosition)}\n");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
@@ -164,16 +164,16 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(m_validSavedVelocity == null)
         {
-            Debug.LogError($"PlayerMovement::SC_ValidateVelocity -> Failed: m_validSavedVelocity is NULL");
+            Debug.LogError($"[{System.DateTime.Now}] PlayerMovement::SC_ValidateVelocity -> Failed: m_validSavedVelocity is NULL");
             return;
         }
 
         if(newVelocity.magnitude > m_validSavedVelocity.magnitude + WizardNetworkManager.VelocityThreshold)
         {
-            Debug.LogWarning($"\nPlayerMovement::SC_ValidateVelocity() - Threshold: {WizardNetworkManager.VelocityThreshold}");
-            Debug.LogWarning($"PlayerMovement::SC_ValidateVelocity() - Valid Velocity Magnitude: {m_validSavedVelocity.magnitude}");
-            Debug.LogWarning($"PlayerMovement::SC_ValidateVelocity() - Invalid Velocity Magnitude: {newVelocity.magnitude}");
-            Debug.LogWarning($"PlayerMovement::SC_ValidateVelocity() - Discarded Velocity Magnitude: {newVelocity.magnitude}>{m_validSavedVelocity.magnitude + WizardNetworkManager.VelocityThreshold}\n");
+            Debug.LogWarning($"\n[{System.DateTime.Now}] PlayerMovement::SC_ValidateVelocity() - Threshold: {WizardNetworkManager.VelocityThreshold}");
+            Debug.LogWarning($"[{System.DateTime.Now}] PlayerMovement::SC_ValidateVelocity() - Valid Velocity Magnitude: {m_validSavedVelocity.magnitude}");
+            Debug.LogWarning($"[{System.DateTime.Now}] PlayerMovement::SC_ValidateVelocity() - Invalid Velocity Magnitude: {newVelocity.magnitude}");
+            Debug.LogWarning($"[{System.DateTime.Now}] PlayerMovement::SC_ValidateVelocity() - Discarded Velocity Magnitude: {newVelocity.magnitude}>{m_validSavedVelocity.magnitude + WizardNetworkManager.VelocityThreshold}\n");
             Rpc_OverrideClientVelocity(m_validSavedVelocity);
             Rpc_OverrideClientPosition(m_validSavedPosition);
             return;
@@ -224,7 +224,7 @@ public class PlayerMovement : NetworkBehaviour
         m_validSavedPosition = newPosition;
         m_transform.position = newPosition;
         Rpc_OverridePosition(newPosition, duration);
-        Debug.LogWarning($"PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden for {m_playerConnection.PlayerName}: {reason}");
+        Debug.LogWarning($"[{System.DateTime.Now}] PlayerMovement::SC_OverrideCurrentSavedPosition -> Current saved position was overriden for {m_playerConnection.PlayerName}: {reason}");
     }
 
     [ClientRpc]
