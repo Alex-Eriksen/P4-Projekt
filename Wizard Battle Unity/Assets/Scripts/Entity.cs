@@ -276,6 +276,7 @@ public class Entity : NetworkBehaviour
     private void Rpc_Die()
     {
         OnClientDeath();
+        StartCoroutine(CC_DestroyWhenReady());
     }
 
     [ServerCallback]
@@ -284,6 +285,7 @@ public class Entity : NetworkBehaviour
         OnServerDeath();
         Rpc_Die();
         StartCoroutine(SC_DestroyWhenReady());
+        m_isReadyToDestroy = true;
     }
 
     [ServerCallback]
@@ -291,6 +293,13 @@ public class Entity : NetworkBehaviour
     {
         yield return new WaitUntil(() => m_isReadyToDestroy == true);
         NetworkServer.Destroy(gameObject);
+    }
+
+    [ClientCallback]
+    private IEnumerator CC_DestroyWhenReady()
+    {
+        yield return new WaitUntil(() => m_isReadyToDestroy == true);
+        Destroy(gameObject);
     }
 
     #region Virtual Methods

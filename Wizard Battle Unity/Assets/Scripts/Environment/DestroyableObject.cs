@@ -8,20 +8,22 @@ public class DestroyableObject : Entity
     [SerializeField] private Sprite[] m_spritePieces;
     [SerializeField] private Vector2 m_spreadForceMinMax;
     private SpriteRenderer m_spriteRenderer;
+    private Collider2D m_collider;
 
     protected override void OnAwake()
     {
         m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_collider = GetComponent<Collider2D>();
     }
 
-    protected override void OnServerDeath()
+    protected override void OnClientDeath()
     {
-        Rpc_SpawnPieces();
+        SpawnPieces();
     }
 
-    [ClientRpc]
-    public void Rpc_SpawnPieces()
+    public void SpawnPieces()
     {
+        m_collider.enabled = false;
         m_spriteRenderer.enabled = false;
         for (int i = 0; i < m_spritePieces.Length; i++)
         {
