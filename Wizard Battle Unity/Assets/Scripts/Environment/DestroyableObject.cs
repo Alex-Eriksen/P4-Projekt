@@ -29,7 +29,9 @@ public class DestroyableObject : Entity
         {
             GameObject pieceObject = new GameObject($"{name}-Piece-{i}");
             pieceObject.transform.position = m_transform.position;
-            pieceObject.AddComponent<SpriteRenderer>().sprite = m_spritePieces[i];
+            var pieceSpriteRenderer = pieceObject.AddComponent<SpriteRenderer>();
+            pieceSpriteRenderer.sprite = m_spritePieces[i];
+            pieceSpriteRenderer.sortingLayerName = "GroundVFX";
             var pieceRigidbody = pieceObject.AddComponent<Rigidbody2D>();
             pieceRigidbody.mass = 0.1f;
             pieceRigidbody.drag = 1f;
