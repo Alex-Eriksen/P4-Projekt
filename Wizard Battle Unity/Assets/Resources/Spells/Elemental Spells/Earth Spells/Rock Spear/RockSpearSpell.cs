@@ -28,7 +28,7 @@ public class RockSpearSpell : Spell
         m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
     }
 
-    private void OnTriggerEnterCallback(PlayerEntity obj)
+    private void OnTriggerEnterCallback(Entity obj)
     {
         if (IsCasting())
         {

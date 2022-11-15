@@ -11,14 +11,14 @@ public class Spell : NetworkBehaviour
     /// Get the spells current cast timer progress normalized between 0 to 1.
     /// </summary>
     public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
-    public event Action<PlayerEntity> OnTriggerEnter;
-    public event Action<PlayerEntity> OnTriggerStay;
-    public event Action<PlayerEntity> OnTriggerExit;
+    public event Action<Entity> OnTriggerEnter;
+    public event Action<Entity> OnTriggerStay;
+    public event Action<Entity> OnTriggerExit;
 
     [SerializeField] protected SpellObject spellData = null;
     [SerializeField] protected VisualEffect vfx;
     [SerializeField] protected ContactFilter2D contactFilter;
-    protected List<PlayerEntity> targetEntities = new List<PlayerEntity>();
+    protected List<Entity> targetEntities = new List<Entity>();
     protected Collider2D ownerCollider, spellCollider;
     protected PlayerCombat ownerPlayerCombat;
     protected Transform initialTargetTransform;
@@ -115,7 +115,7 @@ public class Spell : NetworkBehaviour
             return;
         }
 
-        PlayerEntity playerEntity;
+        Entity entity;
 
         // TODO(idea): Events for -Enter, -Stay, and OnTriggerExit that contains colliders.
         // Loop through the previous frame colliders and check whether they are missing this frame.
@@ -142,9 +142,9 @@ public class Spell : NetworkBehaviour
 
             // If the current overlapping colliders does NOT contain the previous frame collider.
             // We can then check if it contains a player entity and if it does we can raise the OnTriggerExit event.
-            if (m_previousFrameOverlappingColliders[i].TryGetComponent<PlayerEntity>(out playerEntity))
+            if (m_previousFrameOverlappingColliders[i].TryGetComponent<Entity>(out entity))
             {
-                Raise_OnTriggerExit(playerEntity);
+                Raise_OnTriggerExit(entity);
                 continue;
             }
         }
@@ -167,13 +167,13 @@ public class Spell : NetworkBehaviour
             }
 
             // If the current frame collider doesnt NOT contain a player entity component continue the loop.
-            if (!m_overlappingColliders[i].TryGetComponent<PlayerEntity>(out playerEntity))
+            if (!m_overlappingColliders[i].TryGetComponent<Entity>(out entity))
             {
                 continue;
             }
 
             // If the player entity hit is invulnerable continue since the target isnt a valid one.
-            if (playerEntity.ContainsStatusEffect(StatusEffectType.Invulnerable))
+            if (entity.ContainsStatusEffect(StatusEffectType.Invulnerable))
             {
                 continue;
             }
@@ -182,47 +182,48 @@ public class Spell : NetworkBehaviour
             // we can raise the OnTriggerStay event, since it persisted through frames.
             if (m_previousFrameOverlappingColliders.Contains(m_overlappingColliders[i]))
             {
-                Raise_OnTriggerStay(playerEntity);
+                Raise_OnTriggerStay(entity);
                 continue;
             }
 
             // If we make it to this point it means its a new collider that we haven't seen yet
             // so we can raise the OnTriggerEnter event announcing the arrival of a new player entity.
-            Raise_OnTriggerEnter(playerEntity);
+            Raise_OnTriggerEnter(entity);
         }
     }
 
     [ServerCallback]
-    private void Raise_OnTriggerEnter(PlayerEntity playerEntity)
+    private void Raise_OnTriggerEnter(Entity entity)
     {
-        targetEntities.Add(playerEntity);
+        targetEntities.Add(entity);
 
-        OnTriggerEnter?.Invoke(playerEntity);
+        OnTriggerEnter?.Invoke(entity);
     }
 
     [ServerCallback]
-    private void Raise_OnTriggerStay(PlayerEntity playerEntity)
+    private void Raise_OnTriggerStay(Entity entity)
     {
-        if (targetEntities.Contains(playerEntity))
+        if (targetEntities.Contains(entity))
         {
             return;
         }
 
-        targetEntities.Add(playerEntity);
+        targetEntities.Add(entity);
 
-        OnTriggerStay?.Invoke(playerEntity);
+        OnTriggerStay?.Invoke(entity);
     }
 
     [ServerCallback]
-    private void Raise_OnTriggerExit(PlayerEntity playerEntity)
+    private void Raise_OnTriggerExit(Entity entity)
     {
-        targetEntities.Remove(playerEntity);
+        targetEntities.Remove(entity);
 
-        OnTriggerExit?.Invoke(playerEntity);
+        OnTriggerExit?.Invoke(entity);
     }
 
     #endregion
 
+    #region Setup
     /// <summary>
     /// Setup for when the spell is created, this is called on the client only.
     /// </summary>
@@ -313,6 +314,19 @@ public class Spell : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Responsible for setting up the casting timer.
+    /// </summary>
+    /// <param name="castTime"></param>
+    private void SetCastingTimer(float castTime)
+    {
+        m_maxCastTimer = castTime;
+        m_currentCastTimer = 0f;
+        ownerPlayerCombat.IsCasting = IsCasting();
+    }
+    #endregion
+
+    #region Interruption
     private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
     {
         if (!IsCasting())
@@ -327,7 +341,9 @@ public class Spell : NetworkBehaviour
     {
         SC_StartDeathTimer(delay);
     }
+    #endregion
 
+    #region On Hit Callbacks
     /// <summary>
     /// Responsible for telling clients that this spell has hit something.
     /// </summary>
@@ -347,7 +363,9 @@ public class Spell : NetworkBehaviour
 
     [ServerCallback]
     protected virtual void SC_OnNoHit() { }
+    #endregion
 
+    #region Destruction
     [ServerCallback]
     protected virtual void SC_StartDeathTimer(float delay = 3f)
     {
@@ -368,17 +386,7 @@ public class Spell : NetworkBehaviour
         yield return new WaitForSeconds(lifeTime + castTime);
         NetworkServer.Destroy(obj);
     }
-
-    /// <summary>
-    /// Responsible for setting up the casting timer.
-    /// </summary>
-    /// <param name="castTime"></param>
-    private void SetCastingTimer(float castTime)
-    {
-        m_maxCastTimer = castTime;
-        m_currentCastTimer = 0f;
-        ownerPlayerCombat.IsCasting = IsCasting();
-    }
+    #endregion
 
     /// <summary>
     /// Checks wether the spell is currently being cast and returns true if it is.

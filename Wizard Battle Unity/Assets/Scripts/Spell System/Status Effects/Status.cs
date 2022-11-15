@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 
 public class Status : NetworkBehaviour
 {
-    protected PlayerEntity target;
+    protected Entity target;
 
     public StatusEffectObject StatusEffectData { get => m_statusEffectData; }
     [SerializeField] private StatusEffectObject m_statusEffectData;
@@ -19,7 +19,7 @@ public class Status : NetworkBehaviour
     private void Awake()
     {
         vfx = GetComponent<VisualEffect>();
-        target = GetComponentInParent<PlayerEntity>();
+        target = GetComponentInParent<Entity>();
 
         OnAwake();
     }
@@ -49,7 +49,7 @@ public class Status : NetworkBehaviour
     public void SC_ServerSetup(Transform parent)
     {
         transform.SetParent(parent, false);
-        target = GetComponentInParent<PlayerEntity>();
+        target = GetComponentInParent<Entity>();
         opponentNetworkID = target.GetComponent<NetworkIdentity>().netId;
 
         OnSetup();
@@ -60,7 +60,7 @@ public class Status : NetworkBehaviour
     public void Rpc_ClientSetup(Transform parent)
     {
         transform.SetParent(parent, false);
-        target = GetComponentInParent<PlayerEntity>();
+        target = GetComponentInParent<Entity>();
 
         OnSetup();
         OnClientSetup();

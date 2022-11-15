@@ -9,19 +9,19 @@ public class DamageFlashEffect : MonoBehaviour
     [SerializeField] private Material m_flashMaterial;
     private Material m_originalMaterial;
     private Color m_originalColor;
-    private PlayerEntity m_playerEntity;
+    private Entity m_entity;
     private SpriteRenderer m_graphics;
     private Coroutine m_flashRoutine;
 
     private void Awake()
     {
-        m_playerEntity = GetComponent<PlayerEntity>();
+        m_entity = GetComponent<Entity>();
         m_graphics = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
     {
-        m_playerEntity.OnHealthDrained += PlayerEntity_OnDrainedHealth;
+        m_entity.OnHealthDrained += PlayerEntity_OnDrainedHealth;
         m_originalMaterial = m_graphics.material;
         m_originalColor = m_graphics.color;
     }

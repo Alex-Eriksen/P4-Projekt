@@ -25,7 +25,7 @@ public class FireNovaSpell : Spell
         OnTriggerEnter += OnTriggerEnterCallback;
     }
 
-    private void OnTriggerEnterCallback(PlayerEntity obj)
+    private void OnTriggerEnterCallback(Entity obj)
     {
         if (IsCasting())
         {
@@ -64,7 +64,7 @@ public class FireNovaSpell : Spell
         float dmg = ((ElementalSpellObject)spellData).DamageAmount;
         data.numberText = dmg.ToString();
         data.numberColor = m_dmgColor;
-        PlayerEntity target = targetEntities[targetEntities.Count - 1];
+        Entity target = targetEntities[targetEntities.Count - 1];
         data.position = target.transform.position;
 
         GameEffectsManager.Instance.SC_CreateNumberEffect(data);

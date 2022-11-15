@@ -135,6 +135,10 @@ public class PlayerCombat : NetworkBehaviour
     {
         m_spellToCast = spell;
         m_playerEntity.OnManaDrained += PlayerEntity_OnManaDrained;
+        if (!m_playerEntity.CheckMana(spell.ManaCost))
+        {
+            OnCastingCanceled?.Invoke(this, new ActionEventArgs(ActionEventArgsFlag.NotEnoughMana, "Casting Canceled"));
+        }
         m_playerEntity.Cmd_DrainMana(spell.ManaCost);
     }
 
