@@ -42,6 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Environment
+    uniqueID: 1705657775
+    locked: 0
   - name: GroundVFX
     uniqueID: 567256519
     locked: 0
