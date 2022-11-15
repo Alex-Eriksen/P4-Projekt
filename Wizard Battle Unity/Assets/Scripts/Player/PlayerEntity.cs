@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Mirror;
 using System;
 using TMPro;
@@ -14,11 +15,58 @@ public class PlayerEntity : Entity
     [SerializeField] private PlayerCombat m_playerCombat;
     [SerializeField] private bool m_isTargetDummy = false;
     [SerializeField] private GameObject m_statusEffectUIPrefab;
+    [SerializeField] private float m_interactRange = 0.5f;
     private Transform m_statusEffectsUI;
+    private IInteractable m_closestInteractable, m_oldClosestInteractable;
 
     protected override void OnAwake()
     {
         m_statusEffectsUI = GameObject.FindGameObjectWithTag("Status Effects").transform;
+    }
+
+    protected override void OnUpdate()
+    {
+        var interactables = Physics2D.OverlapCircleAll(m_transform.position, m_interactRange);
+        if(interactables.Length > 0)
+        {
+            m_closestInteractable = GetClosestInteractable(interactables.Where(x => x.GetComponent<IInteractable>() != null).ToArray());
+            if(m_oldClosestInteractable != null)
+            {
+                if (!m_oldClosestInteractable.Equals(m_closestInteractable))
+                {
+                    m_oldClosestInteractable.ExitRange();
+                }
+            }
+        }
+
+        if(m_closestInteractable != null)
+        {
+            m_closestInteractable.EnterRange();
+            m_oldClosestInteractable = m_closestInteractable;
+        }
+    }
+
+    private IInteractable GetClosestInteractable(Collider2D[] interactables)
+    {
+        Collider2D colMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = m_transform.position;
+        foreach(Collider2D col in interactables)
+        {
+            float dist = Vector3.Distance(col.transform.position, currentPos);
+            if(dist < minDist)
+            {
+                colMin = col;
+                minDist = dist;
+            }
+        }
+
+        if(colMin != null)
+        {
+            return colMin.GetComponent<IInteractable>();
+        }
+
+        return null;
     }
 
     public override void OnStartServer()
@@ -43,6 +91,29 @@ public class PlayerEntity : Entity
         {
             OnStatusEffectsChanged(SyncList<StatusEffect>.Operation.OP_ADD, index, new StatusEffect(), m_statusEffects[index]);
         }
+
+        m_playerConnection.PlayerInput.actions["Interact"].started += Interact_Started;
+    }
+
+    private void Interact_Started(InputAction.CallbackContext obj)
+    {
+        if(m_closestInteractable == null)
+        {
+            return;
+        }
+
+        if (!m_closestInteractable.IsInteractable)
+        {
+            return;
+        }
+
+        Interact();
+    }
+
+    [Command]
+    private void Interact()
+    {
+        m_closestInteractable.Interact(this);
     }
 
     /// <summary>
@@ -102,5 +173,11 @@ public class PlayerEntity : Entity
     protected override void OnClientDeath()
     {
         Debug.Log($"{m_playerName} died!");
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, m_interactRange);
     }
 }
