@@ -5867,6 +5867,9 @@ MonoBehaviour:
   - {fileID: 3685094166238501257, guid: 6ac2bf0ed9217ac4ab0bafe0ace820fa, type: 3}
   - {fileID: 254206836659971, guid: e33b02acec3bb6148bf341721623ebd2, type: 3}
   - {fileID: 686438684924955740, guid: 8dde5bae7852e654f94dbde96c3d14fb, type: 3}
+  - {fileID: 2398940898405466865, guid: 2abfe6cee7038d2409fa844c69a19ebe, type: 3}
+  - {fileID: 1185950789277602371, guid: e693c36aec33c5a4b86ad3ced58fcddd, type: 3}
+  - {fileID: 7071934019769916747, guid: 8ee6938fdceb6d2488c1b68f22acabb3, type: 3}
   m_wizardPlayerPrefab: {fileID: 2346366773692684749, guid: 4fbd8ab629548d947a1936d11e19dead, type: 3}
   m_velocityThreshold: 3
   m_velocityError: 0.75
