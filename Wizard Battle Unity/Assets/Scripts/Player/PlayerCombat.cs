@@ -63,10 +63,30 @@ public class PlayerCombat : NetworkBehaviour
         // Subscribe to input events.
         m_playerInput.actions["LeftMouse"].started += LeftMouse_Started;
         m_playerInput.actions["RightMouse"].started += RightMouse_Started;
+        m_playerInput.actions["Utility"].started += Utility_Started;
         m_playerInput.actions["MousePosition"].performed += MousePosition_Performed;
         m_playerInput.actions["Spellbook"].started += Spellbook_Started;
         m_playerInput.actions["Spellbook"].canceled += Spellbook_Canceled;
         OnCastingCanceled += PlayerEntity_CastingCanceled;
+    }
+
+    /// <summary>
+    /// Method listening on the Utility started event. Responsible for casting the spell selected in the utility selection.
+    /// </summary>
+    /// <param name="obj"></param>
+    private void Utility_Started(InputAction.CallbackContext obj)
+    {
+        if (m_spellbook.UtilitySelectedSpell == null || IsCasting || m_spellbook.IsActive)
+        {
+            return;
+        }
+
+        if (m_playerEntity.ContainsStatusEffect(StatusEffectType.Stun))
+        {
+            return;
+        }
+
+        CastSpell(m_spellbook.UtilitySelectedSpell);
     }
 
     /// <summary>
