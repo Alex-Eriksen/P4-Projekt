@@ -14,7 +14,7 @@ public class PickUp : NetworkBehaviour, IInteractable
     [SerializeField] private CanvasGroup m_canvasGroup;
 
     [SyncVar(hook = nameof(SpawnTimeChanged))] private float m_currentSpawnTime;
-    [SyncVar] private bool m_isPickedUp = false;
+    [SyncVar(hook = nameof(PickUpChanged))] private bool m_isPickedUp = false;
     private float NormalizedSpawnTime { get { return m_currentSpawnTime / m_spawnTime; } }
 
     private VisualEffect m_vfx;
@@ -32,6 +32,7 @@ public class PickUp : NetworkBehaviour, IInteractable
     public override void OnStartClient()
     {
         SpawnTimeChanged(0, m_currentSpawnTime);
+        PickUpChanged(false, m_isPickedUp);
     }
 
     private void Update()
@@ -50,6 +51,14 @@ public class PickUp : NetworkBehaviour, IInteractable
         }
     }
 
+    private void PickUpChanged(bool oldValue, bool newValue)
+    {
+        if (newValue)
+        {
+            m_canvasGroup.alpha = 0f;
+        }
+    }
+
     private void SpawnTimeChanged(float oldValue, float newValue)
     {
         if (newValue <= 0)
@@ -64,7 +73,6 @@ public class PickUp : NetworkBehaviour, IInteractable
     {
         m_vfx.SetVector3("EndPos", entity.transform.position);
         m_vfx.SendEvent("OnPickUp");
-        ExitRange();
     }
 
     public void Interact(Entity entity)
@@ -107,10 +115,5 @@ public class PickUp : NetworkBehaviour, IInteractable
     public void EnterRange()
     {
         m_canvasGroup.alpha = 1f;
-    }
-
-    public void ExitRange()
-    {
-        m_canvasGroup.alpha = 0f;
     }
 }

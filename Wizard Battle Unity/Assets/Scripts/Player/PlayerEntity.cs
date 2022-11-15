@@ -30,13 +30,6 @@ public class PlayerEntity : Entity
         if(interactables.Length > 0)
         {
             m_closestInteractable = GetClosestInteractable(interactables.Where(x => x.GetComponent<IInteractable>() != null).ToArray());
-            if(m_oldClosestInteractable != null)
-            {
-                if (!m_oldClosestInteractable.Equals(m_closestInteractable))
-                {
-                    m_oldClosestInteractable.ExitRange();
-                }
-            }
         }
 
         if(m_closestInteractable != null)
