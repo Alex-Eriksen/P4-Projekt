@@ -74,6 +74,8 @@ Methods Missing Functionality:
 	Ex.: Assets/Resources/Spells/Elemental Spells/Fire Spells/Fireball/FireballSpell.cs
 Name the C# script after the spell name, ex.: 'FireballSpell.cs'
 
+> Note: Remember to inherit the C# script from the Spell class.
+
 ---
 
 ###### 4. Create the SpellObject:
@@ -188,6 +190,7 @@ If it doesn't it will generate an error.
 - The C# script that will tell the status effect how to behave.
 - The StatusEffectObject that configures the status effects.
 
+> Note: Remember to inherit the C# script from the Status class.
 ---
 
 ###### 3. Create the prefab:
