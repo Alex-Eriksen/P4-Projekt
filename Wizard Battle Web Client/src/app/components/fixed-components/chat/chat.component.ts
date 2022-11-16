@@ -14,11 +14,26 @@ import * as signalR from '@microsoft/signalr';
 import { SignalrService } from 'src/app/services/signalr.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFriendComponent } from '../../modals/add-friend/add-friend.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: ['./chat.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        width: '500px',
+        height: '500px',
+      })),
+      state('closed', style({
+        opacity: 0,
+        height: '0px',
+        width: '0px'
+      })),
+      transition('* => *', animate('250ms ease-in'))
+    ])
+  ]
 })
 export class ChatComponent implements OnInit, AfterViewInit {
 
@@ -28,96 +43,164 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   	playerId: number = 0;
 
+	currentOnline: number = 0;
+
   	public connection: HubConnection;
 
   	friends: StaticPlayerResponse[] = [];
+	pendingFriends: StaticPlayerResponse[] = [];
   	backupFriends: StaticPlayerResponse[] = []; // backup array of this.friends used in search function
 
   	player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0};
   	friend: StaticPlayerResponse = { playerID: 0,  accountID: 0, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0};
+	tempFriend: StaticPlayerResponse = { playerID: 0,  accountID: 0, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0};
 
-  	isChatWindowOpen: boolean = false;
+	isChatWindowOpen: boolean = false;
   	friendListOpen: boolean = true;
 
   	currentStatus: string = "";
 
+	remove: boolean = false;
+
+	isPendingOpen: boolean = true;
+	isFriendTabOpen: boolean = true;
+
   	constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService, private signalrService: SignalrService, private dialog: MatDialog) { }
 
   	ngOnInit(): void {
-  	  this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets playerId
-  	  this.playerService.OnStatusChanged.subscribe((status: string) => {
-  	    if(status === undefined)
-  	      return
-  	    this.getClass(status);
+  	  	this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets playerId
+  	  	this.playerService.OnStatusChanged.subscribe((status: string) => {
+  	  	  if(status === undefined)
+  	  	    return
+  	  	  this.getClass(status);
 
-  	  });
+  	  	});
 
-  	  this.playerService.getById(this.playerId).subscribe(data => this.player = data);
+  	  	this.playerService.getById(this.playerId).subscribe(data => this.player = data);
 
-  	  this.chatService.getAll(this.playerId).subscribe(data => { // Fetch friends
-  	    this.friends = data;
-  	    this.backupFriends = data;
-  	  });
+		this.chatService.getAllById(this.playerId).subscribe((data) => {
+			this.getFriends(data);
+		})
 
-  	  this.signalrService.OnStatusChanged.subscribe(() => { // If a friend changes status fetch friends again
-  	    this.chatService.getAll(this.playerId).subscribe(data => {
-  	      this.friends = data;
-  	      this.backupFriends = data;
-  	      if(this.friend.playerID != 0) {
-  	        this.openMessages(this.friends.find(x => x.playerID = this.friend.playerID)!);
-  	      }
-  	    })
-  	  })
+
+		this.signalrService.OnFriendshipChanged.subscribe((x) => { // If a friend changes status fetch friends again
+			console.log("Catched new value on subscription with userID: " + x);
+			this.chatService.getAllById(this.playerId).subscribe({
+				next: (data) => {
+					console.log("Fetched new friends");
+					this.getFriends(data);
+				}
+	  		});
+		});
+
+  	  	this.signalrService.OnStatusChanged.subscribe(() => { // If a friend changes status fetch friends again
+  	  	  	this.chatService.getAllById(this.playerId).subscribe((data) => {
+				this.getFriends(data);
+			})
+			if(this.friend.playerID != 0) {
+				this.openMessages(this.friends.find(x => x.playerID = this.friend.playerID)!);
+			}
+  	  	})
   	}
 
+
+	getFriends(friendship: StaticFriendshipResponse[]): void {
+		let pending = friendship.filter(x => x.isPending == true).map(x => x.friendPlayer); // map friendship where reqest hasnt been accepted
+		for(let friend of pending) {
+			this.chatService.getById(this.playerId, friend.playerID).subscribe((x) => {
+				if(x.friendPlayer.playerID == this.player.playerID) {
+					if(this.pendingFriends.filter(e => e.playerID === x.mainPlayer.playerID).length == 0)
+						this.pendingFriends.push(x.mainPlayer);
+				}
+			})
+		}
+
+		var statusOrder = ["Online", "Away", "Offline"];
+		this.friends = friendship.filter(x => x.isPending == false).map(x  => x.friendPlayer).sort(function(a, b) {
+			return statusOrder.indexOf(a.playerStatus) - statusOrder.indexOf(b.playerStatus);
+		});
+		this.currentOnline = this.friends.filter(x => x.playerStatus === "Online").length;
+		this.backupFriends = this.friends;
+	}
+
   	ngAfterViewInit(): void {
-  	  this.signalrService.startConnection(); // Start connection
+  	  	this.signalrService.startConnection(); // Start connection
   	}
 
   	toggleFriendList(): void {
-  	  if(this.isChatWindowOpen)
-  	    this.toggleChatWindow();
-  	  this.friendListOpen = !this.friendListOpen;
-  	  this.openChat.emit();
+  	  	if(this.isChatWindowOpen)
+  	  	  	this.toggleChatWindow();
+  	  	this.friendListOpen = !this.friendListOpen;
+  	  	this.openChat.emit();
   	}
 
   	toggleChatWindow() {
-  	  if(!this.friendListOpen)
-  	    this.toggleFriendList();
-  	  if(this.friend.playerID != 0) {
-  	    this.isChatWindowOpen = !this.isChatWindowOpen;
-  	  }
+  	  	if(!this.friendListOpen)
+  	  	  	this.toggleFriendList();
+  	  	if(this.friend.playerID != 0) {
+  	  	  	this.isChatWindowOpen = !this.isChatWindowOpen;
+  	  	}
   	}
 
   	openMessages(newFriend: StaticPlayerResponse) {
-  	  if(!this.isChatWindowOpen)
-  	    this.toggleChatWindow();
+		this.friend = newFriend;
+  	  	if(!this.isChatWindowOpen)
+  	    	this.toggleChatWindow();
 
-  	  this.friend = newFriend;
   	}
 
  	searchFriends(friends: StaticPlayerResponse[], searchText: string):any {
- 	  if (!searchText) { // if input is null show all friends
- 	    this.friends = this.backupFriends;
- 	    return;
- 	  }
-	  let output: StaticPlayerResponse[] = [];
-	  for(let friend of friends) {
- 	    let newFilter: string = "";
- 	    newFilter = `${friend.playerName.toLowerCase()}`;
-		  if(newFilter.indexOf(searchText.toLowerCase()) !== -1){
-			  output.push(friend);
-		  }
-	  }
-	  this.friends = output;
+ 	  	if (!searchText) { // if input is null show all friends
+ 	  	  	this.friends = this.backupFriends;
+ 	  	  	return;
+ 	  	}
+	  	let output: StaticPlayerResponse[] = [];
+	  	for(let friend of friends) {
+ 	  	  	let newFilter: string = "";
+ 	  	  	newFilter = `${friend.playerName.toLowerCase()}`;
+			if(newFilter.indexOf(searchText.toLowerCase()) !== -1) {
+			  	output.push(friend);
+			}
+	  	}
+	  	this.friends = output;
  	}
 
+	acceptFriend(friend: StaticPlayerResponse): void {
+		this.chatService.update({ mainPlayerID: this.playerId, friendPlayerID: friend.playerID}).subscribe({
+			next: () => {
+				this.chatService.getAllById(this.playerId).subscribe((x) => this.getFriends(x));
+				this.pendingFriends = this.pendingFriends.filter(x => x.playerID != friend.playerID)
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+			},
+			complete: () => {
+				console.log("Friendship is accepted");
+			}
+		})
+	}
+
+	removeFriend(friend: StaticPlayerResponse): void {
+		this.chatService.delete({ mainPlayerID: this.playerId, friendPlayerID: friend.playerID}).subscribe({
+			next: () => {
+				this.chatService.getAllById(this.playerId).subscribe((x) => this.getFriends(x));
+				this.pendingFriends = this.pendingFriends.filter(x => x.playerID != friend.playerID)
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+			},
+			complete: () => {
+				console.log("Friendship was deleted");
+			}
+		})
+	}
+
  	getClass(status: string): void {
- 	  switch(status) {
- 	    case "Online": this.currentStatus="online-status"; break;
- 	    case "Offline": this.currentStatus="offline-status"; break;
- 	    default: this.currentStatus="away-status"; break;
- 	  }
+ 		switch(status) {
+ 	    	case "Online": this.currentStatus="online-status"; break;
+ 	    	case "Offline": this.currentStatus="offline-status"; break;
+ 	    	default: this.currentStatus="away-status"; break;
+ 	 	}
  	}
 
 	openAddFriend(): void {

@@ -29,7 +29,6 @@ export class AddFriendComponent implements OnInit {
 			next: (players) => {
 				this.allPlayers = players;
 				this.recentPlayers = players.filter(player => this.recentPlayerId.includes(player.playerID));
-				this.recentPlayers = this.duplicateElements(this.recentPlayers, 10);
 			},
 			error: (err) => {
 				console.error(Object.values(err.error.errors).join(', '));
@@ -39,20 +38,14 @@ export class AddFriendComponent implements OnInit {
 			}
 		});
 
-		this.chatService.getAll(this.data).subscribe((friends) => {
+		this.chatService.getAllById(this.data).subscribe((friends) => {
 			if(friends != null) {
-				this.playerFriends = friends
+				this.playerFriends = friends.map(x => x.friendPlayer);
 			}
 			else
 				console.log("Player has no friends");
 		});
   	}
-
- 	duplicateElements(array: Array<any>, times: number) {
-		return array.reduce((res, current) => {
-			return res.concat(Array(times).fill(current));
-		}, []);
- 	}
 
 	addFriend(recentPlayer?: StaticPlayerResponse): void {
 		if(this.inputText == "" && recentPlayer == null) { // Checks if player has typed a username or pressed on a recent player object
@@ -65,15 +58,10 @@ export class AddFriendComponent implements OnInit {
 
 		if(player != null) { // if user exists
 			if(this.playerFriends != null) { // if player has friends
-				this.chatService.getById(this.data, player.playerID).subscribe({
-					next: () => {
-						this.error = "Friend is already added!";
-						return;
-					},
-					error: () => {
-						console.log("Player is not added!")
-					}
-				});
+				if(this.playerFriends.filter(x => x.playerID === player?.playerID).length > 0) {
+					this.error = "Friend is already added!";
+					return;
+				}
 			}
 			let request: FriendshipRequest = { mainPlayerID: this.data, friendPlayerID: player.playerID }
 			this.chatService.create(request).subscribe({

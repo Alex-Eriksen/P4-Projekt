@@ -16,12 +16,18 @@ export class SignalrService {
   private StatusSubject: BehaviorSubject<string>;
   public OnStatusChanged: Observable<string>;
 
+  private FriendshipSubject: BehaviorSubject<string>;
+  public OnFriendshipChanged: Observable<string>;
+
   constructor(private authenticationService: AuthenticationService) {
     this.MessageSubject = new BehaviorSubject<Message>(new Message());
     this.OnMessageChanged = this.MessageSubject.asObservable();
 
     this.StatusSubject = new BehaviorSubject<string>("");
     this.OnStatusChanged = this.StatusSubject.asObservable();
+
+	this.FriendshipSubject = new BehaviorSubject<string>("");
+    this.OnFriendshipChanged = this.FriendshipSubject.asObservable();
   }
 
   private userId: string = "";
@@ -50,6 +56,11 @@ export class SignalrService {
     this.hubConnection.on("OnConnect", (message: string) => {
       console.log(message);
     })
+
+	this.hubConnection.on("UpdateUserFriendship", (message) => {
+		console.log("UpdateUserFriendship invoked on userID: " + message);
+		this.FriendshipSubject.next(message);
+	})
 
     this.hubConnection.on("ChangeFriendStatus", (message) => {
       this.StatusSubject.next(message);
