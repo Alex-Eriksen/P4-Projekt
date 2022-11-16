@@ -5,6 +5,7 @@ import { JwtDecodePlus } from './helpers/JWTDecodePlus';
 import { AuthenticationService } from './services/authentication.service';
 import { PlayerService } from './services/player.service';
 import { filter, pairwise } from 'rxjs/operators';
+import { ChatService } from './services/chat.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
   showHeader: boolean = true;
 
   // Show header if client is not logging in or signing up
-  constructor(private router: Router) {
+  constructor(private router: Router, private chatService: ChatService) {
     router.events.forEach((event) => {
       if(event instanceof NavigationEnd) {
         if(event['url'].includes("/login") || event['url'].includes('/signup')) {
@@ -33,5 +34,6 @@ export class AppComponent {
 
   toggleChat() {
     this.showChat = !this.showChat;
+	this.chatService.toggleChat(this.showChat);
   }
 }
