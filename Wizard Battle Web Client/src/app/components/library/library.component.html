@@ -11,14 +11,14 @@
                         <img *ngIf="!showBuyMenu1" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Black.png"/>
                         <div *ngIf="showBuyMenu1">
                             <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
-                            <div class="buy-menu-1">
+                            <div [ngClass]="{'buy-menu-1-open': isOpen, 'buy-menu-1-close': !isOpen}">
                                 <h1>Black robed Wizard</h1>
                                 <p>Wizard Elite Cadre</p>
                                 <p>"Magic Missile"</p>
                                 <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
                                 <p class="mb-0" style="display: inline-block;">375</p>
                             </div>
-                            <button class="btn btn-plate-1">Unlock</button>
+                            <button class="btn" [ngClass]="{'btn-plate-1-open': isOpen, 'btn-plate-1-close': !isOpen}">Unlock</button>
                         </div>
                     </div>
                 </div>
@@ -33,14 +33,14 @@
                         <img *ngIf="!showBuyMenu2" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Blue.png"/>
                         <div *ngIf="showBuyMenu2">
                             <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
-                            <div class="buy-menu-2">
+                            <div [ngClass]="{'buy-menu-2-open': isOpen, 'buy-menu-2-close': !isOpen}">
                                 <h1>Blue robed Wizard</h1>
                                 <p>Wizard of the Frozen Glacier</p>
                                 <p>"Care for an icepick?"</p>
                                 <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
                                 <p class="mb-0" style="display: inline-block;">375</p>
                             </div>
-                            <button class="btn btn-plate-2">Unlock</button>
+                            <button class="btn" [ngClass]="{'btn-plate-2-open': isOpen, 'btn-plate-2-close': !isOpen}">Unlock</button>
                         </div>
                     </div>
                 </div>
@@ -53,14 +53,14 @@
                         <img *ngIf="!showBuyMenu3" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Green.png"/>
                         <div *ngIf="showBuyMenu3">
                             <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
-                            <div class="buy-menu-3">
+                            <div [ngClass]="{'buy-menu-3-open': isOpen, 'buy-menu-3-close': !isOpen}">
                                 <h1>Green robed Wizard</h1>
                                 <p>Vine Wizard</p>
                                 <p>"Feel natures wrath!"</p>
                                 <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
                                 <p class="mb-0" style="display: inline-block;">375</p>
                             </div>
-                            <button class="btn btn-plate-3">Unlock</button>
+                            <button class="btn" [ngClass]="{'btn-plate-3-open': isOpen, 'btn-plate-3-close': !isOpen}">Unlock</button>
                         </div>
                     </div>
                 </div>
@@ -78,14 +78,14 @@
                         <img *ngIf="!showBuyMenu4" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Yellow.png"/>
                         <div *ngIf="showBuyMenu4">
                             <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            <div [ngClass]="{'buy-menu-4-open': isOpen, 'buy-menu-4-close': !isOpen}">
                                 <h1>Yellow robed Wizard</h1>
                                 <p>Thunderbolt Wizard</p>
                                 <p>"ELECTRIFIED!!!"</p>
                                 <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
                                 <p class="mb-0" style="display: inline-block;">375</p>
                             </div>
-                            <button class="btn btn-plate">Unlock</button>
+                            <button class="btn" [ngClass]="{'btn-plate-4-open': isOpen, 'btn-plate-4-close': !isOpen}">Unlock</button>
                         </div>
                     </div>
                 </div>
@@ -97,14 +97,14 @@
                         <img *ngIf="!showBuyMenu5" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Christmas.png"/>
                         <div *ngIf="showBuyMenu5">
                             <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            <div [ngClass]="{'buy-menu-5-open': isOpen, 'buy-menu-5-close': !isOpen}">
                                 <h1>Winter robed Wizard</h1>
                                 <p>Wizard of the North</p>
                                 <p>"I'll turn you into coal!"</p>
                                 <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
                                 <p class="mb-0" style="display: inline-block;">375</p>
                             </div>
-                            <button class="btn btn-plate">Unlock</button>
+                            <button class="btn" [ngClass]="{'btn-plate-5-open': isOpen, 'btn-plate-5-close': !isOpen}">Unlock</button>
                         </div>
                     </div>
                 </div>
