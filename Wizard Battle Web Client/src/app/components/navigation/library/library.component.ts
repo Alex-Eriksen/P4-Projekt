@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
