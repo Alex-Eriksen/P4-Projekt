@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-library',
@@ -8,13 +9,27 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class LibraryComponent implements OnInit {
 
-  hideBuyMenu = true;
+  	showBuyMenu1: boolean;
+  	showBuyMenu2: boolean;
+  	showBuyMenu3: boolean;
+  	showBuyMenu4: boolean;
+  	showBuyMenu5: boolean;
 
-  constructor(private dialog: MatDialog) { }
+  	constructor(private chatService: ChatService) {
+  	 	this.showBuyMenu1 = false;
+  	 	this.showBuyMenu2 = false;
+  	 	this.showBuyMenu3 = false;
+  	 	this.showBuyMenu4 = false;
+  	 	this.showBuyMenu5 = false;
+  	}
 
 	value: number = 0;
+  	isOpen: boolean = true;
 
-  ngOnInit(): void {
+  	ngOnInit(): void {
 
+    this.chatService.OnChatChanged.subscribe((x) => {
+      this.isOpen = x;
+    });
   }
 }
