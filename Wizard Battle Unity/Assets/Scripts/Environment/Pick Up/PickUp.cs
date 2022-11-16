@@ -6,102 +6,74 @@ using Mirror;
 
 public class PickUp : NetworkBehaviour, IInteractable
 {
-    public bool IsInteractable { get { return m_currentSpawnTime <= 0 && m_isPickedUp == false; } }
+    public bool IsInteractable { get { return currentSpawnTime <= 0 && isPickedUp == false; } }
 
-    [SerializeField] private PickUpType m_pickUpType;
-    [SerializeField] private float m_amount;
-    [SerializeField] private float m_spawnTime;
-    [SerializeField] private CanvasGroup m_canvasGroup;
+    [SerializeField] protected float amount;
+    [SerializeField] protected float spawnTime;
+    [SerializeField] protected CanvasGroup canvasGroup;
 
-    [SyncVar(hook = nameof(SpawnTimeChanged))] private float m_currentSpawnTime;
-    [SyncVar(hook = nameof(PickUpChanged))] private bool m_isPickedUp = false;
-    private float NormalizedSpawnTime { get { return m_currentSpawnTime / m_spawnTime; } }
-
-    private VisualEffect m_vfx;
+    [SyncVar(hook = nameof(SpawnTimeChanged))] protected float currentSpawnTime;
+    [SyncVar(hook = nameof(PickUpChanged))] protected bool isPickedUp = false;
+    protected float NormalizedSpawnTime { get { return currentSpawnTime / spawnTime; } }
 
     private void Awake()
     {
-        m_vfx = GetComponent<VisualEffect>();
+        OnAwake();
     }
-
-    public override void OnStartServer()
-    {
-        m_currentSpawnTime = m_spawnTime;
-    }
-
-    public override void OnStartClient()
-    {
-        SpawnTimeChanged(0, m_currentSpawnTime);
-        PickUpChanged(false, m_isPickedUp);
-    }
-
+    
     private void Update()
     {
         if (!isServer)
         {
             return;
         }
-        if(m_currentSpawnTime > 0)
+        if (currentSpawnTime > 0)
         {
             if (!isClient)
             {
-                m_currentSpawnTime -= Time.deltaTime;
+                currentSpawnTime -= Time.deltaTime;
                 return;
             }
         }
+        OnUpdate();
+    }
+
+    public override void OnStartServer()
+    {
+        currentSpawnTime = spawnTime;
+        OnServerStart();
+    }
+
+    public override void OnStartClient()
+    {
+        SpawnTimeChanged(0, currentSpawnTime);
+        PickUpChanged(false, isPickedUp);
+        OnClientStart();
     }
 
     private void PickUpChanged(bool oldValue, bool newValue)
     {
-        if (newValue)
-        {
-            m_canvasGroup.alpha = 0f;
-        }
+        OnPickUpChanged(oldValue, newValue);
     }
 
     private void SpawnTimeChanged(float oldValue, float newValue)
     {
-        if (newValue <= 0)
-        {
-            m_vfx.SendEvent("OnSpawn");
-        }
-        m_vfx.SetFloat("Size", NormalizedSpawnTime);
+        OnSpawnTimeChanged(oldValue, newValue);
     }
 
     [ClientRpc]
-    private void Rpc_Interact(Entity entity)
+    private void Rpc_ClientInteract(Entity entity)
     {
-        m_vfx.SetVector3("EndPos", entity.transform.position);
-        m_vfx.SendEvent("OnPickUp");
+        OnClientInteract(entity);
     }
 
     public void Interact(Entity entity)
     {
-        if (!isServer)
-        {
-            return;
-        }
-        Rpc_Interact(entity);
-        switch (m_pickUpType)
-        {
-            case PickUpType.Health:
-                entity.SC_GainHealth(m_amount);
-                break;
+        isPickedUp = true;
 
-            case PickUpType.Mana:
-                entity.SC_GainMana(m_amount);
-                break;
+        OnServerInteract(entity);
+        Rpc_ClientInteract(entity);
 
-            case PickUpType.UltCharge:
-                Debug.Log("UltCharge Not Implmented");
-                break;
-
-            default:
-                Debug.LogError($"For whatever reason {name} did not have a pick up type.");
-                break;
-        }
-
-        m_isPickedUp = true;
         StartCoroutine(SC_DelayedDestroy());
     }
 
@@ -114,6 +86,17 @@ public class PickUp : NetworkBehaviour, IInteractable
 
     public void EnterRange()
     {
-        m_canvasGroup.alpha = 1f;
+        canvasGroup.alpha = 1f;
     }
+
+    protected virtual void OnAwake() { }
+    protected virtual void OnUpdate() { }
+    [ClientCallback]
+    protected virtual void OnClientStart() { }
+    [ServerCallback]
+    protected virtual void OnServerStart() { }
+    protected virtual void OnServerInteract(Entity entity) { }
+    protected virtual void OnClientInteract(Entity entity) { }
+    protected virtual void OnSpawnTimeChanged(float oldValue, float newValue) { }
+    protected virtual void OnPickUpChanged(bool oldValue, bool newValue) { }
 }

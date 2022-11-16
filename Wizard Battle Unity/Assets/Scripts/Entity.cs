@@ -6,13 +6,14 @@ using System;
 
 public class Entity : NetworkBehaviour
 {
-    protected Coroutine m_regenRoutine;
+    public string entityName = "Unnamed";
+    protected Coroutine regenRoutine;
     protected Transform m_transform;
-    protected bool m_isReadyToDestroy = false;
+    protected bool isReadyToDestroy = false;
 
     private void Awake()
     {
-        m_transform = transform;
+        m_transform = base.transform;
 
         OnAwake();
     }
@@ -269,7 +270,7 @@ public class Entity : NetworkBehaviour
             SC_GainHealth(m_healthRegenRate);
         }
 
-        m_regenRoutine = StartCoroutine(SC_RegenTicker());
+        regenRoutine = StartCoroutine(SC_RegenTicker());
     }
 
     [ClientRpc]
@@ -285,20 +286,20 @@ public class Entity : NetworkBehaviour
         OnServerDeath();
         Rpc_Die();
         StartCoroutine(SC_DestroyWhenReady());
-        m_isReadyToDestroy = true;
+        isReadyToDestroy = true;
     }
 
     [ServerCallback]
     private IEnumerator SC_DestroyWhenReady()
     {
-        yield return new WaitUntil(() => m_isReadyToDestroy == true);
+        yield return new WaitUntil(() => isReadyToDestroy == true);
         NetworkServer.Destroy(gameObject);
     }
 
     [ClientCallback]
     private IEnumerator CC_DestroyWhenReady()
     {
-        yield return new WaitUntil(() => m_isReadyToDestroy == true);
+        yield return new WaitUntil(() => isReadyToDestroy == true);
         Destroy(gameObject);
     }
 

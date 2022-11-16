@@ -1,4 +1,4 @@
-public enum PickUpType
+public enum OrbType
 {
     Health,
     Mana,

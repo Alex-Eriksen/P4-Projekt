@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 5975782780029902563}
   - component: {fileID: 5975782780029902564}
   - component: {fileID: 5975782780029902565}
-  - component: {fileID: 5975782780029902560}
+  - component: {fileID: 8936020589045992977}
   - component: {fileID: 5975782780029902561}
   m_Layer: 0
   m_Name: HealthPickUp
@@ -356,7 +356,7 @@ VFXRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1270002007
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
 --- !u!58 &5975782780029902565
 CircleCollider2D:
@@ -374,7 +374,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &5975782780029902560
+--- !u!114 &8936020589045992977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,15 +383,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5975782780029902566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a7ff9598bbfe14ab198bc9d426736b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d8a97a0f5ab3c94a9ff70747f94198f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  m_pickUpType: 0
-  m_amount: 33
-  m_spawnTime: 2.5
-  m_canvasGroup: {fileID: 4374138897362083817}
+  amount: 25
+  spawnTime: 2.5
+  canvasGroup: {fileID: 4374138897362083817}
+  m_orbType: 0
 --- !u!114 &5975782780029902561
 MonoBehaviour:
   m_ObjectHideFlags: 0

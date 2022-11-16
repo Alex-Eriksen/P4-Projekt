@@ -219,8 +219,8 @@ GameObject:
   - component: {fileID: 5177366324972035653}
   - component: {fileID: 5177366324972035650}
   - component: {fileID: 5177366324972035651}
-  - component: {fileID: 5177366324972035654}
   - component: {fileID: 5177366324972035655}
+  - component: {fileID: 8223279426118867066}
   m_Layer: 0
   m_Name: ManaPickUp
   m_TagString: Untagged
@@ -325,7 +325,7 @@ VFXRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1270002007
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
 --- !u!58 &5177366324972035651
 CircleCollider2D:
@@ -343,24 +343,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &5177366324972035654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5177366324972035648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a7ff9598bbfe14ab198bc9d426736b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  m_pickUpType: 1
-  m_amount: 65
-  m_spawnTime: 2.5
-  m_canvasGroup: {fileID: 2991408145822080847}
 --- !u!114 &5177366324972035655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,3 +360,21 @@ MonoBehaviour:
   visible: 0
   m_AssetId: cbed85221132cc444985b4f3341de8d3
   hasSpawned: 0
+--- !u!114 &8223279426118867066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5177366324972035648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d8a97a0f5ab3c94a9ff70747f94198f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  amount: 25
+  spawnTime: 3
+  canvasGroup: {fileID: 2991408145822080847}
+  m_orbType: 1

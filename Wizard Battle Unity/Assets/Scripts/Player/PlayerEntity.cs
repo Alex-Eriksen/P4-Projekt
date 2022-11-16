@@ -64,7 +64,7 @@ public class PlayerEntity : Entity
 
     public override void OnStartServer()
     {
-        m_regenRoutine = StartCoroutine(SC_RegenTicker());
+        regenRoutine = StartCoroutine(SC_RegenTicker());
         if (m_isTargetDummy)
         {
             m_playerName = "Target Dummy";

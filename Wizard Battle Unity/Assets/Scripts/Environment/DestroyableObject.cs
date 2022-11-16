@@ -41,6 +41,6 @@ public class DestroyableObject : Entity
             pieceRigidbody.angularVelocity = Random.Range(-1, 2) * 2;
             Destroy(pieceObject, 2.5f);
         }
-        m_isReadyToDestroy = true;
+        isReadyToDestroy = true;
     }
 }
