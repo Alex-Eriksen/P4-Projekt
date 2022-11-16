@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
 		  }, 1500);
 	});
 
-    this.playerService.changeStatus(this.playerId, "Online").subscribe({
+    this.playerService.changeStatus(this.playerId as number, "Online").subscribe({
       next: (playerResponse) => {
         this.player = playerResponse;
       },

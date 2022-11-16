@@ -2,10 +2,8 @@ import { Component, EventEmitter, OnInit, Output , AfterViewInit, Input} from '@
 import { JwtDecodePlus } from 'src/app/helpers/JWTDecodePlus';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
-
-import { DirectPlayerResponse, PlayerRequest, StaticPlayerResponse } from 'src/app/_models/Player';
+import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
 import { ChatService } from 'src/app/services/chat.service';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 import { delay, find } from 'rxjs';
@@ -54,7 +52,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   	player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0};
   	friend: StaticPlayerResponse = { playerID: 0,  accountID: 0, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0};
 	tempFriend: StaticPlayerResponse = { playerID: 0,  accountID: 0, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0};
-	request: PlayerRequest;
 
 	isChatWindowOpen: boolean = false;
   	friendListOpen: boolean = true;
