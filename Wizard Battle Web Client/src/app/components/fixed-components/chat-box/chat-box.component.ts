@@ -2,7 +2,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
 import { SignalrService } from 'src/app/services/signalr.service';
-import { Message } from 'src/app/_models/Friend/Message';
+import { Message } from 'src/app/_models/Misc/Message';
 import { DirectFriendshipResponse, StaticFriendshipResponse } from 'src/app/_models/Friendship';
 import { MessageRequest, StaticMessageResponse } from 'src/app/_models/Message';
 import { DirectPlayerResponse, StaticPlayerResponse } from 'src/app/_models/Player';

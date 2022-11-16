@@ -8,6 +8,7 @@ namespace Wizard_Battle_Web_API.Hubs
 		Task OnConnect(string message);
 		Task ReceiveUserMessage(MessageRequest request);
 		Task ChangeFriendStatus(string user);
+		Task UpdateUserFriendship(string user);
 	}
 
 	[Authorize]
@@ -33,5 +34,8 @@ namespace Wizard_Battle_Web_API.Hubs
 
 		public async Task SendMessageToUser(MessageRequest request)
 			=> await Clients.User(request.ReceiverID.ToString()).ReceiveUserMessage(request);
+
+		public async Task AlertUser(string user)
+			=> await Clients.User(user).UpdateUserFriendship(user);
 	}
 }

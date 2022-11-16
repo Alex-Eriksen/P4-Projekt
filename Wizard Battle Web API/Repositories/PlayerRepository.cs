@@ -31,6 +31,7 @@
         {
             return await m_context.Player
                 .Include(x => x.Account)
+                .Include(x => x.Icon)
                 .ToListAsync();
         }
 

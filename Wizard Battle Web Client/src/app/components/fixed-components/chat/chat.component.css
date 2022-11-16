@@ -21,14 +21,37 @@
 }
 
 .chat-tab {
-  overflow-y:scroll;
-  height: calc(100vh - (100px + 138px));
-  right: 12px;
+	position: relative !important;
+	height: calc(100vh - (100px + 138px));
+	left: 0;
+	bottom: 0;
+	right: -15px;
+	overflow-y:scroll;
+	width: calc(100% + 15px);
+	background-color: #0d1a22;
+}
+
+.friend-background {
+	background-color: #0e1c25;
+	border: 1px solid #05121b;
+	padding: 2px;
+}
+
+
+.tab-title {
+	background-color: #1a424a;
+	box-shadow: 1px 1px 7px 0px rgba(7,27,36,1);
 }
 
 #statusBtn {
   bottom: 4px;
-  right: 4px;
+  right: 8px;
+  font-size: 16px;
+}
+
+#searchFriend {
+	background: linear-gradient(to top, rgba(8,22,23,1) 0%, rgba(1,9,12,1) 100%);
+	border: 1px solid #18272c;
 }
 
 #logo {
@@ -44,4 +67,29 @@ i.fa-circle {
 img {
 	border: 1px solid #3a5a81;
 	outline: 1px solid #1c3158;
+}
+
+i.fa-user-slash {
+	right: 8px;
+	top: 6px;
+	color: darkgray;
+	transition: color .2s ease;
+}
+
+i.fa-user-slash:hover {
+	color: gold;
+}
+
+
+i.fa-xmark, i.fa-check {
+	font-size: 20px;
+}
+
+
+.offline-icon {
+	opacity: .5;
+}
+
+.fa-xmark.offline-status {
+	color: #ff2A04 ;
 }
