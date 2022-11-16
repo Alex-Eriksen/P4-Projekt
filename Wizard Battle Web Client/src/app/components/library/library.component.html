@@ -5,21 +5,21 @@
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Alt3.png"/>
                 </div>
-                <div class="col-4 no-gutters card" style="border: 0;">
+                <div class="col-4 no-gutters" style="border: 0;">
                     <!--<a data-bs-toggle="modal" (click)="openBuyMenu1()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Black.png"/></a>-->
-                    <div (mouseenter) ="hideBuyMenu = false"  (mouseleave) ="hideBuyMenu = true">
-                        <img class="img-fluid w-100" src="../../../../assets/Shelf Parchment Black.png"/>
-                    </div>
-                    <div (mouseenter) ="hideBuyMenu = true"  (mouseleave) ="hideBuyMenu = false">
-                        <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                            <h1>Black robed Wizard</h1>
-                            <p>Wizard Elite Cadre</p>
-                            <p>"Magic Missile"</p>
-                            <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
-                            <p class="mb-0" style="display: inline-block;">375</p>
+                    <div (mouseover) ="showBuyMenu1 = true"  (mouseleave) ="showBuyMenu1 = false">
+                        <img *ngIf="!showBuyMenu1" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Black.png"/>
+                        <div *ngIf="showBuyMenu1">
+                            <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
+                            <div class="buy-menu-1">
+                                <h1>Black robed Wizard</h1>
+                                <p>Wizard Elite Cadre</p>
+                                <p>"Magic Missile"</p>
+                                <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
+                                <p class="mb-0" style="display: inline-block;">375</p>
+                            </div>
+                            <button class="btn btn-plate-1">Unlock</button>
                         </div>
-                        <button class="btn btn-plate">Unlock</button>
                     </div>
                 </div>
                 <div class="col-4 no-gutters">
@@ -28,14 +28,41 @@
             </div>
             <div class="row justify-content-start">
                 <div class="col-4 no-gutters">
-                    <a data-bs-toggle="modal" (click)="openBuyMenu2()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Blue.png" /></a>
-					<div></div>
+                    <!--<a data-bs-toggle="modal" (click)="openBuyMenu2()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Blue.png" /></a>-->
+                    <div (mouseover) ="showBuyMenu2 = true"  (mouseleave) ="showBuyMenu2 = false">
+                        <img *ngIf="!showBuyMenu2" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Blue.png"/>
+                        <div *ngIf="showBuyMenu2">
+                            <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
+                            <div class="buy-menu-2">
+                                <h1>Blue robed Wizard</h1>
+                                <p>Wizard of the Frozen Glacier</p>
+                                <p>"Care for an icepick?"</p>
+                                <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
+                                <p class="mb-0" style="display: inline-block;">375</p>
+                            </div>
+                            <button class="btn btn-plate-2">Unlock</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Orb.png"/>
                 </div>
                 <div class="col-4 no-gutters">
-                    <a data-bs-toggle="modal" (click)="openBuyMenu3()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Green.png"/></a>
+                    <!--<a data-bs-toggle="modal" (click)="openBuyMenu3()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Green.png"/></a>-->
+                    <div (mouseover) ="showBuyMenu3 = true"  (mouseleave) ="showBuyMenu3 = false">
+                        <img *ngIf="!showBuyMenu3" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Green.png"/>
+                        <div *ngIf="showBuyMenu3">
+                            <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
+                            <div class="buy-menu-3">
+                                <h1>Green robed Wizard</h1>
+                                <p>Vine Wizard</p>
+                                <p>"Feel natures wrath!"</p>
+                                <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
+                                <p class="mb-0" style="display: inline-block;">375</p>
+                            </div>
+                            <button class="btn btn-plate-3">Unlock</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row justify-content-start">
@@ -46,12 +73,40 @@
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Alt2.png"/>
                 </div>
                 <div class="col-4 no-gutters">
-                    <a data-bs-toggle="modal" (click)="openBuyMenu4()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Yellow.png"/></a>
+                    <!--<a data-bs-toggle="modal" (click)="openBuyMenu4()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Yellow.png"/></a>-->
+                    <div (mouseover) ="showBuyMenu4 = true"  (mouseleave) ="showBuyMenu4 = false">
+                        <img *ngIf="!showBuyMenu4" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Yellow.png"/>
+                        <div *ngIf="showBuyMenu4">
+                            <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                <h1>Yellow robed Wizard</h1>
+                                <p>Thunderbolt Wizard</p>
+                                <p>"ELECTRIFIED!!!"</p>
+                                <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
+                                <p class="mb-0" style="display: inline-block;">375</p>
+                            </div>
+                            <button class="btn btn-plate">Unlock</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row justify-content-start">
                 <div class="col-4 no-gutters">
-                    <a data-bs-toggle="modal" (click)="openBuyMenu5()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Christmas.png"/></a>
+                    <!--<a data-bs-toggle="modal" (click)="openBuyMenu5()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Christmas.png"/></a>-->
+                    <div (mouseover) ="showBuyMenu5 = true"  (mouseleave) ="showBuyMenu5 = false">
+                        <img *ngIf="!showBuyMenu5" class="img-fluid w-100" src="../../../../assets/Shelf Parchment Christmas.png"/>
+                        <div *ngIf="showBuyMenu5">
+                            <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                <h1>Winter robed Wizard</h1>
+                                <p>Wizard of the North</p>
+                                <p>"I'll turn you into coal!"</p>
+                                <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
+                                <p class="mb-0" style="display: inline-block;">375</p>
+                            </div>
+                            <button class="btn btn-plate">Unlock</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Alt1.png"/>

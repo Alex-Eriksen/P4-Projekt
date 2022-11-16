@@ -2,16 +2,10 @@
 	margin: 1rem;
 }
 
-
 .no-gutters {
     padding-right: 0;
     padding-left: 0;
 }
-
-/*
-.border {
-    border: transparent!important;
-}*/
 
 .chat-tab {
     overflow-y:auto;
@@ -23,6 +17,84 @@
     bottom: 0;
 }
 
+.btn-plate-1 {
+    /*background-image: url("../../../../assets/Shelf Plate.png");*/
+    /*border-image: linear-gradient(#FCF6BA, #BF953F);*/
+    background-image: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    background-repeat: no-repeat;
+    background-size: auto;
+    text-align: center;
+    position: absolute;
+    width: 150px;
+    top: 52.5%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.buy-menu-1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -170%);
+    text-align: center;
+
+    /*
+    position: absolute; 
+    text-align: center; 
+    width: 50%; 
+    margin: auto;*/
+}
+
+.btn-plate-2 {
+    background-image: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    background-repeat: no-repeat;
+    background-size: auto;
+    text-align: center;
+    position: absolute;
+    width: 150px;
+    top: 108%;
+    left: 16.5%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.buy-menu-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-325%, 150%);
+    text-align: center;
+}
+
+.btn-plate-3 {
+    background-image: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    background-repeat: no-repeat;
+    background-size: auto;
+    text-align: center;
+    position: absolute;
+    width: 150px;
+    top: 108%;
+    left: 84%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.buy-menu-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(205%, 150%);
+    text-align: center;
+}
+
+/*
+.border {
+    border: transparent!important;
+}
+*/
+
+/*
 .card {
     position: relative;
     max-width: 100%;
@@ -42,18 +114,4 @@
 .card:hover .img-top {
     opacity: 1;
 }
-
-.btn-plate {
-    /*background-image: url("../../../../assets/Shelf Plate.png");*/
-    /*border-image: linear-gradient(#FCF6BA, #BF953F);*/
-    background-image: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-    background-repeat: no-repeat;
-    background-size: auto;
-    text-align: center; 
-    position: absolute; 
-    width: 30%;
-    bottom: -3%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
+*/
