@@ -10,7 +10,7 @@ import { PlayerSkin } from 'src/app/_models/Misc/PlayerSkin';
 import { DirectPlayerResponse } from 'src/app/_models/Player';
 import { StaticSkinItemResponse } from 'src/app/_models/SkinItem';
 import { StaticTransactionResponse } from 'src/app/_models/Transaction';
-import { SkinInfoComponent } from '../modals/skin-info/skin-info.component';
+import { SkinInfoComponent } from '../../modals/skin-info/skin-info.component';
 
 @Component({
   selector: 'app-home',

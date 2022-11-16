@@ -5,31 +5,27 @@ registerLocaleData(localeDk);
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/navigation/home/home.component';
 import { HeaderComponent } from './components/fixed-components/header/header.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { SignupComponent } from './components/authentication/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SpellbookComponent } from './components/spellbook/spellbook.component';
+import { SpellbookComponent } from './components/navigation/spellbook/spellbook.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { AuthenticationInterceptor } from './_interceptor/authentication.intercepter';
 import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { LibraryComponent } from './components/library/library.component';
+import { ProfileComponent } from './components/navigation/profile/profile.component';
+import { LibraryComponent } from './components/navigation/library/library.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from  '@angular/material/dialog';
 import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
-import { Buymenu1Component } from './components/modals/buy-menues/buymenu1/buymenu1.component';
-import { Buymenu2Component } from './components/modals/buy-menues/buymenu2/buymenu2.component';
-import { Buymenu3Component } from './components/modals/buy-menues/buymenu3/buymenu3.component';
-import { Buymenu4Component } from './components/modals/buy-menues/buymenu4/buymenu4.component';
-import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buymenu5.component';
 import { SkinInfoComponent } from './components/modals/skin-info/skin-info.component';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
 import { AddFriendComponent } from './components/modals/add-friend/add-friend.component';
+import { LeaderboardComponent } from './components/navigation/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -43,14 +39,10 @@ import { AddFriendComponent } from './components/modals/add-friend/add-friend.co
     ProfileComponent,
     LibraryComponent,
     ChangeIconComponent,
-    Buymenu1Component,
-    Buymenu2Component,
-    Buymenu3Component,
-    Buymenu4Component,
-    Buymenu5Component,
     SkinInfoComponent,
     ChatComponent,
-    AddFriendComponent
+    AddFriendComponent,
+    LeaderboardComponent
   ],
 	imports: [
 		BrowserModule,

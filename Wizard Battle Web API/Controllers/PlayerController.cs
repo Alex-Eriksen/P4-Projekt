@@ -67,7 +67,6 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// <returns>Player or HTTP 204</returns>
 		[HttpGet]
 		[Route("{playerId}")]
-		[Authorize]
 		public async Task<IActionResult> GetById(int playerId)
 		{
 			try
@@ -126,7 +125,6 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// <returns>Player or exception</returns>
 		[HttpPut]
 		[Route("{playerId}")]
-		[Authorize]
 		public async Task<IActionResult> Update(int playerId, PlayerRequest request)
 		{
 			try

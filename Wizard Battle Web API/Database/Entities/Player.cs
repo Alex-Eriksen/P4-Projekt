@@ -29,6 +29,12 @@
 
 		public uint TimeCapsules { get; set; }
 
+		public uint MatchWins { get; set; }
+
+		public uint MatchLosses { get; set; }
+
+		public uint TimePlayedMin { get; set; }
+
 		[Column(TypeName = "datetime2")]
 		public DateTime Modified_At { get; set; }
 		
