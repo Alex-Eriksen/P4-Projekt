@@ -5,10 +5,10 @@ registerLocaleData(localeDk);
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/navigation/home/home.component';
 import { HeaderComponent } from './components/fixed-components/header/header.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { SignupComponent } from './components/authentication/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpellbookComponent } from './components/spellbook/spellbook.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -17,8 +17,8 @@ import { AuthenticationInterceptor } from './_interceptor/authentication.interce
 import { appInitializer } from './helpers/app.initializer';
 import { AuthenticationService } from './services/authentication.service';
 import { ChatBoxComponent } from './components/fixed-components/chat-box/chat-box.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { LibraryComponent } from './components/library/library.component';
+import { ProfileComponent } from './components/navigation/profile/profile.component';
+import { LibraryComponent } from './components/navigation/library/library.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from  '@angular/material/dialog';
 import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
