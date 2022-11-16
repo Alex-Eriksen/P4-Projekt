@@ -22,3 +22,5 @@ MonoBehaviour:
   - currentSpellID: 5
   - currentSpellID: 6
   - currentSpellID: 7
+  utilitySpell:
+    currentSpellID: 8

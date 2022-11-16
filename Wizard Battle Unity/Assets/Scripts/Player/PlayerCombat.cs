@@ -20,22 +20,39 @@ public class PlayerCombat : NetworkBehaviour
 
     public Vector2 MousePosition { get { return m_mousePosition; } }
     private Vector2 m_mousePosition = Vector2.zero;
-    private bool m_isCasting = false;
+    public bool IsCasting = false;
 
     public delegate void ActionEvent(object sender, ActionEventArgs args);
     public event ActionEvent OnCastingCanceled;
     public event Action<float> OnCastTimeChanged;
+    public event Action Casting_Started;
+    public event Action Casting_Canceled;
+
+    private void Awake()
+    {
+        m_animator = GetComponentInChildren<Animator>();
+        m_graphicsTransform = transform.GetChild(1);
+        m_targetPoint = m_graphicsTransform.Find("TargetPoint");
+        m_playerEntity = GetComponent<PlayerEntity>();
+    }
+
+    private void Update()
+    {
+        if (!isClient)
+        {
+            return;
+        }
+
+        RotatePlayerGraphics();
+        m_animator.SetBool("Attacking", IsCasting);
+    }
 
     public override void OnStartAuthority()
     {
         // Bind variables to components.
         m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
         m_playerInput = m_playerConnection.PlayerInput;
-        m_playerEntity = GetComponent<PlayerEntity>();
-        m_graphicsTransform = transform.GetChild(1);
-        m_targetPoint = m_graphicsTransform.Find("TargetPoint");
         m_spellbook = FindObjectOfType<Spellbook>();
-        m_animator = GetComponentInChildren<Animator>();
         m_notificationHandler = ActionNotificationHandler.Instance;
 
         SetInput();
@@ -46,10 +63,30 @@ public class PlayerCombat : NetworkBehaviour
         // Subscribe to input events.
         m_playerInput.actions["LeftMouse"].started += LeftMouse_Started;
         m_playerInput.actions["RightMouse"].started += RightMouse_Started;
+        m_playerInput.actions["Utility"].started += Utility_Started;
         m_playerInput.actions["MousePosition"].performed += MousePosition_Performed;
         m_playerInput.actions["Spellbook"].started += Spellbook_Started;
         m_playerInput.actions["Spellbook"].canceled += Spellbook_Canceled;
         OnCastingCanceled += PlayerEntity_CastingCanceled;
+    }
+
+    /// <summary>
+    /// Method listening on the Utility started event. Responsible for casting the spell selected in the utility selection.
+    /// </summary>
+    /// <param name="obj"></param>
+    private void Utility_Started(InputAction.CallbackContext obj)
+    {
+        if (m_spellbook.UtilitySelectedSpell == null || IsCasting || m_spellbook.IsActive)
+        {
+            return;
+        }
+
+        if (m_playerEntity.ContainsStatusEffect(StatusEffectType.Stun))
+        {
+            return;
+        }
+
+        CastSpell(m_spellbook.UtilitySelectedSpell);
     }
 
     /// <summary>
@@ -58,7 +95,7 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void RightMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.SecondarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
+        if (m_spellbook.SecondarySelectedSpell == null || IsCasting || m_spellbook.IsActive)
         {
             return;
         }
@@ -77,7 +114,7 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="obj"></param>
     private void LeftMouse_Started(InputAction.CallbackContext obj)
     {
-        if (m_spellbook.PrimarySelectedSpell == null || m_isCasting || m_spellbook.IsActive)
+        if (m_spellbook.PrimarySelectedSpell == null || IsCasting || m_spellbook.IsActive)
         {
             return;
         }
@@ -96,10 +133,12 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="spell"></param>
     private void CastSpell(SpellObject spell)
     {
-        m_isCasting = true;
-        m_animator.SetBool("Attacking", m_isCasting);
         m_spellToCast = spell;
         m_playerEntity.OnManaDrained += PlayerEntity_OnManaDrained;
+        if (!m_playerEntity.CheckMana(spell.ManaCost))
+        {
+            OnCastingCanceled?.Invoke(this, new ActionEventArgs(ActionEventArgsFlag.NotEnoughMana, "Casting Canceled"));
+        }
         m_playerEntity.Cmd_DrainMana(spell.ManaCost);
     }
 
@@ -128,9 +167,6 @@ public class PlayerCombat : NetworkBehaviour
         Cmd_SpawnSpell(spell.PrefabPath);
 
         yield return new WaitForSeconds(spell.CastTime);
-
-        m_isCasting = false;
-        m_animator.SetBool("Attacking", m_isCasting);
     }
 
     /// <summary>
@@ -141,6 +177,7 @@ public class PlayerCombat : NetworkBehaviour
     [Command]
     private void Cmd_SpawnSpell(string spellPrefabPath)
     {
+        Rpc_AnnounceSpellCasting();
         GameObject spawnedSpell = Instantiate(Resources.Load<GameObject>(spellPrefabPath));
         NetworkServer.Spawn(spawnedSpell, connectionToClient);
 
@@ -149,7 +186,13 @@ public class PlayerCombat : NetworkBehaviour
         spell.SC_SetupSpell(conn);
         spell.Rpc_SetupSpell(conn);
     }
-    
+
+    [ClientRpc]
+    private void Rpc_AnnounceSpellCasting()
+    {
+        Casting_Started?.Invoke();
+    }
+
     /// <summary>
     /// Method listening on the PlayerEntity OnCastingCanceled event.
     /// Responsible for canceling the players casting coroutine and informing the player of the reason.
@@ -158,14 +201,13 @@ public class PlayerCombat : NetworkBehaviour
     /// <param name="args"></param>
     private void PlayerEntity_CastingCanceled(object sender, ActionEventArgs args)
     {
-        if(m_spellCastingRoutine == null)
+        if(m_spellCastingRoutine != null)
         {
-            return;
+            StopCoroutine(m_spellCastingRoutine);
         }
-        StopCoroutine(m_spellCastingRoutine);
+        Casting_Canceled?.Invoke();
         m_playerEntity.OnManaDrained -= PlayerEntity_OnManaDrained;
-        m_isCasting = false;
-        m_animator.SetBool("Attacking", m_isCasting);
+        m_animator.SetBool("Attacking", IsCasting);
         m_notificationHandler.AddActionEventNotification(sender, args);
     }
 
@@ -191,7 +233,7 @@ public class PlayerCombat : NetworkBehaviour
 
     /// <summary>
     /// Method listening on the MousePosition performed event.
-    /// Responsible for reading the mouse position and updating graphics.
+    /// Responsible for reading the mouse position.
     /// </summary>
     /// <param name="obj"></param>
     private void MousePosition_Performed(InputAction.CallbackContext obj)
@@ -201,6 +243,13 @@ public class PlayerCombat : NetworkBehaviour
             return;
         }
         m_mousePosition = obj.ReadValue<Vector2>();
+    }
+
+    /// <summary>
+    /// Responsible for updating the player graphics rotation.
+    /// </summary>
+    private void RotatePlayerGraphics()
+    {
         Vector3 lookPos = Camera.main.ScreenToWorldPoint(m_mousePosition);
         m_targetPoint.position = new Vector3(lookPos.x, lookPos.y, 0f);
 

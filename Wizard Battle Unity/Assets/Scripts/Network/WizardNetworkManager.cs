@@ -23,7 +23,7 @@ public class WizardNetworkManager : NetworkManager
         VelocityThreshold = m_velocityThreshold;
         PositionThreshold = m_positionThreshold;
         VelocityError = m_velocityError;
-        Debug.Log("...Server Initialized...");
+        Debug.Log("... Network Manager Initialized ...");
     }
 
     /// <summary>
@@ -64,5 +64,11 @@ public class WizardNetworkManager : NetworkManager
         GameObject wizardObj = Instantiate(m_wizardPlayerPrefab);
         NetworkServer.Spawn(wizardObj, conn);
         conn.identity.GetComponent<PlayerConnection>().wizardIdentity = wizardObj.GetComponent<NetworkIdentity>();
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        Debug.Log($"Listening on {networkAddress}");
     }
 }

@@ -89,10 +89,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  m_statusEffectData: {fileID: 11400000, guid: db94a35f1d8cb694782af337a40179a3, type: 2}
+  opponentNetworkID: 0
   damagePerTick: 1
   tickRate: 0.5
   numberColor: {r: 1, g: 0.48455632, b: 0, a: 1}
-  statusEffectData: {fileID: 11400000, guid: db94a35f1d8cb694782af337a40179a3, type: 2}
 --- !u!73398921 &2343022795458062064
 VFXRenderer:
   serializedVersion: 1
