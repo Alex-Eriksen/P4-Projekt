@@ -1,5 +1,5 @@
 .chat-box {
-  right: calc(20% + 2px);
+  right: calc(15% + 8px);
   max-width: 500px;
   max-height: 500px;
   bottom: 0;

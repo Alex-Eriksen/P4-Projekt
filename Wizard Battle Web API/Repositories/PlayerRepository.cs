@@ -31,6 +31,7 @@
         {
             return await m_context.Player
                 .Include(x => x.Account)
+                .Include(x => x.Icon)
                 .ToListAsync();
         }
 
@@ -75,6 +76,13 @@
             if (player != null)
             {
                 player.PlayerName = request.PlayerName;
+                player.ExperiencePoints = request.ExperiencePoints;
+                player.KnowledgePoints = request.KnowledgePoints;
+                player.TimeCapsules = request.TimeCapsules;
+                player.PlayerStatus = request.PlayerStatus;
+                player.IconID = request.IconID;
+                player.MaxHealth = request.MaxHealth;
+                player.MaxMana = request.MaxMana;
                 player.Modified_At = DateTime.UtcNow;
 
                 await m_context.SaveChangesAsync();

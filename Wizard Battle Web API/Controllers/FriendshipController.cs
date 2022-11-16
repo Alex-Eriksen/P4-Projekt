@@ -7,15 +7,14 @@ namespace Wizard_Battle_Web_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
 	public class FriendshipController : ControllerBase
 	{
-
-		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
 		/// <summary>
 		/// Using IFriendshipService to control Friendship
 		/// </summary>
 		private readonly IFriendshipService m_friendshipService;
+
+		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
 
 
 		/// <summary>
@@ -35,11 +34,11 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// <returns>Friendships, message or exception</returns>
 		[HttpGet]
 		[Route("{playerId}")]
-		public async Task<IActionResult> GetAll(int playerId)
+		public async Task<IActionResult> GetAllById(int playerId)
 		{
 			try
 			{
-				List<StaticPlayerResponse> friends = await m_friendshipService.GetAllFriendship(playerId);
+				List<StaticFriendshipResponse> friends = await m_friendshipService.GetAllById(playerId);
 
 				if (friends == null)
 				{
@@ -67,13 +66,12 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// <param name="friendPlayerId"></param>
 		/// <returns></returns>
 		[HttpGet]
-		[Route("{mainPlayerId}, {friendPlayerId}")]
-		public async Task<IActionResult> GetById(int mainPlayerId, int friendPlayerId)
+		public async Task<IActionResult> GetById([FromQuery] int mainPlayerId, [FromQuery] int friendPlayerId)
 		{
 			try
 			{
 				FriendshipRequest request = new FriendshipRequest{ MainPlayerID = mainPlayerId, FriendPlayerID = friendPlayerId};
-				DirectFriendshipResponse friendship = await m_friendshipService.GetFriendship(request);
+				DirectFriendshipResponse friendship = await m_friendshipService.GetById(request);
 
 				if (friendship == null)
 				{
@@ -99,12 +97,14 @@ namespace Wizard_Battle_Web_API.Controllers
 		{
 			try
 			{
-				DirectFriendshipResponse friendship = await m_friendshipService.AddFriend(request);
+				DirectFriendshipResponse friendship = await m_friendshipService.Create(request);
 
 				if (friendship == null)
 				{
 					return Problem("Friendship was not created, something failed...");
 				}
+
+				await m_hubContext.Clients.User(request.FriendPlayerID.ToString()).UpdateUserFriendship(request.FriendPlayerID.ToString());
 
 				return Ok(friendship);
 			}
@@ -125,12 +125,14 @@ namespace Wizard_Battle_Web_API.Controllers
 		{
 			try
 			{
-				DirectFriendshipResponse friendship = await m_friendshipService.AcceptFriend(request);
+				DirectFriendshipResponse friendship = await m_friendshipService.Update(request);
 
 				if (friendship == null)
 				{
 					return Problem("Friendship was not accepted, something failed...");
 				}
+
+				await m_hubContext.Clients.User(request.FriendPlayerID.ToString()).UpdateUserFriendship(request.FriendPlayerID.ToString());
 
 				return Ok(friendship);
 			}
@@ -151,12 +153,14 @@ namespace Wizard_Battle_Web_API.Controllers
 		{
 			try
 			{
-				DirectFriendshipResponse friendship = await m_friendshipService.RemoveFriend(request);
+				DirectFriendshipResponse friendship = await m_friendshipService.Delete(request);
 
 				if (friendship == null)
 				{
 					return Problem("Friendship was not deleted, something failed...");
 				}
+
+				await m_hubContext.Clients.User(request.FriendPlayerID.ToString()).UpdateUserFriendship(request.FriendPlayerID.ToString());
 
 				return Ok(friendship);
 			}

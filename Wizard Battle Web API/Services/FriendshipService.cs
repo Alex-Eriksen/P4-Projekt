@@ -2,11 +2,11 @@
 {
 	public interface IFriendshipService
 	{
-		Task<List<StaticPlayerResponse>> GetAllFriendship(int playerId);
-		Task<DirectFriendshipResponse> GetFriendship(FriendshipRequest request);
-		Task<DirectFriendshipResponse> AddFriend(FriendshipRequest request);
-		Task<DirectFriendshipResponse> RemoveFriend(FriendshipRequest request);
-		Task<DirectFriendshipResponse> AcceptFriend(FriendshipRequest request);
+		Task<List<StaticFriendshipResponse>> GetAllById(int playerId);
+		Task<DirectFriendshipResponse> GetById(FriendshipRequest request);
+		Task<DirectFriendshipResponse> Create(FriendshipRequest request);
+		Task<DirectFriendshipResponse> Delete(FriendshipRequest request);
+		Task<DirectFriendshipResponse> Update(FriendshipRequest request);
 	}
 
 	public class FriendshipService : IFriendshipService
@@ -20,71 +20,70 @@
 			m_mapper = mapper;
 		}
 
-		public async Task<DirectFriendshipResponse> AcceptFriend(FriendshipRequest request)
+		public async Task<List<StaticFriendshipResponse>> GetAllById(int playerId)
 		{
-			Friendship friendship = await m_friendshipRepository.AcceptFriend(request.MainPlayerID, request.FriendPlayerID);
-			if(friendship != null)
+			List<Friendship> friendships = await m_friendshipRepository.GetAllById(playerId);
+			if (friendships != null)
 			{
-				return m_mapper.Map<DirectFriendshipResponse>(friendship);
-			}
-
-			return null;
-		}
-
-		public async Task<DirectFriendshipResponse> AddFriend(FriendshipRequest request)
-		{
-			Friendship friendship = await m_friendshipRepository.AddFriend(m_mapper.Map<Friendship>(request));
-			if(friendship != null)
-			{
-				return m_mapper.Map<DirectFriendshipResponse>(friendship);
-			}
-
-			return null;
-		}
-
-		public async Task<List<StaticPlayerResponse>> GetAllFriendship(int playerId)
-		{
-			List<Friendship> friendships = await m_friendshipRepository.GetAllFriendships(playerId);
-			if(friendships != null)
-			{
-				List<StaticPlayerResponse> friends = new List<StaticPlayerResponse>();
-				for(int i = 0; i < friendships.Count; i++)
+				List<Friendship> friendshipsToSwap = friendships.Where(x => x.MainPlayerID != playerId).ToList();
+				foreach(Friendship friendship in friendshipsToSwap)
 				{
-					// if player doesnt match client playerId, push friend into List
-					if (friendships[i].MainPlayerID != playerId)
-					{
-						friends.Add(m_mapper.Map<StaticPlayerResponse>(friendships[i].MainPlayer));
-					}
+					Friendship tempFriendship = new Friendship();
+					tempFriendship.MainPlayerID = friendship.FriendPlayerID;
+					tempFriendship.MainPlayer = friendship.FriendPlayer;
 
-					// if player doesnt match client playerId, push friend into List
-					if (friendships[i].FriendPlayerID != playerId)
-					{
-						friends.Add(m_mapper.Map<StaticPlayerResponse>(friendships[i].FriendPlayer));
-					}
+					tempFriendship.FriendPlayer = friendship.MainPlayer;
+					tempFriendship.FriendPlayerID = friendship.MainPlayerID;
+
+					tempFriendship.Created_At = friendship.Created_At;
+					tempFriendship.IsPending = friendship.IsPending;
+					friendships.Add(tempFriendship);
 				}
-				return friends;
+				return friendships.Where(x => x.FriendPlayerID != playerId).Select(x => m_mapper.Map<Friendship, StaticFriendshipResponse>(x)).ToList();
 			}
 
 			return null;
 		}
 
-		public async Task<DirectFriendshipResponse> GetFriendship(FriendshipRequest request)
+		public async Task<DirectFriendshipResponse> GetById(FriendshipRequest request)
 		{
-			Friendship friendship = await m_friendshipRepository.GetFriendship(request.MainPlayerID, request.FriendPlayerID);
-			if(friendship != null)
-			{
-				return m_mapper.Map<DirectFriendshipResponse>(friendship);
-			}
-
-			return null;
-		}
-
-		public async Task<DirectFriendshipResponse> RemoveFriend(FriendshipRequest request)
-		{
-			Friendship friendship = await m_friendshipRepository.GetFriendship(request.MainPlayerID, request.FriendPlayerID);
+			Friendship friendship = await m_friendshipRepository.GetById(request.MainPlayerID, request.FriendPlayerID);
 			if (friendship != null)
 			{
-				Friendship deletedFriendship = await m_friendshipRepository.RemoveFriend(friendship);
+				return m_mapper.Map<DirectFriendshipResponse>(friendship);
+			}
+
+			return null;
+		}
+
+		public async Task<DirectFriendshipResponse> Create(FriendshipRequest request)
+		{
+			Friendship friendship = await m_friendshipRepository.Create(m_mapper.Map<Friendship>(request));
+			if(friendship != null)
+			{
+				return m_mapper.Map<DirectFriendshipResponse>(friendship);
+			}
+
+			return null;
+		}
+
+		public async Task<DirectFriendshipResponse> Update(FriendshipRequest request)
+		{
+			Friendship friendship = await m_friendshipRepository.Update(request.MainPlayerID, request.FriendPlayerID);
+			if (friendship != null)
+			{
+				return m_mapper.Map<DirectFriendshipResponse>(friendship);
+			}
+
+			return null;
+		}
+
+		public async Task<DirectFriendshipResponse> Delete(FriendshipRequest request)
+		{
+			Friendship friendship = await m_friendshipRepository.GetById(request.MainPlayerID, request.FriendPlayerID);
+			if (friendship != null)
+			{
+				Friendship deletedFriendship = await m_friendshipRepository.Delete(friendship);
 				return m_mapper.Map<DirectFriendshipResponse>(deletedFriendship);
 			}
 

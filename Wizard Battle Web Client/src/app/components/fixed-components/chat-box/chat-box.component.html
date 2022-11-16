@@ -3,7 +3,7 @@
     <div class="header d-flex align-items-center position-relative px-1">
       <img [src]="friend.icon.iconName" alt="" id="userImage">
       <span class="text-white">{{friend.playerName}}</span>
-      <i class="fa-solid fa-circle position-absolute" id="statusBtn" [ngClass]="{'text-danger': friend.playerStatus === 'Offline', 'text-warning' : friend.playerStatus === 'Away', 'text-success': friend.playerStatus === 'Online' }"></i>
+      <i class="fa-solid fa-circle position-absolute" id="statusBtn" [ngClass]="{'offline-status': friend.playerStatus === 'Offline', 'away-status' : friend.playerStatus === 'Away', 'online-status': friend.playerStatus === 'Online' }"></i>
       <div class="d-flex justify-content-end w-100">
         <i class="fa-solid fa-minus pe-2" id="closeWindow" (click)="closedChatWindow.emit()"></i>
       </div>

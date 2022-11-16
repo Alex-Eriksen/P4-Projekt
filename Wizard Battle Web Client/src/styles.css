@@ -3,7 +3,6 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-image: url("/assets/texture.jpg");
   background-position: center;
   overflow: hidden;
 }
@@ -57,19 +56,6 @@ mat-dialog-container {
 
 
 
-.change-icon-overlay {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.skin-item-overlay {
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
 
 .mat-dialog-container {
   padding: 0px!important;
@@ -91,12 +77,47 @@ mat-dialog-container {
   box-shadow: none!important;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.online-status {
+	color: #00e200;
+}
+
+.away-status {
+	color:  #fad800;
+}
+
+.offline-status {
+	color: #434b4e ;
+}
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.change-icon-overlay {
+	position: absolute;
+	top: 35%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.skin-item-overlay {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.add-friend-overlay {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
 /* Buy meneus */
 .buy-menu-overlay1 {

@@ -1,7 +1,7 @@
 :host {
   display: flex;
   z-index: 10!important;
-  height: 100px;
+  height: 106px;
 }
 
 h4, #logo {
@@ -37,34 +37,21 @@ h4:hover, #logo:hover {
 
 .border-linear-gradient {
   position: relative;
+  background-image: url(../../../../assets/progression-background.png);
 }
 
 .border-linear-gradient::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 5px; /*1*/
   padding: 5px;
-  border: 1px solid transparent; /*2*/
-  background: linear-gradient(#C0C0C0, #A9A9A9, #808080,#696969); /*3*/
-  mask: /*4*/
-     linear-gradient(#fff 0 0) padding-box,
-     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; /*5'*/
-          mask-composite: exclude; /*5*/
-}
-
-.progress.border-linear-gradient:before {
-  border-radius: 5px 0px 0px 5px!important;
+  border: 1px solid black; /*2*/
 }
 
 
 .progress-bar {
-  background-image: linear-gradient(#3d1d45, #7d3a7f, #230f24);
-}
-
-.bar-gradient {
-  background-image: linear-gradient(#1e2228, #131517, #121822);
+  background-image: linear-gradient(#1b8176, #015a56, #054d49);
+ /* background-image: linear-gradient(#3d1d45, #7d3a7f, #230f24); */
 }
 
 
@@ -72,16 +59,22 @@ h4:hover, #logo:hover {
   cursor: default;
 }
 
+button i {
+	color: rgba(206,173,120,1);
+}
+
 span {
   cursor: default;
 }
 
 .button-gradient {
-  background-image: linear-gradient(#6784bf, #102a47);
+  background-image: url(../../../../assets/button-background.png);
+  background-repeat: repeat;
   transform: all .2s ease;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 0px solid transparent;
 }
 
 .button-gradient:hover {
@@ -106,13 +99,14 @@ span {
 
 .button-grid {
   display: grid;
-  gap: .375em;
+  gap: .2em;
 
   grid-template-columns: repeat(4, 1fr);
 }
 
 .gray-border {
-  border-color: #606061;
+  border-color: black;
+  border-left: 1px solid black!important;
 }
 
 #knowledge-points {

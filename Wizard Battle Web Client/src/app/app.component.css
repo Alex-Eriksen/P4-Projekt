@@ -1,16 +1,11 @@
 .wrapper {
   position: relative;
-  height: calc(100vh - 100px);
-  padding: 0px 10px 30px 30px;
+  height: calc(100vh - 106px);
+  padding: 0px 10px 26px 10px;
   display: grid;
-  grid-template-columns: 0px 80% 20%;
+  grid-template-columns: 0px 85% 15%;
 }
 
-
-.wrapper-chat {
-  position: relative;
-  height: calc(100vh - 100px);
-  padding: 0px 0px 30px 30px;
-  display: grid;
-  grid-template-columns: 0px 100% 0px;
+.with-chat {
+	grid-template-columns: 0px 100% 0px!important;
 }

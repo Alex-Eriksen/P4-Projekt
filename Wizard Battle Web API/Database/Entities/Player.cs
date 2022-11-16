@@ -11,8 +11,7 @@
 
 		[Column(TypeName = "nvarchar(32)")]
 		public string PlayerName { get; set; }
-
-		public int IconID { get; set; } 
+		public int IconID { get; set; }
 		public Icon Icon { get; set; }
 
 		[Column(TypeName = "nvarchar(32)")]

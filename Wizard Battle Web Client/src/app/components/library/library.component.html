@@ -1,12 +1,26 @@
-<div class="container-fluid h-100">
+<div class="container-fluid h-100 gx-0">
     <div class="h-100 border border-2 position-relative" style="background-color: black; overflow:hidden;">
         <div class="h-100 chat-tab position-absolute" id="chat-tab">
             <div class="row justify-content-start">
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Alt3.png"/>
                 </div>
-                <div class="col-4 no-gutters">
-                    <a data-bs-toggle="modal" (click)="openBuyMenu1()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Black.png"/></a>
+                <div class="col-4 no-gutters card" style="border: 0;">
+                    <!--<a data-bs-toggle="modal" (click)="openBuyMenu1()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Black.png"/></a>-->
+                    <div (mouseenter) ="hideBuyMenu = false"  (mouseleave) ="hideBuyMenu = true">
+                        <img class="img-fluid w-100" src="../../../../assets/Shelf Parchment Black.png"/>
+                    </div>
+                    <div (mouseenter) ="hideBuyMenu = true"  (mouseleave) ="hideBuyMenu = false">
+                        <img class="img-top img-fluid w-100" src="../../../../assets/Shelf Parchment.png"/>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            <h1>Black robed Wizard</h1>
+                            <p>Wizard Elite Cadre</p>
+                            <p>"Magic Missile"</p>
+                            <i class="fa-solid fa-capsules ps-2 pt-1" style="color: #50b3da; display: inline-block; margin-right: 5px;"></i>
+                            <p class="mb-0" style="display: inline-block;">375</p>
+                        </div>
+                        <button class="btn btn-plate">Unlock</button>
+                    </div>
                 </div>
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Half.png"/>
@@ -14,7 +28,8 @@
             </div>
             <div class="row justify-content-start">
                 <div class="col-4 no-gutters">
-                    <a data-bs-toggle="modal" (click)="openBuyMenu2()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Blue.png"/></a>
+                    <a data-bs-toggle="modal" (click)="openBuyMenu2()"><img class="img-fluid w-100" src="../../../../assets/Shelf Wiz Merch Blue.png" /></a>
+					<div></div>
                 </div>
                 <div class="col-4 no-gutters">
                     <img class="img-fluid w-100" src="../../../../assets/Shelf Orb.png"/>

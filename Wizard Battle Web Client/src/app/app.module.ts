@@ -29,6 +29,7 @@ import { Buymenu4Component } from './components/modals/buy-menues/buymenu4/buyme
 import { Buymenu5Component } from './components/modals/buy-menues/buymenu5/buymenu5.component';
 import { SkinInfoComponent } from './components/modals/skin-info/skin-info.component';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
+import { AddFriendComponent } from './components/modals/add-friend/add-friend.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ChatComponent } from './components/fixed-components/chat/chat.component
     Buymenu4Component,
     Buymenu5Component,
     SkinInfoComponent,
-    ChatComponent
+    ChatComponent,
+    AddFriendComponent
   ],
 	imports: [
 		BrowserModule,
