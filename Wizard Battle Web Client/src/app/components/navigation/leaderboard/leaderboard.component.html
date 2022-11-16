@@ -1,0 +1,17 @@
+<h1>Leaderboard</h1>
+<table>
+	<tr>
+		<th>#</th>
+		<th>Name</th>
+		<th>Level</th>
+		<th>Matches</th>
+		<th>Winrate</th>
+	</tr>
+	<tr *ngFor="let player of players" class="text-white">
+		<td>{{getIndex(player)}}</td>
+		<td>{{player.playerName}}</td>
+		<td>{{player.experiencePoints}}</td>
+		<td>{{player.matchWins + player.matchLosses}}</td>
+		<td>{{getWinrate(player)}}%</td>
+	</tr>
+</table>
