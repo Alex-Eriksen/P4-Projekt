@@ -11,6 +11,12 @@
 - WaterVortexSpell
 - etc. 
 
+Methods Missing Functionality:
+
+	// Not all types and behaviours of spells are set yet.
+	// They will be required to be added when it needs to.
+	SetInitialTransform(NetworkIdentity identity) -> void
+
 ---
 
 #### SpellObject _(DataClass, ScriptableObject)_
@@ -258,7 +264,10 @@ All thats left now is to code the C# script you created in step 2 to make the st
 ---
 
 ## How To ...
-###### Quick Wording Explination...
+<details>
+
+<summary>Prefix Explinations...</summary>
+
 > **Important**, the "SC" prefix means that the method can **only** be called from the server and on the server.
 > > It **cannot** be called from the client or on the client.
 
@@ -266,6 +275,8 @@ All thats left now is to code the C# script you created in step 2 to make the st
 > > It **cannot** be called from the server or on the server.
 
 > Note: the "Rpc" prefix means that the method will be called from the server and executed on all clients that are connected.
+
+> Note: the "TRpc" prefix means that the method will be called from the server and executed on a specified client, see mirror documentation for a detailed explination. [Mirror Attributes](https://mirror-networking.gitbook.io/docs/guides/attributes)
 
 > Note: the "Cmd" prefix means that the method will be called from the client and executed on the server.
 > > **Important**, the client that executes the method **must** have authority over that NetworkIdentity in order to execute the method.
@@ -275,7 +286,9 @@ All thats left now is to code the C# script you created in step 2 to make the st
 >
 > > If the server calls the method, the server will execute it too.
 
-#### Add A Status Effects to Entities:
+</details>
+
+#### Add A Status Effects To An Entity:
 You can call the 
 	
 	SC_AddStatusEffect(StatusEffect newStatusEffect) -> void
@@ -291,5 +304,63 @@ on your StatusEffectObject.
 > Note: the Spell base class has a protected list of entities called "targetEntities" that is updated when the spell collides with an entity.
 
 Thats all you need to do, the status effect will automatically expire after the set lifetime of the StatusEffectObject.
+
+---
+
+#### Add A Spell To The Spell Whell:
+Locate the SpellbookObject in the
+
+	Assets/Resources/Spells/
+
+folder, click the SpellbookObject and assign the id of your SpellObject to one of the elements.
+
+> Note: you must have added the SpellObject to the SpellDatabaseObject, in order to get the id of the SpellObject.
+
+Thats all, you're done.
+
+---
+
+#### Manipulate An Entity's Health:
+###### Gain Health
+To regain the health of an entity you can call the method
+
+	SC_GainHealth(float amount) -> void
+on the entity you wish to regain health.
+
+Which will add the specified amount of health to the entitty up to the maximum allowed for that entity.
+
+<br></br>
+
+###### Drain Health
+To drain the health of an entity you can call the method
+
+	SC_DrainHealth(float amount) -> void
+
+on the entity you wish to drain health from.
+
+This will remove the specified amount of health from the entity and check if the entity is destroyed after the removal of the health.
+
+---
+
+#### Manipulate An Entity's Mana:
+###### Gain Mana
+To regain the mana of an entity you can call the method
+
+	SC_GainMana(float amount) -> void
+
+Which will add the specified amount of mana to the entity up to the maximum allowed for that entity.
+
+<br></br>
+
+###### Drain Mana
+To drain the mana of an entity you can call the method
+
+	Cmd_DrainMana(float amount) -> void
+
+on the entity you wish to drain mana from.
+
+This will remove the specified amount of mana from the entity.
+
+> Note: the PlayerCombat class automatically checks and drains mana when casting a spell.
 
 ---

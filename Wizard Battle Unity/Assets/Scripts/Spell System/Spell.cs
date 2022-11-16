@@ -65,6 +65,12 @@ public class Spell : NetworkBehaviour
     ///     <br>-> <see cref="UtilitySpellBehaviour.Dash"/> = Owner's Graphics Transform</br>
     ///     <br>-> <see cref="UtilitySpellBehaviour.Invisibility"/> = Owner's Transform</br>
     /// </para>
+    /// <para>
+    ///     <br><see cref="SpellType.Defensive"/>:</br>
+    ///     <br>-> <see cref="DefensiveSpellBehaviour.Block"/> = <see langword="null"/></br>
+    ///     <br>-> <see cref="DefensiveSpellBehaviour.Absorb"/> = <see langword="null"/></br>
+    ///     <br>-> <see cref="DefensiveSpellBehaviour.Deflect"/> = <see langword="null"/></br>
+    /// </para>
     /// </summary>
     protected Transform initialTargetTransform;
     /// <summary>
