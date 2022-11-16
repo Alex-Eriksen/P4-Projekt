@@ -89,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  statusEffectData: {fileID: 11400000, guid: fa4748b1453971348813abd1e67956c1, type: 2}
+  m_statusEffectData: {fileID: 11400000, guid: fa4748b1453971348813abd1e67956c1, type: 2}
   opponentNetworkID: 0
   m_speedPercent: 70
 --- !u!73398921 &-2609903983834171779

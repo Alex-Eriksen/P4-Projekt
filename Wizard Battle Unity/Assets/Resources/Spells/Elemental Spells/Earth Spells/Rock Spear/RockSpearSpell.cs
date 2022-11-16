@@ -23,7 +23,12 @@ public class RockSpearSpell : Spell
         OnTriggerEnter += OnTriggerEnterCallback;
     }
 
-    private void OnTriggerEnterCallback(PlayerEntity obj)
+    protected override void OnSetup()
+    {
+        m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
+    }
+
+    private void OnTriggerEnterCallback(Entity obj)
     {
         if (IsCasting())
         {
@@ -71,6 +76,6 @@ public class RockSpearSpell : Spell
         GameEffectsManager.Instance.SC_CreateNumberEffect(data);
         targetEntities[0].SC_DrainHealth(dmg);
         targetEntities[0].SC_AddStatusEffect(statusEffect.GetStatusEffectStruct());
-        targetEntities[0].GetComponent<PlayerMovement>().SC_AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse);
+        targetEntities[0].GetComponent<PlayerMovement>().SC_AddForceAtPosition(m_transform.up * m_pushForce, m_transform.position, ForceMode2D.Impulse, spellData.LifeTime);
     }
 }

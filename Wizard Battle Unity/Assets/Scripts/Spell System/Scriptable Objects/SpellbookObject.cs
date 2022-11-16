@@ -7,4 +7,5 @@ public class SpellbookObject : ScriptableObject
 {
     public string spellbookName = "Unnamed Spellbook";
     public SpellSlot[] spellSlots = new SpellSlot[8];
+    public SpellSlot utilitySpell = new SpellSlot();
 }

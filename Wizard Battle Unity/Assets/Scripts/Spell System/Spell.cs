@@ -5,22 +5,79 @@ using Mirror;
 using UnityEngine.VFX;
 using System;
 
+/// <summary>
+/// <br>Base Class for all spells in the game.</br>
+/// <br>The class is responsible for collision detection and handling whether the spell is being cast.</br>
+/// <br>The class provides some easy properties that are essential for spells to function.</br>
+/// <br>Like, <seealso cref="targetEntities"/> that holds a list of entities the spells has hit.</br>
+/// <br>Also provides inherited methods that are virtual and can be overriden to gain functionalty.</br>
+/// </summary>
 public class Spell : NetworkBehaviour
 {
     /// <summary>
     /// Get the spells current cast timer progress normalized between 0 to 1.
     /// </summary>
     public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
-    public event Action<PlayerEntity> OnTriggerEnter;
-    public event Action<PlayerEntity> OnTriggerStay;
-    public event Action<PlayerEntity> OnTriggerExit;
+
+    /// <summary>
+    /// Called when a new collider enters the spell's collider.
+    /// </summary>
+    public event Action<Entity> OnTriggerEnter;
+    /// <summary>
+    /// Called when a collider that was present on the previous frame is still on inside the spell's collider.
+    /// </summary>
+    public event Action<Entity> OnTriggerStay;
+    /// <summary>
+    /// Called when a collider that was present on the previous frame is not present on the current frame.
+    /// </summary>
+    public event Action<Entity> OnTriggerExit;
 
     [SerializeField] protected SpellObject spellData = null;
     [SerializeField] protected VisualEffect vfx;
     [SerializeField] protected ContactFilter2D contactFilter;
-    protected List<PlayerEntity> targetEntities = new List<PlayerEntity>();
-    protected Collider2D ownerCollider, spellCollider;
+    /// <summary>
+    /// A list of entities that are currently colliding with the spell.
+    /// </summary>
+    protected List<Entity> targetEntities = new List<Entity>();
+    /// <summary>
+    /// The collider of the player that cast this spell.
+    /// </summary>
+    protected Collider2D ownerCollider;
+    /// <summary>
+    /// The collider of the this spell.
+    /// </summary>
+    protected Collider2D spellCollider;
+    /// <summary>
+    /// The <see cref="PlayerCombat"/> of the player that cast this spell.
+    /// </summary>
+    protected PlayerCombat ownerPlayerCombat;
+    /// <summary>
+    /// <br>The initial transform target of the spell, this is dependant of the type of spell.</br>
+    /// <para>
+    ///     <br><see cref="SpellType.Offensive"/>:</br>
+    ///     <br>-> <see cref="OffensiveSpellBehaviour.Aura"/> = Owner's Transform</br>
+    ///     <br>-> <see cref="OffensiveSpellBehaviour.Skillshot"/> = Owner's Attack Point Transform</br>
+    ///     <br>-> <see cref="OffensiveSpellBehaviour.Target"/> = Owner's Target Point Transform</br>
+    /// </para>
+    /// <para>
+    ///     <br><see cref="SpellType.Utility"/>:</br>
+    ///     <br>-> <see cref="UtilitySpellBehaviour.Teleport"/> = Owner's Transform</br>
+    ///     <br>-> <see cref="UtilitySpellBehaviour.Dash"/> = Owner's Graphics Transform</br>
+    ///     <br>-> <see cref="UtilitySpellBehaviour.Invisibility"/> = Owner's Transform</br>
+    /// </para>
+    /// <para>
+    ///     <br><see cref="SpellType.Defensive"/>:</br>
+    ///     <br>-> <see cref="DefensiveSpellBehaviour.Block"/> = <see langword="null"/></br>
+    ///     <br>-> <see cref="DefensiveSpellBehaviour.Absorb"/> = <see langword="null"/></br>
+    ///     <br>-> <see cref="DefensiveSpellBehaviour.Deflect"/> = <see langword="null"/></br>
+    /// </para>
+    /// </summary>
     protected Transform initialTargetTransform;
+    /// <summary>
+    /// <br>Whether or not this spell has hit something.</br>
+    /// <br>True when the first entity collides with this spell.</br>
+    /// <br>Unless the <see cref="SC_OnHit"/> is overriden and the base method is not called.</br>
+    /// </summary>
     protected bool hitSomething = false;
 
     private readonly List<Collider2D> m_overlappingColliders = new List<Collider2D>();
@@ -64,6 +121,7 @@ public class Spell : NetworkBehaviour
             vfx.SetFloat("Size", CurrentCastTimerNormalized);
             if(m_currentCastTimer >= m_maxCastTimer)
             {
+                ownerPlayerCombat.IsCasting = IsCasting();
                 OnFinishedCasting();
             }
         }
@@ -113,7 +171,7 @@ public class Spell : NetworkBehaviour
             return;
         }
 
-        PlayerEntity playerEntity;
+        Entity entity;
 
         // TODO(idea): Events for -Enter, -Stay, and OnTriggerExit that contains colliders.
         // Loop through the previous frame colliders and check whether they are missing this frame.
@@ -140,9 +198,9 @@ public class Spell : NetworkBehaviour
 
             // If the current overlapping colliders does NOT contain the previous frame collider.
             // We can then check if it contains a player entity and if it does we can raise the OnTriggerExit event.
-            if (m_previousFrameOverlappingColliders[i].TryGetComponent<PlayerEntity>(out playerEntity))
+            if (m_previousFrameOverlappingColliders[i].TryGetComponent<Entity>(out entity))
             {
-                Raise_OnTriggerExit(playerEntity);
+                Raise_OnTriggerExit(entity);
                 continue;
             }
         }
@@ -165,13 +223,13 @@ public class Spell : NetworkBehaviour
             }
 
             // If the current frame collider doesnt NOT contain a player entity component continue the loop.
-            if (!m_overlappingColliders[i].TryGetComponent<PlayerEntity>(out playerEntity))
+            if (!m_overlappingColliders[i].TryGetComponent<Entity>(out entity))
             {
                 continue;
             }
 
             // If the player entity hit is invulnerable continue since the target isnt a valid one.
-            if (playerEntity.ContainsStatusEffect(StatusEffectType.Invulnerable))
+            if (entity.ContainsStatusEffect(StatusEffectType.Invulnerable))
             {
                 continue;
             }
@@ -180,47 +238,48 @@ public class Spell : NetworkBehaviour
             // we can raise the OnTriggerStay event, since it persisted through frames.
             if (m_previousFrameOverlappingColliders.Contains(m_overlappingColliders[i]))
             {
-                Raise_OnTriggerStay(playerEntity);
+                Raise_OnTriggerStay(entity);
                 continue;
             }
 
             // If we make it to this point it means its a new collider that we haven't seen yet
             // so we can raise the OnTriggerEnter event announcing the arrival of a new player entity.
-            Raise_OnTriggerEnter(playerEntity);
+            Raise_OnTriggerEnter(entity);
         }
     }
 
     [ServerCallback]
-    private void Raise_OnTriggerEnter(PlayerEntity playerEntity)
+    private void Raise_OnTriggerEnter(Entity entity)
     {
-        targetEntities.Add(playerEntity);
+        targetEntities.Add(entity);
 
-        OnTriggerEnter?.Invoke(playerEntity);
+        OnTriggerEnter?.Invoke(entity);
     }
 
     [ServerCallback]
-    private void Raise_OnTriggerStay(PlayerEntity playerEntity)
+    private void Raise_OnTriggerStay(Entity entity)
     {
-        if (targetEntities.Contains(playerEntity))
+        if (targetEntities.Contains(entity))
         {
             return;
         }
 
-        targetEntities.Add(playerEntity);
+        targetEntities.Add(entity);
 
-        OnTriggerStay?.Invoke(playerEntity);
+        OnTriggerStay?.Invoke(entity);
     }
 
     [ServerCallback]
-    private void Raise_OnTriggerExit(PlayerEntity playerEntity)
+    private void Raise_OnTriggerExit(Entity entity)
     {
-        targetEntities.Remove(playerEntity);
+        targetEntities.Remove(entity);
 
-        OnTriggerExit?.Invoke(playerEntity);
+        OnTriggerExit?.Invoke(entity);
     }
 
     #endregion
 
+    #region Setup
     /// <summary>
     /// Setup for when the spell is created, this is called on the client only.
     /// </summary>
@@ -230,8 +289,9 @@ public class Spell : NetworkBehaviour
     public void Rpc_SetupSpell(NetworkIdentity identity)
     {
         ownerCollider = identity.GetComponent<Collider2D>();
+        ownerPlayerCombat = identity.GetComponent<PlayerCombat>();
 
-        ownerCollider.GetComponent<PlayerCombat>().OnCastingCanceled += Spell_OnCastingCanceled;
+        ownerPlayerCombat.OnCastingCanceled += Spell_OnCastingCanceled;
 
         SetInitialTransform(identity);
 
@@ -250,6 +310,7 @@ public class Spell : NetworkBehaviour
     public void SC_SetupSpell(NetworkIdentity identity)
     {
         ownerCollider = identity.GetComponent<Collider2D>();
+        ownerPlayerCombat = identity.GetComponent<PlayerCombat>();
 
         SetInitialTransform(identity);
 
@@ -295,6 +356,10 @@ public class Spell : NetworkBehaviour
                     break;
 
                 case UtilitySpellBehaviour.Dash:
+                    initialTargetTransform = identity.transform.Find("Graphics");
+                    break;
+
+                case UtilitySpellBehaviour.Invisibility:
                     initialTargetTransform = identity.transform;
                     break;
 
@@ -305,19 +370,51 @@ public class Spell : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Responsible for setting up the casting timer.
+    /// </summary>
+    /// <param name="castTime"></param>
+    private void SetCastingTimer(float castTime)
+    {
+        m_maxCastTimer = castTime;
+        m_currentCastTimer = 0f;
+        ownerPlayerCombat.IsCasting = IsCasting();
+    }
+    #endregion
+
+    #region Interruption
+    /// <summary>
+    /// <br>Method listening on the <seealso cref="PlayerCombat.OnCastingCanceled"/> event.</br>
+    /// Will destroy the spells if called.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
     {
+        if (!IsCasting())
+        {
+            return;
+        }
         Cmd_CancelSelf(0f);
     }
 
+    /// <summary>
+    /// <br>A command that can be called from the authorative client and executed on the server.</br>
+    /// Destroys the spell.
+    /// </summary>
+    /// <param name="delay"></param>
     [Command]
     protected void Cmd_CancelSelf(float delay)
     {
         SC_StartDeathTimer(delay);
     }
+    #endregion
 
+    #region On Hit Callbacks
     /// <summary>
-    /// Responsible for telling clients that this spell has hit something.
+    /// <br>Responsible for telling clients that this spell has hit something.</br>
+    /// <br>Remember to call <seealso cref="SC_OnHit"/> when overriden.</br>
+    /// This will only be called from the server and executed on the server.
     /// </summary>
     [ServerCallback]
     protected virtual void SC_OnHit()
@@ -326,16 +423,22 @@ public class Spell : NetworkBehaviour
         Rpc_OnHit();
     }
 
+    /// <summary>
+    /// This will be executed on all the clients connected to the server and is called when the <seealso cref="SC_OnHit"/> is called.
+    /// </summary>
     [ClientRpc]
     protected virtual void Rpc_OnHit()
     {
         hitSomething = true;
         vfx.SendEvent("OnHit");
     }
+    #endregion
 
-    [ServerCallback]
-    protected virtual void SC_OnNoHit() { }
-
+    #region Destruction
+    /// <summary>
+    /// Starts a timer that destroys the spell.
+    /// </summary>
+    /// <param name="delay"></param>
     [ServerCallback]
     protected virtual void SC_StartDeathTimer(float delay = 3f)
     {
@@ -356,16 +459,7 @@ public class Spell : NetworkBehaviour
         yield return new WaitForSeconds(lifeTime + castTime);
         NetworkServer.Destroy(obj);
     }
-
-    /// <summary>
-    /// Responsible for setting up the casting timer.
-    /// </summary>
-    /// <param name="castTime"></param>
-    private void SetCastingTimer(float castTime)
-    {
-        m_maxCastTimer = castTime;
-        m_currentCastTimer = 0f;
-    }
+    #endregion
 
     /// <summary>
     /// Checks wether the spell is currently being cast and returns true if it is.
@@ -377,7 +471,13 @@ public class Spell : NetworkBehaviour
     }
 
     #region Protected Virtual Overrides
+    /// <summary>
+    /// Called on the server and client when this object is initialized.
+    /// </summary>
     protected virtual void OnAwake() { }
+    /// <summary>
+    /// Called on the server and client when usual start would be called.
+    /// </summary>
     protected virtual void OnStart() { }
     /// <summary>
     /// Called only on the client.
@@ -391,8 +491,17 @@ public class Spell : NetworkBehaviour
     /// Called on the server and client when they have respectively finished their setup.
     /// </summary>
     protected virtual void OnSetup() { }
+    /// <summary>
+    /// Called on the server and client each frame.
+    /// </summary>
     protected virtual void OnUpdate() { }
+    /// <summary>
+    /// Called on the server and client each physics update.
+    /// </summary>
     protected virtual void OnFixedUpdate() { }
+    /// <summary>
+    /// Called on the server and client when a spell has finished casting.
+    /// </summary>
     protected virtual void OnFinishedCasting() { }
     #endregion
 }

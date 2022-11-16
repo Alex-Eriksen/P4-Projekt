@@ -23,7 +23,12 @@ public class WindSlashSpell : Spell
         OnTriggerEnter += OnTriggerEnterCallback;
     }
 
-    private void OnTriggerEnterCallback(PlayerEntity obj)
+    protected override void OnSetup()
+    {
+        m_transform.SetPositionAndRotation(initialTargetTransform.position, initialTargetTransform.rotation);
+    }
+
+    private void OnTriggerEnterCallback(Entity obj)
     {
         if (IsCasting())
         {

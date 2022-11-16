@@ -106,10 +106,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  m_playerCombat: {fileID: 7390722938485721684}
-  m_statusEffectUIPrefab: {fileID: 1647792765125859732, guid: 28ce28b07226cf34fbe41eed8cdece8a, type: 3}
   m_health: 100
   m_mana: 100
+  m_playerCombat: {fileID: 7390722938485721684}
+  m_isTargetDummy: 0
+  m_statusEffectUIPrefab: {fileID: 1647792765125859732, guid: 28ce28b07226cf34fbe41eed8cdece8a, type: 3}
+  m_interactRange: 0.5
 --- !u!114 &7390722938485721684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  IsCasting: 0
 --- !u!114 &2151042180134924039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +223,7 @@ MonoBehaviour:
   deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
-  positionSensitivity: 0.01
+  positionSensitivity: 0.001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
   syncPosition: 1
@@ -385,6 +388,7 @@ GameObject:
   - component: {fileID: 2322647485118674630}
   - component: {fileID: 2862032119335748296}
   - component: {fileID: 8111240854900246586}
+  - component: {fileID: 4656778596200001490}
   m_Layer: 6
   m_Name: Graphics
   m_TagString: Untagged
@@ -448,7 +452,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2100454819
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 347158731, guid: 798d09c04851c8d47ab2d8e11b974c89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -481,6 +485,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4656778596200001490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114610959151448449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: af45aa65a365327d00000000
+  m_ShapePath:
+  - {x: -0.15798812, y: 0.16777498, z: 0}
+  - {x: -0.18732275, y: 0.013558704, z: 0}
+  - {x: -0.022369996, y: -0.2768287, z: 0}
+  - {x: 0.025166228, y: -0.2768287, z: 0}
+  - {x: 0.18457843, y: -0.0074131675, z: 0}
+  - {x: 0.1523956, y: 0.16497873, z: 0}
+  m_ShapePathHash: -1026934146
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 34184
 --- !u!1001 &5787491951965929935
 PrefabInstance:
   m_ObjectHideFlags: 0

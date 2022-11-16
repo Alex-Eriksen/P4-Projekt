@@ -2,32 +2,11 @@ using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 #if UNITY_EDITOR
 public class BuildScript
 {
-    [MenuItem("Build/Build All")]
-    public static void BuildAll()
-    {
-        BuildWindowsServer();
-        BuildLinuxServer();
-        BuildWindowsClient();
-    }
-
-    [MenuItem("Build/Build Server (Windows)")]
-    public static void BuildWindowsServer()
-    {
-        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/SampleScene.unity" };
-        buildPlayerOptions.locationPathName = "Builds/Windows/Server/Server.exe";
-        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
-        buildPlayerOptions.subtarget = (int)StandaloneBuildSubtarget.Server;
-        buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
-
-        Console.WriteLine("Building Server (Windows)...");
-        BuildPipeline.BuildPlayer(buildPlayerOptions);
-        Console.WriteLine("Built Server (Windows).");
-    }
-
     [MenuItem("Build/Build Server (Linux)")]
     public static void BuildLinuxServer()
     {
@@ -37,6 +16,7 @@ public class BuildScript
         buildPlayerOptions.target = BuildTarget.StandaloneLinux64;
         buildPlayerOptions.subtarget = (int)StandaloneBuildSubtarget.Server;
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
+
 
         Console.WriteLine("Building Server (Linux)...");
         BuildPipeline.BuildPlayer(buildPlayerOptions);

@@ -8,37 +8,23 @@ using UnityEngine.VFX;
 public class SpeedStatus : Status
 {
     [SerializeField, Range(0, 100)] private int m_speedPercent = 30;
-    private VisualEffect m_vfx;
-    private PlayerMovement m_target;
+    private PlayerMovement m_targetMovement;
 
-    private void Awake()
+    protected override void OnSetup()
     {
-        m_vfx = GetComponent<VisualEffect>();
-        m_target = GetComponentInParent<PlayerMovement>();
+        m_targetMovement = target.GetComponent<PlayerMovement>();
     }
 
-    public override void OnStartClient()
+    protected override void OnServerSetup()
     {
-        m_vfx.SetFloat("Lifetime", statusEffectData.effectLifetime);
-
-        // TODO: Figure out a better way of doing this.
-        if (m_target == null)
-        {
-            transform.SetParent(FindObjectsOfType<NetworkIdentity>().Where(x => x.netId == opponentNetworkID).Single().transform, false);
-        }
-    }
-
-    public override void OnStartServer()
-    {
-        opponentNetworkID = m_target.GetComponent<NetworkIdentity>().netId;
-        m_target.speedMultiplier += m_speedPercent / 100f;
+        m_targetMovement.speedMultiplier += m_speedPercent / 100f;
     }
 
     private void OnDestroy()
     {
         if (isServer)
         {
-            m_target.speedMultiplier -= m_speedPercent / 100f;
+            m_targetMovement.speedMultiplier -= m_speedPercent / 100f;
         }
     }
 }
