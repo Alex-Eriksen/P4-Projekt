@@ -10,7 +10,7 @@ import { HeaderComponent } from './components/fixed-components/header/header.com
 import { LoginComponent } from './components/authentication/login/login.component';
 import { SignupComponent } from './components/authentication/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SpellbookComponent } from './components/spellbook/spellbook.component';
+import { SpellbookComponent } from './components/navigation/spellbook/spellbook.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { AuthenticationInterceptor } from './_interceptor/authentication.intercepter';
@@ -25,6 +25,7 @@ import { ChangeIconComponent } from './components/modals/change-icon/change-icon
 import { SkinInfoComponent } from './components/modals/skin-info/skin-info.component';
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
 import { AddFriendComponent } from './components/modals/add-friend/add-friend.component';
+import { LeaderboardComponent } from './components/navigation/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AddFriendComponent } from './components/modals/add-friend/add-friend.co
     ChangeIconComponent,
     SkinInfoComponent,
     ChatComponent,
-    AddFriendComponent
+    AddFriendComponent,
+    LeaderboardComponent
   ],
 	imports: [
 		BrowserModule,

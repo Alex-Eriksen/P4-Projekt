@@ -96,6 +96,9 @@ namespace Wizard_Battle_Web_API.Database
 				MaxHealth = 10,
 				MaxMana = 10,
 				TimeCapsules = 1000,
+				MatchWins = 20,
+				MatchLosses = 10,
+				TimePlayedMin = 120,
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -104,11 +107,14 @@ namespace Wizard_Battle_Web_API.Database
 				PlayerName = "AlexTheG",
 				IconID = 2,
 				PlayerStatus = "Offline",
-				ExperiencePoints = 138,
+				ExperiencePoints = 139,
 				KnowledgePoints = 10,
 				MaxHealth = 10,
 				MaxMana = 10,
 				TimeCapsules = 10,
+				MatchWins = 12,
+				MatchLosses = 7,
+				TimePlayedMin = 75,
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -122,6 +128,9 @@ namespace Wizard_Battle_Web_API.Database
 				MaxHealth = 10,
 				MaxMana = 10,
 				TimeCapsules = 10,
+				MatchWins = 9,
+				MatchLosses = 5,
+				TimePlayedMin = 59,
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -130,11 +139,14 @@ namespace Wizard_Battle_Web_API.Database
 				PlayerName = "MarcoTheG",
 				IconID = 4,
 				PlayerStatus = "Offline",
-				ExperiencePoints = 138,
+				ExperiencePoints = 137,
 				KnowledgePoints = 10,
 				MaxHealth = 10,
 				MaxMana = 10,
 				TimeCapsules = 10,
+				MatchWins = 4,
+				MatchLosses = 7,
+				TimePlayedMin = 43,
 			});
 
 			// Adding static icons
