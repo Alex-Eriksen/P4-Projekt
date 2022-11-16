@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefensiveSpellObject : MonoBehaviour
+public class DefensiveSpellObject : SpellObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // The amount of damage this spell is able to handle, deflect, absorb or block.
+    public float DefensiveAmount = 0f;
+    public DefensiveSpellBehaviour SpellBehaviour = DefensiveSpellBehaviour.Block;
 
-    // Update is called once per frame
-    void Update()
+    public DefensiveSpellObject()
     {
-        
+        SpellType = SpellType.Defensive;
     }
 }

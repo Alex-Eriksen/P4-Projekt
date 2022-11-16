@@ -10,6 +10,11 @@ public class StatusEffectObject : ScriptableObject
     public bool effectStackable;
     public int maxEffectStacks;
     public Sprite effectIcon;
+
+    /// <summary>
+    /// Gets the struct of the status effect.
+    /// </summary>
+    /// <returns><see cref="StatusEffect"/></returns>
     public StatusEffect GetStatusEffectStruct()
     {
         return new StatusEffect() { effectLifetime = effectLifetime, effectType = effectType };

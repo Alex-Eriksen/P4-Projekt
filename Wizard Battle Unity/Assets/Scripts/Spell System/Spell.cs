@@ -5,23 +5,73 @@ using Mirror;
 using UnityEngine.VFX;
 using System;
 
+/// <summary>
+/// <br>Base Class for all spells in the game.</br>
+/// <br>The class is responsible for collision detection and handling whether the spell is being cast.</br>
+/// <br>The class provides some easy properties that are essential for spells to function.</br>
+/// <br>Like, <seealso cref="targetEntities"/> that holds a list of entities the spells has hit.</br>
+/// <br>Also provides inherited methods that are virtual and can be overriden to gain functionalty.</br>
+/// </summary>
 public class Spell : NetworkBehaviour
 {
     /// <summary>
     /// Get the spells current cast timer progress normalized between 0 to 1.
     /// </summary>
     public float CurrentCastTimerNormalized { get { return m_currentCastTimer / m_maxCastTimer; } }
+
+    /// <summary>
+    /// Called when a new collider enters the spell's collider.
+    /// </summary>
     public event Action<Entity> OnTriggerEnter;
+    /// <summary>
+    /// Called when a collider that was present on the previous frame is still on inside the spell's collider.
+    /// </summary>
     public event Action<Entity> OnTriggerStay;
+    /// <summary>
+    /// Called when a collider that was present on the previous frame is not present on the current frame.
+    /// </summary>
     public event Action<Entity> OnTriggerExit;
 
     [SerializeField] protected SpellObject spellData = null;
     [SerializeField] protected VisualEffect vfx;
     [SerializeField] protected ContactFilter2D contactFilter;
+    /// <summary>
+    /// A list of entities that are currently colliding with the spell.
+    /// </summary>
     protected List<Entity> targetEntities = new List<Entity>();
-    protected Collider2D ownerCollider, spellCollider;
+    /// <summary>
+    /// The collider of the player that cast this spell.
+    /// </summary>
+    protected Collider2D ownerCollider;
+    /// <summary>
+    /// The collider of the this spell.
+    /// </summary>
+    protected Collider2D spellCollider;
+    /// <summary>
+    /// The <see cref="PlayerCombat"/> of the player that cast this spell.
+    /// </summary>
     protected PlayerCombat ownerPlayerCombat;
+    /// <summary>
+    /// <br>The initial transform target of the spell, this is dependant of the type of spell.</br>
+    /// <para>
+    ///     <br><see cref="SpellType.Offensive"/>:</br>
+    ///     <br>-> <see cref="OffensiveSpellBehaviour.Aura"/> = Owner's Transform</br>
+    ///     <br>-> <see cref="OffensiveSpellBehaviour.Skillshot"/> = Owner's Attack Point Transform</br>
+    ///     <br>-> <see cref="OffensiveSpellBehaviour.Target"/> = Owner's Target Point Transform</br>
+    /// </para>
+    /// <para>
+    ///     <br><see cref="SpellType.Utility"/>:</br>
+    ///     <br>-> <see cref="UtilitySpellBehaviour.Teleport"/> = Owner's Transform</br>
+    ///     <br>-> <see cref="UtilitySpellBehaviour.Dash"/> = Owner's Graphics Transform</br>
+    ///     <br>-> <see cref="UtilitySpellBehaviour.Invisibility"/> = Owner's Transform</br>
+    /// </para>
+    /// </summary>
     protected Transform initialTargetTransform;
+    /// <summary>
+    /// <br>Whether or not this spell has hit something.</br>
+    /// <br>True when the first entity collides with this spell.</br>
+    /// <br>Unless the <see cref="SC_OnHit"/> is overriden and the base method is not called.</br>
+    /// </summary>
     protected bool hitSomething = false;
 
     private readonly List<Collider2D> m_overlappingColliders = new List<Collider2D>();
@@ -327,6 +377,12 @@ public class Spell : NetworkBehaviour
     #endregion
 
     #region Interruption
+    /// <summary>
+    /// <br>Method listening on the <seealso cref="PlayerCombat.OnCastingCanceled"/> event.</br>
+    /// Will destroy the spells if called.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     private void Spell_OnCastingCanceled(object sender, ActionEventArgs args)
     {
         if (!IsCasting())
@@ -336,6 +392,11 @@ public class Spell : NetworkBehaviour
         Cmd_CancelSelf(0f);
     }
 
+    /// <summary>
+    /// <br>A command that can be called from the authorative client and executed on the server.</br>
+    /// Destroys the spell.
+    /// </summary>
+    /// <param name="delay"></param>
     [Command]
     protected void Cmd_CancelSelf(float delay)
     {
@@ -345,7 +406,9 @@ public class Spell : NetworkBehaviour
 
     #region On Hit Callbacks
     /// <summary>
-    /// Responsible for telling clients that this spell has hit something.
+    /// <br>Responsible for telling clients that this spell has hit something.</br>
+    /// <br>Remember to call <seealso cref="SC_OnHit"/> when overriden.</br>
+    /// This will only be called from the server and executed on the server.
     /// </summary>
     [ServerCallback]
     protected virtual void SC_OnHit()
@@ -354,18 +417,22 @@ public class Spell : NetworkBehaviour
         Rpc_OnHit();
     }
 
+    /// <summary>
+    /// This will be executed on all the clients connected to the server and is called when the <seealso cref="SC_OnHit"/> is called.
+    /// </summary>
     [ClientRpc]
     protected virtual void Rpc_OnHit()
     {
         hitSomething = true;
         vfx.SendEvent("OnHit");
     }
-
-    [ServerCallback]
-    protected virtual void SC_OnNoHit() { }
     #endregion
 
     #region Destruction
+    /// <summary>
+    /// Starts a timer that destroys the spell.
+    /// </summary>
+    /// <param name="delay"></param>
     [ServerCallback]
     protected virtual void SC_StartDeathTimer(float delay = 3f)
     {
@@ -398,7 +465,13 @@ public class Spell : NetworkBehaviour
     }
 
     #region Protected Virtual Overrides
+    /// <summary>
+    /// Called on the server and client when this object is initialized.
+    /// </summary>
     protected virtual void OnAwake() { }
+    /// <summary>
+    /// Called on the server and client when usual start would be called.
+    /// </summary>
     protected virtual void OnStart() { }
     /// <summary>
     /// Called only on the client.
@@ -412,8 +485,17 @@ public class Spell : NetworkBehaviour
     /// Called on the server and client when they have respectively finished their setup.
     /// </summary>
     protected virtual void OnSetup() { }
+    /// <summary>
+    /// Called on the server and client each frame.
+    /// </summary>
     protected virtual void OnUpdate() { }
+    /// <summary>
+    /// Called on the server and client each physics update.
+    /// </summary>
     protected virtual void OnFixedUpdate() { }
+    /// <summary>
+    /// Called on the server and client when a spell has finished casting.
+    /// </summary>
     protected virtual void OnFinishedCasting() { }
     #endregion
 }

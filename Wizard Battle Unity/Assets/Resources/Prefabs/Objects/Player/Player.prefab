@@ -52,7 +52,6 @@ GameObject:
   - component: {fileID: 751005970879742327}
   - component: {fileID: 6361119205874249930}
   - component: {fileID: 8760034898287179866}
-  - component: {fileID: 5742178545163002938}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -347,35 +346,6 @@ MonoBehaviour:
   syncAngularVelocity: 0
   clearAngularVelocity: 1
   angularVelocitySensitivity: 0.1
---- !u!114 &5742178545163002938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2346366773692684749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: af45aa65a365327d00000000
-  m_ShapePath:
-  - {x: -0.15798812, y: 0.16777498, z: 0}
-  - {x: -0.18732275, y: 0.013558704, z: 0}
-  - {x: -0.022369996, y: -0.2768287, z: 0}
-  - {x: 0.025166228, y: -0.2768287, z: 0}
-  - {x: 0.18457843, y: -0.0074131675, z: 0}
-  - {x: 0.1523956, y: 0.16497873, z: 0}
-  m_ShapePathHash: -1026934146
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 153222
 --- !u!1 &3657621433126952096
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +388,7 @@ GameObject:
   - component: {fileID: 2322647485118674630}
   - component: {fileID: 2862032119335748296}
   - component: {fileID: 8111240854900246586}
+  - component: {fileID: 4656778596200001490}
   m_Layer: 6
   m_Name: Graphics
   m_TagString: Untagged
@@ -514,6 +485,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4656778596200001490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114610959151448449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: af45aa65a365327d00000000
+  m_ShapePath:
+  - {x: -0.15798812, y: 0.16777498, z: 0}
+  - {x: -0.18732275, y: 0.013558704, z: 0}
+  - {x: -0.022369996, y: -0.2768287, z: 0}
+  - {x: 0.025166228, y: -0.2768287, z: 0}
+  - {x: 0.18457843, y: -0.0074131675, z: 0}
+  - {x: 0.1523956, y: 0.16497873, z: 0}
+  m_ShapePathHash: -1026934146
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 34184
 --- !u!1001 &5787491951965929935
 PrefabInstance:
   m_ObjectHideFlags: 0
