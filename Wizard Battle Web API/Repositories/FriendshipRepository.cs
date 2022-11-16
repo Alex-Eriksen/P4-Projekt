@@ -2,11 +2,11 @@
 {
 	public interface IFriendshipRepository
 	{
-		Task<List<Friendship>> GetAllFriendships(int playerId);
-		Task<Friendship> GetFriendship(int playerId, int friendPlayerID);
-		Task<Friendship> AddFriend(Friendship friendship);
-		Task<Friendship> RemoveFriend(Friendship friendship);
-		Task<Friendship> AcceptFriend(int requesterId, int addreeseeId);
+		Task<List<Friendship>> GetAllById(int playerId);
+		Task<Friendship> GetById(int playerId, int friendPlayerID);
+		Task<Friendship> Create(Friendship friendship);
+		Task<Friendship> Update(int requesterId, int addreeseeId);
+		Task<Friendship> Delete(Friendship friendship);
 	}
 
 	public class FriendshipRepository : IFriendshipRepository
@@ -18,7 +18,16 @@
 			_context = context;
 		}
 
-		public async Task<Friendship> GetFriendship(int playerId, int friendId)
+		public async Task<List<Friendship>> GetAllById(int playerId)
+		{
+			return await _context.Friendship
+				.Include(x => x.MainPlayer).ThenInclude(x => x.Icon)
+				.Include(x => x.FriendPlayer).ThenInclude(x => x.Icon)
+				.Where(x => x.MainPlayerID == playerId || x.FriendPlayerID == playerId)
+				.ToListAsync();
+		}
+
+		public async Task<Friendship> GetById(int playerId, int friendId)
 		{
 			return await _context.Friendship
 				.Include(x => x.MainPlayer).ThenInclude(x => x.Icon)
@@ -26,26 +35,24 @@
 				.FirstOrDefaultAsync(x => (x.MainPlayerID == playerId || x.MainPlayerID == friendId) && (x.FriendPlayerID == playerId || x.FriendPlayerID == friendId));
 		}
 
-		public async Task<List<Friendship>> GetAllFriendships(int playerId)
+		public async Task<Friendship> Create(Friendship friendship)
 		{
-			return await _context.Friendship
-				.Include(x => x.MainPlayer).ThenInclude(x => x.Icon)
-				.Include(x => x.FriendPlayer).ThenInclude(x => x.Icon)
-				.Where(x => (x.MainPlayerID == playerId || x.FriendPlayerID == playerId) && (x.IsPending == false))
-				.ToListAsync();
+			_context.Friendship.Add(friendship);
+			await _context.SaveChangesAsync();
+			return await GetById(friendship.MainPlayerID, friendship.FriendPlayerID);
 		}
 
-		public async Task<Friendship> AcceptFriend(int mainPlayerId, int friendPlayerId)
+		public async Task<Friendship> Update(int mainPlayerId, int friendPlayerId)
 		{
-			Friendship friendship = await GetFriendship(mainPlayerId, friendPlayerId);
+			Friendship friendship = await GetById(mainPlayerId, friendPlayerId);
 
-			// If the id that was used to make the friend request is used to accept it will return
-			if(friendship.MainPlayerID == mainPlayerId)
+			// If the id that was used to make the friend request is also used to accept the request, it will return
+			if (friendship.MainPlayerID == mainPlayerId)
 			{
 				return friendship;
 			}
 
-			if(friendship != null)
+			if (friendship != null)
 			{
 				friendship.IsPending = false;
 
@@ -54,14 +61,7 @@
 			return friendship;
 		}
 
-		public async Task<Friendship> AddFriend(Friendship friendship)
-		{
-			_context.Friendship.Add(friendship);
-			await _context.SaveChangesAsync();
-			return await GetFriendship(friendship.MainPlayerID, friendship.FriendPlayerID);
-		}
-
-		public async Task<Friendship> RemoveFriend(Friendship friendship)
+		public async Task<Friendship> Delete(Friendship friendship)
 		{
 			_context.Friendship.Remove(friendship);
 			await _context.SaveChangesAsync();

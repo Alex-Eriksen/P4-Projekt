@@ -147,6 +147,7 @@ namespace Wizard_Battle_Web_API.Controllers
 
 		[HttpPut]
 		[Route("status")]
+		[Authorize]
 		public async Task<IActionResult> ChangeStatus([FromQuery] int playerId, [FromQuery] string status)
 		{
 			try
@@ -158,9 +159,21 @@ namespace Wizard_Battle_Web_API.Controllers
 					return NotFound();
 				}
 
-				List<StaticPlayerResponse> friends = await m_friendshipService.GetAllFriendship(playerId);
+				List<StaticFriendshipResponse> friendships = await m_friendshipService.GetAllById(playerId);
+				
+				string[] friends = new string[friendships.Count];
+				
+				for(int i = 0; i < friendships.Count; i++)
+				{
+					if(friendships[i].MainPlayerID == playerId)
+					{
+						friends[i] = friendships[i].FriendPlayer.PlayerID.ToString();
+						continue;
+					}
+					friends[i] = friendships[i].MainPlayerID.ToString();
+				}
 
-				await m_hubContext.Clients.Users(friends.Select(x => x.PlayerID.ToString()).ToArray()).ChangeFriendStatus("A friend changed his status");
+				await m_hubContext.Clients.Users(friends).ChangeFriendStatus("A friend changed his status");
 
 				return Ok(player);
 			}

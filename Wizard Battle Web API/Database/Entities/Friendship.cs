@@ -12,6 +12,6 @@
 		public DateTime Created_At { get; set; }
 
 		[DefaultValue(true)]
-		public bool IsPending { get; set; }
+		public bool IsPending { get; set; } = true;
 	}
 }
