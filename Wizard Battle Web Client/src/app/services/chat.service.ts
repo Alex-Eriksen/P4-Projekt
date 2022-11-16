@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DirectFriendshipResponse, FriendshipRequest, StaticFriendshipResponse } from '../_models/Friendship';
 import { MessageRequest } from '../_models/Message';
@@ -15,7 +15,13 @@ export class ChatService {
   private url: string = environment.ApiUrl + "/Friendship";
   private chatUrl: string = environment.ApiUrl + "/Chat";
 
-  constructor(private http: HttpClient) { }
+  private ChatSubject: BehaviorSubject<boolean>;
+  public OnChatChanged: Observable<boolean>;
+
+  constructor(private http: HttpClient) {
+	this.ChatSubject = new BehaviorSubject<boolean>(false);
+    this.OnChatChanged = this.ChatSubject.asObservable();
+  }
 
   public getAllById(playerId: number): Observable<StaticFriendshipResponse[]> { // Gets all friendship displayed in the friendlist
     return this.http.get<StaticFriendshipResponse[]>(`${this.url}/${playerId}`)
@@ -48,4 +54,8 @@ export class ChatService {
   public deleteMessage(request: MessageRequest): Observable<StaticMessageResponse> {
     return this.http.delete<StaticMessageResponse>(this.chatUrl, {body: request});
   }
+
+  	public toggleChat(isOpen: boolean): void {
+	  	this.ChatSubject.next(isOpen);
+  	}
 }
