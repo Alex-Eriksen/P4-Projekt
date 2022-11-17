@@ -24,6 +24,7 @@ namespace Wizard_Battle_Web_API.Helpers
 			CreateMap<AuthenticationResponse, StaticRefreshTokenResponse>();
 
 			CreateMap<Icon, IconResponse>();
+			CreateMap<IconResponse, Icon>();
 			CreateMap<IconRequest, Icon>();
 
 			CreateMap<Transaction, StaticTransactionResponse>();
@@ -34,6 +35,16 @@ namespace Wizard_Battle_Web_API.Helpers
 			CreateMap<SkinItem, StaticSkinItemResponse>();
 			CreateMap<SkinItem, DirectSkinItemResponse>();
 			CreateMap<SkinItemRequest, SkinItem>();
+
+			CreateMap<Spell, StaticSpellResponse>();
+			CreateMap<Spell, DirectSpellResponse>();
+			CreateMap<SpellRequest, Spell>();
+
+			CreateMap<SpellBook, StaticSpellBookResponse>();
+			CreateMap<SpellBook, DirectSpellBookResponse>()
+				.ForMember(dto => dto.Spells, opt => opt.MapFrom(x => x.SpellBookSlots.Select(y => y.Spell).ToList()));
+			CreateMap<SpellBookRequest, SpellBook>()
+				.ForMember(dto => dto.SpellBookSlots, opt => opt.MapFrom(x => x.Spells));
 		}
 	}
 }

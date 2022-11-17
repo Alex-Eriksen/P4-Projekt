@@ -20,5 +20,11 @@
 		public uint MatchLosses { get; set; }
 
 		public uint TimePlayedMin { get; set; }
+
+		public uint AvgDamage { get; set; }
+
+		public uint AvgSpellsHit { get; set; }
+
+		public int SpellBookID { get; set; }
 	}
 }

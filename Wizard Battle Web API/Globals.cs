@@ -21,6 +21,8 @@ global using Wizard_Battle_Web_API.DTOs.Account;
 global using Wizard_Battle_Web_API.DTOs.Message;
 global using Wizard_Battle_Web_API.DTOs.Friendship;
 global using Wizard_Battle_Web_API.DTOs.Icon;
+global using Wizard_Battle_Web_API.DTOs.Spell;
+global using Wizard_Battle_Web_API.DTOs.SpellBook;
 global using Wizard_Battle_Web_API.Services;
 global using Microsoft.AspNetCore.SignalR;
 global using Wizard_Battle_Web_API.Hubs;

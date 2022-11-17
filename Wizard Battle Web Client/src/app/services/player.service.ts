@@ -56,4 +56,24 @@ export class PlayerService {
       return data;
     }));
   }
+
+  	public toHoursAndMinutes(totalMinutes: number): string {
+		let hours = Math.floor(totalMinutes / 60);
+	  	let minutes = totalMinutes % 60;
+	  	return `${hours}h${minutes}m`;
+	}
+
+	  // Calculates level of player
+	  getLevel(playerExp: number): number {
+		let baseExp = 25;
+		let playerLvl = 1;
+		while(playerExp > baseExp) {
+		  if(playerExp >= baseExp) { // if player experience is higher than level threshold
+			playerExp = Math.round(playerExp - baseExp); // Subtracts points used for level up
+			playerLvl++; // Level up
+			baseExp = Math.round(baseExp * 1.2); // Increments base experience points
+		  }
+		}
+		return playerLvl; // Assings local variable current player experience
+	  }
 }

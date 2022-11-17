@@ -4,7 +4,6 @@ namespace Wizard_Battle_Web_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
 	public class IconController : ControllerBase
 	{
 		private readonly IIconService m_iconService;
@@ -63,12 +62,12 @@ namespace Wizard_Battle_Web_API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] IconRequest request)
+		public async Task<IActionResult> Create([FromBody] IconRequest request, [FromQuery] bool isPlayerIcon)
 		{
 			try
 			{
 				request.IconName = $"../../../../assets/player-icons/{request.IconName}";
-				IconResponse icon = await m_iconService.Create(request);
+				IconResponse icon = await m_iconService.Create(request, isPlayerIcon);
 				if(icon == null)
 				{
 					return BadRequest();
@@ -85,12 +84,11 @@ namespace Wizard_Battle_Web_API.Controllers
 
 		[HttpPut]
 		[Route("{id}")]
-		public async Task<IActionResult> Update(int id, [FromBody] IconRequest request)
+		public async Task<IActionResult> Update(int id, [FromBody] IconRequest request, [FromQuery] bool isPlayerIcon)
 		{
 			try
 			{
-				request.IconName = $"../../../../assets/player-icons/{request.IconName}";
-				IconResponse icon = await m_iconService.Update(id, request);
+				IconResponse icon = await m_iconService.Update(id, request, isPlayerIcon);
 				if (icon == null)
 				{
 					return BadRequest();

@@ -7,13 +7,16 @@ namespace Wizard_Battle_Web_API.Database
 	{
 		public DatabaseContext(DbContextOptions<DatabaseContext> options) : base (options) { }
 
-		public DbSet<RefreshToken> RefreshToken { get; set; }
 		public DbSet<Account> Account { get; set; }
-		public DbSet<Player> Player { get; set; }
 		public DbSet<Friendship> Friendship { get; set; }
-		public DbSet<Message> Message { get; set; }
 		public DbSet<Icon> Icon { get; set; }
+		public DbSet<Message> Message { get; set; }
+		public DbSet<Player> Player { get; set; }
+		public DbSet<RefreshToken> RefreshToken { get; set; }
 		public DbSet<SkinItem> Skin { get; set; }
+		public DbSet<Spell> Spell { get; set; }
+		public DbSet<SpellBook> SpellBook { get; set; }
+		public DbSet<SpellBook> SpellBookSlot { get; set; }
 		public DbSet<Transaction> Transaction { get; set; }
 
 
@@ -54,6 +57,13 @@ namespace Wizard_Battle_Web_API.Database
 				entity.Property(e => e.Created_At).HasDefaultValueSql("getdate()");
 				entity.HasOne(x => x.SkinItem).WithMany(x => x.Transactions).HasForeignKey(x => x.SkinID).OnDelete(DeleteBehavior.Restrict);
 				entity.HasOne(x => x.Player).WithMany(x => x.Transactions).HasForeignKey(x => x.PlayerID).OnDelete(DeleteBehavior.Restrict);
+			});
+
+			modelBuilder.Entity<SpellBookSlot>(entity =>
+			{
+				entity.HasKey(x => new { x.SpellID, x.SpellBookID });
+				entity.HasOne(x => x.SpellBook).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellBookID).OnDelete(DeleteBehavior.Restrict);
+				entity.HasOne(x => x.Spell).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellID).OnDelete(DeleteBehavior.Restrict);
 			});
 
 			// Creating accounts for developers to debug
@@ -99,6 +109,8 @@ namespace Wizard_Battle_Web_API.Database
 				MatchWins = 20,
 				MatchLosses = 10,
 				TimePlayedMin = 120,
+				AvgDamage = 150,
+				AvgSpellsHit = 13,
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -115,6 +127,8 @@ namespace Wizard_Battle_Web_API.Database
 				MatchWins = 12,
 				MatchLosses = 7,
 				TimePlayedMin = 75,
+				AvgDamage = 122,
+				AvgSpellsHit = 11,
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -131,6 +145,8 @@ namespace Wizard_Battle_Web_API.Database
 				MatchWins = 9,
 				MatchLosses = 5,
 				TimePlayedMin = 59,
+				AvgDamage = 133,
+				AvgSpellsHit = 12,
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -147,6 +163,8 @@ namespace Wizard_Battle_Web_API.Database
 				MatchWins = 4,
 				MatchLosses = 7,
 				TimePlayedMin = 43,
+				AvgDamage = 99,
+				AvgSpellsHit = 7,
 			});
 
 			// Adding static icons
@@ -199,6 +217,11 @@ namespace Wizard_Battle_Web_API.Database
 			{
 				IconID = 10,
 				IconName = "../../../../assets/player-icons/nick-gangster.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 11,
+				IconName = "../../../../assets/spell-icons/fireball.png"
 			});
 
 			// Creating friendships between created players
@@ -287,6 +310,18 @@ namespace Wizard_Battle_Web_API.Database
 				SkinID = 1,
 				PlayerID = 1,
 				TotalCost = 125,
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 1,
+				SpellName = "Fireball",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
 			});
 		}
 	}

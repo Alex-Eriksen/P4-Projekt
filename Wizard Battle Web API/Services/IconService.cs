@@ -6,8 +6,8 @@ namespace Wizard_Battle_Web_API.Services
 	{
 		Task<List<IconResponse>> GetAll();
 		Task<IconResponse> GetById(int id);
-		Task<IconResponse> Create(IconRequest request);
-		Task<IconResponse> Update(int id, IconRequest request);
+		Task<IconResponse> Create(IconRequest request, bool isPlayerIcon);
+		Task<IconResponse> Update(int id, IconRequest request, bool isPlayerIcon);
 		Task<IconResponse> Delete(int id);
 	}
 	public class IconService : IIconService
@@ -47,8 +47,9 @@ namespace Wizard_Battle_Web_API.Services
 		}
 
 
-		public async Task<IconResponse> Create(IconRequest request)
+		public async Task<IconResponse> Create(IconRequest request, bool isPlayerIcon)
 		{
+			request.IconName = isPlayerIcon ? $"../../../../assets/player-icons/{request.IconName}" : $"../../../../assets/spell-icons/{request.IconName}";
 			Icon icon = await m_iconRepository.Create(m_mapper.Map<Icon>(request));
 			if(icon != null)
 			{
@@ -59,8 +60,9 @@ namespace Wizard_Battle_Web_API.Services
 		}
 
 
-		public async Task<IconResponse> Update(int id, IconRequest request)
+		public async Task<IconResponse> Update(int id, IconRequest request, bool isPlayerIcon)
 		{
+			request.IconName = isPlayerIcon ? $"../../../../assets/player-icons/{request.IconName}" : $"../../../../assets/spell-icons/{request.IconName}";
 			Icon icon = await m_iconRepository.Update(id, m_mapper.Map<Icon>(request));
 			if(icon != null)
 			{
