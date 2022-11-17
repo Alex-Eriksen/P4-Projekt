@@ -105,7 +105,7 @@ public class GridShadowCastersGenerator : MonoBehaviour
                     else
                     {
 
-                        // stretch prevois shadowCasterPrefab instance
+                        // stretch previous shadowCasterPrefab instance
 
                         currentInstance.transform.localScale = new Vector3(currentInstance.transform.localScale.x + 1.0f, 1.0f, 0.0f);
                         currentInstance.transform.Translate(new Vector3(0.5f, 0.0f, 0.0f));
