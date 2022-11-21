@@ -19,7 +19,7 @@ export class ChatService {
   public OnChatChanged: Observable<boolean>;
 
   constructor(private http: HttpClient) {
-	this.ChatSubject = new BehaviorSubject<boolean>(false);
+	this.ChatSubject = new BehaviorSubject<boolean>(true);
     this.OnChatChanged = this.ChatSubject.asObservable();
   }
 

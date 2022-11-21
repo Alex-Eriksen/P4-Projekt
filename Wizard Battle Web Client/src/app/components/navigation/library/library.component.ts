@@ -21,6 +21,8 @@ export class LibraryComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.isOpen = true;
+
     this.chatService.OnChatChanged.subscribe((x) => {
         this.isOpen = x;
     });
