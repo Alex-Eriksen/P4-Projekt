@@ -9,7 +9,7 @@ p {
 
 
 .scroll {
-	background-image: url(../../../assets/Scroll.png);
+	background-image: url(../../../../assets/Scroll.png);
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -23,7 +23,7 @@ p {
 }
 
 .table {
-	background-image: url(../../../assets/wood-texture-wood-planks-background-and-old-wood-free-photo.png);
+	background-image: url(../../../../assets/wood-texture-wood-planks-background-and-old-wood-free-photo.png);
 	background-repeat: no-repeat;
 	position: absolute;
 	height: 100%;
