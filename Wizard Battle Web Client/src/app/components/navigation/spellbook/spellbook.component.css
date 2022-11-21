@@ -40,46 +40,46 @@ img {
 	border-style: solid;
 	border-width: 15px;
 	border-color: white;
-	margin-left: 50px;
-	margin-top: 50px;
+	margin-left: 25px;
+	margin-top: 25px;
 }
 
-.one {
-    left: -25px;
+.circle:nth-child(1) {
+	left: -25px;
     top: -25px;
 }
 
-.two {
+.circle:nth-child(2) {
     top: -60px;
     left: 50px;
 }
 
-.three {
+.circle:nth-child(3) {
     right: -25px;
     top: -25px;
 }
 
-.four {
+.circle:nth-child(4) {
 	right: -60px;
     top: 50px;
 }
 
-.five {
+.circle:nth-child(5) {
 	left: -60px;
     top: 50px;
 }
 
-.six {
+.circle:nth-child(6) {
     left: -25px;
     bottom: -25px;
 }
 
-.seven {
+.circle:nth-child(7) {
     bottom: -60px;
     left: 50px;
 }
 
-.eight {
+.circle:nth-child(8) {
     right: -25px;
     bottom: -25px;
 }
