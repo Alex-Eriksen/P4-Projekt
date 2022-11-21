@@ -6,6 +6,6 @@
 
 		public int PlayerID { get; set; }
 
-		public List<StaticSpellResponse> Spells { get; set; }
+		public List<int> SpellIDs { get; set; }
 	}
 }

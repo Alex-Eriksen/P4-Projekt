@@ -12,7 +12,7 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221117135555_InitialCreate")]
+    [Migration("20221121091054_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,7 +65,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$ltFVwqP8.N5QGwJH9ZGdGuugLjYrbz8M2wsYADJheI.TKISl6.rm."
+                            Password = "$2a$10$.bTaqlv9Kbk877I/7802U.oy2dU73jr.nZDSqUmgGZemXaEph5bM."
                         },
                         new
                         {
@@ -74,7 +74,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$LpbK4m4sCQQdbyArNSpfieFX9uU8PakcA2EBM3/M6Pv5gBdhA17.e"
+                            Password = "$2a$10$kAlJAST6iDnCKJRuRct3eu1RHrQzPjrFMZPLyImiFHNna33IdV4oK"
                         },
                         new
                         {
@@ -83,7 +83,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$oF9q4aYXmJOUuieqy6Xvpu2w8IggTQ/1mvMh6uQzXPnKWSX7hxePm"
+                            Password = "$2a$10$E1jlGdf7xudiom9AH3h5JubWOvBE5vL8xpKAUPbPe7M8LXAar2k/y"
                         },
                         new
                         {
@@ -92,7 +92,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$n59B2Xpfk9W6Wk3xsS95/urjSst11N8tgzKOYI3ga76Wg2PqRxxDq"
+                            Password = "$2a$10$hf85lesP/IWOIjGkxiqmue7Y1PcZI4mKbaH4wFIBRIdk8kARZvJKy"
                         });
                 });
 
@@ -123,42 +123,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 17, 13, 55, 55, 215, DateTimeKind.Utc).AddTicks(4843),
+                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9370),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 17, 13, 55, 55, 215, DateTimeKind.Utc).AddTicks(4859),
+                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9467),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 17, 13, 55, 55, 215, DateTimeKind.Utc).AddTicks(4866),
+                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9486),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 17, 13, 55, 55, 215, DateTimeKind.Utc).AddTicks(4873),
+                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9512),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 17, 13, 55, 55, 215, DateTimeKind.Utc).AddTicks(4879),
+                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9539),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 17, 13, 55, 55, 215, DateTimeKind.Utc).AddTicks(4887),
+                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9561),
                             IsPending = false
                         });
                 });
@@ -553,7 +553,77 @@ namespace Wizard_Battle_Web_API.Migrations
                             IconID = 11,
                             ManaCost = 0m,
                             SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball"
+                            SpellName = "Fireball 1"
+                        },
+                        new
+                        {
+                            SpellID = 2,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "It's a fireball, does it really need a description?",
+                            SpellName = "Fireball 2"
+                        },
+                        new
+                        {
+                            SpellID = 3,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "It's a fireball, does it really need a description?",
+                            SpellName = "Fireball 3"
+                        },
+                        new
+                        {
+                            SpellID = 4,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "It's a fireball, does it really need a description?",
+                            SpellName = "Fireball 4"
+                        },
+                        new
+                        {
+                            SpellID = 5,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "It's a fireball, does it really need a description?",
+                            SpellName = "Fireball 5"
+                        },
+                        new
+                        {
+                            SpellID = 6,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "It's a fireball, does it really need a description?",
+                            SpellName = "Fireball 6"
+                        },
+                        new
+                        {
+                            SpellID = 7,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "It's a fireball, does it really need a description?",
+                            SpellName = "Fireball 7"
+                        },
+                        new
+                        {
+                            SpellID = 8,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "It's a fireball, does it really need a description?",
+                            SpellName = "Fireball 8"
                         });
                 });
 
@@ -576,6 +646,14 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.HasIndex("PlayerID");
 
                     b.ToTable("SpellBook");
+
+                    b.HasData(
+                        new
+                        {
+                            SpellBookID = 1,
+                            PlayerID = 1,
+                            SpellBookName = "My SpellBook"
+                        });
                 });
 
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SpellBookSlot", b =>
@@ -591,6 +669,13 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.HasIndex("SpellBookID");
 
                     b.ToTable("SpellBookSlot");
+
+                    b.HasData(
+                        new
+                        {
+                            SpellID = 1,
+                            SpellBookID = 1
+                        });
                 });
 
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Transaction", b =>

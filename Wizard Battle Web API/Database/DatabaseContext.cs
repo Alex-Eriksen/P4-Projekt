@@ -16,7 +16,7 @@ namespace Wizard_Battle_Web_API.Database
 		public DbSet<SkinItem> Skin { get; set; }
 		public DbSet<Spell> Spell { get; set; }
 		public DbSet<SpellBook> SpellBook { get; set; }
-		public DbSet<SpellBook> SpellBookSlot { get; set; }
+		public DbSet<SpellBookSlot> SpellBookSlot { get; set; }
 		public DbSet<Transaction> Transaction { get; set; }
 
 
@@ -62,8 +62,8 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<SpellBookSlot>(entity =>
 			{
 				entity.HasKey(x => new { x.SpellID, x.SpellBookID });
-				entity.HasOne(x => x.SpellBook).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellBookID).OnDelete(DeleteBehavior.Restrict);
-				entity.HasOne(x => x.Spell).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellID).OnDelete(DeleteBehavior.Restrict);
+				entity.HasOne(x => x.SpellBook).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellBookID);
+				entity.HasOne(x => x.Spell).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellID);
 			});
 
 			// Creating accounts for developers to debug
@@ -315,13 +315,110 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 1,
-				SpellName = "Fireball",
+				SpellName = "Fireball 1",
 				SpellDescription = "It's a fireball, does it really need a description?",
 				IconID = 11,
 				ManaCost = 0,
 				DamageAmount = 0,
 				CastTime = 0,
 
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 2,
+				SpellName = "Fireball 2",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 3,
+				SpellName = "Fireball 3",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 4,
+				SpellName = "Fireball 4",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 5,
+				SpellName = "Fireball 5",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 6,
+				SpellName = "Fireball 6",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 7,
+				SpellName = "Fireball 7",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 8,
+				SpellName = "Fireball 8",
+				SpellDescription = "It's a fireball, does it really need a description?",
+				IconID = 11,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 1,
+				SpellBookName = "My SpellBook",
+				PlayerID = 1,
+			});
+
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 1,
 			});
 		}
 	}

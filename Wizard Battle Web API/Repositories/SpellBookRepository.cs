@@ -32,8 +32,7 @@
 		{
 			return await m_context.SpellBook
 				.Include(x => x.Player)
-				.Include(x => x.SpellBookSlots)
-				.ThenInclude(x => x.Spell)
+				.Include(x => x.SpellBookSlots).ThenInclude(x => x.Spell).ThenInclude(x => x.Icon)
 				.FirstOrDefaultAsync(x => x.SpellBookID == spellBookId);
 		}
 

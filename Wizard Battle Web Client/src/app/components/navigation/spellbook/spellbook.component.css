@@ -2,3 +2,24 @@
 	margin: 1rem;
 }
 
+.spell-grid {
+	display: grid;
+	width: 400px;
+	height: 50px;
+	grid-template-columns: repeat(8, 1fr);
+	grid-column-gap: 10px;
+}
+
+.request-grid {
+	display: grid;
+	width: 360px;
+	height: 170px;
+	grid-template-columns: repeat(4, 1fr);
+	grid-row-gap: 20px;
+	grid-column-gap: 20px;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}

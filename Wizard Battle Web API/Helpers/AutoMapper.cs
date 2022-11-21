@@ -41,10 +41,22 @@ namespace Wizard_Battle_Web_API.Helpers
 			CreateMap<SpellRequest, Spell>();
 
 			CreateMap<SpellBook, StaticSpellBookResponse>();
+			CreateMap<DirectSpellBookResponse, SpellBook>()
+				.ForMember(dest => dest.SpellBookID, opt => opt.MapFrom(src => src.SpellBookID))
+				.ForMember(dest => dest.SpellBookName, opt => opt.MapFrom(src => src.SpellBookName))
+				.ForMember(dest => dest.Player, opt => opt.MapFrom(src => src.Player))
+				.ForMember(dest => dest.SpellBookSlots, opt => opt.MapFrom(src => src.Spells))
+				.AfterMap((src, dest) =>
+				{
+					foreach (var spells in dest.SpellBookSlots)
+					{
+						spells.SpellBookID = src.SpellBookID;
+					}
+				});
 			CreateMap<SpellBook, DirectSpellBookResponse>()
-				.ForMember(dto => dto.Spells, opt => opt.MapFrom(x => x.SpellBookSlots.Select(y => y.Spell).ToList()));
-			CreateMap<SpellBookRequest, SpellBook>()
-				.ForMember(dto => dto.SpellBookSlots, opt => opt.MapFrom(x => x.Spells));
+				.ForMember(dest => dest.Spells, opt => opt.MapFrom(src => src.SpellBookSlots.Select(x => x.Spell).ToList()));
+
+			CreateMap<SpellBookRequest, SpellBook>();
 		}
 	}
 }

@@ -33,6 +33,8 @@ builder.Services.AddTransient<ISpellService, SpellService>();
 
 builder.Services.AddTransient<ISpellBookRepository, SpellBookRepository>();
 builder.Services.AddTransient<ISpellBookService, SpellBookService>();
+
+builder.Services.AddTransient<ISpellBookSlotRepository, SpellBookSlotRepository>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {
