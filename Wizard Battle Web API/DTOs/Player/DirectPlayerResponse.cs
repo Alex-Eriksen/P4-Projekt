@@ -30,6 +30,12 @@ namespace Wizard_Battle_Web_API.DTOs.Player
 
 		public uint TimePlayedMin { get; set; } = 0;
 
+		public uint AvgDamage { get; set; } = 0;
+
+		public uint AvgSpellsHit { get; set; } = 0;
+
+		public int SpellBookID { get; set; } = 0;
+
 		public DateTime Modified_At { get; set; }
 
 		public ICollection<StaticTransactionResponse> Transactions = new List<StaticTransactionResponse>();

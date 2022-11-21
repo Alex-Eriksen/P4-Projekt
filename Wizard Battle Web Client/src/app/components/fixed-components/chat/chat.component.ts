@@ -82,10 +82,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
 
 		this.signalrService.OnFriendshipChanged.subscribe((x) => { // If a friend changes status fetch friends again
-			console.log("Catched new value on subscription with userID: " + x);
 			this.chatService.getAllById(this.playerId).subscribe({
 				next: (data) => {
-					console.log("Fetched new friends");
 					this.getFriends(data);
 				}
 	  		});

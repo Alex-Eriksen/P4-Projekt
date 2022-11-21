@@ -27,6 +27,14 @@ builder.Services.AddTransient<ITransactionService, TransactionService>();
 
 builder.Services.AddTransient<ISkinItemRepository, SkinItemRepository>();
 builder.Services.AddTransient<ISkinItemService, SkinItemService>();
+
+builder.Services.AddTransient<ISpellRepository, SpellRepository>();
+builder.Services.AddTransient<ISpellService, SpellService>();
+
+builder.Services.AddTransient<ISpellBookRepository, SpellBookRepository>();
+builder.Services.AddTransient<ISpellBookService, SpellBookService>();
+
+builder.Services.AddTransient<ISpellBookSlotRepository, SpellBookSlotRepository>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {

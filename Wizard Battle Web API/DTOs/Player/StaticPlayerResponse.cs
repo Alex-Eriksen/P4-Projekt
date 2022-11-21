@@ -10,7 +10,7 @@ namespace Wizard_Battle_Web_API.DTOs.Player
 
 		public string PlayerName { get; set; } = string.Empty;
 
-		public IconResponse Icon { get; set; }
+		public IconResponse Icon { get; set; } = null!;
 
 		public string PlayerStatus { get; set; } = string.Empty;
 
@@ -21,5 +21,11 @@ namespace Wizard_Battle_Web_API.DTOs.Player
 		public uint MatchLosses { get; set; } = 0;
 
 		public uint TimePlayedMin { get; set; } = 0;
+
+		public uint AvgDamage { get; set; } = 0;
+
+		public uint AvgSpellsHit { get; set; } = 0;
+
+		public int SpellBookID { get; set; } = 0;
 	}
 }

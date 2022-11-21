@@ -42,7 +42,7 @@ import { LeaderboardComponent } from './components/navigation/leaderboard/leader
     SkinInfoComponent,
     ChatComponent,
     AddFriendComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
   ],
 	imports: [
 		BrowserModule,

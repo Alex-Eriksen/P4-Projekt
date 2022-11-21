@@ -7,7 +7,6 @@ import { SignupComponent } from './components/authentication/signup/signup.compo
 import { SpellbookComponent } from './components/navigation/spellbook/spellbook.component';
 import { LibraryComponent } from './components/navigation/library/library.component';
 import { AuthenticationGuard } from './services/authentication.guard.service';
-import { ChangeIconComponent } from './components/modals/change-icon/change-icon.component';
 import { LeaderboardComponent } from './components/navigation/leaderboard/leaderboard.component';
 
 const routes: Routes = [

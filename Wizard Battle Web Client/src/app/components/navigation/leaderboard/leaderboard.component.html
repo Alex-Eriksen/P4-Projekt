@@ -1,17 +1,29 @@
-<h1>Leaderboard</h1>
-<table>
-	<tr>
-		<th>#</th>
-		<th>Name</th>
-		<th>Level</th>
-		<th>Matches</th>
-		<th>Winrate</th>
-	</tr>
-	<tr *ngFor="let player of players" class="text-white">
-		<td>{{getIndex(player)}}</td>
-		<td>{{player.playerName}}</td>
-		<td>{{player.experiencePoints}}</td>
-		<td>{{player.matchWins + player.matchLosses}}</td>
-		<td>{{getWinrate(player)}}%</td>
-	</tr>
-</table>
+<div class="w-100 h-100 p-4 bg-danger">
+	<h1>Leaderboard</h1>
+	<table class="table table-dark table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Username</th>
+				<th>MMR</th>
+				<th>Level</th>
+				<th>Matches</th>
+				<th>Winrate</th>
+				<th>Avg DMG</th>
+				<th>Avg Abilties hit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let player of players" class="text-white">
+				<td>placeholder</td>
+				<td>{{player.playerName}}</td>
+				<td>1250</td>
+				<td>placeholder</td>
+				<td>{{player.matchWins + player.matchLosses}}</td>
+				<td>placeholder%</td>
+				<td>placeholder</td>
+				<td>0</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

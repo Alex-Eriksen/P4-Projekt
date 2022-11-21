@@ -5,11 +5,7 @@ body, html {
 	height: 100%;
 	background-position: center;
 	overflow: hidden;
-}
-
-.fill {
-	min-height: 100%;
-	height: 100%;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .outline-0 {
@@ -20,36 +16,8 @@ body, html {
 	cursor: pointer;
 }
 
-.animateOut
-{
-	animation: fade-out 0.4s !important;
-}
-
-.backdropBackground
-{
-	background-color: rgba(0, 0, 0, 0.8);
-	overflow: hidden !important;
-	display: block;
-}
-
-.cdk-overlay-container {
-	position: absolute;
-	top: 0;
-}
-
-.abemamd {
-	position: absolute;
-}
-
-.new-overlay {
-	position: absolute;
-	top: 79px;
-	left: 19px;
-}
-
-.mat-dialog-container {
-	padding: 0px!important;
-}
+/* BACKGROUNDS & BORDERS */
+/*#region backgroundRegion */
 
 .dark-border-color {
 	border-color: #202c38!important;
@@ -62,31 +30,36 @@ body, html {
 .dark-background-2 {
 	background-color: #080e1c
 }
+/*#endregion */
 
-.mat-dialog-container {
-	box-shadow: none!important;
-}
-
+/* PLAYER STATUS */
+/*#region StatusRegion*/
 
 .online-status {
 	color: #00e200;
+	filter: drop-shadow(0px 0px 4px #00e200);
 }
 
 .away-status {
 	color:  #fad800;
+	filter: drop-shadow(0px 0px 4px #fad800);
 }
 
 .offline-status {
 	color: #434b4e ;
 }
 
+/*#endregion */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* MAT OVERLAYS */
+/*#region overlayRegion */
+mat-dialog-container {
+	padding: none!important;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+.mat-dialog-container {
+	padding: 0px!important;
+}
 
 .change-icon-overlay {
 	position: absolute;
@@ -108,44 +81,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-
-/* Buy meneus */
-.buy-menu-overlay1 {
-	position: absolute;
-	top: -17.775%;
-	/*top: -17.69%;*/
-	left: -9.284%;
-	/*top: 3%;
-	left: -9.3%;*/
-	overflow: hidden;
-}
-
-.buy-menu-overlay2 {
-	position: absolute;
-	top: 25.30%;
-	left: -35%;
-	overflow: hidden;
-}
-
-.buy-menu-overlay3 {
-	position: absolute;
-	top: 25.31%;
-	left: 16.45%;
-}
-
-.buy-menu-overlay4 {
-	position: absolute;
-	top: -17.79%;
-	left: 16.45%;
-}
-
-.buy-menu-overlay5 {
-	position: absolute;
-	top: 25.19%;
-	left: -35%;
-}
-
-
-mat-dialog-container {
-	padding: none!important;
-}
+/*#endregion */

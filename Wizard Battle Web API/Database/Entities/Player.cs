@@ -5,7 +5,6 @@
 		[Key]
 		public int PlayerID { get; set; }
 
-		[ForeignKey("Account.AccountID")]
 		public int AccountID { get; set; }
 		public Account Account { get; set; }
 
@@ -35,17 +34,28 @@
 
 		public uint TimePlayedMin { get; set; }
 
+		public uint AvgDamage { get; set; }
+
+		public uint AvgSpellsHit { get; set; }
+
+		public virtual ICollection<SpellBook> SpellBooks { get; set; }
+
 		[Column(TypeName = "datetime2")]
 		public DateTime Modified_At { get; set; }
-		
+
+		[InverseProperty("MainPlayer")]
 		public virtual ICollection<Friendship> MainPlayerFriends { get; set; }
 
+		[InverseProperty("FriendPlayer")]
 		public virtual ICollection<Friendship> Friends { get; set; }
 
+		[InverseProperty("Sender")]
 		public virtual ICollection<Message> Messages { get; set; }
 
+		[InverseProperty("Receiver")]
 		public virtual ICollection<Message> FriendMessages { get; set; }
 
+		[InverseProperty("Player")]
 		public virtual ICollection<Transaction> Transactions { get; set; }
 	}
 }

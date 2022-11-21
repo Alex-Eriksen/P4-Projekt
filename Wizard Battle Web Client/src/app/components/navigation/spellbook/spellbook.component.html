@@ -1,4 +1,7 @@
 <div class="w-100 h-100 bg-danger position-relative">
+	<div class="position-absolute top-0 start-0 spell-grid">
+		<div *ngFor="let slot of openSpellBook.spells">
+			<img class="border border-1 border-white" [src]="slot.icon.iconName">
 	<div class="position-absolute top-50 start-50 translate-middle">
 		<div class="row justify-content-start">
 			<div class="col-4 no-gutters">
