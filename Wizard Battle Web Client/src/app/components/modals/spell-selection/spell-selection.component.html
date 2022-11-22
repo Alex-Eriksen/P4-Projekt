@@ -1,10 +1,13 @@
-<div class="position-relative p-2" style="width: 512px; height: 442px;">
-	<div class="w-100 h-100 border border-1 border-white p-3 position-relative overflow-hidden">
-		<div class="position-absolute spell-grid p-3">
-			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell.spellID)"><img draggable="false" [src]="spell.icon.iconName"></div>
-			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell.spellID)"><img draggable="false" [src]="spell.icon.iconName"></div>
+<div class="position-relative p-2 bg-transparent" style="width: 512px; height: 508px;">
+	<div class="d-flex flex-row justify-content-center arrow-container py-2">
+		<i class="fa-solid fa-arrow-up cursor-pointer" *ngIf="!reachedTop" (click)="goUp()"></i>
+	</div>
+	<div class="w-100 border border-1 border-white p-3 position-relative overflow-hidden scroll-container">
+		<div id="scroll" class="position-absolute spell-grid p-3">
 			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell.spellID)"><img draggable="false" [src]="spell.icon.iconName"></div>
 		</div>
-		<i class="fa-solid fa-arrow-down"></i>
+	</div>
+	<div class="d-flex flex-row justify-content-center arrow-container py-2">
+		<i class="fa-solid fa-arrow-down cursor-pointer" *ngIf="!reachedBottom" (click)="goDown()"></i>
 	</div>
 </div>

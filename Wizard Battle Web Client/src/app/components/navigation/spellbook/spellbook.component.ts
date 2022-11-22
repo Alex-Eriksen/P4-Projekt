@@ -34,7 +34,6 @@ export class SpellbookComponent implements OnInit {
 
   	ngOnInit(): void {
 		this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets ID
-
 		this.spellService.getAll().subscribe({ // Gets Spells
 			next: (data) => {
 				this.spells = data;
@@ -46,8 +45,10 @@ export class SpellbookComponent implements OnInit {
 
 		this.spellBookService.getAll().subscribe({ // Gets SpellBooks
 			next: (data) => {
-				this.spellBooks = data.filter(spellbook => spellbook.playerID == this.playerId); // Filters personal spellbooks
-				this.getSpellBook(this.spellBooks[0].spellBookID); // Gets first spellbook as default
+				if(this.playerId != null) {
+					this.spellBooks = data.filter(spellbook => spellbook.playerID == this.playerId); // Filters personal spellbooks
+					this.getSpellBook(this.spellBooks[0].spellBookID); // Gets first spellbook as default
+				}
 			},
 			error: (err) => {
 				console.error(Object.values(err.error.errors).join(', '));
@@ -57,20 +58,18 @@ export class SpellbookComponent implements OnInit {
 
 	openSpellSelection(): void {
 		let dialogRef = this.dialog.open(SpellSelectionComponent, {
-			backdropClass: 'cdk-overlay-transparent-backdrop',
-			hasBackdrop: true,
 			width: '512px',
 			maxWidth: '100vw',
-			height: '442px',
-			disableClose: true,
-			exitAnimationDuration: "0s"
+			height: '524px',
+			exitAnimationDuration: "0s",
+			hasBackdrop: false
+
 		  });
 
 		  dialogRef.afterClosed().subscribe((id) => {
 			if(id != null) {
 				console.log(id);
 			}
-			console.log("Dialog has been closed");
 		  });
 	}
 

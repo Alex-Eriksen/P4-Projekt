@@ -1,10 +1,13 @@
-<div class="w-100 h-100 position-relative">
+<div class="container w-100 h-100 position-relative">
 	<div class="position-absolute top-50 start-50 translate-middle">
 		<div class="row justify-content-start">
-			<div class="col-4 no-gutters container">
+			<div class="col-4 no-gutters">
 				<div id="big-circle" class="circle big" id="player-spells">
-					<div class="circle" (click)="openSpellSelection()" *ngFor="let spell of openSpellBook.spells"><img draggable="false" [src]="spell.icon.iconName"></div>
+					<ng-container *ngIf="openSpellBook != null">
+						<div class="circle" (click)="openSpellSelection()" *ngFor="let spell of openSpellBook.spells"><img draggable="false" [src]="spell.icon.iconName"></div>
+					</ng-container>
 				</div>
+				<div class="circle-outline"></div>
 			</div>
 		</div>
 	</div>
