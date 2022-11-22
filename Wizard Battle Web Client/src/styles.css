@@ -81,4 +81,9 @@ mat-dialog-container {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+.spell-selection-overlay {
+	background-color: black;
+	box-shadow: none;
+}
 /*#endregion */

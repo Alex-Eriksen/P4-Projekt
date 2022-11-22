@@ -6,6 +6,7 @@ import { SpellService } from 'src/app/services/spell.service';
 import { SpellbookService } from 'src/app/services/spellbook.service';
 import { StaticSpellResponse } from 'src/app/_models/Spell';
 import { DirectSpellBookResponse, SpellBookRequest, StaticSpellBookResponse } from 'src/app/_models/SpellBook';
+import { SpellSelectionComponent } from '../../modals/spell-selection/spell-selection.component';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
@@ -20,6 +21,8 @@ export class SpellbookComponent implements OnInit {
 	private playerId: number;
 
 	public spells: StaticSpellResponse[] = [];
+
+	public currentSpells: StaticSpellResponse[] = [];
 
 	public spellBooks: StaticSpellBookResponse[] = [];
 
@@ -52,17 +55,24 @@ export class SpellbookComponent implements OnInit {
 		});
   	}
 
+	openSpellSelection(): void {
+		let dialogRef = this.dialog.open(SpellSelectionComponent, {
+			backdropClass: 'cdk-overlay-transparent-backdrop',
+			hasBackdrop: true,
+			width: '512px',
+			maxWidth: '100vw',
+			height: '442px',
+			disableClose: true,
+			exitAnimationDuration: "0s"
+		  });
 
-	public saveSpellBook(): void {
-		if(this.hasChanged) {
-			console.log(true);
-		}
-		else {
-			console.log(false);
-		}
+		  dialogRef.afterClosed().subscribe((id) => {
+			if(id != null) {
+				console.log(id);
+			}
+			console.log("Dialog has been closed");
+		  });
 	}
-
-
 
 	getSpellBook(spellBookId: number): void {
 		this.spellBookService.getById(spellBookId).subscribe({
