@@ -223,6 +223,36 @@ namespace Wizard_Battle_Web_API.Database
 				IconID = 11,
 				IconName = "../../../../assets/spell-icons/fireball.png"
 			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 12,
+				IconName = "../../../../assets/spell-icons/firenova.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 13,
+				IconName = "../../../../assets/spell-icons/firewall.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 14,
+				IconName = "../../../../assets/spell-icons/teleport.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 15,
+				IconName = "../../../../assets/spell-icons/windslash.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 16,
+				IconName = "../../../../assets/spell-icons/watervortex.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 17,
+				IconName = "../../../../assets/spell-icons/dash.png"
+			});
 
 			// Creating friendships between created players
 			modelBuilder.Entity<Friendship>().HasData(new Friendship
@@ -315,8 +345,8 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 1,
-				SpellName = "Fireball 1",
-				SpellDescription = "It's a fireball, does it really need a description?",
+				SpellName = "Fireball",
+				SpellDescription = "Lorem ipsum",
 				IconID = 11,
 				ManaCost = 0,
 				DamageAmount = 0,
@@ -327,9 +357,9 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 2,
-				SpellName = "Fireball 2",
-				SpellDescription = "It's a fireball, does it really need a description?",
-				IconID = 11,
+				SpellName = "Firenova",
+				SpellDescription = "Lorem ipsum",
+				IconID = 12,
 				ManaCost = 0,
 				DamageAmount = 0,
 				CastTime = 0,
@@ -339,9 +369,9 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 3,
-				SpellName = "Fireball 3",
-				SpellDescription = "It's a fireball, does it really need a description?",
-				IconID = 11,
+				SpellName = "Firewall",
+				SpellDescription = "Lorem ipsum",
+				IconID = 13,
 				ManaCost = 0,
 				DamageAmount = 0,
 				CastTime = 0,
@@ -351,9 +381,9 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 4,
-				SpellName = "Fireball 4",
-				SpellDescription = "It's a fireball, does it really need a description?",
-				IconID = 11,
+				SpellName = "Teleport",
+				SpellDescription = "Lorem ipsum",
+				IconID = 14,
 				ManaCost = 0,
 				DamageAmount = 0,
 				CastTime = 0,
@@ -363,9 +393,9 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 5,
-				SpellName = "Fireball 5",
-				SpellDescription = "It's a fireball, does it really need a description?",
-				IconID = 11,
+				SpellName = "Windslash",
+				SpellDescription = "Lorem ipsum",
+				IconID = 15,
 				ManaCost = 0,
 				DamageAmount = 0,
 				CastTime = 0,
@@ -375,9 +405,9 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 6,
-				SpellName = "Fireball 6",
-				SpellDescription = "It's a fireball, does it really need a description?",
-				IconID = 11,
+				SpellName = "Water Vortex",
+				SpellDescription = "Lorem ipsum",
+				IconID = 16,
 				ManaCost = 0,
 				DamageAmount = 0,
 				CastTime = 0,
@@ -387,9 +417,9 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 7,
-				SpellName = "Fireball 7",
-				SpellDescription = "It's a fireball, does it really need a description?",
-				IconID = 11,
+				SpellName = "Dash",
+				SpellDescription = "Lorem ipsum",
+				IconID = 17,
 				ManaCost = 0,
 				DamageAmount = 0,
 				CastTime = 0,
@@ -399,7 +429,7 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 8,
-				SpellName = "Fireball 8",
+				SpellName = "Fireball 2",
 				SpellDescription = "It's a fireball, does it really need a description?",
 				IconID = 11,
 				ManaCost = 0,

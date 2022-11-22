@@ -1,0 +1,10 @@
+<div class="position-relative p-2" style="width: 512px; height: 442px;">
+	<div class="w-100 h-100 border border-1 border-white p-3 position-relative overflow-hidden">
+		<div class="position-absolute spell-grid p-3">
+			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell.spellID)"><img draggable="false" [src]="spell.icon.iconName"></div>
+			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell.spellID)"><img draggable="false" [src]="spell.icon.iconName"></div>
+			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell.spellID)"><img draggable="false" [src]="spell.icon.iconName"></div>
+		</div>
+		<i class="fa-solid fa-arrow-down"></i>
+	</div>
+</div>

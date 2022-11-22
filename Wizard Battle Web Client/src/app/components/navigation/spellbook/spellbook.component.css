@@ -2,19 +2,13 @@
 	margin: 1rem;
 }
 
-.spell-grid {
-	display: grid;
-	width: 400px;
-	height: 50px;
-	grid-template-columns: repeat(8, 1fr);
-	grid-column-gap: 10px;
-}
-
 img {
 	width: 100%;
 	height: 100%;
 }
 
+/* CIRCLE REGION */
+/*#region circleRegion */
 .circle {
     border-radius: 0%;
     width: 50px;
@@ -83,4 +77,4 @@ img {
     right: -25px;
     bottom: -25px;
 }
-
+/*#endregion*/

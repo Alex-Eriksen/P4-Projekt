@@ -274,10 +274,10 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
                 values: new object[,]
                 {
-                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$/JJYXRYXSbwA4ISELg5pLuWIRKJn206y6khaN942qPhcjFHiGy6TC" },
-                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$PAkQmuBv.dqks6WRoEEAyOvdygDGDNylGIAiVoH0FCsn5z8FKMAaW" },
-                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$Y9rZ6DKEToH694J4klu0A.J0jJd1HRFN99fUqmKUQPCSE.EuxMExK" },
-                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$.qvbsF.KC.f1XdC0TcJNB.CkzhxOSfTX8aKvpQ2IqZHzYCvJ0Ijt." }
+                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$XJk1h.P/CS/Ug6TguRn8H.RqQlegSSi6rQaIq0adG4Nw2jDXH02Fu" },
+                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$yg2ikWeg3.lLlJJiLBUPiezhiFqrI45lmFY8XsEuDpJCRHfC3TNZ6" },
+                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$VS8NB//xs9Di7Msu03oYcu1JRdiqZ7jtBcuej72KeIKDIk5yoGbGy" },
+                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$25v8CDX6HNUwkzUGvyP9h.bxzmrtv0D.3OJqhqpZQ1owW5jBXF1dW" }
                 });
 
             migrationBuilder.InsertData(
@@ -295,7 +295,13 @@ namespace Wizard_Battle_Web_API.Migrations
                     { 8, "../../../../assets/player-icons/alex-gangster.png" },
                     { 9, "../../../../assets/player-icons/alex-impersonator.jpg" },
                     { 10, "../../../../assets/player-icons/nick-gangster.png" },
-                    { 11, "../../../../assets/spell-icons/fireball.png" }
+                    { 11, "../../../../assets/spell-icons/fireball.png" },
+                    { 12, "../../../../assets/spell-icons/firenova.png" },
+                    { 13, "../../../../assets/spell-icons/firewall.png" },
+                    { 14, "../../../../assets/spell-icons/teleport.png" },
+                    { 15, "../../../../assets/spell-icons/windslash.png" },
+                    { 16, "../../../../assets/spell-icons/watervortex.png" },
+                    { 17, "../../../../assets/spell-icons/dash.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -325,14 +331,14 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "SpellID", "CastTime", "DamageAmount", "IconID", "ManaCost", "SpellDescription", "SpellName" },
                 values: new object[,]
                 {
-                    { 1, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 1" },
-                    { 2, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 2" },
-                    { 3, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 3" },
-                    { 4, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 4" },
-                    { 5, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 5" },
-                    { 6, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 6" },
-                    { 7, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 7" },
-                    { 8, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 8" }
+                    { 1, 0m, 0m, 11, 0m, "Lorem ipsum", "Fireball" },
+                    { 2, 0m, 0m, 12, 0m, "Lorem ipsum", "Firenova" },
+                    { 3, 0m, 0m, 13, 0m, "Lorem ipsum", "Firewall" },
+                    { 4, 0m, 0m, 14, 0m, "Lorem ipsum", "Teleport" },
+                    { 5, 0m, 0m, 15, 0m, "Lorem ipsum", "Windslash" },
+                    { 6, 0m, 0m, 16, 0m, "Lorem ipsum", "Water Vortex" },
+                    { 7, 0m, 0m, 17, 0m, "Lorem ipsum", "Dash" },
+                    { 8, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 2" }
                 });
 
             migrationBuilder.InsertData(
@@ -340,12 +346,12 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "FriendPlayerID", "MainPlayerID", "Created_At", "IsPending" },
                 values: new object[,]
                 {
-                    { 2, 1, new DateTime(2022, 11, 21, 11, 32, 34, 609, DateTimeKind.Utc).AddTicks(8050), false },
-                    { 3, 1, new DateTime(2022, 11, 21, 11, 32, 34, 609, DateTimeKind.Utc).AddTicks(8061), false },
-                    { 4, 1, new DateTime(2022, 11, 21, 11, 32, 34, 609, DateTimeKind.Utc).AddTicks(8069), false },
-                    { 3, 2, new DateTime(2022, 11, 21, 11, 32, 34, 609, DateTimeKind.Utc).AddTicks(8075), false },
-                    { 4, 2, new DateTime(2022, 11, 21, 11, 32, 34, 609, DateTimeKind.Utc).AddTicks(8082), false },
-                    { 4, 3, new DateTime(2022, 11, 21, 11, 32, 34, 609, DateTimeKind.Utc).AddTicks(8090), false }
+                    { 2, 1, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3888), false },
+                    { 3, 1, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3900), false },
+                    { 4, 1, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3907), false },
+                    { 3, 2, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3914), false },
+                    { 4, 2, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3958), false },
+                    { 4, 3, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3969), false }
                 });
 
             migrationBuilder.InsertData(

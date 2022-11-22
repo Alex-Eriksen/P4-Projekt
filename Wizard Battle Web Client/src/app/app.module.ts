@@ -27,6 +27,7 @@ import { ChatComponent } from './components/fixed-components/chat/chat.component
 import { AddFriendComponent } from './components/modals/add-friend/add-friend.component';
 import { LeaderboardComponent } from './components/navigation/leaderboard/leaderboard.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SpellSelectionComponent } from './components/modals/spell-selection/spell-selection.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ChatComponent,
     AddFriendComponent,
     LeaderboardComponent,
+    SpellSelectionComponent,
   ],
 	imports: [
 		BrowserModule,
