@@ -1,11 +1,10 @@
 <div class="w-100 h-100 position-relative">
 	<div class="position-absolute top-50 start-50 translate-middle">
 		<div class="row justify-content-start">
-			<div class="col-4 no-gutters">
+			<div class="col-4 no-gutters container">
 				<div id="big-circle" class="circle big" id="player-spells">
 					<div class="circle" (click)="openSpellSelection()" *ngFor="let spell of openSpellBook.spells"><img draggable="false" [src]="spell.icon.iconName"></div>
 				</div>
-				<div class="circle-outline"></div>
 			</div>
 		</div>
 	</div>

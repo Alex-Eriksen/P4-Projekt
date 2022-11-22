@@ -26,8 +26,8 @@ import { SkinInfoComponent } from './components/modals/skin-info/skin-info.compo
 import { ChatComponent } from './components/fixed-components/chat/chat.component';
 import { AddFriendComponent } from './components/modals/add-friend/add-friend.component';
 import { LeaderboardComponent } from './components/navigation/leaderboard/leaderboard.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SpellSelectionComponent } from './components/modals/spell-selection/spell-selection.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,7 @@ import { SpellSelectionComponent } from './components/modals/spell-selection/spe
 		BrowserAnimationsModule,
 		FormsModule,
 		MatDialogModule,
-		DragDropModule,
+    DragDropModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },
