@@ -2,6 +2,12 @@
 	margin: 1rem;
 }
 
+.container {
+    background-image: url("../../../../assets/Circle of Power Final.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .spell-grid {
 	display: grid;
 	width: 400px;

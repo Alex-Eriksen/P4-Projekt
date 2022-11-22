@@ -6,6 +6,7 @@ import { SpellService } from 'src/app/services/spell.service';
 import { SpellbookService } from 'src/app/services/spellbook.service';
 import { StaticSpellResponse } from 'src/app/_models/Spell';
 import { DirectSpellBookResponse, SpellBookRequest, StaticSpellBookResponse } from 'src/app/_models/SpellBook';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-spellbook',

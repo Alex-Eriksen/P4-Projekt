@@ -12,8 +12,8 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221121091054_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221121113233_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$.bTaqlv9Kbk877I/7802U.oy2dU73jr.nZDSqUmgGZemXaEph5bM."
+                            Password = "$2a$10$lHlCZRj4.DPBvhLKz13IQe8T0NALIPXkSx173pUFLOkgkZC70/31q"
                         },
                         new
                         {
@@ -74,7 +74,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$kAlJAST6iDnCKJRuRct3eu1RHrQzPjrFMZPLyImiFHNna33IdV4oK"
+                            Password = "$2a$10$T91em0s7.GoJ.5Dhefj56Os.5PMUKnsXxDThunFUJvaEBJi4wbmhy"
                         },
                         new
                         {
@@ -83,7 +83,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$E1jlGdf7xudiom9AH3h5JubWOvBE5vL8xpKAUPbPe7M8LXAar2k/y"
+                            Password = "$2a$10$LPh8MAGQNNuczPD8wWSXk.PuQIxgQ2yk/Lsodvi7IR7tfX72EGGtC"
                         },
                         new
                         {
@@ -92,7 +92,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$hf85lesP/IWOIjGkxiqmue7Y1PcZI4mKbaH4wFIBRIdk8kARZvJKy"
+                            Password = "$2a$10$LVeqP2tqC5eV6V4aChMui.BxGBLqnqSDyHZPfTzqYlabHHXUgDAba"
                         });
                 });
 
@@ -123,42 +123,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9370),
+                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9047),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9467),
+                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9060),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9486),
+                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9067),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9512),
+                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9074),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9539),
+                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9082),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 21, 9, 10, 54, 523, DateTimeKind.Utc).AddTicks(9561),
+                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9090),
                             IsPending = false
                         });
                 });

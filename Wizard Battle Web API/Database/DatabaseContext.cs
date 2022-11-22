@@ -62,8 +62,8 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<SpellBookSlot>(entity =>
 			{
 				entity.HasKey(x => new { x.SpellID, x.SpellBookID });
-				entity.HasOne(x => x.SpellBook).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellBookID);
-				entity.HasOne(x => x.Spell).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellID);
+				entity.HasOne(x => x.SpellBook).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellBookID).OnDelete(DeleteBehavior.Restrict);
+				entity.HasOne(x => x.Spell).WithMany(x => x.SpellBookSlots).HasForeignKey(x => x.SpellID).OnDelete(DeleteBehavior.Restrict);
 			});
 
 			// Creating accounts for developers to debug

@@ -1,21 +1,23 @@
-<div class="w-100 h-100 bg-danger position-relative">
+<div class="w-100 h-100 position-relative container">
 	<div class="position-absolute top-0 start-0 spell-grid">
 		<div *ngFor="let slot of openSpellBook.spells">
 			<img class="border border-1 border-white" [src]="slot.icon.iconName">
-	<div class="position-absolute top-50 start-50 translate-middle">
-		<div class="row justify-content-start">
-			<div class="col-4 no-gutters">
-				<div id="big-circle" class="circle big">
-					<div class="circle one"></div>
-					<div class="circle two"></div>
-					<div class="circle three"></div>
-					<div class="circle four"></div>
-					<div class="circle five"></div>
-					<div class="circle six"></div>
-					<div class="circle seven"></div>
-					<div class="circle eight"></div>
+		</div>
+		<div class="position-absolute top-50 start-50 translate-middle">
+			<div class="row justify-content-start">
+				<div class="col-4 no-gutters">
+					<div id="big-circle" class="circle big">
+						<div class="circle one"></div>
+						<div class="circle two"></div>
+						<div class="circle three"></div>
+						<div class="circle four"></div>
+						<div class="circle five"></div>
+						<div class="circle six"></div>
+						<div class="circle seven"></div>
+						<div class="circle eight"></div>
+					</div>
+					<div class="circle-outline"></div>
 				</div>
-				<div class="circle-outline"></div>
 			</div>
 		</div>
 	</div>
