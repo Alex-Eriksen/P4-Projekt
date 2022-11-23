@@ -21,9 +21,9 @@ export class ChangeIconComponent implements OnInit {
 
   playerId: number = 0;
 
-  player: DirectPlayerResponse = { playerID: 0, account: {accountID: 0, email: "" }, playerName: "", icon: {iconID: 0, iconName: ""}, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0 };
+  player: DirectPlayerResponse;
 
-  public playerRequest: PlayerRequest = { playerName: "", iconID: 0, experiencePoints: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0 };
+  public playerRequest: PlayerRequest;
 
   constructor(public dialogRef: MatDialogRef<ChangeIconComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
   private playerService: PlayerService,
@@ -35,7 +35,6 @@ export class ChangeIconComponent implements OnInit {
     this.authenticationService.OnTokenChanged.subscribe(x => {
       this.playerId = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
       this.playerService.getById(this.playerId).subscribe(x => {
-        this.playerRequest.playerName = x.playerName;
         Object.assign(this.playerRequest, x);
       });
       this.iconService.getAll().subscribe(data => this.icons = data);

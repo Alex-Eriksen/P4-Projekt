@@ -27,9 +27,15 @@ export class SkinInfoComponent implements OnInit {
 
   	ngOnInit(): void {
 		document.body.children[6].classList.add('skin-item-overlay');
-		this.transactionService.getAll().subscribe((transactions) => {
-			if(transactions.filter(transaction => transaction.playerID == this.data.player.playerID && transaction.skinID == this.data.skinItem.skinID).length != 0) {
-				this.isOwned = true;
+		this.transactionService.getAll().subscribe({
+			next: (transactions) => {
+				if(transactions != null) {
+					if(transactions.filter(transaction => transaction.playerID == this.data.player.playerID && transaction.skinID == this.data.skinItem.skinID).length != 0)
+						this.isOwned = true;
+				}
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
 			}
 		})
   	}
@@ -38,20 +44,20 @@ export class SkinInfoComponent implements OnInit {
 		if(this.data.player.timeCapsules >= this.data.skinItem.skinPrice) {
 			let request: TransactionRequest = { skinID: this.data.skinItem.skinID, playerID: this.data.player.playerID, totalCost: this.data.skinItem.skinPrice }
 			this.transactionService.create(request).subscribe({
-				error: (err) => {
-					console.error(Object.values(err.error.errors).join(', '));
-				},
-				complete: () => {
+				next: () => {
 					this.data.player.timeCapsules = this.data.player.timeCapsules - request.totalCost;
-					let playerRequest: PlayerRequest = Object.assign({},this.data.player, this.data.player.icon)
+					let playerRequest: PlayerRequest = Object.assign({},this.data.player, this.data.player.account, this.data.player.icon)
 					this.playerService.update(this.data.player.playerID, playerRequest).subscribe({
+						next: () => {
+							this.hasPurchased = true;
+						},
 						error: (err) => {
 							console.error(Object.values(err.error.errors).join(', '));
-						},
-						complete: () => {
-							this.hasPurchased = true;
 						}
 					})
+				},
+				error: (err) => {
+					console.error(Object.values(err.error.errors).join(', '));
 				}
 			})
 		}

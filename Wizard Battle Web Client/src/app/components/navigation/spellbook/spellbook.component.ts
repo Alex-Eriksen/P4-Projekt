@@ -86,9 +86,10 @@ export class SpellbookComponent implements OnInit {
 			next: (data) => {
 				this.openSpellBook = data;
 				if(this.openSpellBook.spells.length != 8) {
-					let spell: StaticSpellResponse = { spellID: 0, spellName: "", spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/locked-padlock.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
+					let placeholderSpell: StaticSpellResponse = { spellID: 0, spellName: "placeholder", spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/choose-spell.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
+					let lockedSpell: StaticSpellResponse = { spellID: 0, spellName: "locked", spellDescription: "", icon: {iconID: 1337, iconName: "../../../../assets/spell-icons/locked-padlock.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
 					for(let i = this.openSpellBook.spells.length; i < 8; i++) {
-						this.openSpellBook.spells.push(spell);
+						this.openSpellBook.spells.push(placeholderSpell);
 					}
 				}
 			},

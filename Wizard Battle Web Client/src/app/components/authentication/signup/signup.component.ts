@@ -15,14 +15,14 @@ import { PlayerAccountRequest } from 'src/app/_models/Player/PlayerAccountReques
 })
 export class SignupComponent implements OnInit {
 
-  private returnUrl: string = "";
+  	private returnUrl: string = "";
 	public passwordValidator: string = '';
-  public accountRequest: AccountRequest = { email: '', password: ''};
-	public playerRequest: PlayerRequest = { playerName: "", iconID: 1, experiencePoints: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0 };
+  	public accountRequest: AccountRequest = { email: '', password: ''};
+	public playerRequest: PlayerRequest = { accountID: 0, playerName: "", iconID: 1, experiencePoints: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, avgDamage: 0, avgSpellsHit: 0, spellBookID: 0};
 	private request: PlayerAccountRequest = { account: this.accountRequest, player: this.playerRequest };
-  error: string = '';
+  	error: string = '';
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private playerService: PlayerService) { }
+  	constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute, private playerService: PlayerService) { }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams[ "returnUrl" ] || "/";
@@ -57,8 +57,8 @@ export class SignupComponent implements OnInit {
 				this.playerService.create(this.request).subscribe({
 					next: () =>
 					{
-            let loginRequest: AuthenticationRequest = { email: '', password: ''};
-            loginRequest = Object.assign(loginRequest, this.request.account);
+            			let loginRequest: AuthenticationRequest = { email: '', password: ''};
+            			loginRequest = Object.assign(loginRequest, this.request.account);
 						this.authenticationService.authenticate(loginRequest).subscribe();
 					},
 					error: (err) =>

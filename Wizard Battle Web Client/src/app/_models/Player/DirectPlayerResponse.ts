@@ -1,5 +1,6 @@
 import { StaticAccountResponse } from "../Account";
 import { IconResponse } from "../Icon/";
+import { StaticTransactionResponse } from "../Transaction";
 
 export interface DirectPlayerResponse {
     playerID: number;
@@ -15,4 +16,9 @@ export interface DirectPlayerResponse {
     matchWins: number;
     matchLosses: number;
     timePlayedMin: number;
+    avgDamage: number;
+    avgSpellsHit: number;
+    spellBookID: number;
+    modified_At: string;
+    transactions: StaticTransactionResponse[];
 }

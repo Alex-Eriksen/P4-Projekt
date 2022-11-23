@@ -13,6 +13,7 @@ namespace Wizard_Battle_Web_API.Controllers
 		private readonly IAccountService m_accountService;
 		private readonly IFriendshipService m_friendshipService;
 		private readonly IHubContext<ChatHub, IChatHub> m_hubContext;
+		private readonly ISpellBookService m_spellBookService;
 
 
 		/// <summary>
@@ -20,12 +21,13 @@ namespace Wizard_Battle_Web_API.Controllers
 		/// </summary>
 		/// <param name="playerService"></param>
 		/// <param name="accountService"></param>
-		public PlayerController(IPlayerService playerService, IAccountService accountService, IHubContext<ChatHub, IChatHub> hubContext, IFriendshipService friendshipService)
+		public PlayerController(IPlayerService playerService, IAccountService accountService, IHubContext<ChatHub, IChatHub> hubContext, IFriendshipService friendshipService, ISpellBookService spellBookService)
 		{
 			m_playerService = playerService;
 			m_accountService = accountService;
 			m_friendshipService = friendshipService;
 			m_hubContext = hubContext;
+			m_spellBookService = spellBookService;
 		}
 
 
@@ -108,6 +110,16 @@ namespace Wizard_Battle_Web_API.Controllers
 				{
 					return Problem("Customer was not created, something failed...");
 				}
+
+				for(int i = 1; i < 3; i++)
+				{
+					DirectSpellBookResponse spellBookResponse = await m_spellBookService.Create(new SpellBookRequest { SpellBookName = "Unnamed Book", PlayerID = player.PlayerID, SpellIDs = { }});
+					if(spellBookResponse == null)
+					{
+						return Problem($"Could not create spellbook: {i}");
+					}
+				}
+
 				return Ok(player);
 			}
 			catch (Exception ex)
