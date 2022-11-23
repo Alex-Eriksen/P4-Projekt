@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SpellService } from 'src/app/services/spell.service';
 import { StaticSpellResponse } from 'src/app/_models/Spell';
+import { DirectSpellBookResponse } from 'src/app/_models/SpellBook';
 
 @Component({
   selector: 'app-spell-selection',
@@ -10,7 +11,7 @@ import { StaticSpellResponse } from 'src/app/_models/Spell';
 })
 export class SpellSelectionComponent implements OnInit, AfterViewInit {
 
-	constructor(private spellService: SpellService, public dialogRef: MatDialogRef<SpellSelectionComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cdr: ChangeDetectorRef, private elementRef: ElementRef) { }
+	constructor(private spellService: SpellService, public dialogRef: MatDialogRef<SpellSelectionComponent>, @Inject(MAT_DIALOG_DATA) public data: DirectSpellBookResponse, private cdr: ChangeDetectorRef, private elementRef: ElementRef) { }
 
 	public spells: StaticSpellResponse[] = [];
 
@@ -23,10 +24,18 @@ export class SpellSelectionComponent implements OnInit, AfterViewInit {
 
 	ngOnInit(): void {
 		document.body.children[6].classList.add('spell-selection-overlay');
+		for(let i = 0; i < 100; i++) {
+			if(document.getElementById(`cdk-overlay-${i}`) != undefined) {
+				document.getElementById(`cdk-overlay-${i}`)?.classList.add("spell-selection-position");
+			}
+		}
+
 		this.spellService.getAll().subscribe({ // Gets Spells
 			next: (data) => {
 				this.spells = data;
-				this.spells = this.spells.concat(data);
+				for(let i = 0; i < this.data.spells.length; i++) {
+					this.spells = this.spells.filter(x => x.spellID !== this.data.spells[i].spellID);
+				}
 			},
 			error: (err) => {
 				console.error(Object.values(err.error.errors).join(', '));

@@ -12,8 +12,8 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221121113233_initialcreate")]
-    partial class initialcreate
+    [Migration("20221123123500_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$lHlCZRj4.DPBvhLKz13IQe8T0NALIPXkSx173pUFLOkgkZC70/31q"
+                            Password = "$2a$10$wFVT107Z8RsjOoy4d6gid.Dyb2IoxK1pualkjy/KEGKcN3P/1ROjy"
                         },
                         new
                         {
@@ -74,7 +74,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$T91em0s7.GoJ.5Dhefj56Os.5PMUKnsXxDThunFUJvaEBJi4wbmhy"
+                            Password = "$2a$10$QLhU2vgMPuUrKbfFcKV9zOPXwbH4eR1bo8YKg8UliZ3Q4wUQQsOHm"
                         },
                         new
                         {
@@ -83,7 +83,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$LPh8MAGQNNuczPD8wWSXk.PuQIxgQ2yk/Lsodvi7IR7tfX72EGGtC"
+                            Password = "$2a$10$XJqpSa9xDoze3s.fDDuVruqPIUG5Z70VIHo8VpMNIQiW5jQ8FBU9m"
                         },
                         new
                         {
@@ -92,7 +92,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$LVeqP2tqC5eV6V4aChMui.BxGBLqnqSDyHZPfTzqYlabHHXUgDAba"
+                            Password = "$2a$10$HBY8LTeHsctd.BXjPtvxEeaSGnxztmcNLJnDgYIzRqunOugpdaqra"
                         });
                 });
 
@@ -123,42 +123,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9047),
+                            Created_At = new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1652),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9060),
+                            Created_At = new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1670),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9067),
+                            Created_At = new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1676),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9074),
+                            Created_At = new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1683),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9082),
+                            Created_At = new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1691),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 21, 11, 32, 33, 355, DateTimeKind.Utc).AddTicks(9090),
+                            Created_At = new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1701),
                             IsPending = false
                         });
                 });
@@ -233,6 +233,76 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             IconID = 11,
                             IconName = "../../../../assets/spell-icons/fireball.png"
+                        },
+                        new
+                        {
+                            IconID = 12,
+                            IconName = "../../../../assets/spell-icons/firenova.png"
+                        },
+                        new
+                        {
+                            IconID = 13,
+                            IconName = "../../../../assets/spell-icons/firewall.png"
+                        },
+                        new
+                        {
+                            IconID = 14,
+                            IconName = "../../../../assets/spell-icons/teleport.png"
+                        },
+                        new
+                        {
+                            IconID = 15,
+                            IconName = "../../../../assets/spell-icons/windslash.png"
+                        },
+                        new
+                        {
+                            IconID = 16,
+                            IconName = "../../../../assets/spell-icons/watervortex.png"
+                        },
+                        new
+                        {
+                            IconID = 17,
+                            IconName = "../../../../assets/spell-icons/dash.png"
+                        },
+                        new
+                        {
+                            IconID = 18,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-1.png"
+                        },
+                        new
+                        {
+                            IconID = 19,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-2.png"
+                        },
+                        new
+                        {
+                            IconID = 20,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-3.png"
+                        },
+                        new
+                        {
+                            IconID = 21,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-4.png"
+                        },
+                        new
+                        {
+                            IconID = 22,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-5.png"
+                        },
+                        new
+                        {
+                            IconID = 23,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-6.png"
+                        },
+                        new
+                        {
+                            IconID = 24,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-7.png"
+                        },
+                        new
+                        {
+                            IconID = 25,
+                            IconName = "../../../../assets/spell-icons/placeholder-spell-icon-8.png"
                         });
                 });
 
@@ -550,80 +620,160 @@ namespace Wizard_Battle_Web_API.Migrations
                             SpellID = 1,
                             CastTime = 0m,
                             DamageAmount = 0m,
-                            IconID = 11,
+                            IconID = 18,
                             ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 1"
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 1"
                         },
                         new
                         {
                             SpellID = 2,
                             CastTime = 0m,
                             DamageAmount = 0m,
-                            IconID = 11,
+                            IconID = 19,
                             ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 2"
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 2"
                         },
                         new
                         {
                             SpellID = 3,
                             CastTime = 0m,
                             DamageAmount = 0m,
-                            IconID = 11,
+                            IconID = 20,
                             ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 3"
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 3"
                         },
                         new
                         {
                             SpellID = 4,
                             CastTime = 0m,
                             DamageAmount = 0m,
-                            IconID = 11,
+                            IconID = 21,
                             ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 4"
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 4"
                         },
                         new
                         {
                             SpellID = 5,
                             CastTime = 0m,
                             DamageAmount = 0m,
-                            IconID = 11,
+                            IconID = 22,
                             ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 5"
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 5"
                         },
                         new
                         {
                             SpellID = 6,
                             CastTime = 0m,
                             DamageAmount = 0m,
-                            IconID = 11,
+                            IconID = 23,
                             ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 6"
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 6"
                         },
                         new
                         {
                             SpellID = 7,
                             CastTime = 0m,
                             DamageAmount = 0m,
-                            IconID = 11,
+                            IconID = 24,
                             ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 7"
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 7"
                         },
                         new
                         {
                             SpellID = 8,
                             CastTime = 0m,
                             DamageAmount = 0m,
+                            IconID = 25,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Test spell 8"
+                        },
+                        new
+                        {
+                            SpellID = 9,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 11,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Fireball"
+                        },
+                        new
+                        {
+                            SpellID = 10,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 12,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Firenova"
+                        },
+                        new
+                        {
+                            SpellID = 11,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 13,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Firewall"
+                        },
+                        new
+                        {
+                            SpellID = 12,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 14,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Teleport"
+                        },
+                        new
+                        {
+                            SpellID = 13,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 15,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Windslash"
+                        },
+                        new
+                        {
+                            SpellID = 14,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 16,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Water Vortex"
+                        },
+                        new
+                        {
+                            SpellID = 15,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
+                            IconID = 17,
+                            ManaCost = 0m,
+                            SpellDescription = "Lorem ipsum",
+                            SpellName = "Dash"
+                        },
+                        new
+                        {
+                            SpellID = 16,
+                            CastTime = 0m,
+                            DamageAmount = 0m,
                             IconID = 11,
                             ManaCost = 0m,
                             SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 8"
+                            SpellName = "Fireball 2"
                         });
                 });
 
@@ -640,6 +790,9 @@ namespace Wizard_Battle_Web_API.Migrations
 
                     b.Property<string>("SpellBookName")
                         .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("SpellOrder")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SpellBookID");
 
@@ -674,6 +827,41 @@ namespace Wizard_Battle_Web_API.Migrations
                         new
                         {
                             SpellID = 1,
+                            SpellBookID = 1
+                        },
+                        new
+                        {
+                            SpellID = 2,
+                            SpellBookID = 1
+                        },
+                        new
+                        {
+                            SpellID = 3,
+                            SpellBookID = 1
+                        },
+                        new
+                        {
+                            SpellID = 4,
+                            SpellBookID = 1
+                        },
+                        new
+                        {
+                            SpellID = 5,
+                            SpellBookID = 1
+                        },
+                        new
+                        {
+                            SpellID = 6,
+                            SpellBookID = 1
+                        },
+                        new
+                        {
+                            SpellID = 7,
+                            SpellBookID = 1
+                        },
+                        new
+                        {
+                            SpellID = 8,
                             SpellBookID = 1
                         });
                 });

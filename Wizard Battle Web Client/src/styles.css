@@ -16,6 +16,10 @@ body, html {
 	cursor: pointer;
 }
 
+.cursor-disabled {
+	cursor: not-allowed;
+}
+
 /* BACKGROUNDS & BORDERS */
 /*#region backgroundRegion */
 
@@ -86,8 +90,17 @@ mat-dialog-container {
 
 .spell-selection-overlay {
 	position: absolute;
-	top: 38%;
-	left: 14.5%;
-	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+}
+
+.spell-selection-position {
+	position: absolute!important;
+	left: 28px;
+	top: 122px;
+}
+
+.backdrop-bg-none {
+	background: transparent!important;
 }
 /*#endregion */

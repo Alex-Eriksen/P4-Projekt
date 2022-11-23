@@ -13,5 +13,7 @@
 		public virtual Player Player { get; set; }
 
 		public ICollection<SpellBookSlot> SpellBookSlots { get; set; }
+
+		public string SpellOrder { get; set; }
 	}
 }

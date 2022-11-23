@@ -1,10 +1,15 @@
-<div class="container w-100 h-100 position-relative">
+<div class="my-container w-100 h-100 position-relative">
+	<div class="position-absolute top-0 end-0 d-flex flex-row gap-3">
+		<button class="btn btn-dark" (click)="getSpellBook(spellBooks[0].spellBookID)">Undo</button>
+		<button class="btn btn-primary" (click)="saveSpellBook()">Save</button>
+
+	</div>
 	<div class="position-absolute top-50 start-50 translate-middle">
 		<div class="row justify-content-start">
 			<div class="col-4 no-gutters">
 				<div id="big-circle" class="circle big" id="player-spells">
 					<ng-container *ngIf="openSpellBook != null">
-						<div class="circle" (click)="openSpellSelection()" *ngFor="let spell of openSpellBook.spells"><img draggable="false" [src]="spell.icon.iconName"></div>
+						<div class="circle" [ngClass]="{'cursor-disabled': spell.spellID == 0}" (click)="spell.spellID != 0 ? openSpellSelection(spell.spellID) : null" *ngFor="let spell of openSpellBook.spells" ><img draggable="false" [src]="spell.icon.iconName"></div>
 					</ng-container>
 				</div>
 				<div class="circle-outline"></div>

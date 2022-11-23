@@ -66,7 +66,6 @@ namespace Wizard_Battle_Web_API.Controllers
 		{
 			try
 			{
-				request.IconName = $"../../../../assets/player-icons/{request.IconName}";
 				IconResponse icon = await m_iconService.Create(request, isPlayerIcon);
 				if(icon == null)
 				{

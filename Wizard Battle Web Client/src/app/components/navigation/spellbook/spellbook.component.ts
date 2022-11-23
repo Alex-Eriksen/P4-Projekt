@@ -30,6 +30,8 @@ export class SpellbookComponent implements OnInit {
 
 	public spellBookRequest: SpellBookRequest = { spellBookName: "", playerID: 0, spellIDs: [] }
 
+	public spellLoadout: StaticSpellResponse[] = [];
+
 	public hasChanged: boolean = false;
 
   	ngOnInit(): void {
@@ -56,19 +58,25 @@ export class SpellbookComponent implements OnInit {
 		});
   	}
 
-	openSpellSelection(): void {
+	openSpellSelection(spellId: number): void {
 		let dialogRef = this.dialog.open(SpellSelectionComponent, {
 			width: '512px',
 			maxWidth: '100vw',
 			height: '524px',
 			exitAnimationDuration: "0s",
-			hasBackdrop: false
-
+			hasBackdrop: true,
+			backdropClass: "backdrop-bg-none",
+			disableClose: false,
+			data: this.openSpellBook
 		  });
 
 		  dialogRef.afterClosed().subscribe((id) => {
 			if(id != null) {
-				console.log(id);
+				for(let i = 0; i < 8; i++) {
+					if(this.openSpellBook.spells[i].spellID == spellId) {
+						this.openSpellBook.spells[i] = this.spells.find(x => x.spellID == id)!;
+					}
+				}
 			}
 		  });
 	}
@@ -77,8 +85,27 @@ export class SpellbookComponent implements OnInit {
 		this.spellBookService.getById(spellBookId).subscribe({
 			next: (data) => {
 				this.openSpellBook = data;
-				this.spellBookRequest.spellIDs = this.openSpellBook.spells.map(spell => spell.spellID);
-				console.log("Fetched spellbook: " + data.spellBookID);
+				if(this.openSpellBook.spells.length != 8) {
+					let spell: StaticSpellResponse = { spellID: 0, spellName: "", spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/locked-padlock.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
+					for(let i = this.openSpellBook.spells.length; i < 8; i++) {
+						this.openSpellBook.spells.push(spell);
+					}
+				}
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+			}
+		})
+	}
+
+	saveSpellBook(): void {
+
+		this.spellBookRequest = { spellBookName: this.openSpellBook.spellBookName, playerID: this.playerId, spellIDs: this.openSpellBook.spells.filter(spell => spell.spellID != 0).map(spell => spell.spellID) }
+		console.log(this.spellBookRequest);
+		this.spellBookService.update(this.openSpellBook.spellBookID, this.spellBookRequest).subscribe({
+			next: (data) => {
+				console.log(data);
+				localStorage.setItem("spell-order", JSON.stringify(this.spellBookRequest.spellIDs));
 			},
 			error: (err) => {
 				console.error(Object.values(err.error.errors).join(', '));
