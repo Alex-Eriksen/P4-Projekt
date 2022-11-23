@@ -56,7 +56,8 @@ namespace Wizard_Battle_Web_API.Helpers
 			CreateMap<SpellBook, DirectSpellBookResponse>()
 				.ForMember(dest => dest.Spells, opt => opt.MapFrom(src => src.SpellBookSlots.Select(x => x.Spell).ToList()));
 
-			CreateMap<SpellBookRequest, SpellBook>();
+			CreateMap<SpellBookRequest, SpellBook>()
+				.ForMember(dest => dest.SpellOrder, opt => opt.MapFrom(src => String.Join(",", src.SpellIDs.Select(id => id.ToString()).ToArray())));
 		}
 	}
 }

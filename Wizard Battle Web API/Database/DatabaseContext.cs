@@ -253,6 +253,46 @@ namespace Wizard_Battle_Web_API.Database
 				IconID = 17,
 				IconName = "../../../../assets/spell-icons/dash.png"
 			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 18,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-1.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 19,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-2.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 20,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-3.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 21,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-4.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 22,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-5.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 23,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-6.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 24,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-7.png"
+			});
+			modelBuilder.Entity<Icon>().HasData(new Icon
+			{
+				IconID = 25,
+				IconName = "../../../../assets/spell-icons/placeholder-spell-icon-8.png"
+			});
 
 			// Creating friendships between created players
 			modelBuilder.Entity<Friendship>().HasData(new Friendship
@@ -345,6 +385,99 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 1,
+				SpellName = "Test spell 1",
+				SpellDescription = "Lorem ipsum",
+				IconID = 18,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 2,
+				SpellName = "Test spell 2",
+				SpellDescription = "Lorem ipsum",
+				IconID = 19,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 3,
+				SpellName = "Test spell 3",
+				SpellDescription = "Lorem ipsum",
+				IconID = 20,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 4,
+				SpellName = "Test spell 4",
+				SpellDescription = "Lorem ipsum",
+				IconID = 21,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 5,
+				SpellName = "Test spell 5",
+				SpellDescription = "Lorem ipsum",
+				IconID = 22,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 6,
+				SpellName = "Test spell 6",
+				SpellDescription = "Lorem ipsum",
+				IconID = 23,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 7,
+				SpellName = "Test spell 7",
+				SpellDescription = "Lorem ipsum",
+				IconID = 24,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 8,
+				SpellName = "Test spell 8",
+				SpellDescription = "Lorem ipsum",
+				IconID = 25,
+				ManaCost = 0,
+				DamageAmount = 0,
+				CastTime = 0,
+
+			});
+
+			modelBuilder.Entity<Spell>().HasData(new Spell
+			{
+				SpellID = 9,
 				SpellName = "Fireball",
 				SpellDescription = "Lorem ipsum",
 				IconID = 11,
@@ -356,7 +489,7 @@ namespace Wizard_Battle_Web_API.Database
 
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
-				SpellID = 2,
+				SpellID = 10,
 				SpellName = "Firenova",
 				SpellDescription = "Lorem ipsum",
 				IconID = 12,
@@ -368,7 +501,7 @@ namespace Wizard_Battle_Web_API.Database
 
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
-				SpellID = 3,
+				SpellID = 11,
 				SpellName = "Firewall",
 				SpellDescription = "Lorem ipsum",
 				IconID = 13,
@@ -380,7 +513,7 @@ namespace Wizard_Battle_Web_API.Database
 
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
-				SpellID = 4,
+				SpellID = 12,
 				SpellName = "Teleport",
 				SpellDescription = "Lorem ipsum",
 				IconID = 14,
@@ -392,7 +525,7 @@ namespace Wizard_Battle_Web_API.Database
 
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
-				SpellID = 5,
+				SpellID = 13,
 				SpellName = "Windslash",
 				SpellDescription = "Lorem ipsum",
 				IconID = 15,
@@ -404,7 +537,7 @@ namespace Wizard_Battle_Web_API.Database
 
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
-				SpellID = 6,
+				SpellID = 14,
 				SpellName = "Water Vortex",
 				SpellDescription = "Lorem ipsum",
 				IconID = 16,
@@ -416,7 +549,7 @@ namespace Wizard_Battle_Web_API.Database
 
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
-				SpellID = 7,
+				SpellID = 15,
 				SpellName = "Dash",
 				SpellDescription = "Lorem ipsum",
 				IconID = 17,
@@ -428,7 +561,7 @@ namespace Wizard_Battle_Web_API.Database
 
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
-				SpellID = 8,
+				SpellID = 16,
 				SpellName = "Fireball 2",
 				SpellDescription = "It's a fireball, does it really need a description?",
 				IconID = 11,
@@ -449,6 +582,42 @@ namespace Wizard_Battle_Web_API.Database
 			{
 				SpellBookID = 1,
 				SpellID = 1,
+			});
+
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 2,
+			});
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 3,
+			});
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 4,
+			});
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 5,
+			});
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 6,
+			});
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 7,
+			});
+			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot
+			{
+				SpellBookID = 1,
+				SpellID = 8,
 			});
 		}
 	}

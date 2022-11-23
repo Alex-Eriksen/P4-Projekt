@@ -30,11 +30,12 @@ export class SpellbookComponent implements OnInit {
 
 	public spellBookRequest: SpellBookRequest = { spellBookName: "", playerID: 0, spellIDs: [] }
 
+	public spellLoadout: StaticSpellResponse[] = [];
+
 	public hasChanged: boolean = false;
 
   	ngOnInit(): void {
 		this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets ID
-
 		this.spellService.getAll().subscribe({ // Gets Spells
 			next: (data) => {
 				this.spells = data;
@@ -46,8 +47,10 @@ export class SpellbookComponent implements OnInit {
 
 		this.spellBookService.getAll().subscribe({ // Gets SpellBooks
 			next: (data) => {
-				this.spellBooks = data.filter(spellbook => spellbook.playerID == this.playerId); // Filters personal spellbooks
-				this.getSpellBook(this.spellBooks[0].spellBookID); // Gets first spellbook as default
+				if(this.playerId != null) {
+					this.spellBooks = data.filter(spellbook => spellbook.playerID == this.playerId); // Filters personal spellbooks
+					this.getSpellBook(this.spellBooks[0].spellBookID); // Gets first spellbook as default
+				}
 			},
 			error: (err) => {
 				console.error(Object.values(err.error.errors).join(', '));
@@ -55,22 +58,26 @@ export class SpellbookComponent implements OnInit {
 		});
   	}
 
-	openSpellSelection(): void {
+	openSpellSelection(spellId: number): void {
 		let dialogRef = this.dialog.open(SpellSelectionComponent, {
-			backdropClass: 'cdk-overlay-transparent-backdrop',
-			hasBackdrop: true,
 			width: '512px',
 			maxWidth: '100vw',
-			height: '442px',
-			disableClose: true,
-			exitAnimationDuration: "0s"
+			height: '524px',
+			exitAnimationDuration: "0s",
+			hasBackdrop: true,
+			backdropClass: "backdrop-bg-none",
+			disableClose: false,
+			data: this.openSpellBook
 		  });
 
 		  dialogRef.afterClosed().subscribe((id) => {
 			if(id != null) {
-				console.log(id);
+				for(let i = 0; i < 8; i++) {
+					if(this.openSpellBook.spells[i].spellID == spellId) {
+						this.openSpellBook.spells[i] = this.spells.find(x => x.spellID == id)!;
+					}
+				}
 			}
-			console.log("Dialog has been closed");
 		  });
 	}
 
@@ -78,8 +85,27 @@ export class SpellbookComponent implements OnInit {
 		this.spellBookService.getById(spellBookId).subscribe({
 			next: (data) => {
 				this.openSpellBook = data;
-				this.spellBookRequest.spellIDs = this.openSpellBook.spells.map(spell => spell.spellID);
-				console.log("Fetched spellbook: " + data.spellBookID);
+				if(this.openSpellBook.spells.length != 8) {
+					let spell: StaticSpellResponse = { spellID: 0, spellName: "", spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/locked-padlock.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
+					for(let i = this.openSpellBook.spells.length; i < 8; i++) {
+						this.openSpellBook.spells.push(spell);
+					}
+				}
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+			}
+		})
+	}
+
+	saveSpellBook(): void {
+
+		this.spellBookRequest = { spellBookName: this.openSpellBook.spellBookName, playerID: this.playerId, spellIDs: this.openSpellBook.spells.filter(spell => spell.spellID != 0).map(spell => spell.spellID) }
+		console.log(this.spellBookRequest);
+		this.spellBookService.update(this.openSpellBook.spellBookID, this.spellBookRequest).subscribe({
+			next: (data) => {
+				console.log(data);
+				localStorage.setItem("spell-order", JSON.stringify(this.spellBookRequest.spellIDs));
 			},
 			error: (err) => {
 				console.error(Object.values(err.error.errors).join(', '));

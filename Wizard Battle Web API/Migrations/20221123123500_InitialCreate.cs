@@ -204,7 +204,8 @@ namespace Wizard_Battle_Web_API.Migrations
                     SpellBookID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SpellBookName = table.Column<string>(type: "nvarchar(32)", nullable: true),
-                    PlayerID = table.Column<int>(type: "int", nullable: false)
+                    PlayerID = table.Column<int>(type: "int", nullable: false),
+                    SpellOrder = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -274,10 +275,10 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
                 values: new object[,]
                 {
-                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$XJk1h.P/CS/Ug6TguRn8H.RqQlegSSi6rQaIq0adG4Nw2jDXH02Fu" },
-                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$yg2ikWeg3.lLlJJiLBUPiezhiFqrI45lmFY8XsEuDpJCRHfC3TNZ6" },
-                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$VS8NB//xs9Di7Msu03oYcu1JRdiqZ7jtBcuej72KeIKDIk5yoGbGy" },
-                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$25v8CDX6HNUwkzUGvyP9h.bxzmrtv0D.3OJqhqpZQ1owW5jBXF1dW" }
+                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$wFVT107Z8RsjOoy4d6gid.Dyb2IoxK1pualkjy/KEGKcN3P/1ROjy" },
+                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$QLhU2vgMPuUrKbfFcKV9zOPXwbH4eR1bo8YKg8UliZ3Q4wUQQsOHm" },
+                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$XJqpSa9xDoze3s.fDDuVruqPIUG5Z70VIHo8VpMNIQiW5jQ8FBU9m" },
+                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$HBY8LTeHsctd.BXjPtvxEeaSGnxztmcNLJnDgYIzRqunOugpdaqra" }
                 });
 
             migrationBuilder.InsertData(
@@ -301,7 +302,15 @@ namespace Wizard_Battle_Web_API.Migrations
                     { 14, "../../../../assets/spell-icons/teleport.png" },
                     { 15, "../../../../assets/spell-icons/windslash.png" },
                     { 16, "../../../../assets/spell-icons/watervortex.png" },
-                    { 17, "../../../../assets/spell-icons/dash.png" }
+                    { 17, "../../../../assets/spell-icons/dash.png" },
+                    { 18, "../../../../assets/spell-icons/placeholder-spell-icon-1.png" },
+                    { 19, "../../../../assets/spell-icons/placeholder-spell-icon-2.png" },
+                    { 20, "../../../../assets/spell-icons/placeholder-spell-icon-3.png" },
+                    { 21, "../../../../assets/spell-icons/placeholder-spell-icon-4.png" },
+                    { 22, "../../../../assets/spell-icons/placeholder-spell-icon-5.png" },
+                    { 23, "../../../../assets/spell-icons/placeholder-spell-icon-6.png" },
+                    { 24, "../../../../assets/spell-icons/placeholder-spell-icon-7.png" },
+                    { 25, "../../../../assets/spell-icons/placeholder-spell-icon-8.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -331,14 +340,22 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "SpellID", "CastTime", "DamageAmount", "IconID", "ManaCost", "SpellDescription", "SpellName" },
                 values: new object[,]
                 {
-                    { 1, 0m, 0m, 11, 0m, "Lorem ipsum", "Fireball" },
-                    { 2, 0m, 0m, 12, 0m, "Lorem ipsum", "Firenova" },
-                    { 3, 0m, 0m, 13, 0m, "Lorem ipsum", "Firewall" },
-                    { 4, 0m, 0m, 14, 0m, "Lorem ipsum", "Teleport" },
-                    { 5, 0m, 0m, 15, 0m, "Lorem ipsum", "Windslash" },
-                    { 6, 0m, 0m, 16, 0m, "Lorem ipsum", "Water Vortex" },
-                    { 7, 0m, 0m, 17, 0m, "Lorem ipsum", "Dash" },
-                    { 8, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 2" }
+                    { 1, 0m, 0m, 18, 0m, "Lorem ipsum", "Test spell 1" },
+                    { 2, 0m, 0m, 19, 0m, "Lorem ipsum", "Test spell 2" },
+                    { 3, 0m, 0m, 20, 0m, "Lorem ipsum", "Test spell 3" },
+                    { 4, 0m, 0m, 21, 0m, "Lorem ipsum", "Test spell 4" },
+                    { 5, 0m, 0m, 22, 0m, "Lorem ipsum", "Test spell 5" },
+                    { 6, 0m, 0m, 23, 0m, "Lorem ipsum", "Test spell 6" },
+                    { 7, 0m, 0m, 24, 0m, "Lorem ipsum", "Test spell 7" },
+                    { 8, 0m, 0m, 25, 0m, "Lorem ipsum", "Test spell 8" },
+                    { 9, 0m, 0m, 11, 0m, "Lorem ipsum", "Fireball" },
+                    { 10, 0m, 0m, 12, 0m, "Lorem ipsum", "Firenova" },
+                    { 11, 0m, 0m, 13, 0m, "Lorem ipsum", "Firewall" },
+                    { 12, 0m, 0m, 14, 0m, "Lorem ipsum", "Teleport" },
+                    { 13, 0m, 0m, 15, 0m, "Lorem ipsum", "Windslash" },
+                    { 14, 0m, 0m, 16, 0m, "Lorem ipsum", "Water Vortex" },
+                    { 15, 0m, 0m, 17, 0m, "Lorem ipsum", "Dash" },
+                    { 16, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 2" }
                 });
 
             migrationBuilder.InsertData(
@@ -346,18 +363,18 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "FriendPlayerID", "MainPlayerID", "Created_At", "IsPending" },
                 values: new object[,]
                 {
-                    { 2, 1, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3888), false },
-                    { 3, 1, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3900), false },
-                    { 4, 1, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3907), false },
-                    { 3, 2, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3914), false },
-                    { 4, 2, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3958), false },
-                    { 4, 3, new DateTime(2022, 11, 22, 7, 16, 0, 962, DateTimeKind.Utc).AddTicks(3969), false }
+                    { 2, 1, new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1652), false },
+                    { 3, 1, new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1670), false },
+                    { 4, 1, new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1676), false },
+                    { 3, 2, new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1683), false },
+                    { 4, 2, new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1691), false },
+                    { 4, 3, new DateTime(2022, 11, 23, 12, 35, 0, 670, DateTimeKind.Utc).AddTicks(1701), false }
                 });
 
             migrationBuilder.InsertData(
                 table: "SpellBook",
-                columns: new[] { "SpellBookID", "PlayerID", "SpellBookName" },
-                values: new object[] { 1, 1, "My SpellBook" });
+                columns: new[] { "SpellBookID", "PlayerID", "SpellBookName", "SpellOrder" },
+                values: new object[] { 1, 1, "My SpellBook", null });
 
             migrationBuilder.InsertData(
                 table: "Transaction",
@@ -367,7 +384,17 @@ namespace Wizard_Battle_Web_API.Migrations
             migrationBuilder.InsertData(
                 table: "SpellBookSlot",
                 columns: new[] { "SpellBookID", "SpellID" },
-                values: new object[] { 1, 1 });
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 1, 3 },
+                    { 1, 4 },
+                    { 1, 5 },
+                    { 1, 6 },
+                    { 1, 7 },
+                    { 1, 8 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_Email",

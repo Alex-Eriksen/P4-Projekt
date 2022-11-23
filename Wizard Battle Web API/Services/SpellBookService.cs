@@ -40,7 +40,13 @@
 			SpellBook spellBook = await m_spellBookRepository.GetById(spellBookId);
 			if (spellBook != null)
 			{
-				return m_mapper.Map<DirectSpellBookResponse>(spellBook);
+				DirectSpellBookResponse orderedSpellBook = m_mapper.Map<DirectSpellBookResponse>(spellBook);
+				if(spellBook.SpellOrder != null)
+				{
+					int[] orderedIds = spellBook.SpellOrder.Split(',').Select(x => Convert.ToInt32(x)).ToArray();
+					orderedSpellBook.Spells = orderedSpellBook.Spells.OrderBy(spell => Array.IndexOf(orderedIds, spell.SpellID)).ToList();
+				}
+				return orderedSpellBook;
 			}
 
 			return null;

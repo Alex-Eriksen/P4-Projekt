@@ -1,9 +1,18 @@
+.arrow-container {
+	height: 66px;
+}
+
+.scroll-container {
+	height: 374px;
+}
+
 .spell-grid {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
-	height: 358px;
+	height: 374px;
+	scroll-behavior: smooth;
 	background-color: gray;
 	overflow-y:auto;
     overflow-x: hidden;
@@ -13,16 +22,30 @@
     bottom: 0;
 }
 
-.fa-arrow-down {
+.fa-arrow-down, .fa-arrow-up {
 	font-size: 50px;
 	color: white;
-	position: absolute;
-	top: 80%;
-	right: 50%;
-	transform: translate(50%, 50%);
+}
+
+.fa-arrow-up {
+	animation: arrowAnimationUp 1s infinite alternate;
+}
+
+.fa-arrow-down {
+	animation: arrowAnimationDown 1s infinite alternate;
 }
 
 img {
 	width: 100%;
 	height: 100%;
+}
+
+@keyframes arrowAnimationUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
+
+@keyframes arrowAnimationDown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
 }

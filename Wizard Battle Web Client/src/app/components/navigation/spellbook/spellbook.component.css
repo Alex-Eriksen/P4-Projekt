@@ -2,7 +2,7 @@
 	margin: 1rem;
 }
 
-.container {
+.my-container {
     background-image: url("../../../../assets/Circle of Power Final.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -19,8 +19,10 @@ img {
     border-radius: 0%;
     width: 50px;
     height: 50px;
-    background-color: skyblue;
+	border: 1px solid black;
+	background-color: white;
     display: inline-block;
+	z-index: 100;
     position: absolute;
 }
 
@@ -29,7 +31,7 @@ img {
     width: 150px;
     height: 150px;
     background-color: transparent;
-    margin: 100px;
+	margin: 76px 80px 0px 80px;
 }
 
 .circle-outline {
@@ -40,31 +42,37 @@ img {
 	border-style: solid;
 	border-width: 15px;
 	border-color: white;
-	margin-left: 25px;
-	margin-top: 25px;
+	margin: 1.5px 0px 0px 5px;
+	position: relative;
+	z-index: 99;
 }
 
-.circle:nth-child(1) {
+.col-4 > .circle:nth-child(1) {
+	left: -25px;
+    top: -25px;
+}
+
+.circle > .circle:nth-child(1) {
+    top: -60px;
+    left: 50px;
+}
+
+.circle:nth-child(8) {
 	left: -25px;
     top: -25px;
 }
 
 .circle:nth-child(2) {
-    top: -60px;
-    left: 50px;
-}
-
-.circle:nth-child(3) {
     right: -25px;
     top: -25px;
 }
 
-.circle:nth-child(4) {
+.circle:nth-child(3) {
 	right: -60px;
     top: 50px;
 }
 
-.circle:nth-child(5) {
+.circle:nth-child(7) {
 	left: -60px;
     top: 50px;
 }
@@ -74,12 +82,12 @@ img {
     bottom: -25px;
 }
 
-.circle:nth-child(7) {
+.circle:nth-child(5) {
     bottom: -60px;
     left: 50px;
 }
 
-.circle:nth-child(8) {
+.circle:nth-child(4) {
     right: -25px;
     bottom: -25px;
 }
