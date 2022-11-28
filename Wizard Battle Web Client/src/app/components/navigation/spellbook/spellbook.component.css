@@ -3,7 +3,8 @@
 }
 
 .my-container {
-    background-image: url("../../../../assets/Circle of Power Final.png");
+    background-image: url("../../../../assets/circle_of_power_bg.png");
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -31,7 +32,7 @@ img {
     width: 150px;
     height: 150px;
     background-color: transparent;
-	margin: 76px 80px 0px 80px;
+	margin: 0px 80px 0px 70px;
 }
 
 .circle-outline {
@@ -42,7 +43,7 @@ img {
 	border-style: solid;
 	border-width: 15px;
 	border-color: white;
-	margin: 1.5px 0px 0px 5px;
+	margin: -75px 0px 0px -5px;
 	position: relative;
 	z-index: 99;
 }
