@@ -63,7 +63,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$DFr.G62cHIdZAbI7IF51NeB5Lw8QuoBNf89saiRFxL4xDGTUqFD/q"
+                            Password = "$2a$10$L6b65toh4FlPHRNQIhYyWe0rTb8gVr8VIZY2CCA7J7u1SA3dXP8vO"
                         },
                         new
                         {
@@ -72,7 +72,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$YAN.5lMdrMTYQwip.rwyJerpFodnOi5SG3RvEs5rU5wD1UpbtrYBe"
+                            Password = "$2a$10$MCCT4gpCcAXElUjs0VukkOLTpYnAZ8L3llvyCjR952mIWKJuVlPM2"
                         },
                         new
                         {
@@ -81,7 +81,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$Q83HXaJvYBqgmrasCOv59.hWfXkbwsMPaam4mUkqQiRYTcXFTLSsm"
+                            Password = "$2a$10$Uxv46PAmV8OpoCe1BLuKVegqNETRShZbaoF1qEI2z4zrj9yX/SOmC"
                         },
                         new
                         {
@@ -90,7 +90,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$eXtmwzbYMgMIt7k9rqTPrO0lkSnHUUri5Uvlvezz0ZqZEG2ILvrCS"
+                            Password = "$2a$10$lIvSwE/DVkD22i0phEE4UO0Grxb/CnkAPfSG.YMQrkzgFqcngzmeO"
                         });
                 });
 
@@ -121,42 +121,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 11, 8, 54, 32, 809, DateTimeKind.Utc).AddTicks(2491),
+                            Created_At = new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2339),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 11, 8, 54, 32, 809, DateTimeKind.Utc).AddTicks(2499),
+                            Created_At = new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2356),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 11, 8, 54, 32, 809, DateTimeKind.Utc).AddTicks(2502),
+                            Created_At = new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2365),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 11, 8, 54, 32, 809, DateTimeKind.Utc).AddTicks(2506),
+                            Created_At = new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2374),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 11, 8, 54, 32, 809, DateTimeKind.Utc).AddTicks(2510),
+                            Created_At = new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2383),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 11, 8, 54, 32, 809, DateTimeKind.Utc).AddTicks(2514),
+                            Created_At = new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2393),
                             IsPending = false
                         });
                 });
@@ -288,9 +288,6 @@ namespace Wizard_Battle_Web_API.Migrations
 
                     b.Property<DateTime>("Modified_At")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("PlayerImage")
-                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("PlayerName")
                         .HasColumnType("nvarchar(32)");
@@ -502,6 +499,16 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.HasIndex("SkinID");
 
                     b.ToTable("Transaction");
+
+                    b.HasData(
+                        new
+                        {
+                            TransactionID = 1,
+                            Created_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PlayerID = 1,
+                            SkinID = 1,
+                            TotalCost = 125
+                        });
                 });
 
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Friendship", b =>

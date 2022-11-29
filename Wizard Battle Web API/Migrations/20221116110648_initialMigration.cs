@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Wizard_Battle_Web_API.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -88,7 +88,6 @@ namespace Wizard_Battle_Web_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountID = table.Column<int>(type: "int", nullable: false),
                     PlayerName = table.Column<string>(type: "nvarchar(32)", nullable: true),
-                    PlayerImage = table.Column<string>(type: "nvarchar(32)", nullable: true),
                     IconID = table.Column<int>(type: "int", nullable: false),
                     PlayerStatus = table.Column<string>(type: "nvarchar(32)", nullable: true),
                     ExperiencePoints = table.Column<long>(type: "bigint", nullable: false),
@@ -202,10 +201,10 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
                 values: new object[,]
                 {
-                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$2rxroRUTnzjlkIosh9nuz.eWS.GxpM5TGZB/556OJXbovZGAod0ZS" },
-                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$dJXQGZUaU2xxpBOwatxPdubmHU8h4ZSWjHdIDrdWQDbgbMOp1Gt.i" },
-                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$AEfc3iOE3g76JyPMEgzQWe1PWJKyN67nPK5tDKFFsfjeAtPZA/6UO" },
-                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$Kp1ZdAjVOH0yqRGBtq0er.grVFFcchEr1bw2Ipm.NaoPtJ9BAUuEG" }
+                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$L6b65toh4FlPHRNQIhYyWe0rTb8gVr8VIZY2CCA7J7u1SA3dXP8vO" },
+                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$MCCT4gpCcAXElUjs0VukkOLTpYnAZ8L3llvyCjR952mIWKJuVlPM2" },
+                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$Uxv46PAmV8OpoCe1BLuKVegqNETRShZbaoF1qEI2z4zrj9yX/SOmC" },
+                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$lIvSwE/DVkD22i0phEE4UO0Grxb/CnkAPfSG.YMQrkzgFqcngzmeO" }
                 });
 
             migrationBuilder.InsertData(
@@ -238,13 +237,13 @@ namespace Wizard_Battle_Web_API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Player",
-                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "IconID", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerImage", "PlayerName", "PlayerStatus", "TimeCapsules" },
+                columns: new[] { "PlayerID", "AccountID", "ExperiencePoints", "IconID", "KnowledgePoints", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "PlayerStatus", "TimeCapsules" },
                 values: new object[,]
                 {
-                    { 1, 1, 167L, 1, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "NickTheG", "Offline", 1000L },
-                    { 2, 2, 138L, 2, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "AlexTheG", "Offline", 10L },
-                    { 3, 3, 138L, 3, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "MartinTheG", "Offline", 10L },
-                    { 4, 4, 138L, 4, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "MarcoTheG", "Offline", 10L }
+                    { 1, 1, 167L, 1, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NickTheG", "Offline", 1000L },
+                    { 2, 2, 138L, 2, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "AlexTheG", "Offline", 10L },
+                    { 3, 3, 138L, 3, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MartinTheG", "Offline", 10L },
+                    { 4, 4, 138L, 4, 10L, 10.0, 10.0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "MarcoTheG", "Offline", 10L }
                 });
 
             migrationBuilder.InsertData(
@@ -252,13 +251,18 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "FriendPlayerID", "MainPlayerID", "Created_At", "IsPending" },
                 values: new object[,]
                 {
-                    { 2, 1, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2830), false },
-                    { 3, 1, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2842), false },
-                    { 4, 1, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2846), false },
-                    { 3, 2, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2849), false },
-                    { 4, 2, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2852), false },
-                    { 4, 3, new DateTime(2022, 11, 11, 7, 1, 13, 85, DateTimeKind.Utc).AddTicks(2919), false }
+                    { 2, 1, new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2339), false },
+                    { 3, 1, new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2356), false },
+                    { 4, 1, new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2365), false },
+                    { 3, 2, new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2374), false },
+                    { 4, 2, new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2383), false },
+                    { 4, 3, new DateTime(2022, 11, 16, 11, 6, 48, 639, DateTimeKind.Utc).AddTicks(2393), false }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Transaction",
+                columns: new[] { "TransactionID", "PlayerID", "SkinID", "TotalCost" },
+                values: new object[] { 1, 1, 1, 125 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_Email",
