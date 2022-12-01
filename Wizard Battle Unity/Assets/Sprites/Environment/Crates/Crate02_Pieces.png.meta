@@ -167,10 +167,10 @@ TextureImporter:
       name: Crate02_Pieces_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 4
-        width: 6
-        height: 8
+        x: 19
+        y: 11
+        width: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,10 +188,10 @@ TextureImporter:
       name: Crate02_Pieces_1
       rect:
         serializedVersion: 2
-        x: 24
-        y: 9
-        width: 8
-        height: 7
+        x: 39
+        y: 16
+        width: 10
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: Crate02_Pieces_2
       rect:
         serializedVersion: 2
-        x: 80
-        y: 8
-        width: 8
-        height: 8
+        x: 56
+        y: 10
+        width: 9
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,10 +230,10 @@ TextureImporter:
       name: Crate02_Pieces_3
       rect:
         serializedVersion: 2
-        x: 41
-        y: 3
-        width: 7
-        height: 5
+        x: 95
+        y: 15
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,10 +251,10 @@ TextureImporter:
       name: Crate02_Pieces_4
       rect:
         serializedVersion: 2
-        x: 55
-        y: 0
-        width: 9
-        height: 7
+        x: 70
+        y: 7
+        width: 10
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,10 +272,10 @@ TextureImporter:
       name: Crate02_Pieces_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 6
-        height: 7
+        x: 81
+        y: 7
+        width: 9
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -283,8 +283,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b10b5a158226663418c3c294ccf380f3
-      internalID: 2101596110
+      spriteID: a4ceff86f116c78469fb4561d0d7b67c
+      internalID: 567757806
       vertices: []
       indices: 
       edges: []
@@ -302,7 +302,7 @@ TextureImporter:
     nameFileIdTable:
       Crate02_Pieces_0: -1300618836
       Crate02_Pieces_2: 651386357
-      Crate02_Pieces_5: 2101596110
+      Crate02_Pieces_5: 567757806
       Crate02_Pieces_4: -544819251
       Crate02_Pieces_3: -1038640219
       Crate02_Pieces_1: 510816455

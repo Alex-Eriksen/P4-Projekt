@@ -167,12 +167,12 @@ TextureImporter:
       name: Crate01_Pieces_0
       rect:
         serializedVersion: 2
-        x: 42
-        y: 11
-        width: 6
-        height: 5
+        x: 40
+        y: 12
+        width: 9
+        height: 8
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -188,12 +188,12 @@ TextureImporter:
       name: Crate01_Pieces_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 5
-        width: 9
+        x: 55
+        y: 18
+        width: 8
         height: 7
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -209,12 +209,12 @@ TextureImporter:
       name: Crate01_Pieces_2
       rect:
         serializedVersion: 2
-        x: 25
-        y: 5
-        width: 7
+        x: 65
+        y: 19
+        width: 13
         height: 6
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -230,12 +230,12 @@ TextureImporter:
       name: Crate01_Pieces_3
       rect:
         serializedVersion: 2
-        x: 91
-        y: 0
-        width: 5
-        height: 6
+        x: 79
+        y: 12
+        width: 11
+        height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -251,12 +251,12 @@ TextureImporter:
       name: Crate01_Pieces_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 10
-        height: 5
+        x: 15
+        y: 7
+        width: 12
+        height: 7
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -272,10 +272,10 @@ TextureImporter:
       name: Crate01_Pieces_5
       rect:
         serializedVersion: 2
-        x: 48
-        y: 12
-        width: 11
-        height: 4
+        x: 106
+        y: 7
+        width: 7
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -283,8 +283,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ccabdd013ae20c4b8896e082e31123b
-      internalID: 2042847865
+      spriteID: e4634684a0e49294dba9c1fb24f7a38d
+      internalID: -2052023169
       vertices: []
       indices: 
       edges: []
@@ -301,7 +301,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Crate01_Pieces_2: 1508949726
-      Crate01_Pieces_5: 2042847865
+      Crate01_Pieces_5: -2052023169
       Crate01_Pieces_4: 1682852856
       Crate01_Pieces_0: -1327927828
       Crate01_Pieces_1: 1746620115

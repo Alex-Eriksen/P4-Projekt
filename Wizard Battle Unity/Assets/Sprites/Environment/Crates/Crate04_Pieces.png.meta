@@ -167,10 +167,10 @@ TextureImporter:
       name: Crate04_Pieces_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 7
-        width: 4
-        height: 9
+        x: 21
+        y: 14
+        width: 6
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,10 +188,10 @@ TextureImporter:
       name: Crate04_Pieces_1
       rect:
         serializedVersion: 2
-        x: 42
-        y: 9
-        width: 6
-        height: 7
+        x: 57
+        y: 16
+        width: 8
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: Crate04_Pieces_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 12
-        width: 7
-        height: 4
+        x: 79
+        y: 19
+        width: 9
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,10 +230,10 @@ TextureImporter:
       name: Crate04_Pieces_3
       rect:
         serializedVersion: 2
-        x: 23
-        y: 0
+        x: 95
+        y: 11
         width: 9
-        height: 8
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,10 +251,10 @@ TextureImporter:
       name: Crate04_Pieces_4
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 9
-        height: 5
+        x: 38
+        y: 7
+        width: 11
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,10 +272,10 @@ TextureImporter:
       name: Crate04_Pieces_5
       rect:
         serializedVersion: 2
-        x: 80
-        y: 4
-        width: 7
-        height: 8
+        x: 63
+        y: 7
+        width: 11
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

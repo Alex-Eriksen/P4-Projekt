@@ -113,7 +113,7 @@ MonoBehaviour:
   - {fileID: 1508949726, guid: c8a91a20da5ebe94b89412493e65e711, type: 3}
   - {fileID: 747240482, guid: c8a91a20da5ebe94b89412493e65e711, type: 3}
   - {fileID: 1682852856, guid: c8a91a20da5ebe94b89412493e65e711, type: 3}
-  - {fileID: 2042847865, guid: c8a91a20da5ebe94b89412493e65e711, type: 3}
+  - {fileID: -2052023169, guid: c8a91a20da5ebe94b89412493e65e711, type: 3}
   m_spreadForceMinMax: {x: 5, y: 20}
 --- !u!114 &686438684924955737
 MonoBehaviour:
@@ -146,7 +146,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -219,4 +219,4 @@ MonoBehaviour:
   - {x: 0.25, y: -0.25, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 57918
+  m_InstanceId: 58014

@@ -9,11 +9,13 @@ public class DestroyableObject : Entity
     [SerializeField] private Vector2 m_spreadForceMinMax;
     private SpriteRenderer m_spriteRenderer;
     private Collider2D m_collider;
+    private Material m_material;
 
     protected override void OnAwake()
     {
         m_spriteRenderer = GetComponent<SpriteRenderer>();
         m_collider = GetComponent<Collider2D>();
+        m_material = m_spriteRenderer.material;
     }
 
     protected override void OnClientDeath()
@@ -32,6 +34,7 @@ public class DestroyableObject : Entity
             var pieceSpriteRenderer = pieceObject.AddComponent<SpriteRenderer>();
             pieceSpriteRenderer.sprite = m_spritePieces[i];
             pieceSpriteRenderer.sortingLayerName = "GroundVFX";
+            pieceSpriteRenderer.material = m_material;
             var pieceRigidbody = pieceObject.AddComponent<Rigidbody2D>();
             pieceRigidbody.mass = 0.1f;
             pieceRigidbody.drag = 1f;
