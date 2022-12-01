@@ -104,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  entityName: Unnamed
   m_health: 100
   m_mana: 100
   m_playerCombat: {fileID: 7390722938485721684}
@@ -369,7 +370,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 1433b0c9d9c76674d84c032a45978c57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -388,9 +389,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2100454819
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -687332605, guid: eef62d1d604624648a4343e0123801e0, type: 3}
+  m_Sprite: {fileID: 347158731, guid: 798d09c04851c8d47ab2d8e11b974c89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -449,7 +450,7 @@ MonoBehaviour:
   - {x: 0.1523956, y: 0.16497873, z: 0}
   m_ShapePathHash: -1026934146
   m_Mesh: {fileID: 0}
-  m_InstanceId: 35122
+  m_InstanceId: 48836
 --- !u!1001 &5684934949493916882
 PrefabInstance:
   m_ObjectHideFlags: 0
