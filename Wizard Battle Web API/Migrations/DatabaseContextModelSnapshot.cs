@@ -63,7 +63,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$9yH5to32Jgzrh/taUW28Uu0tQbPyqglsxGFI9UaWiKEbylxh457pS"
+                            Password = "$2a$10$1ZGMexaCpU0F.CkRGNY0XOMuh1NTBV1WAlEy/BqUs4hteBBtFk/nq"
                         },
                         new
                         {
@@ -72,7 +72,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$hcDGhSwgz.uJJq1EddXwtOMII2tmAE8wGOxrZDD5QCNVvx.1YFrJ6"
+                            Password = "$2a$10$F215v2n1fbuS80s.jHdoDehXvkqaRoAMO6mxMNSLkEOfLhfx8WSza"
                         },
                         new
                         {
@@ -81,7 +81,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$W4Pgn.LhQt8iEYsO7ypHt.RB9m6wY3ticE/OBbDoc1OF/IooptilS"
+                            Password = "$2a$10$dKQT5vqTivmz79lccsAeCuYyXkzqTaGadQClKzuRYGyv/NY4CSRoi"
                         },
                         new
                         {
@@ -90,7 +90,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$e5HUEaAP64if40FmYwjxzuwDk.KAuMNhXv.8p839gxAcsOdNBuuui"
+                            Password = "$2a$10$wdGZ2dzYe.cG8sapuiGw.u276o/1/BrZknjLIUvJ.LPBTxxl54hCi"
                         });
                 });
 
@@ -121,42 +121,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 23, 13, 23, 9, 231, DateTimeKind.Utc).AddTicks(3828),
+                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 532, DateTimeKind.Utc).AddTicks(9990),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 23, 13, 23, 9, 231, DateTimeKind.Utc).AddTicks(3848),
+                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(5),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 23, 13, 23, 9, 231, DateTimeKind.Utc).AddTicks(3854),
+                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(11),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 23, 13, 23, 9, 231, DateTimeKind.Utc).AddTicks(3866),
+                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(19),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 23, 13, 23, 9, 231, DateTimeKind.Utc).AddTicks(3873),
+                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(26),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 23, 13, 23, 9, 231, DateTimeKind.Utc).AddTicks(3882),
+                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(36),
                             IsPending = false
                         });
                 });
@@ -382,6 +382,9 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<string>("PlayerStatus")
                         .HasColumnType("nvarchar(32)");
 
+                    b.Property<long>("SpellBookID")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("TimeCapsules")
                         .HasColumnType("bigint");
 
@@ -418,6 +421,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "NickTheG",
                             PlayerStatus = "Offline",
+                            SpellBookID = 1L,
                             TimeCapsules = 1000L,
                             TimePlayedMin = 120L
                         },
@@ -437,6 +441,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "AlexTheG",
                             PlayerStatus = "Offline",
+                            SpellBookID = 4L,
                             TimeCapsules = 10L,
                             TimePlayedMin = 75L
                         },
@@ -456,6 +461,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "MartinTheG",
                             PlayerStatus = "Offline",
+                            SpellBookID = 7L,
                             TimeCapsules = 10L,
                             TimePlayedMin = 59L
                         },
@@ -475,6 +481,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlayerName = "MarcoTheG",
                             PlayerStatus = "Offline",
+                            SpellBookID = 10L,
                             TimeCapsules = 10L,
                             TimePlayedMin = 43L
                         });
@@ -803,7 +810,73 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             SpellBookID = 1,
                             PlayerID = 1,
-                            SpellBookName = "My SpellBook"
+                            SpellBookName = "Unnamed Spellbook 1"
+                        },
+                        new
+                        {
+                            SpellBookID = 2,
+                            PlayerID = 1,
+                            SpellBookName = "Unnamed Spellbook 2"
+                        },
+                        new
+                        {
+                            SpellBookID = 3,
+                            PlayerID = 1,
+                            SpellBookName = "Unnamed Spellbook 3"
+                        },
+                        new
+                        {
+                            SpellBookID = 4,
+                            PlayerID = 2,
+                            SpellBookName = "Unnamed Spellbook 1"
+                        },
+                        new
+                        {
+                            SpellBookID = 5,
+                            PlayerID = 2,
+                            SpellBookName = "Unnamed Spellbook 2"
+                        },
+                        new
+                        {
+                            SpellBookID = 6,
+                            PlayerID = 2,
+                            SpellBookName = "Unnamed Spellbook 3"
+                        },
+                        new
+                        {
+                            SpellBookID = 7,
+                            PlayerID = 3,
+                            SpellBookName = "Unnamed Spellbook 1"
+                        },
+                        new
+                        {
+                            SpellBookID = 8,
+                            PlayerID = 3,
+                            SpellBookName = "Unnamed Spellbook 2"
+                        },
+                        new
+                        {
+                            SpellBookID = 9,
+                            PlayerID = 3,
+                            SpellBookName = "Unnamed Spellbook 3"
+                        },
+                        new
+                        {
+                            SpellBookID = 10,
+                            PlayerID = 4,
+                            SpellBookName = "Unnamed Spellbook 1"
+                        },
+                        new
+                        {
+                            SpellBookID = 11,
+                            PlayerID = 4,
+                            SpellBookName = "Unnamed Spellbook 2"
+                        },
+                        new
+                        {
+                            SpellBookID = 12,
+                            PlayerID = 4,
+                            SpellBookName = "Unnamed Spellbook 3"
                         });
                 });
 

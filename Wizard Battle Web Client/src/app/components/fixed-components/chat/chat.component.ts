@@ -13,6 +13,7 @@ import { SignalrService } from 'src/app/services/signalr.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFriendComponent } from '../../modals/add-friend/add-friend.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'chat',
@@ -49,8 +50,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
 	pendingFriends: StaticPlayerResponse[] = [];
   	backupFriends: StaticPlayerResponse[] = []; // backup array of this.friends used in search function
 
-  	player: DirectPlayerResponse;
-  	friend: StaticPlayerResponse;
+	player: DirectPlayerResponse = { playerID: 0, account: { accountID: 0, email: "" }, playerName: "", icon: { iconID: 0, iconName: "" }, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, avgDamage: 0, avgSpellsHit: 0, spellBookID: 0, transactions: [], modified_At: "" };
+  	friend: StaticPlayerResponse = { playerID: 0, accountID: 0, playerName: "", icon: { iconID: 0, iconName: "" }, playerStatus: "", experiencePoints: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, avgDamage: 0, avgSpellsHit: 0, spellBookID: 0 };
 	tempFriend: StaticPlayerResponse;
 	isChatWindowOpen: boolean = false;
   	friendListOpen: boolean = true;
@@ -62,18 +63,21 @@ export class ChatComponent implements OnInit, AfterViewInit {
 	isPendingOpen: boolean = true;
 	isFriendTabOpen: boolean = true;
 
-  	constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService, private signalrService: SignalrService, private dialog: MatDialog) { }
+  	constructor(private authenticationService: AuthenticationService, private playerService: PlayerService, private chatService: ChatService, private signalrService: SignalrService, private dialog: MatDialog, private notiService: NotificationService) { }
 
   	ngOnInit(): void {
   	  	this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets playerId
-  	  	this.playerService.OnStatusChanged.subscribe((status: string) => {
-  	  	  if(status === undefined)
-  	  	    return
-  	  	  this.getClass(status);
 
-  	  	});
+		this.playerService.getById(this.playerId).subscribe({
+			next: (response) => {
+				this.player = response;
 
-  	  	this.playerService.getById(this.playerId).subscribe(data => this.player = data);
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+				this.notiService.error("Failed to fetch player.")
+			}
+		});
 
 		this.chatService.getAllById(this.playerId).subscribe((data) => {
 			this.getFriends(data);
@@ -84,16 +88,45 @@ export class ChatComponent implements OnInit, AfterViewInit {
 			this.chatService.getAllById(this.playerId).subscribe({
 				next: (data) => {
 					this.getFriends(data);
+				},
+				error: (err) => {
+					console.error(Object.values(err.error.errors).join(', '));
+					this.notiService.error("Failed to fetch player.")
 				}
 	  		});
 		});
 
-  	  	this.signalrService.OnStatusChanged.subscribe(() => { // If a friend changes status fetch friends again
-  	  	  	this.chatService.getAllById(this.playerId).subscribe((data) => {
-				this.getFriends(data);
-			})
-			if(this.friend.playerID != 0) {
-				this.openMessages(this.friends.find(x => x.playerID = this.friend.playerID)!);
+		this.signalrService.OnStatusChanged.subscribe({ // If a friend changes status fetch friends again
+			next: () => {
+				this.chatService.getAllById(this.playerId).subscribe({
+					next: (response) => {
+						this.getFriends(response);
+					},
+					error: (err) => {
+						console.error(Object.values(err.error.errors).join(', '));
+						this.notiService.error("Failed to fetch new friends status.")
+					}
+				})
+				if(this.friend.playerID != 0) {
+					this.openMessages(this.friends.find(x => x.playerID = this.friend.playerID)!);
+				}
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+				this.notiService.error("Failed to fetch new friends status.")
+			}
+  	  	})
+
+  	  	this.playerService.OnStatusChanged.subscribe({ // If a friend changes status fetch friends again
+			next: (status) => {
+				if(status === undefined)
+					return
+
+				this.getClass(status);
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+				this.notiService.error("Could not change player status.")
 			}
   	  	})
   	}

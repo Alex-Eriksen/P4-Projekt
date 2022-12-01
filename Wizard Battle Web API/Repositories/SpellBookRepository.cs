@@ -51,7 +51,8 @@
 			{
 				spellBook.SpellBookName = request.SpellBookName;
 				spellBook.SpellBookSlots = request.SpellBookSlots;
-				spellBook.SpellOrder = request.SpellOrder;
+				if(request.SpellOrder != "")
+					spellBook.SpellOrder = request.SpellOrder;
 
 				await m_context.SaveChangesAsync();
 			}

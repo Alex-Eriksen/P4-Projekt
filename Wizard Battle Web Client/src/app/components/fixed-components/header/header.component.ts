@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
     this.setTimeout();
     this.userInactive.subscribe(() => {
 		if(!this.isAway) {
+			console.log("is away");
 			this.playerService.changeStatus(this.playerId, "Away").subscribe(() => this.isAway = true)
 		}
 	});
@@ -34,7 +35,7 @@ export class HeaderComponent implements OnInit {
   playerLvl: number = 1;
   playerId: number = 0;
 
-  player: DirectPlayerResponse;
+  player: DirectPlayerResponse = { playerID: 0, account: { accountID: 0, email: "" }, playerName: "", icon: { iconID: 0, iconName: "" }, playerStatus: "", experiencePoints: 0, maxHealth: 0, maxMana: 0, knowledgePoints: 0, timeCapsules: 0, matchWins: 0, matchLosses: 0, timePlayedMin: 0, avgDamage: 0, avgSpellsHit: 0, spellBookID: 0, transactions: [], modified_At: "" };
 
   ngOnInit(): void {
     this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid;

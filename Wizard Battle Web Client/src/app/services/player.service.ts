@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { map, Observable, ReplaySubject, Subject, tap, timer } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DirectPlayerResponse, PlayerRequest, StaticPlayerResponse } from '../_models/Player';
 import { PlayerAccountRequest } from '../_models/Player/PlayerAccountRequest';
@@ -19,13 +19,14 @@ export class PlayerService {
   public OnProfileUpdated: Observable<any>;
 
   constructor(private http: HttpClient) {
-    this.currentStatusSubject = new Subject<string>();
+    this.currentStatusSubject = new ReplaySubject<string>(1);
     this.OnStatusChanged = this.currentStatusSubject.asObservable();
 
 	this.profileUpdateSubject = new Subject<any>();
 	this.OnProfileUpdated = this.profileUpdateSubject.asObservable();
 
   }
+
 
   public getAll(): Observable<StaticPlayerResponse[]>
   {
@@ -51,9 +52,8 @@ export class PlayerService {
   public changeStatus(playerId: number, status: string): Observable<DirectPlayerResponse>
   {
     return this.http.put<DirectPlayerResponse>(`${this.url}/status?playerId=${playerId}&status=${status}`, null).pipe(map(data => {
-      this.currentStatusSubject.next(data.playerStatus);
-      console.log("Status changed");
-      return data;
+		this.currentStatusSubject.next(data.playerStatus);
+		return data;
     }));
   }
 

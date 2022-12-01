@@ -1,13 +1,34 @@
-<div class="position-relative p-2 bg-transparent" style="width: 512px; height: 508px;">
+<!-- <div class="position-relative p-2 bg-transparent" style="width: 512px; height: 508px;">
 	<div class="d-flex flex-row justify-content-center arrow-container py-2">
 		<i class="fa-solid fa-arrow-up cursor-pointer" *ngIf="!reachedTop" (click)="goUp()"></i>
 	</div>
 	<div class="w-100 border border-1 border-white p-3 position-relative overflow-hidden scroll-container">
 		<div id="scroll" class="position-absolute spell-grid p-3">
-			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell.spellID)"><img draggable="false" [src]="spell.icon.iconName"></div>
+			<div class="border border-1 border-white" style="height: 100px;" *ngFor="let spell of spells" (click)="onClose(spell)"><img draggable="false" [src]="spell.icon.iconName"></div>
 		</div>
 	</div>
 	<div class="d-flex flex-row justify-content-center arrow-container py-2">
 		<i class="fa-solid fa-arrow-down cursor-pointer" *ngIf="!reachedBottom" (click)="goDown()"></i>
 	</div>
+</div> -->
+
+<div class="position-absolute start-0 bottom-0 d-flex flex-row gap-2">
+	<button (click)="previousPage()">Previous</button>
+	<button (click)="nextPage()">Next</button>
 </div>
+<div id="book" [ngClass]="pageClassString">
+	<app-page *ngFor="let spellObject of spells.reverse()" [spell]="spellObject" [previousPage]="previousPageSubject.asObservable()" [nextPage]="nextPageSubject.asObservable()"></app-page>
+	<div class="page d-flex flex-row position-absolute start-0 bottom-0" [ngClass]="pageClassString">
+		<div class="left" [ngClass]="leftSideClassString">
+			<h2>INDHOLDSFORTEGNELSE</h2>
+			<p>BESKRIVELSE</p>
+		</div>
+		<div class="right" [ngClass]="rightSideClassString">
+			<h3>HALLO</h3>
+		</div>
+	</div>
+	<div class="page d-flex flex-row position-absolute start-0 bottom-0">
+		<div class="left cover-left"></div>
+		<div class="right right-cover"></div>
+	</div>
+  </div>

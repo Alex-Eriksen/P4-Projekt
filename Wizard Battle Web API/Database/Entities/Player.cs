@@ -38,10 +38,12 @@
 
 		public uint AvgSpellsHit { get; set; }
 
-		public virtual ICollection<SpellBook> SpellBooks { get; set; }
+		public uint SpellBookID { get; set; }
 
 		[Column(TypeName = "datetime2")]
 		public DateTime Modified_At { get; set; }
+
+		public virtual ICollection<SpellBook> SpellBooks { get; set; }
 
 		[InverseProperty("MainPlayer")]
 		public virtual ICollection<Friendship> MainPlayerFriends { get; set; }

@@ -113,7 +113,7 @@ namespace Wizard_Battle_Web_API.Controllers
 
 				for(int i = 1; i < 3; i++)
 				{
-					DirectSpellBookResponse spellBookResponse = await m_spellBookService.Create(new SpellBookRequest { SpellBookName = "Unnamed Book", PlayerID = player.PlayerID, SpellIDs = { }});
+					DirectSpellBookResponse spellBookResponse = await m_spellBookService.Create(new SpellBookRequest { SpellBookName = $"Unnamed Book {i + 1}", PlayerID = player.PlayerID, SpellIDs = { }});
 					if(spellBookResponse == null)
 					{
 						return Problem($"Could not create spellbook: {i}");

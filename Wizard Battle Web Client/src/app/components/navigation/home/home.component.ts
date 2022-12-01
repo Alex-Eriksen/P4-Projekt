@@ -36,11 +36,18 @@ export class HomeComponent implements OnInit {
 
   	player: DirectPlayerResponse;
 
+	playerId: number = 0;
+
   	ngOnInit(): void {
-    	this.authenticationService.OnTokenChanged.subscribe(x => {
-    	  this.player.playerID = JwtDecodePlus.jwtDecode(x).nameid; // Gets playerId
-    	  this.playerService.getById(this.player.playerID).subscribe(data => this.player = data);
-    	});
+    	this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid; // Gets playerId
+    	this.playerService.getById(this.playerId).subscribe({
+			next: (response) => {
+				this.player = response;
+			},
+			error: (err) => {
+				console.error(Object.values(err.error.errors).join(', '));
+			}
+		});
 
 		this.transactionService.getAll().subscribe((response) => {
 			this.transactions = response;

@@ -9,7 +9,7 @@ import { HomeComponent } from './components/navigation/home/home.component';
 import { HeaderComponent } from './components/fixed-components/header/header.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { SignupComponent } from './components/authentication/signup/signup.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule  } from '@angular/forms';
 import { SpellbookComponent } from './components/navigation/spellbook/spellbook.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
@@ -27,26 +27,29 @@ import { ChatComponent } from './components/fixed-components/chat/chat.component
 import { AddFriendComponent } from './components/modals/add-friend/add-friend.component';
 import { LeaderboardComponent } from './components/navigation/leaderboard/leaderboard.component';
 import { SpellSelectionComponent } from './components/modals/spell-selection/spell-selection.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ToastrModule } from 'ngx-toastr';
+import { PageComponent } from './components/modals/spell-selection/page/page.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    HeaderComponent,
-    LoginComponent,
-    SignupComponent,
-    SpellbookComponent,
-    ChatBoxComponent,
-    ProfileComponent,
-    LibraryComponent,
-    ChangeIconComponent,
-    SkinInfoComponent,
-    ChatComponent,
-    AddFriendComponent,
-    LeaderboardComponent,
-    SpellSelectionComponent,
-  ],
+  	declarations: [
+    	AppComponent,
+    	HomeComponent,
+    	HeaderComponent,
+    	LoginComponent,
+    	SignupComponent,
+    	SpellbookComponent,
+    	ChatBoxComponent,
+    	ProfileComponent,
+    	LibraryComponent,
+    	ChangeIconComponent,
+    	SkinInfoComponent,
+    	ChatComponent,
+    	AddFriendComponent,
+    	LeaderboardComponent,
+    	SpellSelectionComponent,
+     	PageComponent,
+	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -54,15 +57,19 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 		BrowserAnimationsModule,
 		FormsModule,
 		MatDialogModule,
-    DragDropModule
-  ],
-  providers: [
-    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },
+    	DragDropModule,
+		ToastrModule.forRoot({
+			timeOut: 1000,
+			positionClass: "toast-top-right"
+		}),
+  	],
+  	providers: [
+    	{ provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [ AuthenticationService ] },
 		{ provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
 		{ provide: LocationStrategy, useClass: HashLocationStrategy },
 		{ provide: DEFAULT_CURRENCY_CODE, useValue: 'DKK' },
 		{ provide: LOCALE_ID, useValue: 'en-DK' }
-  ],
-  bootstrap: [AppComponent]
+  	],
+  	bootstrap: [AppComponent]
 })
 export class AppModule { }

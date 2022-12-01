@@ -8,6 +8,7 @@ import { SpellbookComponent } from './components/navigation/spellbook/spellbook.
 import { LibraryComponent } from './components/navigation/library/library.component';
 import { AuthenticationGuard } from './services/authentication.guard.service';
 import { LeaderboardComponent } from './components/navigation/leaderboard/leaderboard.component';
+import { PageComponent } from './components/modals/spell-selection/page/page.component';
 
 const routes: Routes = [
   { path: '',  component: HomeComponent, canActivate: [AuthenticationGuard]},
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'leaderboard',  component: LeaderboardComponent, canActivate: [AuthenticationGuard]},
   { path: 'login',  component: LoginComponent },
   { path: 'signup',  component: SignupComponent },
+  { path: 'page',  component: PageComponent },
   { path: '**', redirectTo: ''}
 ];
 

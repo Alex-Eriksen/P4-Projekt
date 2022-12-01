@@ -111,6 +111,7 @@ namespace Wizard_Battle_Web_API.Database
 				TimePlayedMin = 120,
 				AvgDamage = 150,
 				AvgSpellsHit = 13,
+				SpellBookID = 1
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -129,6 +130,7 @@ namespace Wizard_Battle_Web_API.Database
 				TimePlayedMin = 75,
 				AvgDamage = 122,
 				AvgSpellsHit = 11,
+				SpellBookID = 4
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -147,6 +149,7 @@ namespace Wizard_Battle_Web_API.Database
 				TimePlayedMin = 59,
 				AvgDamage = 133,
 				AvgSpellsHit = 12,
+				SpellBookID = 7
 			});
 			modelBuilder.Entity<Player>().HasData(new Player
 			{
@@ -165,6 +168,7 @@ namespace Wizard_Battle_Web_API.Database
 				TimePlayedMin = 43,
 				AvgDamage = 99,
 				AvgSpellsHit = 7,
+				SpellBookID = 10
 			});
 
 			// Adding static icons
@@ -393,7 +397,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 2,
@@ -405,7 +408,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 3,
@@ -417,7 +419,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 4,
@@ -429,7 +430,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 5,
@@ -474,7 +474,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 9,
@@ -486,7 +485,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 10,
@@ -498,7 +496,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 11,
@@ -510,7 +507,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 12,
@@ -522,7 +518,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 13,
@@ -534,7 +529,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 14,
@@ -546,7 +540,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 15,
@@ -558,7 +551,6 @@ namespace Wizard_Battle_Web_API.Database
 				CastTime = 0,
 
 			});
-
 			modelBuilder.Entity<Spell>().HasData(new Spell
 			{
 				SpellID = 16,
@@ -574,8 +566,74 @@ namespace Wizard_Battle_Web_API.Database
 			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
 			{
 				SpellBookID = 1,
-				SpellBookName = "My SpellBook",
+				SpellBookName = "Unnamed Spellbook 1",
 				PlayerID = 1,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 2,
+				SpellBookName = "Unnamed Spellbook 2",
+				PlayerID = 1,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 3,
+				SpellBookName = "Unnamed Spellbook 3",
+				PlayerID = 1,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 4,
+				SpellBookName = "Unnamed Spellbook 1",
+				PlayerID = 2,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 5,
+				SpellBookName = "Unnamed Spellbook 2",
+				PlayerID = 2,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 6,
+				SpellBookName = "Unnamed Spellbook 3",
+				PlayerID = 2,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 7,
+				SpellBookName = "Unnamed Spellbook 1",
+				PlayerID = 3,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 8,
+				SpellBookName = "Unnamed Spellbook 2",
+				PlayerID = 3,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 9,
+				SpellBookName = "Unnamed Spellbook 3",
+				PlayerID = 3,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 10,
+				SpellBookName = "Unnamed Spellbook 1",
+				PlayerID = 4,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 11,
+				SpellBookName = "Unnamed Spellbook 2",
+				PlayerID = 4,
+			});
+			modelBuilder.Entity<SpellBook>().HasData(new SpellBook
+			{
+				SpellBookID = 12,
+				SpellBookName = "Unnamed Spellbook 3",
+				PlayerID = 4,
 			});
 
 			modelBuilder.Entity<SpellBookSlot>().HasData(new SpellBookSlot

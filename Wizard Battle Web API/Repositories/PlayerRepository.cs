@@ -76,13 +76,16 @@
             if (player != null)
             {
                 player.PlayerName = request.PlayerName;
+                player.IconID = request.IconID;
                 player.ExperiencePoints = request.ExperiencePoints;
                 player.KnowledgePoints = request.KnowledgePoints;
                 player.TimeCapsules = request.TimeCapsules;
-                player.PlayerStatus = request.PlayerStatus;
-                player.IconID = request.IconID;
-                player.MaxHealth = request.MaxHealth;
-                player.MaxMana = request.MaxMana;
+                player.MatchWins = request.MatchWins;
+                player.MatchLosses = request.MatchLosses;
+                player.TimePlayedMin = request.TimePlayedMin;
+                player.AvgDamage = request.AvgDamage;
+                player.AvgSpellsHit = request.AvgSpellsHit;
+                player.SpellBookID = request.SpellBookID;
                 player.Modified_At = DateTime.UtcNow;
 
                 await m_context.SaveChangesAsync();

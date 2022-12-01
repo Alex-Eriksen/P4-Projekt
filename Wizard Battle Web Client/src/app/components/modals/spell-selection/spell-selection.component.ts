@@ -1,5 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, HostListener, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { SpellService } from 'src/app/services/spell.service';
 import { StaticSpellResponse } from 'src/app/_models/Spell';
 import { DirectSpellBookResponse } from 'src/app/_models/SpellBook';
@@ -9,18 +10,21 @@ import { DirectSpellBookResponse } from 'src/app/_models/SpellBook';
   templateUrl: './spell-selection.component.html',
   styleUrls: ['./spell-selection.component.css']
 })
-export class SpellSelectionComponent implements OnInit, AfterViewInit {
+export class SpellSelectionComponent implements OnInit {
 
-	constructor(private spellService: SpellService, public dialogRef: MatDialogRef<SpellSelectionComponent>, @Inject(MAT_DIALOG_DATA) public data: DirectSpellBookResponse, private cdr: ChangeDetectorRef, private elementRef: ElementRef) { }
+	constructor(private spellService: SpellService, public dialogRef: MatDialogRef<SpellSelectionComponent>, @Inject(MAT_DIALOG_DATA) public data: DirectSpellBookResponse) { }
+
+	public nextPageSubject: Subject<number> = new Subject<number>();
+	public previousPageSubject: Subject<number> = new Subject<number>();
 
 	public spells: StaticSpellResponse[] = [];
 
-	public scroll: any;
+	public currentIndex: number = 0;
 
-	anchorHref: number = 0;
+	public pageClassString: string = "";
+	public leftSideClassString: string = "active-mid-to-left";
+	public rightSideClassString: string = "";
 
-	reachedBottom: boolean = false;
-	reachedTop: boolean = true;
 
 	ngOnInit(): void {
 		document.body.children[6].classList.add('spell-selection-overlay');
@@ -43,26 +47,41 @@ export class SpellSelectionComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	ngAfterViewInit(): void {
-		this.scroll = this.elementRef.nativeElement.querySelector('#scroll');
-		this.scroll.addEventListener('scroll', () => {
-			if(this.scroll.scrollTop < 80) {
-				this.reachedTop = true;
-			} else {
-				this.reachedTop = false;
-			}
+	nextPage(): void {
+		if(this.currentIndex == this.spells.length)
+			return
 
-			if( (this.scroll.scrollTop + 374) >= (this.scroll.scrollHeight - 80) ) {
-				this.reachedBottom = true;
-			} else {
-				this.reachedBottom = false;
-			}
-		});
+
+		this.currentIndex += 1;
+		this.nextPageSubject.next(this.currentIndex);
+		if(this.currentIndex == 1) {
+			// Right side starts from the right side and turns 90deg to the left.
+			this.rightSideClassString = "inactive-right-to-mid";
+
+			// Left side does not move
+			this.leftSideClassString = "inactive-left-side";
+
+			// Page gets active
+			this.pageClassString = "inactive-page"
+		}
 	}
 
-	goUp = () => { this.scroll.scrollTop -= 374; }
+	previousPage(): void {
+		if(this.currentIndex == 0){
+			return;
+		}
+		this.currentIndex -= 1;
+		this.previousPageSubject.next(this.currentIndex);
+		if(this.currentIndex == 0) {
+			this.rightSideClassString = "active-mid-to-right"
 
-	goDown = () => { this.scroll.scrollTop += 374; }
+			// Left side does not move.
+			this.leftSideClassString = "";
 
-	onClose = (spellId?: number) => { this.dialogRef.close(spellId); }
+			// Page gets active
+			this.pageClassString = "active-page"
+		}
+	}
+
+	onClose = (spell: StaticSpellResponse) => { this.dialogRef.close(spell); }
 }

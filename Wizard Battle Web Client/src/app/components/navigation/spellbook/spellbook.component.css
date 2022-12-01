@@ -4,7 +4,7 @@
 
 .my-container {
     background-image: url("../../../../assets/circle_of_power_bg.png");
-    background-size: contain;
+	background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }

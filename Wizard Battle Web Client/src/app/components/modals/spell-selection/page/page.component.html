@@ -1,0 +1,11 @@
+<div class="page d-flex flex-row position-absolute start-0 bottom-0" [ngClass]="pageClassString">
+	<div class="left page-img" [ngClass]="leftSideClassString">
+		<h2>{{spell.spellName}}</h2>
+		<p>{{spell.spellDescription}}</p>
+	</div>
+	<div class="right page-img" [ngClass]="rightSideClassString">
+		<img [src]="spell.icon.iconName" alt="">
+	</div>
+</div>
+
+

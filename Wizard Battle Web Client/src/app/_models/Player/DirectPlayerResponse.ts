@@ -19,6 +19,6 @@ export interface DirectPlayerResponse {
     avgDamage: number;
     avgSpellsHit: number;
     spellBookID: number;
-    modified_At: string;
     transactions: StaticTransactionResponse[];
+    modified_At: string;
 }

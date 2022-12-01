@@ -3,39 +3,41 @@
     <div class="col-8">
       <div class="d-flex flex-column gap-4 h-100">
         <div class="px-2 py-4 border border-1 border-color rounded-1" style="background-color: #080e1c;">
-          <div class="stat-grid">
-            <div class="stat">
-              <i class="fa-solid fa-trophy fa-fw" style="color: #ffa200"></i>
-              <p class="mb-0 player-stat">{{player.matchWins}}</p>
-              <p class="mb-0">Wins</p>
-            </div>
-            <div class="stat">
-              <i class="fa-solid fa-skull fa-fw" style="color: #f10000;"></i>
-              <p class="mb-0 player-stat">{{player.matchLosses}}</p>
-              <p class="mb-0">Losses</p>
-            </div>
-            <div class="stat">
-              <i class="fa-solid fa-scale-unbalanced fa-fw" style="color: #ad997d;"></i>
-              <p class="mb-0 player-stat">{{player.matchWins / player.matchLosses}}</p>
-              <p class="mb-0">Winrate</p>
-            </div>
-            <div class="stat">
-              <i class="fa-solid fa-hand-fist fa-fw" style="color: #d9a489;"></i>
-              <p class="mb-0 player-stat">{{player.matchWins + player.matchLosses}}</p>
-              <p class="mb-0">Matches</p>
-            </div>
-            <div class="stat">
-              <i class="fa-solid fa-clock fa-fw" style="color: #b1b7bc;"></i>
-              <p class="mb-0 player-stat">{{toHoursAndMinutes(player.timePlayedMin)}}</p>
-              <p class="mb-0">Time played</p>
-            </div>
-            <div class="stat">
-              <i class="fa-solid fa-ranking-star fa-fw" style="color: #ffba57;"></i>
-              <p class="mb-0 player-stat">#1</p>
-              <p class="mb-0">Rank</p>
-            </div>
-          </div>
-        </div>
+			<ng-container *ngIf="this.player != null">
+				<div class="stat-grid">
+					<div class="stat">
+						<i class="fa-solid fa-trophy fa-fw" style="color: #ffa200"></i>
+						<p class="mb-0 player-stat">{{player.matchWins}}</p>
+						<p class="mb-0">Wins</p>
+          		  </div>
+          		  <div class="stat">
+						<i class="fa-solid fa-skull fa-fw" style="color: #f10000;"></i>
+						<p class="mb-0 player-stat">{{player.matchLosses}}</p>
+						<p class="mb-0">Losses</p>
+          		  </div>
+          		  <div class="stat">
+						<i class="fa-solid fa-scale-unbalanced fa-fw" style="color: #ad997d;"></i>
+						<p class="mb-0 player-stat">{{player.matchWins / player.matchLosses}}</p>
+						<p class="mb-0">Winrate</p>
+          		  </div>
+          		  <div class="stat">
+						<i class="fa-solid fa-hand-fist fa-fw" style="color: #d9a489;"></i>
+						<p class="mb-0 player-stat">{{player.matchWins + player.matchLosses}}</p>
+						<p class="mb-0">Matches</p>
+          		  </div>
+          		  <div class="stat">
+						<i class="fa-solid fa-clock fa-fw" style="color: #b1b7bc;"></i>
+						<p class="mb-0 player-stat">{{toHoursAndMinutes(player.timePlayedMin)}}</p>
+						<p class="mb-0">Time played</p>
+          		  </div>
+          		  <div class="stat">
+						<i class="fa-solid fa-ranking-star fa-fw" style="color: #ffba57;"></i>
+						<p class="mb-0 player-stat">#1</p>
+						<p class="mb-0">Rank</p>
+          		  </div>
+				</div>
+			</ng-container>
+		</div>
         <div class="border border-1 border-color rounded-1 px-3 h-100" style="background-color: #071220; padding-top: 11px;"> <!-- DEVBLOG -->
           <div class="border border-1 border-color overflow-hidden position-relative" style="background-color: #080e1c; height: 415px;">
             <div class="d-flex flex-column p-3 gap-3 devblog-tab position-absolute">

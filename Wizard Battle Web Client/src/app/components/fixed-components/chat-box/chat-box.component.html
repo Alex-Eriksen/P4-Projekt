@@ -1,4 +1,4 @@
-<div class="position-fixed chat-box" [@openClose]="chatWindow ? 'open' : 'closed'">
+<div class="position-fixed chat-box" *ngIf="friend != null" [@openClose]="chatWindow ? 'open' : 'closed'">
   <div class="d-flex flex-column flex">
     <div class="header d-flex align-items-center position-relative px-1">
       <img [src]="friend.icon.iconName" alt="" id="userImage">
