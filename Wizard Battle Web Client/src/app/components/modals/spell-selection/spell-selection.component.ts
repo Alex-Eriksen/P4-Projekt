@@ -25,6 +25,14 @@ export class SpellSelectionComponent implements OnInit {
 	public leftSideClassString: string = "active-mid-to-left";
 	public rightSideClassString: string = "";
 
+	public get isUsed(): boolean {
+		let indexOfArray = this.currentIndex - 1;
+		for (let i = 0; i < this.data.spells.length; i++) {
+			if(this.data.spells[i].spellID == this.spells[indexOfArray].spellID)
+				return true;
+		}
+		return false;
+	}
 
 	ngOnInit(): void {
 		document.body.children[6].classList.add('spell-selection-overlay');
@@ -37,9 +45,6 @@ export class SpellSelectionComponent implements OnInit {
 		this.spellService.getAll().subscribe({ // Gets Spells
 			next: (data) => {
 				this.spells = data;
-				for(let i = 0; i < this.data.spells.length; i++) {
-					this.spells = this.spells.filter(x => x.spellID !== this.data.spells[i].spellID);
-				}
 			},
 			error: (err) => {
 				console.error(Object.values(err.error.errors).join(', '));
@@ -50,7 +55,6 @@ export class SpellSelectionComponent implements OnInit {
 	nextPage(): void {
 		if(this.currentIndex == this.spells.length)
 			return
-
 
 		this.currentIndex += 1;
 		this.nextPageSubject.next(this.currentIndex);
@@ -83,5 +87,24 @@ export class SpellSelectionComponent implements OnInit {
 		}
 	}
 
-	onClose = (spell: StaticSpellResponse) => { this.dialogRef.close(spell); }
+	pageFive(): void {
+		this.currentIndex += 5;
+		this.nextPageSubject.next(this.currentIndex);
+		if(this.currentIndex == 5) {
+			// Right side starts from the right side and turns 90deg to the left.
+			this.rightSideClassString = "inactive-right-to-mid";
+
+			// Left side does not move
+			this.leftSideClassString = "inactive-left-side";
+
+			// Page gets active
+			this.pageClassString = "inactive-page"
+		}
+	}
+
+	equipSpell(): void {
+		this.onClose(this.spells[this.currentIndex-1]);
+	}
+
+	onClose = (spell?: StaticSpellResponse) => { this.dialogRef.close(spell); }
 }

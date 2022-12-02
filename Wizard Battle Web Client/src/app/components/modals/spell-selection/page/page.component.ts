@@ -31,7 +31,6 @@ export class PageComponent implements OnInit {
 		if(this.spell.spellID == currentIndex) { // Page that gets active.
 			// Left side start in the middle, and turns 90deg to the left.
 			this.leftSideClassString = "active-mid-to-left";
-			console.log(currentIndex);
 
 			// Right side does not move.
 			this.rightSideClassString = "";

@@ -36,7 +36,6 @@ export class SpellbookComponent implements OnInit {
   	ngOnInit(): void {
 		while(this.playerId == undefined) {
 			this.playerId = JwtDecodePlus.jwtDecode(this.authenticationService.AccessToken).nameid;
-			console.log(this.playerId);
 			if(this.playerId != undefined) {
 				this.playerService.getById(this.playerId).subscribe({ // Gets player
 					next: (res) => {
@@ -98,8 +97,19 @@ export class SpellbookComponent implements OnInit {
 		  });
 
 		  dialogRef.afterClosed().subscribe((spell: StaticSpellResponse) => {
-			if(spell != null)
+			if(spell != null) {
+				if(this.openSpellBook.spells.filter(x => x === spell)) {
+					for (let i = 0; i < this.openSpellBook.spells.length; i++) {
+						let placeholderSpell: StaticSpellResponse = { spellID: 0, spellName: `placeholder ${i+1}`, spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/choose-spell.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
+						if(this.openSpellBook.spells[i].spellID === spell.spellID) {
+							this.openSpellBook.spells[i] = placeholderSpell;
+							this.notiService.info(`Removed spell at slot ${i+1}, and replaced at ${spellIndex+1}`);
+							break;
+						}
+					}
+				}
 				this.openSpellBook.spells[spellIndex] = spell; // Assign chosen spell to spells index
+			}
 		  });
 	}
 
@@ -111,7 +121,7 @@ export class SpellbookComponent implements OnInit {
 				if(this.openSpellBook.spells.length != 8) {
 					// let lockedSpell: StaticSpellResponse = { spellID: 0, spellName: "locked", spellDescription: "", icon: {iconID: 1337, iconName: "../../../../assets/spell-icons/locked-padlock.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
 					for(let i = this.openSpellBook.spells.length; i < 8; i++) {
-						let placeholderSpell: StaticSpellResponse = { spellID: 0, spellName: `placeholder ${i}`, spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/choose-spell.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
+						let placeholderSpell: StaticSpellResponse = { spellID: 0, spellName: `placeholder ${i+1}`, spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/choose-spell.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
 						this.openSpellBook.spells.push(placeholderSpell);
 					}
 				}
@@ -139,7 +149,10 @@ export class SpellbookComponent implements OnInit {
 	}
 
 	saveSpellBook(): void {
-		console.log(this.openSpellBook.spells.filter(spell => spell.spellID != 0).length);
+		if(this.openSpellBook.spells.filter(spell => spell.spellID != 0).length != 8) {
+			this.notiService.error("All spell slots must be assigned a spell!");
+			return;
+		}
 		this.spellBookRequest = { spellBookName: this.openSpellBook.spellBookName, playerID: this.playerId, spellIDs: this.openSpellBook.spells.length == 0 ? [] : this.openSpellBook.spells.filter(spell => !spell.spellName.includes('placeholder')).map(spell => spell.spellID) }
 		this.spellBookService.update(this.openSpellBook.spellBookID, this.spellBookRequest).subscribe({
 			next: () => {

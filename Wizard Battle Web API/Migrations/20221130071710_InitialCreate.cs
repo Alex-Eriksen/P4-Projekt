@@ -41,6 +41,7 @@ namespace Wizard_Battle_Web_API.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Skin",
+
                 columns: table => new
                 {
                     SkinID = table.Column<int>(type: "int", nullable: false)
