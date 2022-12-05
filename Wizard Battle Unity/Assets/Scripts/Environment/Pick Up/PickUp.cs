@@ -89,6 +89,11 @@ public class PickUp : NetworkBehaviour, IInteractable
         canvasGroup.alpha = 1f;
     }
 
+    public void ExitRange()
+    {
+        canvasGroup.alpha = 0f;
+    }
+
     protected virtual void OnAwake() { }
     protected virtual void OnUpdate() { }
     [ClientCallback]

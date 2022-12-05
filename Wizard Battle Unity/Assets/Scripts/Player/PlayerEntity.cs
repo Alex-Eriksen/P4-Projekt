@@ -37,6 +37,10 @@ public class PlayerEntity : Entity
             m_closestInteractable.EnterRange();
             m_oldClosestInteractable = m_closestInteractable;
         }
+        else if(m_oldClosestInteractable != null)
+        {
+            m_oldClosestInteractable.ExitRange();
+        }
     }
 
     private IInteractable GetClosestInteractable(Collider2D[] interactables)
