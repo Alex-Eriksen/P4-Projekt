@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 751005970879742327}
   - component: {fileID: 6361119205874249930}
   - component: {fileID: 8760034898287179866}
-  - component: {fileID: 2399895801130582446}
+  - component: {fileID: 1628022506592042895}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -348,7 +348,7 @@ MonoBehaviour:
   syncAngularVelocity: 0
   clearAngularVelocity: 1
   angularVelocitySensitivity: 0.1
---- !u!114 &2399895801130582446
+--- !u!114 &1628022506592042895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a34663ca705a54eac3205e225a6d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightType: 0
+  lightType: 1
   lightPresetId: 0
   eventPresetId: 0
   lightLayer: 1
@@ -368,7 +368,7 @@ MonoBehaviour:
   translucentLayer: 0
   translucentPresetId: 0
   color: {r: 1, g: 1, b: 1, a: 1}
-  size: 12
+  size: 10
   spotAngleInner: 360
   spotAngleOuter: 360
   coreSize: 0.5
@@ -394,9 +394,9 @@ MonoBehaviour:
   bumpMap:
     intensity: 1
     depth: 1
-  whenInsideCollider: 2
-  lightSprite: 0
-  sprite: {fileID: 21300000, guid: 6592d6be03fd808449716a11558d506f, type: 3}
+  whenInsideCollider: 0
+  lightSprite: 1
+  sprite: {fileID: 21300000, guid: d7dbaa2ab01aef74d93de26d9f96090a, type: 3}
   spriteFlipX: 0
   spriteFlipY: 0
   freeFormFalloff: 1

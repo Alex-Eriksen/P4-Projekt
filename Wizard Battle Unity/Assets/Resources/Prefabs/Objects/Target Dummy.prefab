@@ -430,7 +430,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4114610959151448449}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
   m_Name: 
@@ -451,7 +451,7 @@ MonoBehaviour:
   - {x: 0.1523956, y: 0.16497873, z: 0}
   m_ShapePathHash: -1026934146
   m_Mesh: {fileID: 0}
-  m_InstanceId: 110994
+  m_InstanceId: 127354
 --- !u!114 &4917285483870247111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,16 +464,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shadowType: 0
+  shadowType: 1
   shadowLayer: 0
   shadowDistance: 0
   shadowDistanceMin: 0.5
   shadowDistanceMax: 1
   shadowTranslucency: 0
-  maskType: 1
-  maskLit: 1
-  maskPivot: 2
-  maskLayer: 0
+  maskType: 0
+  maskLit: 0
+  maskPivot: 0
+  maskLayer: 1
   maskLitCustom: 1
   bumpMapMode:
     type: 0
@@ -485,9 +485,9 @@ MonoBehaviour:
     depth: 1
     spriteRenderer: {fileID: 2862032119335748296}
   mainShape:
-    shadowType: 0
-    maskType: 1
-    maskPivot: 2
+    shadowType: 1
+    maskType: 0
+    maskPivot: 0
     transform: {fileID: 2322647485118674630}
 --- !u!1001 &5684934949493916882
 PrefabInstance:
