@@ -58,12 +58,15 @@ TagManager:
   - name: VFX
     uniqueID: 1270002007
     locked: 0
-  - name: Tall Environment
-    uniqueID: 3538770625
-    locked: 0
   - name: Light Sources
     uniqueID: 1859343033
     locked: 0
   - name: UI
     uniqueID: 1034657993
+    locked: 0
+  - name: Tall Environment
+    uniqueID: 3538770625
+    locked: 0
+  - name: FOW
+    uniqueID: 486272693
     locked: 0
