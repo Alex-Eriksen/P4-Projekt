@@ -67,8 +67,8 @@ p {
 }
 
 @keyframes active-mid-to-left {
-	0% 		{	opacity: 1;	transform: rotateY(90deg); z-index: 1; }
-	100% 	{ 	opacity: 1; transform: rotateY(0deg); z-index: 5; }
+	0% 		{	opacity: 1;	transform: rotateY(90deg);}
+	100% 	{ 	opacity: 1; transform: rotateY(0deg);}
 }
 
 @keyframes inactive-right-to-mid {

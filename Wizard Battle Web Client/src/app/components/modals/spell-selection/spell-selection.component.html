@@ -14,6 +14,7 @@
 
 <div class="position-absolute start-0 bottom-0 d-flex flex-row gap-2">
 	<button (click)="onClose()">Close</button>
+	<button (click)="resetPage()">Reset</button>
 	<button (click)="previousPage()">Previous</button>
 	<button (click)="nextPage()">Next</button>
 	<button (click)="equipSpell()">Equip</button>
@@ -23,10 +24,73 @@
 	<div class="page d-flex flex-row position-absolute start-0 bottom-0" [ngClass]="pageClassString">
 		<div class="left" [ngClass]="leftSideClassString">
 			<h2>INDHOLDSFORTEGNELSE</h2>
-			<p>BESKRIVELSE</p>
+			<ol class="toc-list" role="list">
+				<li class="cursor-pointer">
+					<span class="title">Elemental</span>
+					<span class="page"><span class="visually-hidden">Page</span></span>
+					<ol role="list">
+						<li class="cursor-pointer" (click)="goToPage(1)">
+							<span class="title">Fire</span>
+						</li>
+						<li class="cursor-pointer" (click)="goToPage(2)">
+							<span class="title">Water</span>
+						</li>
+						<li class="cursor-pointer" (click)="goToPage(3)">
+							<span class="title">Earth</span>
+						</li>
+						<li class="cursor-pointer" (click)="goToPage(4)">
+							<span class="title">Air</span>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<ol class="toc-list" role="list">
+				<li class="cursor-pointer">
+					<span class="title">Primal</span>
+					<span class="page"><span class="visually-hidden">Page</span></span>
+					<ol role="list">
+						<li class="cursor-pointer" (click)="goToPage(5)">
+							<span class="title">Arcane</span>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<ol class="toc-list" role="list">
+				<li class="cursor-pointer">
+					<span class="title">Void</span>
+					<span class="page"><span class="visually-hidden">Page</span></span>
+					<ol role="list">
+						<li class="cursor-pointer" (click)="goToPage(6)">
+							<span class="title">Dimensional</span>
+						</li>
+						<li class="cursor-pointer" (click)="goToPage(7)">
+							<span class="title">Dark</span>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<ol class="toc-list" role="list">
+				<li class="cursor-pointer">
+					<span class="title">Ether</span>
+					<span class="page"><span class="visually-hidden">Page</span></span>
+					<ol role="list">
+						<li class="cursor-pointer" (click)="goToPage(8)">
+							<span class="title">Light</span>
+						</li>
+						<li class="cursor-pointer" (click)="goToPage(9)">
+							<span class="title">Spirit</span>
+						</li>
+					</ol>
+				</li>
+			</ol>
 		</div>
 		<div class="right" [ngClass]="rightSideClassString">
-			<h3>HALLO</h3>
+			<div class="toc-image-grid">
+				<img src="../../../../assets/concrete.jpg" alt="">
+				<img src="../../../../assets/concrete.jpg" alt="">
+				<img src="../../../../assets/concrete.jpg" alt="">
+				<img src="../../../../assets/concrete.jpg" alt="">
+			</div>
 		</div>
 	</div>
 	<div class="page d-flex flex-row position-absolute start-0 bottom-0">

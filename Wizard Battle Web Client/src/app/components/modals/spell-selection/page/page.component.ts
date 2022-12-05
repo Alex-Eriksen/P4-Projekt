@@ -20,6 +20,7 @@ export class PageComponent implements OnInit {
 	public pageClassString: string = "";
 	public leftSideClassString: string = "";
 	public rightSideClassString: string = "";
+	public wasActive = false;
 
   	ngOnInit(): void {
 		this.nextPage.subscribe((currentIndex) => this.onNextPage(currentIndex));
@@ -28,7 +29,7 @@ export class PageComponent implements OnInit {
 	}
 
 	onNextPage(currentIndex: number): void {
-		if(this.spell.spellID == currentIndex) { // Page that gets active.
+		if(this.spell.spellID == currentIndex) {
 			// Left side start in the middle, and turns 90deg to the left.
 			this.leftSideClassString = "active-mid-to-left";
 
@@ -37,33 +38,39 @@ export class PageComponent implements OnInit {
 
 			// Page gets active
 			this.pageClassString = "active-page"
+			this.wasActive = true;
 		}
-		else if((this.spell.spellID + 1) == currentIndex) { // Page that gets inactive.
+		else if(this.wasActive) {
 			// Right side starts from the right side and turns 90deg to the left.
 			this.rightSideClassString = "inactive-right-to-mid";
 
 			// Left side does not move
 			this.leftSideClassString = "inactive-left-side";
 
+			// Page gets inactive
 			this.pageClassString = "inactive-page"
+			this.wasActive = false;
 		}
-		else { // Page that gets inactive
+		else {
 			this.pageClassString = "inactive"
+			this.leftSideClassString = "";
+			this.rightSideClassString = "";
 		}
 	}
 
 	onPrevPage(currentIndex: number): void {
-		if(this.spell.spellID == currentIndex){
+		if(this.spell.spellID == currentIndex) {
 			// Right side starts in the middle, and turns 90deg to the right.
-			this.rightSideClassString = "active-mid-to-right"
+			this.rightSideClassString = "active-mid-to-right";
 
 			// Left side does not move.
 			this.leftSideClassString = "";
 
 			// Page gets active
 			this.pageClassString = "active-page"
-
-		} else if((this.spell.spellID - 1) == currentIndex) { // Page that gets inactive.
+			this.wasActive = true;
+		}
+		else if(this.wasActive) {
 			// Left side turns 90deg towards to the middle.
 			this.leftSideClassString = "inactive-left-to-mid";
 
@@ -72,9 +79,12 @@ export class PageComponent implements OnInit {
 
 			// Page gets inactive
 			this.pageClassString = "inactive-page"
-
-		} else { // Page that gets inactive
+			this.wasActive = false;
+		}
+		else {
 			this.pageClassString = "inactive"
+			this.leftSideClassString = "";
+			this.rightSideClassString = "";
 		}
 	}
 }

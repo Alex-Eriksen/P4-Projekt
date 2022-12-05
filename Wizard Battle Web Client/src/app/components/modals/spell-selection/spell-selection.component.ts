@@ -25,15 +25,6 @@ export class SpellSelectionComponent implements OnInit {
 	public leftSideClassString: string = "active-mid-to-left";
 	public rightSideClassString: string = "";
 
-	public get isUsed(): boolean {
-		let indexOfArray = this.currentIndex - 1;
-		for (let i = 0; i < this.data.spells.length; i++) {
-			if(this.data.spells[i].spellID == this.spells[indexOfArray].spellID)
-				return true;
-		}
-		return false;
-	}
-
 	ngOnInit(): void {
 		document.body.children[6].classList.add('spell-selection-overlay');
 		for(let i = 0; i < 100; i++) {
@@ -52,6 +43,24 @@ export class SpellSelectionComponent implements OnInit {
 		});
 	}
 
+	@HostListener('document:keydown', ['$event'])
+	handleKeyboardEvent(event: KeyboardEvent) {
+		if(!isFinite(parseInt(event.key))) {
+			return;
+		}
+
+		if(event.key == "0") {
+			this.resetPage();
+		}
+		else if(event.key == "1" && this.currentIndex == 0) {
+			this.nextPage();
+		}
+		else {
+			this.goToPage(parseInt(event.key));
+		}
+
+	}
+
 	nextPage(): void {
 		if(this.currentIndex == this.spells.length)
 			return
@@ -59,13 +68,8 @@ export class SpellSelectionComponent implements OnInit {
 		this.currentIndex += 1;
 		this.nextPageSubject.next(this.currentIndex);
 		if(this.currentIndex == 1) {
-			// Right side starts from the right side and turns 90deg to the left.
 			this.rightSideClassString = "inactive-right-to-mid";
-
-			// Left side does not move
 			this.leftSideClassString = "inactive-left-side";
-
-			// Page gets active
 			this.pageClassString = "inactive-page"
 		}
 	}
@@ -78,33 +82,50 @@ export class SpellSelectionComponent implements OnInit {
 		this.previousPageSubject.next(this.currentIndex);
 		if(this.currentIndex == 0) {
 			this.rightSideClassString = "active-mid-to-right"
-
-			// Left side does not move.
 			this.leftSideClassString = "";
-
-			// Page gets active
 			this.pageClassString = "active-page"
 		}
 	}
 
-	pageFive(): void {
-		this.currentIndex += 5;
-		this.nextPageSubject.next(this.currentIndex);
-		if(this.currentIndex == 5) {
-			// Right side starts from the right side and turns 90deg to the left.
-			this.rightSideClassString = "inactive-right-to-mid";
+	resetPage(): void {
+		if(this.currentIndex != 0) {
+			this.currentIndex = 0;
+			this.previousPageSubject.next(this.currentIndex);
 
-			// Left side does not move
-			this.leftSideClassString = "inactive-left-side";
-
-			// Page gets active
-			this.pageClassString = "inactive-page"
+			this.rightSideClassString = "active-mid-to-right"
+			this.leftSideClassString = "";
+			this.pageClassString = "active-page"
 		}
 	}
 
-	equipSpell(): void {
-		this.onClose(this.spells[this.currentIndex-1]);
+	goToPage(pageNum: number): void {
+		if(pageNum == this.currentIndex) {
+			return;
+		}
+
+		// if started at 0
+		if(this.currentIndex == 0) {
+			if(pageNum == 1) {
+				this.nextPage();
+			} else {
+				this.nextPageSubject.next(pageNum);
+				this.rightSideClassString = "inactive-right-to-mid";
+				this.leftSideClassString = "inactive-left-side";
+				this.pageClassString = "inactive-page"
+			}
+		}
+
+		// if pageNum is bigger than currentIndex use nextPage
+		if(pageNum > this.currentIndex) {
+			this.nextPageSubject.next(pageNum);
+		} else { // if PageNum is lower than currentIndex use previousPage
+			this.previousPageSubject.next(pageNum);
+		}
+
+		this.currentIndex = pageNum;
 	}
+
+	equipSpell = () => { this.onClose(this.spells[this.currentIndex-1]); }
 
 	onClose = (spell?: StaticSpellResponse) => { this.dialogRef.close(spell); }
 }
