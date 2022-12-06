@@ -10,57 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b19cefa3bf552f94390d1c272b19ea6e, type: 3}
-  m_Name: FOW Light
+  m_Name: Fog of War Lighting Profile
   m_EditorClassIdentifier: 
   lightmapPresets:
     list:
-    - name: Regular
+    - name: Default
       type: 0
-      hdr: 2
-      darknessColor: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
-      depth: 0
+      darknessColor: {r: 0, g: 0, b: 0, a: 1}
+      depth: -100
       resolution: 1
       dayLayers:
-        list: []
+        list:
+        - id: 0
+          type: 0
+          sorting: 0
       lightLayers:
         list:
         - id: 0
           type: 0
           sorting: 0
-    - name: FOW
-      type: 0
-      hdr: 0
-      darknessColor: {r: 0, g: 0, b: 0, a: 1}
-      depth: 0
-      resolution: 1
-      dayLayers:
-        list: []
-      lightLayers:
-        list:
-        - id: 1
-          type: 0
-          sorting: 0
   lightPresets:
     list:
-    - name: Regular
+    - name: Default
       layerSetting:
         list:
         - layerID: 0
           type: 0
-          sorting: 2
+          sorting: 1
           sortingIgnore: 0
           shadowEffect: 0
-          shadowEffectLayer: 0
-          maskLit: 0
-          maskLitDistance: 1
-    - name: FOW
-      layerSetting:
-        list:
-        - layerID: 1
-          type: 0
-          sorting: 0
-          sortingIgnore: 0
-          shadowEffect: 2
           shadowEffectLayer: 0
           maskLit: 0
           maskLitDistance: 1
@@ -74,31 +52,29 @@ MonoBehaviour:
       layerSetting:
         list:
         - layerID: 0
-        - layerID: 1
   qualitySettings:
-    lightTextureSize: 2
-    lightEffectTextureSize: 2
+    HDR: 0
+    lightTextureSize: 1
+    lightEffectTextureSize: 1
     lightFilterMode: 1
     lightmapFilterMode: 1
     updateMethod: 0
     coreAxis: 0
     projection: 0
   dayLightingSettings:
-    direction: 290
-    ShadowColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
-    height: 4.8
+    direction: 346
+    ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    height: 1
     bumpMap:
       height: 1
       strength: 1
   layers:
     colliderLayers:
       names:
-      - Regular
-      - FOW
+      - Default
     lightLayers:
       names:
-      - REGULAR
-      - FOW
+      - Default
     dayLayers:
       names:
       - Default

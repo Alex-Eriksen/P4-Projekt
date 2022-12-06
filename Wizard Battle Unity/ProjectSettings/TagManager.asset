@@ -49,6 +49,9 @@ TagManager:
   - name: GroundVFX
     uniqueID: 567256519
     locked: 0
+  - name: Shadows
+    uniqueID: 303135175
+    locked: 0
   - name: Pick Ups
     uniqueID: 3332419407
     locked: 0
