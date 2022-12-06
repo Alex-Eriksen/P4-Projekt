@@ -17,7 +17,7 @@ MonoBehaviour:
     - name: Regular
       type: 0
       hdr: 2
-      darknessColor: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 1}
+      darknessColor: {r: 0, g: 0, b: 0, a: 1}
       depth: 0
       resolution: 1
       dayLayers:
@@ -58,11 +58,11 @@ MonoBehaviour:
         list:
         - layerID: 1
           type: 0
-          sorting: 0
+          sorting: 2
           sortingIgnore: 0
-          shadowEffect: 2
+          shadowEffect: 0
           shadowEffectLayer: 0
-          maskLit: 0
+          maskLit: 1
           maskLitDistance: 1
   eventPresets:
     list:

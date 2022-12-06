@@ -10,6 +10,8 @@ namespace FunkyCode
         public enum ShadowType {Collider, SpritePhysicsShape};
         public enum OcclusionType {Hard, Soft};
 
+        public int sortingLayerID = 0;
+        public int sortingOrder = 0;
         public OcclusionType occlusionType = OcclusionType.Hard;
         public float occlusionSize = 1f;
 
@@ -120,9 +122,9 @@ namespace FunkyCode
             List<int> triangles = new List<int>();
             List<Vector2> uvs = new List<Vector2>();
             int count = 0;
-
             GameObject gameObject = GetOcclusionGameObject();
             MeshRenderer meshRenderer = GetMeshRenderer();
+
             MeshFilter meshFilter = GetMeshFilter();
             occlusionShape = GetOcclusionShape();
 
@@ -184,6 +186,8 @@ namespace FunkyCode
 
             meshFilter.mesh = mesh;
 
+            meshRenderer.sortingLayerID = sortingLayerID;
+            meshRenderer.sortingOrder = sortingOrder;
             meshRenderer.sharedMaterial = Lighting2D.Materials.GetOcclusionBlur();
         }
 
