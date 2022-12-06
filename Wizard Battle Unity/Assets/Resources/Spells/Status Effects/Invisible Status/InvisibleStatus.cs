@@ -1,3 +1,4 @@
+using FunkyCode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class InvisibleStatus : Status
     private CanvasGroup m_targetUI;
     private PlayerCombat m_targetPlayerCombat;
     private Color m_originalColor;
-    private ShadowCaster2D m_shadowCaster;
+    private LightCollider2D m_lightCollider;
     [SerializeField] private Color m_targetColor, m_localTargetColor;
 
     protected override void OnSetup()
@@ -17,7 +18,7 @@ public class InvisibleStatus : Status
         m_targetSpriteRenderer = target.transform.Find("Graphics").GetComponent<SpriteRenderer>();
         m_targetUI = target.GetComponentInChildren<CanvasGroup>();
         m_targetPlayerCombat = target.GetComponent<PlayerCombat>();
-        m_shadowCaster = target.GetComponentInChildren<ShadowCaster2D>();
+        m_lightCollider = target.GetComponentInChildren<LightCollider2D>();
         m_originalColor = m_targetSpriteRenderer.color;
     }
 
@@ -41,20 +42,20 @@ public class InvisibleStatus : Status
     {
         m_targetSpriteRenderer.color = m_targetColor;
         m_targetUI.alpha = 0f;
-        m_shadowCaster.enabled = false;
+        m_lightCollider.enabled = false;
     }
     private void EndInvisible()
     {
         m_targetSpriteRenderer.color = m_originalColor;
         m_targetUI.alpha = 1f;
-        m_shadowCaster.enabled = true;
+        m_lightCollider.enabled = true;
     }
 
     private void LocalStartInvisible()
     {
         m_targetSpriteRenderer.color = m_localTargetColor;
         m_targetUI.alpha = 0.25f;
-        m_shadowCaster.enabled = false;
+        m_lightCollider.enabled = false;
     }
     private void OnDestroy()
     {
