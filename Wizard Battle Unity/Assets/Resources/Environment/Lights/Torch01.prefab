@@ -210,7 +210,7 @@ MonoBehaviour:
   bumpMap:
     intensity: 1
     depth: 1
-  whenInsideCollider: 1
+  whenInsideCollider: 2
   lightSprite: 0
   sprite: {fileID: 0}
   spriteFlipX: 0
