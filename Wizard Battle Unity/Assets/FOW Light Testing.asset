@@ -30,7 +30,7 @@ MonoBehaviour:
     - name: FOW
       type: 0
       hdr: 0
-      darknessColor: {r: 0, g: 0, b: 0, a: 0.656}
+      darknessColor: {r: 0, g: 0, b: 0, a: 0.439}
       depth: 0
       resolution: 1
       dayLayers:
@@ -38,6 +38,19 @@ MonoBehaviour:
       lightLayers:
         list:
         - id: 1
+          type: 0
+          sorting: 0
+    - name: SpriteCutoff
+      type: 0
+      hdr: 0
+      darknessColor: {r: 0, g: 0, b: 0, a: 1}
+      depth: -100
+      resolution: 1
+      dayLayers:
+        list: []
+      lightLayers:
+        list:
+        - id: 2
           type: 0
           sorting: 0
   lightPresets:
@@ -63,6 +76,17 @@ MonoBehaviour:
           shadowEffect: 0
           shadowEffectLayer: 0
           maskLit: 1
+          maskLitDistance: 1
+    - name: SpriteCutoff
+      layerSetting:
+        list:
+        - layerID: 2
+          type: 0
+          sorting: 1
+          sortingIgnore: 0
+          shadowEffect: 0
+          shadowEffectLayer: 0
+          maskLit: 0
           maskLitDistance: 1
   eventPresets:
     list:
@@ -95,10 +119,12 @@ MonoBehaviour:
       names:
       - Regular
       - FOW
+      - SpriteCutoff
     lightLayers:
       names:
       - REGULAR
       - FOW
+      - SpriteCutoff
     dayLayers:
       names:
       - Default
