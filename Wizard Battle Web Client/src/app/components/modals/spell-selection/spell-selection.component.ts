@@ -1,3 +1,5 @@
+import { DirectSchoolCategoryResponse } from './../../../_models/SchoolCategory/DirectSchoolCategoryResponse';
+import { SchoolCategoryService } from './../../../services/school-category.service';
 import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, HostListener, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
@@ -12,7 +14,7 @@ import { DirectSpellBookResponse } from 'src/app/_models/SpellBook';
 })
 export class SpellSelectionComponent implements OnInit {
 
-	constructor(private spellService: SpellService, public dialogRef: MatDialogRef<SpellSelectionComponent>, @Inject(MAT_DIALOG_DATA) public data: DirectSpellBookResponse) { }
+	constructor(private spellService: SpellService, public dialogRef: MatDialogRef<SpellSelectionComponent>, @Inject(MAT_DIALOG_DATA) public data: DirectSpellBookResponse, private schoolCategoryService: SchoolCategoryService) { }
 
 	public nextPageSubject: Subject<number> = new Subject<number>();
 	public previousPageSubject: Subject<number> = new Subject<number>();
@@ -25,12 +27,20 @@ export class SpellSelectionComponent implements OnInit {
 	public leftSideClassString: string = "active-mid-to-left";
 	public rightSideClassString: string = "";
 
+	public categories: DirectSchoolCategoryResponse[] = [];
+
 	ngOnInit(): void {
 		document.body.children[6].classList.add('spell-selection-overlay');
 		for(let i = 0; i < 100; i++) {
 			if(document.getElementById(`cdk-overlay-${i}`) != undefined) {
 				document.getElementById(`cdk-overlay-${i}`)?.classList.add("spell-selection-position");
 			}
+		}
+
+		for (let i = 1; i < 10; i++) {
+			this.schoolCategoryService.getById(i).subscribe(x => {
+				this.categories.push(x);
+			});
 		}
 
 		this.spellService.getAll().subscribe({ // Gets Spells

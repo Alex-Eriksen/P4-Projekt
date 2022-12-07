@@ -32,6 +32,8 @@ export class SpellbookComponent implements OnInit {
 	public openSpellBook: DirectSpellBookResponse;
 	public equippedSpellBook : number;
 
+	private placeholderSpell: StaticSpellResponse = { spellID: 0, spellName: `placeholder`, spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/choose-spell.png"}, spellTypeID: 0, schoolCategoryID: 0, damageAmount: 0, manaCost: 0, lifeTime:0, castTime: 0 };
+
 
   	ngOnInit(): void {
 		while(this.playerId == undefined) {
@@ -100,9 +102,9 @@ export class SpellbookComponent implements OnInit {
 			if(spell != null) {
 				if(this.openSpellBook.spells.filter(x => x === spell)) {
 					for (let i = 0; i < this.openSpellBook.spells.length; i++) {
-						let placeholderSpell: StaticSpellResponse = { spellID: 0, spellName: `placeholder ${i+1}`, spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/choose-spell.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
 						if(this.openSpellBook.spells[i].spellID === spell.spellID) {
-							this.openSpellBook.spells[i] = placeholderSpell;
+							this.placeholderSpell.spellName = `placeholder ${i+1}`;
+							this.openSpellBook.spells[i] = this.placeholderSpell;
 							this.notiService.info(`Removed spell at slot ${i+1}, and replaced at ${spellIndex+1}`);
 							break;
 						}
@@ -121,8 +123,8 @@ export class SpellbookComponent implements OnInit {
 				if(this.openSpellBook.spells.length != 8) {
 					// let lockedSpell: StaticSpellResponse = { spellID: 0, spellName: "locked", spellDescription: "", icon: {iconID: 1337, iconName: "../../../../assets/spell-icons/locked-padlock.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
 					for(let i = this.openSpellBook.spells.length; i < 8; i++) {
-						let placeholderSpell: StaticSpellResponse = { spellID: 0, spellName: `placeholder ${i+1}`, spellDescription: "", icon: {iconID: 18, iconName: "../../../../assets/spell-icons/choose-spell.png"}, castTime: 0, damageAmount: 0, manaCost: 0 };
-						this.openSpellBook.spells.push(placeholderSpell);
+						this.placeholderSpell.spellName = `placeholder ${i+1}`;
+						this.openSpellBook.spells.push(this.placeholderSpell);
 					}
 				}
 			},

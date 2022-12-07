@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { DirectSchoolCategoryResponse } from './../../../../_models/SchoolCategory/DirectSchoolCategoryResponse';
+import { Component, Input, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StaticSpellResponse } from 'src/app/_models/Spell';
 
@@ -12,7 +13,7 @@ export class PageComponent implements OnInit {
   	constructor() { }
 
   	@Input() public spell: StaticSpellResponse;
-
+	@Input() public schoolCategories: DirectSchoolCategoryResponse[];
 	@Input() public nextPage: Observable<number>;
 	@Input() public previousPage: Observable<number>;
 
@@ -21,11 +22,13 @@ export class PageComponent implements OnInit {
 	public leftSideClassString: string = "";
 	public rightSideClassString: string = "";
 	public wasActive = false;
+	public schoolCategory: DirectSchoolCategoryResponse;
 
   	ngOnInit(): void {
 		this.nextPage.subscribe((currentIndex) => this.onNextPage(currentIndex));
 		this.previousPage.subscribe((currentIndex) => this.onPrevPage(currentIndex));
 		this.onNextPage(0);
+		this.schoolCategory = this.schoolCategories.find(x => x.schoolCategoryID == this.spell.schoolCategoryID)!;
 	}
 
 	onNextPage(currentIndex: number): void {

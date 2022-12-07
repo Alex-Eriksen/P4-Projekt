@@ -20,7 +20,7 @@
 	<button (click)="equipSpell()">Equip</button>
 </div>
 <div id="book" [ngClass]="pageClassString">
-	<app-page *ngFor="let spellObject of spells.reverse()" [spell]="spellObject" [previousPage]="previousPageSubject.asObservable()" [nextPage]="nextPageSubject.asObservable()"></app-page>
+	<app-page *ngFor="let spellObject of spells.reverse()" [spell]="spellObject" [schoolCategories]="categories" [previousPage]="previousPageSubject.asObservable()" [nextPage]="nextPageSubject.asObservable()"></app-page>
 	<div class="page d-flex flex-row position-absolute start-0 bottom-0" [ngClass]="pageClassString">
 		<div class="left" [ngClass]="leftSideClassString">
 			<h2>INDHOLDSFORTEGNELSE</h2>

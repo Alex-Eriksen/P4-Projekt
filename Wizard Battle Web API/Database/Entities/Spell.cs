@@ -14,11 +14,20 @@
 		public int IconID { get; set; }
 		public Icon Icon { get; set; }
 
+		public int SpellTypeID { get; set; }
+		public SpellType SpellType { get; set; }
+
+		public int SchoolCategoryID { get; set; }
+		public SchoolCategory SchoolCategory { get; set; }
+
+		[Column(TypeName = "decimal(6, 2)")]
+		public decimal? DamageAmount { get; set; }
+
 		[Column(TypeName = "decimal(6, 2)")]
 		public decimal ManaCost { get; set; }
 
 		[Column(TypeName = "decimal(6, 2)")]
-		public decimal DamageAmount { get; set; }
+		public decimal LifeTime { get; set; }
 
 		[Column(TypeName = "decimal(6, 2)")]
 		public decimal CastTime { get; set; }

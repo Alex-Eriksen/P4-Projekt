@@ -41,7 +41,6 @@ namespace Wizard_Battle_Web_API.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Skin",
-
                 columns: table => new
                 {
                     SkinID = table.Column<int>(type: "int", nullable: false)
@@ -54,6 +53,32 @@ namespace Wizard_Battle_Web_API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skin", x => x.SkinID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpellSchool",
+                columns: table => new
+                {
+                    SpellSchoolID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SpellSchoolName = table.Column<string>(type: "nvarchar(32)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpellSchool", x => x.SpellSchoolID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpellType",
+                columns: table => new
+                {
+                    SpellTypeID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SpellTypeName = table.Column<string>(type: "nvarchar(32)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpellType", x => x.SpellTypeID);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,26 +147,22 @@ namespace Wizard_Battle_Web_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Spell",
+                name: "SchoolCategory",
                 columns: table => new
                 {
-                    SpellID = table.Column<int>(type: "int", nullable: false)
+                    SchoolCategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SpellName = table.Column<string>(type: "nvarchar(32)", nullable: true),
-                    SpellDescription = table.Column<string>(type: "nvarchar(255)", nullable: true),
-                    IconID = table.Column<int>(type: "int", nullable: false),
-                    ManaCost = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
-                    DamageAmount = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
-                    CastTime = table.Column<decimal>(type: "decimal(6,2)", nullable: false)
+                    SchoolCategoryName = table.Column<string>(type: "nvarchar(32)", nullable: true),
+                    SpellSchoolID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Spell", x => x.SpellID);
+                    table.PrimaryKey("PK_SchoolCategory", x => x.SchoolCategoryID);
                     table.ForeignKey(
-                        name: "FK_Spell_Icon_IconID",
-                        column: x => x.IconID,
-                        principalTable: "Icon",
-                        principalColumn: "IconID",
+                        name: "FK_SchoolCategory_SpellSchool_SpellSchoolID",
+                        column: x => x.SpellSchoolID,
+                        principalTable: "SpellSchool",
+                        principalColumn: "SpellSchoolID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -249,6 +270,45 @@ namespace Wizard_Battle_Web_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Spell",
+                columns: table => new
+                {
+                    SpellID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SpellName = table.Column<string>(type: "nvarchar(32)", nullable: true),
+                    SpellDescription = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    IconID = table.Column<int>(type: "int", nullable: false),
+                    SpellTypeID = table.Column<int>(type: "int", nullable: false),
+                    SchoolCategoryID = table.Column<int>(type: "int", nullable: false),
+                    DamageAmount = table.Column<decimal>(type: "decimal(6,2)", nullable: true),
+                    ManaCost = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    LifeTime = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    CastTime = table.Column<decimal>(type: "decimal(6,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Spell", x => x.SpellID);
+                    table.ForeignKey(
+                        name: "FK_Spell_Icon_IconID",
+                        column: x => x.IconID,
+                        principalTable: "Icon",
+                        principalColumn: "IconID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Spell_SchoolCategory_SchoolCategoryID",
+                        column: x => x.SchoolCategoryID,
+                        principalTable: "SchoolCategory",
+                        principalColumn: "SchoolCategoryID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Spell_SpellType_SpellTypeID",
+                        column: x => x.SpellTypeID,
+                        principalTable: "SpellType",
+                        principalColumn: "SpellTypeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SpellBookSlot",
                 columns: table => new
                 {
@@ -277,10 +337,10 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "AccountID", "Email", "Last_Login", "Modified_At", "Password" },
                 values: new object[,]
                 {
-                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$1ZGMexaCpU0F.CkRGNY0XOMuh1NTBV1WAlEy/BqUs4hteBBtFk/nq" },
-                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$F215v2n1fbuS80s.jHdoDehXvkqaRoAMO6mxMNSLkEOfLhfx8WSza" },
-                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$dKQT5vqTivmz79lccsAeCuYyXkzqTaGadQClKzuRYGyv/NY4CSRoi" },
-                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$wdGZ2dzYe.cG8sapuiGw.u276o/1/BrZknjLIUvJ.LPBTxxl54hCi" }
+                    { 1, "nick@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$2MUeXglTnA1sqnmoL7urQeC4vs7kITVdG7tP3uhKLAebbVYaFajIy" },
+                    { 2, "alex@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$WarfaMuR6p6uN3yzGhlVLuRcu/mOfjzj7cSOjQV7PsV6LuPAKf.US" },
+                    { 3, "mart@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$uCwhgFTesJiL0OW4lq6NNeFPgk4PHcdTftvcJO28TB1Lb90M3NhHm" },
+                    { 4, "marc@test.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "$2a$10$YwH6mtzojgqhBmN0UughUOqNefgHUPtTht.8RSa8NtntfZdokqQdW" }
                 });
 
             migrationBuilder.InsertData(
@@ -312,7 +372,9 @@ namespace Wizard_Battle_Web_API.Migrations
                     { 22, "../../../../assets/spell-icons/placeholder-spell-icon-5.png" },
                     { 23, "../../../../assets/spell-icons/placeholder-spell-icon-6.png" },
                     { 24, "../../../../assets/spell-icons/placeholder-spell-icon-7.png" },
-                    { 25, "../../../../assets/spell-icons/placeholder-spell-icon-8.png" }
+                    { 25, "../../../../assets/spell-icons/placeholder-spell-icon-8.png" },
+                    { 26, "../../../../assets/spell-icons/rockspear.png" },
+                    { 27, "../../../../assets/spell-icons/invisible.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -327,6 +389,32 @@ namespace Wizard_Battle_Web_API.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "SpellSchool",
+                columns: new[] { "SpellSchoolID", "SpellSchoolName" },
+                values: new object[,]
+                {
+                    { 1, "Elemental" },
+                    { 2, "Primal" },
+                    { 3, "Void" },
+                    { 4, "Ether" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SpellType",
+                columns: new[] { "SpellTypeID", "SpellTypeName" },
+                values: new object[,]
+                {
+                    { 1, "Offensive" },
+                    { 2, "Defensive" },
+                    { 3, "Utility" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SpellType",
+                columns: new[] { "SpellTypeID", "SpellTypeName" },
+                values: new object[] { 4, "Ultimate" });
+
+            migrationBuilder.InsertData(
                 table: "Player",
                 columns: new[] { "PlayerID", "AccountID", "AvgDamage", "AvgSpellsHit", "ExperiencePoints", "IconID", "KnowledgePoints", "MatchLosses", "MatchWins", "MaxHealth", "MaxMana", "Modified_At", "PlayerName", "PlayerStatus", "SpellBookID", "TimeCapsules", "TimePlayedMin" },
                 values: new object[,]
@@ -338,26 +426,19 @@ namespace Wizard_Battle_Web_API.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Spell",
-                columns: new[] { "SpellID", "CastTime", "DamageAmount", "IconID", "ManaCost", "SpellDescription", "SpellName" },
+                table: "SchoolCategory",
+                columns: new[] { "SchoolCategoryID", "SchoolCategoryName", "SpellSchoolID" },
                 values: new object[,]
                 {
-                    { 1, 0m, 0m, 18, 0m, "Lorem ipsum", "Test spell 1" },
-                    { 2, 0m, 0m, 19, 0m, "Lorem ipsum", "Test spell 2" },
-                    { 3, 0m, 0m, 20, 0m, "Lorem ipsum", "Test spell 3" },
-                    { 4, 0m, 0m, 21, 0m, "Lorem ipsum", "Test spell 4" },
-                    { 5, 0m, 0m, 22, 0m, "Lorem ipsum", "Test spell 5" },
-                    { 6, 0m, 0m, 23, 0m, "Lorem ipsum", "Test spell 6" },
-                    { 7, 0m, 0m, 24, 0m, "Lorem ipsum", "Test spell 7" },
-                    { 8, 0m, 0m, 25, 0m, "Lorem ipsum", "Test spell 8" },
-                    { 9, 0m, 0m, 11, 0m, "Lorem ipsum", "Fireball" },
-                    { 10, 0m, 0m, 12, 0m, "Lorem ipsum", "Firenova" },
-                    { 11, 0m, 0m, 13, 0m, "Lorem ipsum", "Firewall" },
-                    { 12, 0m, 0m, 14, 0m, "Lorem ipsum", "Teleport" },
-                    { 13, 0m, 0m, 15, 0m, "Lorem ipsum", "Windslash" },
-                    { 14, 0m, 0m, 16, 0m, "Lorem ipsum", "Water Vortex" },
-                    { 15, 0m, 0m, 17, 0m, "Lorem ipsum", "Dash" },
-                    { 16, 0m, 0m, 11, 0m, "It's a fireball, does it really need a description?", "Fireball 2" }
+                    { 1, "Fire", 1 },
+                    { 2, "Water", 1 },
+                    { 3, "Earth", 1 },
+                    { 4, "Air", 1 },
+                    { 5, "Arcane", 2 },
+                    { 6, "Dimensional", 3 },
+                    { 7, "Dark", 3 },
+                    { 8, "Light", 4 },
+                    { 9, "Spirit", 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -365,12 +446,28 @@ namespace Wizard_Battle_Web_API.Migrations
                 columns: new[] { "FriendPlayerID", "MainPlayerID", "Created_At", "IsPending" },
                 values: new object[,]
                 {
-                    { 2, 1, new DateTime(2022, 11, 30, 7, 17, 10, 532, DateTimeKind.Utc).AddTicks(9990), false },
-                    { 3, 1, new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(5), false },
-                    { 4, 1, new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(11), false },
-                    { 3, 2, new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(19), false },
-                    { 4, 2, new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(26), false },
-                    { 4, 3, new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(36), false }
+                    { 2, 1, new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7626), false },
+                    { 3, 1, new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7629), false },
+                    { 4, 1, new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7630), false },
+                    { 3, 2, new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7631), false },
+                    { 4, 2, new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7631), false },
+                    { 4, 3, new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7632), false }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Spell",
+                columns: new[] { "SpellID", "CastTime", "DamageAmount", "IconID", "LifeTime", "ManaCost", "SchoolCategoryID", "SpellDescription", "SpellName", "SpellTypeID" },
+                values: new object[,]
+                {
+                    { 1, 0.8m, 15m, 11, 4m, 10m, 1, "A ball of fire!", "Fireball", 1 },
+                    { 2, 2m, 18m, 12, 3m, 18m, 1, "Explodes a ring of fire around the wizard", "Fire Nova", 1 },
+                    { 3, 0.15m, 75m, 13, 8m, 30m, 1, "A wall of fire!", "Fire Wall", 1 },
+                    { 4, 0.5m, 16m, 16, 0.8m, 12m, 2, "A water vortex is created at the target location.", "Water Vortex", 1 },
+                    { 5, 0.75m, 12m, 26, 4m, 10m, 3, "Throw a spear made of solid rock that stuns on impact.", "Rock Spear", 1 },
+                    { 6, 0.2m, 6m, 15, 2m, 5m, 4, "Send out a slash of wind that damages enemies and speeds up the caster.", "Wind Slash", 1 },
+                    { 7, 0.1m, 0m, 17, 1m, 10m, 5, "Dash a short distance.", "Dash", 3 },
+                    { 8, 0.75m, 0m, 27, 1m, 25m, 9, "Makes you invisible to the naked eye.", "Invisible", 1 },
+                    { 9, 0.5m, 0m, 14, 1m, 20m, 5, "Teleport to a location instantly.", "Teleport", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -396,21 +493,6 @@ namespace Wizard_Battle_Web_API.Migrations
                 table: "Transaction",
                 columns: new[] { "TransactionID", "PlayerID", "SkinID", "TotalCost" },
                 values: new object[] { 1, 1, 1, 125 });
-
-            migrationBuilder.InsertData(
-                table: "SpellBookSlot",
-                columns: new[] { "SpellBookID", "SpellID" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 1, 2 },
-                    { 1, 3 },
-                    { 1, 4 },
-                    { 1, 5 },
-                    { 1, 6 },
-                    { 1, 7 },
-                    { 1, 8 }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_Email",
@@ -458,9 +540,31 @@ namespace Wizard_Battle_Web_API.Migrations
                 column: "AccountID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SchoolCategory_SpellSchoolID",
+                table: "SchoolCategory",
+                column: "SpellSchoolID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Spell_IconID",
                 table: "Spell",
                 column: "IconID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Spell_SchoolCategoryID",
+                table: "Spell",
+                column: "SchoolCategoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Spell_SpellName",
+                table: "Spell",
+                column: "SpellName",
+                unique: true,
+                filter: "[SpellName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Spell_SpellTypeID",
+                table: "Spell",
+                column: "SpellTypeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SpellBook_PlayerID",
@@ -471,6 +575,13 @@ namespace Wizard_Battle_Web_API.Migrations
                 name: "IX_SpellBookSlot_SpellBookID",
                 table: "SpellBookSlot",
                 column: "SpellBookID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpellType_SpellTypeName",
+                table: "SpellType",
+                column: "SpellTypeName",
+                unique: true,
+                filter: "[SpellTypeName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transaction_PlayerID",
@@ -510,7 +621,16 @@ namespace Wizard_Battle_Web_API.Migrations
                 name: "Skin");
 
             migrationBuilder.DropTable(
+                name: "SchoolCategory");
+
+            migrationBuilder.DropTable(
+                name: "SpellType");
+
+            migrationBuilder.DropTable(
                 name: "Player");
+
+            migrationBuilder.DropTable(
+                name: "SpellSchool");
 
             migrationBuilder.DropTable(
                 name: "Account");

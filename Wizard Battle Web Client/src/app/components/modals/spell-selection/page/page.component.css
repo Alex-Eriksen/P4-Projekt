@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
 .page {
 	width: 685px;
 	height: 460px;
@@ -23,28 +25,105 @@
 	background-image: url(../../../../../assets/page-texture-right.jpg);
 	background-size: cover;
 	background-position: center;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
 	align-items: center;
 }
 
 .right > img {
 	float: right;
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	border: 2px solid black;
+}
+
+.page-img {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding-bottom: 20px;
+}
+
+.right p {
+	height: 100%;
 }
 
 h1 {
 	text-align: center;
 	color: black;
+	font-weight: 500;
+	font-family: 'Special Elite', cursive;
 }
 
 p {
 	color: #696969;
 	font-size: 16px;
+	text-align: start;
+}
+
+.spell-type {
+	background-color: darkgray;
+	border-radius: 10px;
+	width: 100px;
+}
+
+.uppertext {
+	background-color: #F2BF5E;
+	color: #fff;
+	font-weight: 600;
+	padding: 0px 5px;
+	font-size: 16px;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.stat-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.stat-grid > * {
 	text-align: center;
+	padding: 4px;
+	background-color: #C3B1E1;
+
+}
+
+.stat-grid span {
+	text-align: start;
+	font-weight: 500;
+}
+
+.stat-grid .stat-title {
+	color: #5D5D5D;
+	font-size: 14px;
+}
+
+.stat-grid .stat-value {
+	color: #fff;
+	font-size: 16px;
+}
+
+#damage {
+	color: #B22222;
+}
+
+#cost {
+	color: #0000CD;
+}
+
+#cast {
+
+}
+
+#aoe {
+	color: #F2BF5E;
+}
+
+#dot {
+	color: orangered;
+}
+
+#duration {
+	color: white;
 }
 
 /* #region next */

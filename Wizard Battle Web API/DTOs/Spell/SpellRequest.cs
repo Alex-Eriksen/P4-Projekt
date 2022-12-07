@@ -8,9 +8,15 @@
 
 		public int IconID { get; set; }
 
-		public decimal ManaCost { get; set; }
+		public int SpellTypeID { get; set; }
+
+		public int SchoolCategoryID { get; set; }
 
 		public decimal DamageAmount { get; set; }
+
+		public decimal ManaCost { get; set; }
+
+		public decimal LifeTime { get; set; }
 
 		public decimal CastTime { get; set; }
 	}

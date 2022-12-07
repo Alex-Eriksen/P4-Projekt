@@ -32,6 +32,9 @@
 		{
 			return await m_context.Spell
 				.Include(x => x.Icon)
+				.Include(x => x.SpellType)
+				.Include(x => x.SchoolCategory)
+				.ThenInclude(x => x.SpellSchool)
 				.FirstOrDefaultAsync(x => x.SpellID == spellId);
 		}
 
@@ -52,14 +55,17 @@
 				spell.SpellName = request.SpellName;
 				spell.SpellDescription = request.SpellDescription;
 				spell.IconID = request.IconID;
-				spell.ManaCost = request.ManaCost;
+				spell.SpellTypeID = request.SpellTypeID;
+				spell.SchoolCategoryID = request.SchoolCategoryID;
 				spell.DamageAmount = request.DamageAmount;
+				spell.ManaCost = request.ManaCost;
+				spell.LifeTime = request.LifeTime;
 				spell.CastTime = request.CastTime;
 
 				await m_context.SaveChangesAsync();
 			} 
 
-			return spell;
+			return await GetById(spellId);
 		}
 
 

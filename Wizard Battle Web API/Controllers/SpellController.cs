@@ -38,11 +38,11 @@
 
 		[HttpGet]
 		[Route("{id}")]
-		public async Task<IActionResult> GetById(int spellId)
+		public async Task<IActionResult> GetById(int id)
 		{
 			try
 			{
-				DirectSpellResponse spell = await m_spellService.GetById(spellId);
+				DirectSpellResponse spell = await m_spellService.GetById(id);
 				if (spell == null)
 				{
 					return BadRequest();
@@ -77,11 +77,11 @@
 
 		[HttpPut]
 		[Route("{id}")]
-		public async Task<IActionResult> Update(int spellId, [FromBody] SpellRequest request)
+		public async Task<IActionResult> Update(int id, [FromBody] SpellRequest request)
 		{
 			try
 			{
-				DirectSpellResponse spell = await m_spellService.Update(spellId, request);
+				DirectSpellResponse spell = await m_spellService.Update(id, request);
 				if (spell == null)
 				{
 					return BadRequest();
@@ -97,11 +97,11 @@
 
 		[HttpDelete]
 		[Route("{id}")]
-		public async Task<IActionResult> Delete(int spellId)
+		public async Task<IActionResult> Delete(int id)
 		{
 			try
 			{
-				DirectSpellResponse spell = await m_spellService.Delete(spellId);
+				DirectSpellResponse spell = await m_spellService.Delete(id);
 				if (spell == null)
 				{
 					return BadRequest();

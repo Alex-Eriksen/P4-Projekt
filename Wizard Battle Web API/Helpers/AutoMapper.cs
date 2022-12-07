@@ -58,6 +58,19 @@ namespace Wizard_Battle_Web_API.Helpers
 
 			CreateMap<SpellBookRequest, SpellBook>()
 				.ForMember(dest => dest.SpellOrder, opt => opt.MapFrom(src => String.Join(",", src.SpellIDs.Select(id => id.ToString()).ToArray())));
+
+			CreateMap<SpellType, StaticSpellTypeResponse>();
+			CreateMap<SpellType, DirectSpellTypeResponse>();
+			CreateMap<SpellTypeRequest, SpellType>();
+
+
+			CreateMap<SpellSchool, DirectSpellSchoolResponse>();
+			CreateMap<SpellSchool, StaticSpellSchoolResponse>();
+			CreateMap<SpellSchoolRequest, SpellSchool>();
+
+			CreateMap<SchoolCategory, StaticSchoolCategoryResponse>();
+			CreateMap<SchoolCategory, DirectSchoolCategoryResponse>();
+			CreateMap<SchoolCategoryRequest, SchoolCategory>();
 		}
 	}
 }

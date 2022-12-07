@@ -10,9 +10,15 @@
 
 		public IconResponse Icon { get; set; } = null!;
 
+		public StaticSpellTypeResponse SpellType { get; set; } = null!;
+
+		public StaticSchoolCategoryResponse SchoolCategory { get; set; } = null!;
+
+		public decimal? DamageAmount { get; set; } = 0;
+
 		public decimal ManaCost { get; set; } = 0;
 
-		public decimal DamageAmount { get; set; } = 0;
+		public decimal LifeTime { get; set; } = 0;
 
 		public decimal CastTime { get; set; } = 0;
 	}

@@ -35,6 +35,12 @@ builder.Services.AddTransient<ISpellBookRepository, SpellBookRepository>();
 builder.Services.AddTransient<ISpellBookService, SpellBookService>();
 
 builder.Services.AddTransient<ISpellBookSlotRepository, SpellBookSlotRepository>();
+
+builder.Services.AddTransient<ISpellSchoolRepository, SpellSchoolRepository>();
+builder.Services.AddTransient<ISpellSchoolService, SpellSchoolService>();
+
+builder.Services.AddTransient<ISchoolCategoryRepository, SchoolCategoryRepository>();
+builder.Services.AddTransient<ISchoolCategoryService, SchoolCategoryService>();
 #endregion
 
 builder.Services.AddDbContext<DatabaseContext>(options => {

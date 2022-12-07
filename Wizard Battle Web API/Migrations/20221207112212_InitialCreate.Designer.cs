@@ -12,7 +12,7 @@ using Wizard_Battle_Web_API.Database;
 namespace Wizard_Battle_Web_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221130071710_InitialCreate")]
+    [Migration("20221207112212_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,7 +65,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "nick@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$1ZGMexaCpU0F.CkRGNY0XOMuh1NTBV1WAlEy/BqUs4hteBBtFk/nq"
+                            Password = "$2a$10$2MUeXglTnA1sqnmoL7urQeC4vs7kITVdG7tP3uhKLAebbVYaFajIy"
                         },
                         new
                         {
@@ -74,7 +74,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "alex@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$F215v2n1fbuS80s.jHdoDehXvkqaRoAMO6mxMNSLkEOfLhfx8WSza"
+                            Password = "$2a$10$WarfaMuR6p6uN3yzGhlVLuRcu/mOfjzj7cSOjQV7PsV6LuPAKf.US"
                         },
                         new
                         {
@@ -83,7 +83,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "mart@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$dKQT5vqTivmz79lccsAeCuYyXkzqTaGadQClKzuRYGyv/NY4CSRoi"
+                            Password = "$2a$10$uCwhgFTesJiL0OW4lq6NNeFPgk4PHcdTftvcJO28TB1Lb90M3NhHm"
                         },
                         new
                         {
@@ -92,7 +92,7 @@ namespace Wizard_Battle_Web_API.Migrations
                             Email = "marc@test.com",
                             Last_Login = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Modified_At = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Password = "$2a$10$wdGZ2dzYe.cG8sapuiGw.u276o/1/BrZknjLIUvJ.LPBTxxl54hCi"
+                            Password = "$2a$10$YwH6mtzojgqhBmN0UughUOqNefgHUPtTht.8RSa8NtntfZdokqQdW"
                         });
                 });
 
@@ -123,42 +123,42 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 2,
-                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 532, DateTimeKind.Utc).AddTicks(9990),
+                            Created_At = new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7626),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(5),
+                            Created_At = new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7629),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 1,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(11),
+                            Created_At = new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7630),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 3,
-                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(19),
+                            Created_At = new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7631),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 2,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(26),
+                            Created_At = new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7631),
                             IsPending = false
                         },
                         new
                         {
                             MainPlayerID = 3,
                             FriendPlayerID = 4,
-                            Created_At = new DateTime(2022, 11, 30, 7, 17, 10, 533, DateTimeKind.Utc).AddTicks(36),
+                            Created_At = new DateTime(2022, 12, 7, 11, 22, 12, 230, DateTimeKind.Utc).AddTicks(7632),
                             IsPending = false
                         });
                 });
@@ -303,6 +303,16 @@ namespace Wizard_Battle_Web_API.Migrations
                         {
                             IconID = 25,
                             IconName = "../../../../assets/spell-icons/placeholder-spell-icon-8.png"
+                        },
+                        new
+                        {
+                            IconID = 26,
+                            IconName = "../../../../assets/spell-icons/rockspear.png"
+                        },
+                        new
+                        {
+                            IconID = 27,
+                            IconName = "../../../../assets/spell-icons/invisible.png"
                         });
                 });
 
@@ -530,6 +540,83 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.ToTable("RefreshToken");
                 });
 
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SchoolCategory", b =>
+                {
+                    b.Property<int>("SchoolCategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SchoolCategoryID"), 1L, 1);
+
+                    b.Property<string>("SchoolCategoryName")
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<int>("SpellSchoolID")
+                        .HasColumnType("int");
+
+                    b.HasKey("SchoolCategoryID");
+
+                    b.HasIndex("SpellSchoolID");
+
+                    b.ToTable("SchoolCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            SchoolCategoryID = 1,
+                            SchoolCategoryName = "Fire",
+                            SpellSchoolID = 1
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 2,
+                            SchoolCategoryName = "Water",
+                            SpellSchoolID = 1
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 3,
+                            SchoolCategoryName = "Earth",
+                            SpellSchoolID = 1
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 4,
+                            SchoolCategoryName = "Air",
+                            SpellSchoolID = 1
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 5,
+                            SchoolCategoryName = "Arcane",
+                            SpellSchoolID = 2
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 6,
+                            SchoolCategoryName = "Dimensional",
+                            SpellSchoolID = 3
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 7,
+                            SchoolCategoryName = "Dark",
+                            SpellSchoolID = 3
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 8,
+                            SchoolCategoryName = "Light",
+                            SpellSchoolID = 4
+                        },
+                        new
+                        {
+                            SchoolCategoryID = 9,
+                            SchoolCategoryName = "Spirit",
+                            SpellSchoolID = 4
+                        });
+                });
+
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SkinItem", b =>
                 {
                     b.Property<int>("SkinID")
@@ -600,14 +687,20 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<decimal>("CastTime")
                         .HasColumnType("decimal(6,2)");
 
-                    b.Property<decimal>("DamageAmount")
+                    b.Property<decimal?>("DamageAmount")
                         .HasColumnType("decimal(6,2)");
 
                     b.Property<int>("IconID")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("LifeTime")
+                        .HasColumnType("decimal(6,2)");
+
                     b.Property<decimal>("ManaCost")
                         .HasColumnType("decimal(6,2)");
+
+                    b.Property<int>("SchoolCategoryID")
+                        .HasColumnType("int");
 
                     b.Property<string>("SpellDescription")
                         .HasColumnType("nvarchar(255)");
@@ -615,9 +708,20 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.Property<string>("SpellName")
                         .HasColumnType("nvarchar(32)");
 
+                    b.Property<int>("SpellTypeID")
+                        .HasColumnType("int");
+
                     b.HasKey("SpellID");
 
                     b.HasIndex("IconID");
+
+                    b.HasIndex("SchoolCategoryID");
+
+                    b.HasIndex("SpellName")
+                        .IsUnique()
+                        .HasFilter("[SpellName] IS NOT NULL");
+
+                    b.HasIndex("SpellTypeID");
 
                     b.ToTable("Spell");
 
@@ -625,162 +729,119 @@ namespace Wizard_Battle_Web_API.Migrations
                         new
                         {
                             SpellID = 1,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 18,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 1"
+                            CastTime = 0.8m,
+                            DamageAmount = 15m,
+                            IconID = 11,
+                            LifeTime = 4m,
+                            ManaCost = 10m,
+                            SchoolCategoryID = 1,
+                            SpellDescription = "A ball of fire!",
+                            SpellName = "Fireball",
+                            SpellTypeID = 1
                         },
                         new
                         {
                             SpellID = 2,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 19,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 2"
+                            CastTime = 2m,
+                            DamageAmount = 18m,
+                            IconID = 12,
+                            LifeTime = 3m,
+                            ManaCost = 18m,
+                            SchoolCategoryID = 1,
+                            SpellDescription = "Explodes a ring of fire around the wizard",
+                            SpellName = "Fire Nova",
+                            SpellTypeID = 1
                         },
                         new
                         {
                             SpellID = 3,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 20,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 3"
+                            CastTime = 0.15m,
+                            DamageAmount = 75m,
+                            IconID = 13,
+                            LifeTime = 8m,
+                            ManaCost = 30m,
+                            SchoolCategoryID = 1,
+                            SpellDescription = "A wall of fire!",
+                            SpellName = "Fire Wall",
+                            SpellTypeID = 1
                         },
                         new
                         {
                             SpellID = 4,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 21,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 4"
+                            CastTime = 0.5m,
+                            DamageAmount = 16m,
+                            IconID = 16,
+                            LifeTime = 0.8m,
+                            ManaCost = 12m,
+                            SchoolCategoryID = 2,
+                            SpellDescription = "A water vortex is created at the target location.",
+                            SpellName = "Water Vortex",
+                            SpellTypeID = 1
                         },
                         new
                         {
                             SpellID = 5,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 22,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 5"
+                            CastTime = 0.75m,
+                            DamageAmount = 12m,
+                            IconID = 26,
+                            LifeTime = 4m,
+                            ManaCost = 10m,
+                            SchoolCategoryID = 3,
+                            SpellDescription = "Throw a spear made of solid rock that stuns on impact.",
+                            SpellName = "Rock Spear",
+                            SpellTypeID = 1
                         },
                         new
                         {
                             SpellID = 6,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 23,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 6"
+                            CastTime = 0.2m,
+                            DamageAmount = 6m,
+                            IconID = 15,
+                            LifeTime = 2m,
+                            ManaCost = 5m,
+                            SchoolCategoryID = 4,
+                            SpellDescription = "Send out a slash of wind that damages enemies and speeds up the caster.",
+                            SpellName = "Wind Slash",
+                            SpellTypeID = 1
                         },
                         new
                         {
                             SpellID = 7,
-                            CastTime = 0m,
+                            CastTime = 0.1m,
                             DamageAmount = 0m,
-                            IconID = 24,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 7"
+                            IconID = 17,
+                            LifeTime = 1m,
+                            ManaCost = 10m,
+                            SchoolCategoryID = 5,
+                            SpellDescription = "Dash a short distance.",
+                            SpellName = "Dash",
+                            SpellTypeID = 3
                         },
                         new
                         {
                             SpellID = 8,
-                            CastTime = 0m,
+                            CastTime = 0.75m,
                             DamageAmount = 0m,
-                            IconID = 25,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Test spell 8"
+                            IconID = 27,
+                            LifeTime = 1m,
+                            ManaCost = 25m,
+                            SchoolCategoryID = 9,
+                            SpellDescription = "Makes you invisible to the naked eye.",
+                            SpellName = "Invisible",
+                            SpellTypeID = 1
                         },
                         new
                         {
                             SpellID = 9,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 11,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Fireball"
-                        },
-                        new
-                        {
-                            SpellID = 10,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 12,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Firenova"
-                        },
-                        new
-                        {
-                            SpellID = 11,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 13,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Firewall"
-                        },
-                        new
-                        {
-                            SpellID = 12,
-                            CastTime = 0m,
+                            CastTime = 0.5m,
                             DamageAmount = 0m,
                             IconID = 14,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Teleport"
-                        },
-                        new
-                        {
-                            SpellID = 13,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 15,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Windslash"
-                        },
-                        new
-                        {
-                            SpellID = 14,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 16,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Water Vortex"
-                        },
-                        new
-                        {
-                            SpellID = 15,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 17,
-                            ManaCost = 0m,
-                            SpellDescription = "Lorem ipsum",
-                            SpellName = "Dash"
-                        },
-                        new
-                        {
-                            SpellID = 16,
-                            CastTime = 0m,
-                            DamageAmount = 0m,
-                            IconID = 11,
-                            ManaCost = 0m,
-                            SpellDescription = "It's a fireball, does it really need a description?",
-                            SpellName = "Fireball 2"
+                            LifeTime = 1m,
+                            ManaCost = 20m,
+                            SchoolCategoryID = 5,
+                            SpellDescription = "Teleport to a location instantly.",
+                            SpellName = "Teleport",
+                            SpellTypeID = 1
                         });
                 });
 
@@ -895,47 +956,85 @@ namespace Wizard_Battle_Web_API.Migrations
                     b.HasIndex("SpellBookID");
 
                     b.ToTable("SpellBookSlot");
+                });
+
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SpellSchool", b =>
+                {
+                    b.Property<int>("SpellSchoolID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpellSchoolID"), 1L, 1);
+
+                    b.Property<string>("SpellSchoolName")
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("SpellSchoolID");
+
+                    b.ToTable("SpellSchool");
 
                     b.HasData(
                         new
                         {
-                            SpellID = 1,
-                            SpellBookID = 1
+                            SpellSchoolID = 1,
+                            SpellSchoolName = "Elemental"
                         },
                         new
                         {
-                            SpellID = 2,
-                            SpellBookID = 1
+                            SpellSchoolID = 2,
+                            SpellSchoolName = "Primal"
                         },
                         new
                         {
-                            SpellID = 3,
-                            SpellBookID = 1
+                            SpellSchoolID = 3,
+                            SpellSchoolName = "Void"
                         },
                         new
                         {
-                            SpellID = 4,
-                            SpellBookID = 1
+                            SpellSchoolID = 4,
+                            SpellSchoolName = "Ether"
+                        });
+                });
+
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SpellType", b =>
+                {
+                    b.Property<int>("SpellTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpellTypeID"), 1L, 1);
+
+                    b.Property<string>("SpellTypeName")
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("SpellTypeID");
+
+                    b.HasIndex("SpellTypeName")
+                        .IsUnique()
+                        .HasFilter("[SpellTypeName] IS NOT NULL");
+
+                    b.ToTable("SpellType");
+
+                    b.HasData(
+                        new
+                        {
+                            SpellTypeID = 1,
+                            SpellTypeName = "Offensive"
                         },
                         new
                         {
-                            SpellID = 5,
-                            SpellBookID = 1
+                            SpellTypeID = 2,
+                            SpellTypeName = "Defensive"
                         },
                         new
                         {
-                            SpellID = 6,
-                            SpellBookID = 1
+                            SpellTypeID = 3,
+                            SpellTypeName = "Utility"
                         },
                         new
                         {
-                            SpellID = 7,
-                            SpellBookID = 1
-                        },
-                        new
-                        {
-                            SpellID = 8,
-                            SpellBookID = 1
+                            SpellTypeID = 4,
+                            SpellTypeName = "Ultimate"
                         });
                 });
 
@@ -1044,6 +1143,17 @@ namespace Wizard_Battle_Web_API.Migrations
                         .HasForeignKey("AccountID");
                 });
 
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SchoolCategory", b =>
+                {
+                    b.HasOne("Wizard_Battle_Web_API.Database.Entities.SpellSchool", "SpellSchool")
+                        .WithMany("SchoolCategories")
+                        .HasForeignKey("SpellSchoolID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SpellSchool");
+                });
+
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.Spell", b =>
                 {
                     b.HasOne("Wizard_Battle_Web_API.Database.Entities.Icon", "Icon")
@@ -1052,7 +1162,23 @@ namespace Wizard_Battle_Web_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Wizard_Battle_Web_API.Database.Entities.SchoolCategory", "SchoolCategory")
+                        .WithMany()
+                        .HasForeignKey("SchoolCategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wizard_Battle_Web_API.Database.Entities.SpellType", "SpellType")
+                        .WithMany()
+                        .HasForeignKey("SpellTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Icon");
+
+                    b.Navigation("SchoolCategory");
+
+                    b.Navigation("SpellType");
                 });
 
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SpellBook", b =>
@@ -1139,6 +1265,11 @@ namespace Wizard_Battle_Web_API.Migrations
             modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SpellBook", b =>
                 {
                     b.Navigation("SpellBookSlots");
+                });
+
+            modelBuilder.Entity("Wizard_Battle_Web_API.Database.Entities.SpellSchool", b =>
+                {
+                    b.Navigation("SchoolCategories");
                 });
 #pragma warning restore 612, 618
         }
