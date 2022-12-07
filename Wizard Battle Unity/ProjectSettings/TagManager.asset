@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Status Effects
   - GenerateShadowCasters
+  - Scene FOW Light
   layers:
   - Default
   - TransparentFX

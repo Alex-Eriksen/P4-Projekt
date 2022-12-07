@@ -22,6 +22,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        var objects = GameObject.FindGameObjectsWithTag("Scene FOW Light");
+        for (int i = 0; i < objects.Length; i++)
+        {
+            Destroy(objects[i]);
+        }
+    }
+
     #region From Github -> https://gist.github.com/wherrera/0eda457277810c3b5368c01a7d2852d0
     public class JsonWebResponse
     {
