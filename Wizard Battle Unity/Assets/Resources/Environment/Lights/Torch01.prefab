@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2470512830469551374}
   - component: {fileID: -2332120354678931028}
   - component: {fileID: 5390380046522064489}
+  - component: {fileID: 3105237423982447146}
   m_Layer: 0
   m_Name: Torch01
   m_TagString: Untagged
@@ -249,6 +250,22 @@ MonoBehaviour:
   occlusionGameObject: {fileID: 6947510136484136612}
   meshFilter: {fileID: 8754966281856947922}
   meshRenderer: {fileID: 9108398672728298523}
+--- !u!58 &3105237423982447146
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2470512830469551372}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
 --- !u!1 &6947510136484136612
 GameObject:
   m_ObjectHideFlags: 0
