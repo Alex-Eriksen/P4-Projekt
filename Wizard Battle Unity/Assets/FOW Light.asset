@@ -30,7 +30,7 @@ MonoBehaviour:
     - name: FOW
       type: 0
       hdr: 0
-      darknessColor: {r: 0, g: 0, b: 0, a: 0.656}
+      darknessColor: {r: 0, g: 0, b: 0, a: 1}
       depth: 0
       resolution: 1
       dayLayers:
@@ -62,7 +62,7 @@ MonoBehaviour:
           sortingIgnore: 0
           shadowEffect: 0
           shadowEffectLayer: 0
-          maskLit: 1
+          maskLit: 2
           maskLitDistance: 1
   eventPresets:
     list:
