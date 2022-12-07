@@ -11,7 +11,7 @@ public class BuildScript
     public static void BuildLinuxServer()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/SampleScene.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Map01.unity" };
         buildPlayerOptions.locationPathName = "Builds/Linux/Server/Server.x86_64";
         buildPlayerOptions.target = BuildTarget.StandaloneLinux64;
         buildPlayerOptions.subtarget = (int)StandaloneBuildSubtarget.Server;
@@ -27,9 +27,10 @@ public class BuildScript
     public static void BuildWindowsClient()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/SampleScene.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Map01.unity" };
         buildPlayerOptions.locationPathName = "Builds/Windows/Client/Client.exe";
         buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
+        buildPlayerOptions.subtarget = (int)StandaloneBuildSubtarget.Player;
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
 
         Console.WriteLine("Building Client (Windows)...");
