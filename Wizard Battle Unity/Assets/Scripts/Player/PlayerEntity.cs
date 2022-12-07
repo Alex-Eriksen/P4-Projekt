@@ -78,6 +78,7 @@ public class PlayerEntity : Entity
     public override void OnStartAuthority()
     {
         m_playerConnection = FindObjectsOfType<PlayerConnection>().Where(x => x.isLocalPlayer == true).Single();
+        m_playerConnection.wizardIdentity = GetComponent<NetworkIdentity>();
         Cmd_SetPlayerName(m_playerConnection.PlayerName);
 
         // When subscribing to the SyncList callback you dont get the initial values of the SyncList.
